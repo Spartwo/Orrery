@@ -1,0 +1,322 @@
+System Name = The Kerbolar System
+Stars = 1
+Bodies = 16
+SystemAge = 4.571 
+
+STAR_1 {
+	Name = Kerbol
+	Mass = 0.28
+	RotationRate = 9.6 
+	AxialTilt = 0
+	ActivityIndex = 
+	ORBIT {
+		SMA = 0.00001
+		Eccentricity = 0
+		Longitude = 180
+		Inclination = 0
+		PeriArgument = 0
+		ColourR = 166
+		ColourG = 124
+		ColourB = 82
+	}
+}
+
+BODY_1 {
+	Name = Moho
+	Mass = 0.275
+	ParentBody = STAR_1
+	RotationRate = 1344
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.01755
+		Eccentricity = 0.2
+		Longitude = 70
+		Inclination = 7
+		PeriArgument = 15
+		ColourR = 166
+		ColourG = 124
+		ColourB = 82
+	}
+	COMPOSITION {
+	
+	}
+	ATMOSPHERE {
+	
+	}
+	
+}
+
+BODY_2 {
+	Name = Eve
+	Mass = 0.6
+	ParentBody = STAR_1
+	RotationRate = 76.68
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.03285
+		Eccentricity = 0.01
+		Longitude = 15
+		Inclination = 2.1
+		PeriArgument = 0
+		ColourR = 133
+		ColourG = 96
+		ColourB = 168
+	}
+}
+
+BODY_3 {
+	Name = Gilly
+	Mass = 0.049
+	ParentBody = BODY_2
+	RotationRate = 25.83
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.000105
+		Eccentricity = 0.55
+		Longitude = 80
+		Inclination = 12
+		PeriArgument = 10
+		ColourR = 198
+		ColourG = 138
+		ColourB = 123
+	}
+}
+
+BODY_4 {
+	Name = Kerbin
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 5.9
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.0905
+		Eccentricity = 0.001
+		Longitude = 0
+		Inclination = 0
+		PeriArgument = 0
+		ColourR = 68
+		ColourG = 140
+		ColourB = 203
+	}
+}
+
+BODY_5 {
+	Name = Mun
+	Mass = 0.16
+	ParentBody = BODY_4
+	RotationRate = 146.6
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.0000401
+		Eccentricity = 0
+		Longitude = 0
+		Inclination = 0
+		PeriArgument = 0
+		ColourR = 96
+		ColourG = 96
+		ColourB = 96
+	}
+}
+
+BODY_6 {
+	Name = Minmus
+	Mass = 0.000314
+	ParentBody = BODY_4
+	RotationRate = 29.21
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.000157
+		Eccentricity = 0
+		Longitude = 78
+		Inclination = 6
+		PeriArgument = 38
+		ColourR = 191
+		ColourG = 255
+		ColourB = 255
+	}
+}
+
+BODY_7 {
+	Name = Duna
+	Mass = 0.066
+	ParentBody = STAR_1
+	RotationRate = 18.26
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.138545
+		Eccentricity = 0.051
+		Longitude = 135.5
+		Inclination = 0.06
+		PeriArgument = 0
+		ColourR = 158
+		ColourG = 11
+		ColourB = 15
+	}
+}
+
+BODY_8 {
+	Name = Ike
+	Mass = 0.000314
+	ParentBody = BODY_7
+	RotationRate = 18.19
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.00002139
+		Eccentricity = 0.03
+		Longitude = 0
+		Inclination = 0.2
+		PeriArgument = 0
+		ColourR = 64
+		ColourG = 64
+		ColourB = 64
+	}
+}
+
+BODY_9 {
+	Name = Dres
+	Mass = 0.000314
+	ParentBody = STAR_1
+	RotationRate = 9.666
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.272994
+		Eccentricity = 0.145
+		Longitude = 280
+		Inclination = 5
+		PeriArgument = 90
+		ColourR = 125
+		ColourG = 125
+		ColourB = 125
+	}
+}
+
+BODY_10 {
+	Name = Jool
+	Mass = 10
+	ParentBody = STAR_1
+	RotationRate = 28
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.459722
+		Eccentricity = 0.05
+		Longitude = 52
+		Inclination = 1.304
+		PeriArgument = 0
+		ColourR = 57
+		ColourG = 181
+		ColourB = 74
+	}
+}
+
+BODY_11 {
+	Name = Laythe
+	Mass = 0.000314
+	ParentBody = BODY_10
+	RotationRate = 29.21
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.000314
+		Eccentricity = 0
+		Longitude = 78
+		Inclination = 6
+		PeriArgument = 38
+		ColourR = 59
+		ColourG = 109
+		ColourB = 145
+	}
+}
+
+BODY_12 {
+	Name = Tylo
+	Mass = 0.000314
+	ParentBody = BODY_10
+	RotationRate = 29.21
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.000314
+		Eccentricity = 0
+		Longitude = 78
+		Inclination = 6
+		PeriArgument = 38
+		ColourR = 122
+		ColourG = 115
+		ColourB = 95
+	}
+}
+
+BODY_13 {
+	Name = Vall
+	Mass = 0.000314
+	ParentBody = BODY_10
+	RotationRate = 29.21
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.000314
+		Eccentricity = 0
+		Longitude = 78
+		Inclination = 6
+		PeriArgument = 38
+		ColourR = 170
+		ColourG = 211
+		ColourB = 242
+	}
+}
+
+BODY_14 {
+	Name = Bop
+	Mass = 0.000314
+	ParentBody = BODY_10
+	RotationRate = 29.21
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.000314
+		Eccentricity = 0
+		Longitude = 78
+		Inclination = 6
+		PeriArgument = 38
+		ColourR = 124
+		ColourG = 79
+		ColourB = 49
+	}
+}
+
+BODY_15 {
+	Name = Pol
+	Mass = 0.000314
+	ParentBody = BODY_10
+	RotationRate = 29.21
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.000314
+		Eccentricity = 0
+		Longitude = 78
+		Inclination = 6
+		PeriArgument = 38
+		ColourR = 68
+		ColourG = 82
+		ColourB = 46
+	}
+}
+
+
+BODY_16 {
+	Name = Eeloo
+	Mass = 0.000314
+	ParentBody = STAR_1
+	RotationRate = 5.41
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.6024
+		Eccentricity = 0.26
+		Longitude = 50
+		Inclination = 6.15
+		PeriArgument = 260
+		ColourR = 235
+		ColourG = 235
+		ColourB = 235
+	}
+}
+
+BELT_1 {
+
+}

@@ -61,7 +61,19 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.26f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Scripts\Helpers.cs" />
+    <Compile Include="Assets\Scripts\Generation\SystemGenerator.cs" />
+    <Compile Include="Assets\Scripts\Instantiation\BodyManager.cs" />
+    <Compile Include="Assets\Scripts\Instantiation\Orbiter.cs" />
+    <Compile Include="Assets\Scripts\Instantiation\StarManager.cs" />
+    <Compile Include="Assets\Scripts\Interface\CameraMovement.cs" />
+    <Compile Include="Assets\Scripts\Generation\Planet.cs" />
+    <Compile Include="Assets\Scripts\Generation\Body.cs" />
+    <Compile Include="Assets\Scripts\Interface\FloatingPointManager.cs" />
+    <Compile Include="Assets\Scripts\Generation\Star.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\StreamingAssets\Localisation\System_Names.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -546,6 +558,10 @@
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>Library\PackageCache\com.unity.nuget.mono-cecil\Mono.Cecil.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json\Runtime\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">

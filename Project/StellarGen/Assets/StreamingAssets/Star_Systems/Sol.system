@@ -1,0 +1,273 @@
+SystemName = Sol System
+Stars = 1
+Bodies = 14
+SystemAge = 4.571 
+
+STAR_1 {
+	Name = Sol
+	Mass = 1
+	RotationRate = 648 
+	AxialTilt = 0
+	ActivityIndex = 
+	ORBIT {
+		SMA = 0.00001
+		Eccentricity = 0
+		Longitude = 0
+		Inclination = 0
+		PeriArgument = 0
+	}
+}
+
+
+
+BODY_1 {
+	Name = Mercury
+	Mass = 0.055
+	ParentBody = STAR_1
+	RotationRate = 1407.6
+	AxialTilt = 2.04
+	ORBIT {
+		SMA = 0.387
+		Eccentricity = 0.205
+		Longitude = 48.3
+		Inclination = 7
+		PeriArgument = 29.022
+		ColourR = 192
+		ColourG = 189
+		ColourB = 188
+	}
+}
+
+BODY_2 {
+	Name = Venus
+	Mass = 0.815
+	ParentBody = STAR_1
+	RotationRate = 107.3
+	AxialTilt = 177.36
+	ORBIT {
+		SMA = 0.723
+		Eccentricity = 0.006
+		Longitude = 76.785
+		Inclination = 3.39
+		PeriArgument = 54.780
+		ColourR = 217
+		ColourG = 178
+		ColourB = 146
+	}
+}
+
+BODY_3 {
+	Name = Earth
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 107.3
+	AxialTilt = 23.5
+	ORBIT {
+		SMA = 1
+		Eccentricity = 0.016
+		Longitude = 18.272
+		Inclination = 0
+		PeriArgument = 85.901
+		ColourR = 99
+		ColourG = 136
+		ColourB = 168
+	}
+}
+
+BODY_4 {
+	Name = Luna
+	Mass = 0.05
+	ParentBody = BODY_3
+	RotationRate = 655.71
+	AxialTilt = 1.5424
+	ORBIT {
+		SMA = 0.00257
+		Eccentricity = 0.0549
+		Longitude = 0
+		Inclination = 5.145
+		PeriArgument = 0
+		ColourR = 160
+		ColourG = 160
+		ColourB = 160
+	}
+}
+
+BODY_5 {
+	Name = Mars
+	Mass = 0.107
+	ParentBody = STAR_1
+	RotationRate = 24.61
+	AxialTilt = 25.1
+	ORBIT {
+		SMA = 1.524
+		Eccentricity = 0.093
+		Longitude = 49.667
+		Inclination = 1.85
+		PeriArgument = 286.442
+		ColourR = 140
+		ColourG = 92
+		ColourB = 74
+	}
+}
+
+BODY_6 {
+	Name = Phobos
+	Mass = 0.01
+	ParentBody = BODY_5
+	RotationRate = 15
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.006
+		Eccentricity = 0
+		Longitude = 0
+		Inclination = 0
+		PeriArgument = 0
+		ColourR = 112
+		ColourG = 83
+		ColourB = 67
+	}
+}
+
+BODY_7 {
+	Name = Deimos
+	Mass = 0.01
+	ParentBody = BODY_5
+	RotationRate = 15
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.006
+		Eccentricity = 0
+		Longitude = 0
+		Inclination = 0
+		PeriArgument = 0
+		ColourR = 165
+		ColourG = 152
+		ColourB = 133
+	}
+}
+
+BODY_8 {
+	Name = Ceres
+	Mass = 0.00016
+	ParentBody = STAR_1
+	RotationRate = 9.1
+	AxialTilt = 4
+	ORBIT {
+		SMA = 2.77
+		Eccentricity = 0.116
+		Longitude = 80.3
+		Inclination = 10.59
+		PeriArgument = 73.6
+		ColourR = 209
+		ColourG = 197
+		ColourB = 183
+	}
+}
+
+BODY_9 {
+	Name = Jupiter
+	Mass = 317.8
+	ParentBody = STAR_1
+	RotationRate = 9.925
+	AxialTilt = 3.13
+	ORBIT {
+		SMA = 5.203
+		Eccentricity = 0.0489
+		Longitude = 100.39
+		Inclination = 1.31
+		PeriArgument = 273.44
+		ColourR = 192
+		ColourG = 130
+		ColourB = 55
+	}
+}
+
+BODY_10 {
+	Name = Saturn
+	Mass = 95.15
+	ParentBody = STAR_1
+	RotationRate = 10.7
+	AxialTilt = 26.73
+	ORBIT {
+		SMA = 9.582
+		Eccentricity = 0.0565
+		Longitude = 113.75
+		Inclination = 2.49
+		PeriArgument = 	336.17
+		ColourR = 218
+		ColourG = 183
+		ColourB = 120
+	}
+}
+
+BODY_11 {
+	Name = Uranus
+	Mass = 14.536
+	ParentBody = STAR_1
+	RotationRate = 17.233
+	AxialTilt = 97.77
+	ORBIT {
+		SMA = 19.165
+		Eccentricity = 0.047
+		Longitude = 73.96
+		Inclination = 0.77
+		PeriArgument = 	98.86
+		ColourR = 149
+		ColourG = 187
+		ColourB = 190
+	}
+}
+
+BODY_12 {
+	Name = Neptune
+	Mass = 17.14
+	ParentBody = STAR_1
+	RotationRate = 16.1
+	AxialTilt = 28.32
+	ORBIT {
+		SMA = 30.33
+		Eccentricity = 0.008
+		Longitude = 131.82
+		Inclination = 1.77
+		PeriArgument = 256.9
+		ColourR = 116
+		ColourG = 149
+		ColourB = 191
+	}
+}
+
+BODY_13 {
+	Name = Pluto
+	Mass = 0.00218
+	ParentBody = STAR_1
+	RotationRate = 153.283
+	AxialTilt = 122.53
+	ORBIT {
+		SMA = 39.482
+		Eccentricity = 0.2488
+		Longitude = 110.08
+		Inclination = 17.14
+		PeriArgument = 	113.17
+		ColourR = 212
+		ColourG = 199
+		ColourB = 180
+	}
+}
+
+BODY_14 {
+	Name = Charon
+	Mass = 0.000296
+	ParentBody = BODY_9
+	RotationRate = 153.283
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.0001309
+		Eccentricity = 0.0002
+		Longitude = 223.046
+		Inclination = 0.080
+		PeriArgument = 	113.17
+		ColourR = 152
+		ColourG = 141
+		ColourB = 137
+	}
+}

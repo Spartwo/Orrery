@@ -1,0 +1,30 @@
+[
+  {
+    "Parent": 0,
+    "SeedValue": 61471832,
+    "Mass": 573983.921430,
+    "Age": 1.708,
+    "Name": "GregA",
+    "OrbitLine": [
+      222,
+      199,
+      22
+    ],
+    "Orbit": null,
+    "ChildBodies": []
+  },
+  {
+    "Parent": 0,
+    "SeedValue": 25799898,
+    "Mass": 161758.6178184,
+    "Age": 1.708,
+    "Name": "GregB",
+    "OrbitLine": [
+      138,
+      56,
+      159
+    ],
+    "Orbit": null,
+    "ChildBodies": []
+  }
+]

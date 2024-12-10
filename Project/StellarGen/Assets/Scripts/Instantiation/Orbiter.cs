@@ -104,9 +104,9 @@ public class Orbiter : MonoBehaviour
     {
         CalculateSemiConstants();
 
-        float CurrentTime = transform.root.GetComponent<Timekeep>().TimeInSeconds;
+        //float CurrentTime = transform.root.GetComponent<Timekeep>().TimeInSeconds;
 
-        MeanAnomaly = (float)(n * (CurrentTime - MeanLongitude));
+        //MeanAnomaly = (float)(n * (CurrentTime - MeanLongitude));
 
         float E1 = MeanAnomaly;   //initial guess
         float difference = 1f;

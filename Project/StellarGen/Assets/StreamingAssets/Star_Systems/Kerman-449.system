@@ -1,0 +1,317 @@
+System Name = Kerman-449
+Stars = 3
+Planets = 12
+SystemAge = 3.156032
+
+STAR_1 {
+	Name = Kerman-449-A
+	Mass = 0.9539367
+	RotationRate = 10
+	AxialTilt = 0.5
+	ActivityIndex = 1
+	ORBIT {
+		SMA = 0.005
+		Eccentricity = 0.01063532
+		Longitude = 0
+		Inclination = 0
+		PeriArgument = 0
+	}
+}
+
+STAR_2 {
+	Name = Kerman-449-B
+	Mass = 0.1655178
+	RotationRate = 10
+	AxialTilt = 0.5
+	ActivityIndex = 1
+	ORBIT {
+		SMA = 0.005
+		Eccentricity = 0.01063532
+		Longitude = 180
+		Inclination = 0
+		PeriArgument = 0
+	}
+}
+
+STAR_3 {
+	Name = Kerman-449-C
+	Mass = 0.2463783
+	RotationRate = 10
+	AxialTilt = 0.5
+	ActivityIndex = 1
+	ORBIT {	ORBIT {
+		SMA = 303.526
+		Eccentricity = 0.1603434
+		Longitude = 247.4252
+		Inclination = 356.9865
+		PeriArgument = 323.5056
+		ColourR = 5.959114
+		ColourG = 107.4721
+		ColourB = 63.88666
+	}
+	}
+}
+
+BODY_1 {
+	Name = Kerman-449-A1
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 4.502967
+		Eccentricity = 0.1176324
+		Longitude = 201.5488
+		Inclination = 1.258284
+		PeriArgument = 154.9198
+		ColourR = 195.23
+		ColourG = 93.93101
+		ColourB = 231.7281
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_2 {
+	Name = Kerman-449-A2
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 34.0826
+		Eccentricity = 0.1117083
+		Longitude = 312.9157
+		Inclination = 2.34658
+		PeriArgument = 122.8485
+		ColourR = 173.6413
+		ColourG = 93.12323
+		ColourB = 238.5827
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_3 {
+	Name = Kerman-449-A3
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 17.51245
+		Eccentricity = 0.1044218
+		Longitude = 197.5443
+		Inclination = 1.411066
+		PeriArgument = 140.9286
+		ColourR = 143.9344
+		ColourG = 174.0835
+		ColourB = 225.8445
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_4 {
+	Name = Kerman-449-A4
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 69.92122
+		Eccentricity = 0.1225024
+		Longitude = 199.9382
+		Inclination = 0.9002292
+		PeriArgument = 308.5178
+		ColourR = 181.1402
+		ColourG = 135.7479
+		ColourB = 198.2692
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_5 {
+	Name = Kerman-449-A5
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 9.003712
+		Eccentricity = 0.1091595
+		Longitude = 108.3933
+		Inclination = 3.406982
+		PeriArgument = 11.00943
+		ColourR = 150.0898
+		ColourG = 197.4433
+		ColourB = 233.4276
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_6 {
+	Name = Kerman-449-B1
+	Mass = 1
+	ParentBody = STAR_2
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 3.510405
+		Eccentricity = 0.1248698
+		Longitude = 203.6878
+		Inclination = 1.457959
+		PeriArgument = 119.7342
+		ColourR = 6.498594
+		ColourG = 146.2815
+		ColourB = 44.1067
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_7 {
+	Name = Kerman-449-B2
+	Mass = 1
+	ParentBody = STAR_2
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 1.765841
+		Eccentricity = 0.0691382
+		Longitude = 91.87305
+		Inclination = 3.355943
+		PeriArgument = 35.20851
+		ColourR = 91.76801
+		ColourG = 8.284072
+		ColourB = 229.9978
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_8 {
+	Name = Kerman-449-C1
+	Mass = 1
+	ParentBody = STAR_3
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 1.770615
+		Eccentricity = 0.1281814
+		Longitude = 166.63
+		Inclination = 0.5649769
+		PeriArgument = 34.5575
+		ColourR = 149.4773
+		ColourG = 79.33097
+		ColourB = 202.4417
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_9 {
+	Name = Kerman-449-C2
+	Mass = 1
+	ParentBody = STAR_3
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 3.573796
+		Eccentricity = 0.06807924
+		Longitude = 144.6216
+		Inclination = 0.1311958
+		PeriArgument = 245.3018
+		ColourR = 58.67572
+		ColourG = 203.9259
+		ColourB = 54.06973
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_10 {
+	Name = Kerman-449-C3
+	Mass = 1
+	ParentBody = STAR_3
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 6.724752
+		Eccentricity = 0.005105934
+		Longitude = 316.0848
+		Inclination = 2.437532
+		PeriArgument = 268.8752
+		ColourR = 86.07789
+		ColourG = 218.9198
+		ColourB = 162.3039
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_11 {
+	Name = Kerman-449-C4
+	Mass = 1
+	ParentBody = STAR_3
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.2411414
+		Eccentricity = 0.09497668
+		Longitude = 13.69511
+		Inclination = 2.601116
+		PeriArgument = 21.32467
+		ColourR = 124.9045
+		ColourG = 129.6498
+		ColourB = 223.1943
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_12 {
+	Name = Kerman-449-C5
+	Mass = 1
+	ParentBody = STAR_3
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.4678533
+		Eccentricity = 0.04615044
+		Longitude = 332.7011
+		Inclination = 3.909703
+		PeriArgument = 169.0859
+		ColourR = 164.7877
+		ColourG = 93.60973
+		ColourB = 73.98904
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}

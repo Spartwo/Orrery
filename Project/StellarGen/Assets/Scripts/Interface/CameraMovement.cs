@@ -87,7 +87,7 @@ public class CameraMovement : MonoBehaviour
         //pause input
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            TimeKeeper.GetComponent<Timekeep>().PauseUnpause();
+            //TimeKeeper.GetComponent<Timekeep>().PauseUnpause();
         }
         //hide UI input
         if (Input.GetKeyDown(KeyCode.Tab))

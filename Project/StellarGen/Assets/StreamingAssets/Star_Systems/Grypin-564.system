@@ -1,0 +1,210 @@
+System Name = Grypin-564
+Stars = 2
+Planets = 8
+SystemAge = 0.6507881
+
+STAR_1 {
+	Name = Grypin-564-A
+	Mass = 0.2826949
+	RotationRate = 10
+	AxialTilt = 0.5
+	ActivityIndex = 1
+	ORBIT {
+		SMA = 24.46721
+		Eccentricity = 0.09156087
+		Longitude = 0
+		Inclination = 0
+		PeriArgument = 0
+	}
+}
+
+STAR_2 {
+	Name = Grypin-564-B
+	Mass = 0.2269264
+	RotationRate = 10
+	AxialTilt = 0.5
+	ActivityIndex = 1
+	ORBIT {
+		SMA = 24.46721
+		Eccentricity = 0.09156087
+		Longitude = 180
+		Inclination = 0
+		PeriArgument = 0
+	}
+}
+
+BODY_1 {
+	Name = Grypin-564-A1
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 2.209715
+		Eccentricity = 0.07840347
+		Longitude = 140.5983
+		Inclination = 3.339724
+		PeriArgument = 275.5416
+		ColourR = 224.3266
+		ColourG = 220.8456
+		ColourB = 61.22125
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_2 {
+	Name = Grypin-564-A2
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 1.157165
+		Eccentricity = 0.01041161
+		Longitude = 344.7632
+		Inclination = 4.968993
+		PeriArgument = 7.904531
+		ColourR = 95.82729
+		ColourG = 33.51013
+		ColourB = 59.58944
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_3 {
+	Name = Grypin-564-A3
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 8.562017
+		Eccentricity = 0.1206321
+		Longitude = 320.118
+		Inclination = 2.431458
+		PeriArgument = 327.6762
+		ColourR = 32.90386
+		ColourG = 21.6958
+		ColourB = 81.90471
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_4 {
+	Name = Grypin-564-A4
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 4.468105
+		Eccentricity = 0.1230377
+		Longitude = 37.81398
+		Inclination = 4.70511
+		PeriArgument = 163.236
+		ColourR = 222.3157
+		ColourG = 73.05973
+		ColourB = 77.30289
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_5 {
+	Name = Grypin-564-B1
+	Mass = 1
+	ParentBody = STAR_2
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 1.541982
+		Eccentricity = 0.07332595
+		Longitude = 280.0874
+		Inclination = 1.049124
+		PeriArgument = 181.665
+		ColourR = 10.21589
+		ColourG = 27.78244
+		ColourB = 91.9991
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_6 {
+	Name = Grypin-564-B2
+	Mass = 1
+	ParentBody = STAR_2
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.4298418
+		Eccentricity = 0.04991825
+		Longitude = 3.132292
+		Inclination = 1.425205
+		PeriArgument = 62.61537
+		ColourR = 187.3185
+		ColourG = 121.1307
+		ColourB = 194.2247
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_7 {
+	Name = Grypin-564-B3
+	Mass = 1
+	ParentBody = STAR_2
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 6.203576
+		Eccentricity = 0.001596885
+		Longitude = 327.8374
+		Inclination = 3.010725
+		PeriArgument = 120.4757
+		ColourR = 54.5396
+		ColourG = 20.27225
+		ColourB = 63.01445
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_8 {
+	Name = Grypin-564-B4
+	Mass = 1
+	ParentBody = STAR_2
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 3.031742
+		Eccentricity = 0.08157941
+		Longitude = 167.4244
+		Inclination = 1.051561
+		PeriArgument = 197.9829
+		ColourR = 12.43196
+		ColourG = 121.2765
+		ColourB = 186.8393
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}

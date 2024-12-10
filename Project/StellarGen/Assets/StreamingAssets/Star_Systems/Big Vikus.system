@@ -1,0 +1,305 @@
+System Name = Vikus-628
+Stars = 1
+Planets = 13
+SystemAge = 0.3067149
+
+STAR_1 {
+	Name = Vikus-628-A
+	Mass = 3.621469
+	RotationRate = 10
+	AxialTilt = 0.5
+	ActivityIndex = 1
+	ORBIT {
+		SMA = 0
+		Eccentricity = 0
+		Longitude = 0
+		Inclination = 0
+		PeriArgument = 0
+	}
+}
+
+BODY_1 {
+	Name = Vikus-628-A1
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 41.69454
+		Eccentricity = 0.02008946
+		Longitude = 268.9647
+		Inclination = 0.07367563
+		PeriArgument = 124.0027
+		ColourR = 127.366
+		ColourG = 165.9962
+		ColourB = 197.2111
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_2 {
+	Name = Vikus-628-A2
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 333.1045
+		Eccentricity = 0.1042913
+		Longitude = 122.1543
+		Inclination = 0.9259676
+		PeriArgument = 90.0653
+		ColourR = 221.8989
+		ColourG = 201.9874
+		ColourB = 126.4436
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_3 {
+	Name = Vikus-628-A3
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 20.45054
+		Eccentricity = 0.08180001
+		Longitude = 248.6638
+		Inclination = 0.09721935
+		PeriArgument = 181.2124
+		ColourR = 173.42
+		ColourG = 169.2149
+		ColourB = 214.0389
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_4 {
+	Name = Vikus-628-A4
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.6352137
+		Eccentricity = 0.102453
+		Longitude = 348.0824
+		Inclination = 0.6144448
+		PeriArgument = 194.1514
+		ColourR = 20.78795
+		ColourG = 154.5139
+		ColourB = 82.41501
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_5 {
+	Name = Vikus-628-A5
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.0432019
+		Eccentricity = 0.04342256
+		Longitude = 176.3418
+		Inclination = 0.7125797
+		PeriArgument = 66.84161
+		ColourR = 242.617
+		ColourG = 174.3699
+		ColourB = 109.9541
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_6 {
+	Name = Vikus-628-A6
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 652.7721
+		Eccentricity = 0.09217171
+		Longitude = 182.5168
+		Inclination = 0.7491472
+		PeriArgument = 127.4986
+		ColourR = 119.7305
+		ColourG = 208.5314
+		ColourB = 81.26981
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_7 {
+	Name = Vikus-628-A7
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.1602086
+		Eccentricity = 0.04163489
+		Longitude = 196.5052
+		Inclination = 0.2119591
+		PeriArgument = 59.01591
+		ColourR = 142.7368
+		ColourG = 24.23659
+		ColourB = 124.1586
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_8 {
+	Name = Vikus-628-A8
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 84.24738
+		Eccentricity = 0.08891741
+		Longitude = 59.70959
+		Inclination = 0.4282798
+		PeriArgument = 60.71595
+		ColourR = 13.20016
+		ColourG = 109.5526
+		ColourB = 82.55466
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_9 {
+	Name = Vikus-628-A9
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 0.3252428
+		Eccentricity = 0.08771588
+		Longitude = 13.55401
+		Inclination = 0.3554805
+		PeriArgument = 233.6936
+		ColourR = 161.9716
+		ColourG = 121.6897
+		ColourB = 15.28181
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_10 {
+	Name = Vikus-628-A10
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 169.4605
+		Eccentricity = 0.08696929
+		Longitude = 228.8965
+		Inclination = 0.4372719
+		PeriArgument = 98.90108
+		ColourR = 253.32
+		ColourG = 229.1775
+		ColourB = 70.13869
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_11 {
+	Name = Vikus-628-A11
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 2.553278
+		Eccentricity = 0.07920962
+		Longitude = 57.97652
+		Inclination = 0.8684144
+		PeriArgument = 141.3444
+		ColourR = 245.488
+		ColourG = 152.4892
+		ColourB = 56.97366
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_12 {
+	Name = Vikus-628-A12
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 5.157546
+		Eccentricity = 0.1001887
+		Longitude = 73.30931
+		Inclination = 0.3261324
+		PeriArgument = 293.1306
+		ColourR = 91.27598
+		ColourG = 156.4038
+		ColourB = 101.2622
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
+
+BODY_13 {
+	Name = Vikus-628-A13
+	Mass = 1
+	ParentBody = STAR_1
+	RotationRate = 24
+	AxialTilt = 0
+	ORBIT {
+		SMA = 1.312393
+		Eccentricity = 0.004978539
+		Longitude = 192.0972
+		Inclination = 0.2882333
+		PeriArgument = 342.1809
+		ColourR = 176.807
+		ColourG = 253.1521
+		ColourB = 132.9786
+	}
+	COMPOSITION {
+	}
+	ATMOSPHERE {
+	}
+}
