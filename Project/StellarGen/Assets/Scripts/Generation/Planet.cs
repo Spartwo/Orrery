@@ -75,58 +75,32 @@ public class Planet : Body
     }
 }
 
-// Orbital properties are a subvalue of all bodies
+// Sidereal properties specific to celestial bodies
 [Serializable]
-public class SiderialProperties
+public class SiderealProperties
 {
-    private double semiMajorAxis; // Semi-Major Axis
-    private float eccentricity; // Eccentricity
-    private float longitudeOfAscending; // Longitude of Ascending Node
-    private float inclination; // Inclination
-    private float periArgument; // Argument of Periapsis
+    private double siderealDayLength; // Sidereal Day Length (in hours)
+    private float axialTilt; // Sidereal Longitude (degrees)
 
     // Constructor
-    public SiderialProperties(double semiMajorAxis, float eccentricity, float longitudeOfAscending, float inclination, float periArgument)
+    public SiderealProperties(double SiderealDayLength, float AxialTilt)
     {
-        this.SemiMajorAxis = Math.Max(semiMajorAxis, 0.0001);
-        this.Eccentricity = Math.Clamp(eccentricity, 0f, 0.9999f); ;
-        this.LongitudeOfAscending = longitudeOfAscending;
-        this.Inclination = inclination;
-        this.PeriArgument = periArgument;
+        this.SiderealDayLength = Math.Max(siderealDayLength, 0.001);  // Sidereal day cannot be zero or negative
+        this.axialTilt = axialTilt;
     }
 
     #region Getter and Setters
-    public double SemiMajorAxis
+    public double SiderealDayLength
     {
-        get => semiMajorAxis;
-        set => semiMajorAxis = Math.Max(value, 0.0001);
+        get => siderealDayLength;
+        set => siderealDayLength = Math.Max(value, 0.001);  // Ensures sidereal day is not too small
     }
 
-    public float Eccentricity
+    public float AxialTilt
     {
-        get => eccentricity;
-        // Eccentricity cannot be more than 1
-        set => eccentricity = Math.Clamp(value, 0f, 0.9999f);
+        get => axialTilt;
+        set => axialTilt = value;
     }
 
-    public float LongitudeOfAscending
-    {
-        get => longitudeOfAscending;
-        set => longitudeOfAscending = value;
-    }
-
-    public float Inclination
-    {
-        get => inclination;
-        set => inclination = value;
-    }
-
-    public float PeriArgument
-    {
-        get => periArgument;
-        set => periArgument = value;
-    }
     #endregion
 }
-
-
