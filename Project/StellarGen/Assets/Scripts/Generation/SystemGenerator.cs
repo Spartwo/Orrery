@@ -11,6 +11,7 @@ using JsonUtils = StellarGenHelpers.JsonUtils;
 using System;
 using Unity.VisualScripting;
 using static UnityEngine.Rendering.DebugUI;
+using static Unity.VisualScripting.Member;
 
 namespace SystemGen
 {
@@ -142,7 +143,7 @@ namespace SystemGen
             // Save the System Data Arrays
             CreateSystemFile();
 
-            return null;
+            yield return null;
         }
 
         /// <summary>
@@ -186,7 +187,7 @@ namespace SystemGen
             // Turn the lists into usable outputs
             JsonUtils.SerializeListToJsonFile(stellarBodies, systemFilePath);
 
-            Debug.Log($"Exported System File to {systemFilePath}");
+            Logger.Log(GetType().Name, $"Exported System File to {systemFilePath}");
         }
 
         /// <summary>

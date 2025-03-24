@@ -217,6 +217,44 @@ namespace StellarGenHelpers
             return SystemGenerator.stellarBodies[0];
         }
 
+        /// <summary>
+        /// Converts the given temperature into a color by sampling a gradient image.
+        /// </summary>
+        /// <param name="temperature">The temperature of the star in Kelvin.</param>
+        /// <returns>A System.Drawing.Color sampled from the gradient based on the given temperature.</returns>
+        public static Color DetermineSpectralColor(int temperature)
+        {
+            // Load the PNG file as a byte array
+            byte[] fileData = File.ReadAllBytes("Assets/Materials/gradient.png");
+
+
+            Texture2D texture = new Texture2D(2, 2);
+            if (!texture.LoadImage(fileData))
+            {
+                Debug.LogError("Failed to load PNG file.");
+                return Color.magenta;
+            }
+
+            // Extract the width of the image
+            int imageWidth = texture.width;
+
+            // Validate the temperature input incase of manual mass edits
+            if (temperature < 1000 || temperature > 11000)
+            {
+                Debug.LogWarning("Temperature out of expected range (1000K to 11000K). Clamping to valid range.");
+                temperature = Math.Clamp(temperature, 1000, 11000);
+            }
+
+            // Scale the temperature to the image index range (0 to imageWidth - 1)
+            int pixelIndex = (temperature - 1000) / (11000 - 1000) * (imageWidth - 1);
+
+            // Extract all pixels from the texture
+            Color[] colors = texture.GetPixels();
+
+            // Return the corresponding color
+            return colors[pixelIndex];
+
+        }
 
         public static decimal DecimalPow(decimal baseValue, decimal exponent)
         {

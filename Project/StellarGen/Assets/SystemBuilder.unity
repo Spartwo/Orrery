@@ -160,6 +160,8 @@ GameObject:
   m_Component:
   - component: {fileID: 611090992}
   - component: {fileID: 611090993}
+  - component: {fileID: 611090994}
+  - component: {fileID: 611090995}
   m_Layer: 0
   m_Name: Game_Controller
   m_TagString: Untagged
@@ -197,6 +199,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seedInput: Greg
+--- !u!114 &611090994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611090991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc0c752c2fcb70049beb435abc096286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runWindowTests: 0
+  runPauseTests: 0
+  runStarTests: 0
+  runPlanetTests: 0
+  runRockyBodyTests: 0
+  runBeltTests: 0
+  runSystemTests: 0
+  runSettingsTests: 0
+  runOrbitTests: 0
+--- !u!114 &611090995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611090991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540056fe85535ed4880657f1ce78171a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1071822135
 GameObject:
   m_ObjectHideFlags: 0
