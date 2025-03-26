@@ -24,7 +24,7 @@ public class FloatingPointManager : MonoBehaviour
                     g.transform.position -= CameraPosition;
                 }
             }
-            Debug.Log("recentering origin" );
+            Logger.Log(GetType().Name, "recentering origin" );
         }
 
     }

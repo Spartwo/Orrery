@@ -3,176 +3,199 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Random = System.Random;
 using RandomUtils = StellarGenHelpers.RandomUtils;
 using PhysicsUtils = StellarGenHelpers.PhysicsUtils;
 using ColorUtils = StellarGenHelpers.ColorUtils;
 using JsonUtils = StellarGenHelpers.JsonUtils;
 using System;
-using Unity.VisualScripting;
-using static UnityEngine.Rendering.DebugUI;
-using static Unity.VisualScripting.Member;
+using Models;
+using Settings;
 
 namespace SystemGen
 {
     public class SystemGenerator : MonoBehaviour
     {
-        // Declare seed input from UI and
+        // Declare seed input
         [SerializeField]
         private string seedInput;
-        public string SeedInput
-        {
-            set => seedInput = value;
-        }
-        private string assetsFolder = Application.streamingAssetsPath;
+        public string SeedInput { set => seedInput = value; }
+
+        private readonly string assetsFolder = Application.streamingAssetsPath;
         // The generated stellar data
-        public static List<Body> stellarBodies = new List<Body>();
+        public List<BodyProperties> stellarBodies = new List<BodyProperties>();
 
         void Start()
         {
-            // Create folder on initialisation incase of total deletion
-            Directory.CreateDirectory($"{assetsFolder}/Star_Systems/");
-            
             //Currently instantly try to generate
-            GenerateSystemFile();
+            if (GlobalSettings.GenerateOnStartup) { StartGeneration(); }
+        }
+
+        /// <summary>
+        /// Starts the system generation process asynchronously.
+        /// </summary>
+        public void StartGeneration() 
+        { 
+            GenerateSystem().ConfigureAwait(false); 
         }
 
         /// <summary>
         /// The Main Function, goes through the steps to produce a stellar system json file using helper functions
         /// </summary>
-        public void GenerateSystemFile()
+        private async Task GenerateSystem()
         {
-            StartCoroutine(GenerateSystemCoroutine());
-        }
+            // Create folder on initialisation incase of total deletion
+            Directory.CreateDirectory($"{assetsFolder}/Star_Systems/");
 
-        IEnumerator GenerateSystemCoroutine()
-        {
             // Check for a manual seed input
             seedInput ??= GenerateSystemName();
             // Convert alphanumeric seed to a usable integer
             int usableSeed = seedInput.GetHashCode();
 
-            // Kick on a generator for quanity of stars 
-            Random rand = new Random(usableSeed);
-            int starDictator = rand.Next(1, 1001);
-            int starCount;
-
-            // Assign number of stars to spawn
-            switch (starDictator)
-            {
-                case >= 1 and <= 400:
-                    starCount = 1;
-                    break;
-
-                case >= 401 and <= 800:
-                    starCount = 2;
-                    break;
-
-                case >= 801 and <= 875:
-                    starCount = 3;
-                    break;
-
-                case >= 876 and <= 1001:
-                    starCount = 0;
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException("starDictator", "Value is outside the expected range.");
-            }
+            // Kick on a generator for quanity of stars.
+            int starCount = DetermineStarCount(usableSeed);
+            Logger.Log("System Generator", "Stars: " + starCount);
 
             // Temporarily define the stellar systems total age
-            float systemAge; 
+            float systemAge = await GenerateStellarBodies(usableSeed, starCount);
 
-            if (starCount == 0) {
-                // Create a singular rogue planet
-                Planet newPlanet = new Planet(usableSeed);
-                stellarBodies.Add(newPlanet);
-                // Age is less important than with a star
-                systemAge = RandomUtils.RandomFloat(0.25f, 10.5f, usableSeed);
-            } 
-            else
-            {
-                // Lifespan in Billions, oldest known rocky body is 10b
-                float shortestLifespan = 10.5f;
-                for (int i = 0; i < starCount; i++)
-                {
-                    // Create a new star and add it to the stellarBodies list
-                    Star newStar = new Star(usableSeed + i);
-                    newStar.StarGen();
-                    stellarBodies.Add(newStar);
-                    // Check to see if this star has the shortest lifespan
-                    shortestLifespan = Math.Min(shortestLifespan, newStar.Lifespan);
-                }
+            await AssignAges(systemAge);
 
-                // Set the system age within the possible bounds of main sequence age
-                systemAge = RandomUtils.RandomFloat(0.25f, shortestLifespan, usableSeed);
-            }
-
-            // Convert to decimal to limit the points when exported
-            decimal transferredAge = (decimal)Math.Round(systemAge, 3);
-            Debug.Log("System Age: " + transferredAge);
-
-            // Sort the stellarBodies list by mass in descending order
-            stellarBodies.Sort((a, b) => b.Mass.CompareTo(a.Mass));
-
-            // Assign suffixes to each body based on its arrangement in the system
-            char suffix = 'A';
-            for (int i = 0; i < stellarBodies.Count; i++)
-            {
-                // Get the current body
-                var body = stellarBodies[i];
-
-                // Set the age for each body
-                body.Age = transferredAge;
-
-                // Combine the system name with a suffix
-                body.Name = $"{seedInput}{suffix}";
-                // Increment suffix for the next largest body
-                suffix++;
-
-                // Generate children (planets)
-                body.GenerateChildren();
-            }
 
             // Check for ejected bodies(P-type orbits)
-            if (starCount >1)
+            if (starCount > 1)
             {
-               // MoveEjectedBodies();
+                await MoveEjectedBodies();
             }
 
             // Save the System Data Arrays
             CreateSystemFile();
+        }
 
-            yield return null;
+        private async Task<float> GenerateStellarBodies(int seed, int starCount)
+        {
+            float systemAge;
+            stellarBodies.Clear();
+
+            if (starCount == 0)
+            {
+                // Generate a new planet
+                PlanetGen newRogueGen = new PlanetGen();
+
+                // Add the generated properties to the stellarBodies list
+                stellarBodies.Add(newRogueGen.Generate(seed));
+                systemAge = RandomUtils.RandomFloat(0.25f, 10.5f, seed);
+            }
+            else
+            {
+                float shortestLifespan = 10.5f;
+                for (int i = 0; i < starCount; i++)
+                {
+                    // Generate a new star but only get the properties via StarProperties
+                    StarGen newStarGen = new StarGen();
+                    StarProperties newStarProperties = newStarGen.Generate(seed + i);  // Get properties
+
+                    // Add the generated properties to the stellarBodies list
+                    stellarBodies.Add(newStarProperties);
+
+                    shortestLifespan = Math.Min(shortestLifespan, newStarProperties.Lifespan);
+
+                    // Every star, yield execution to prevent blocking
+                    await Task.Yield();
+                }
+                systemAge = RandomUtils.RandomFloat(0.25f, shortestLifespan, seed);
+            }
+            return systemAge;
+        }
+
+        // Ages are assigned twice, upon stellar creation and before finalisation
+        private void AssignAges(float systemAge)
+        {
+            // Convert to decimal to limit the points when exported
+            decimal transferredAge = (decimal)Math.Round(systemAge, 3);
+            Logger.Log(GetType().Name, $"System Age: {transferredAge}bY");
+
+            // Assign the system age to each body
+            foreach (var body in stellarBodies)
+            {
+                body.Age = transferredAge;
+            }
+        }
+
+        /// <summary>
+        /// Recursively assigns names to stars, planets, and moons based on their mass and parent star.
+        /// Stars are named A, B, C, etc.; planets are named Aa, Ab, Ac, etc.; moons are named Aa-1, Aa-2, etc.
+        /// </summary>
+        private async Task AssignNames()
+        {
+            // Sort the bodies by mass, larger stars get the first letters
+            stellarBodies.Sort((a, b) => b.Mass.CompareTo(a.Mass));
+
+            // Iterate over all bodies and assign appropriate names
+            foreach (var body in stellarBodies)
+            {
+                string bodySuffix = string.Empty;
+
+                if (body is StarProperties star)  // If the body is a star
+                {
+                    // Stars are named A, B, C, etc., based on mass
+                    bodyName = $"{seedInput} {starSuffix}";
+                    starSuffix++;  // Increment for the next star
+                }
+                else if (body is PlanetProperties planet)  // If the body is a planet
+                {
+                    // Planets are named Aa, Ab, Ac, etc., based on mass, prefixed with their parent star's name
+                    bodyName = $"{seedInput} {char.ToLower((char)('A' + planet.Index))}";
+                }
+                else if (body is MoonProperties moon)  // If the body is a moon
+                {
+                    // Moons are named Aa-1, Aa-2, etc., based on their parent planet
+                    bodyName = $"{seedInput} {moon.ParentPlanet.Name.ToLower()}-{moon.Index + 1}";
+                }
+
+                // Assign the generated name to the body
+                body.Name = $"{seedInput} bodySuffix";
+            }
+        }
+        private async Task GenerateMajorBodies()
+        {
+            // Generate children (planets)
+            body.GenerateChildren();
+        }
+        private async Task GenerateLesserBodies()
+        {
+            // Generate children without children of their own (moons etc)
+            body.GenerateChildren();
         }
 
         /// <summary>
         /// Checks all generated celestial bodies in multi-star systems for unstable positions 
         /// and moves them into a higher orbit around the barycenter if necessary.
         /// </summary>
-        private void MoveEjectedBodies()
+        private async Task MoveEjectedBodies()
         {
-            foreach (Body b in stellarBodies)
+            foreach (BodyProperties b in stellarBodies)
             {
-               
-                    // Check the stability of the planet's orbit
-                    bool isStable = b.CheckOrbit();
-                    
-                    if (!isStable)
-                    {
-                        // Create a new planet instance as a copy of the original
-                        //Body ejectedPlanet = new Body(p);
 
-                        // Remove the original unstable planet from its star's planet list
-                        //s.planets.Remove(p);
+                // Check the stability of the planet's orbit
+                bool isStable = true;//b.Orbit.CheckOrbit();
 
-                        // Estimate a new safe barycentric orbit for the ejected planet
-                        //ejectedPlanet.Orbit.SemiMajorAxis = EstimateBarycenterOrbit(planet, stellarBodies);
+                if (!isStable)
+                {
+                    // Create a new planet instance as a copy of the original
+                    //Body ejectedPlanet = new Body(p);
 
-                        // Add the updated ejected planet to the stellar system as an independent body
-                        //stellarBodies.Add(ejectedPlanet);
-                    }
-                
+                    // Remove the original unstable planet from its star's planet list
+                    //s.planets.Remove(p);
+
+                    // Estimate a new safe barycentric orbit for the ejected planet
+                    //ejectedPlanet.Orbit.SemiMajorAxis = EstimateBarycenterOrbit(planet, stellarBodies);
+
+                    // Add the updated ejected planet to the stellar system as an independent body
+                    //stellarBodies.Add(ejectedPlanet);
+                }
+
             }
         }
 
@@ -206,9 +229,59 @@ namespace SystemGen
             int randNumber = random.Next(1, 1000);
 
             // Format the output as [RandName RandNumber]
-            Debug.Log($"System Name: {randName}-{randNumber}");
+            Logger.Log(GetType().Name, $"System Name: {randName}-{randNumber}");
             return $"{randName}-{randNumber}";
         }
 
+        /// <summary>
+        /// Generates a number of stars in the system based on observed probabilities.
+        /// </summary>
+        /// <param name="seed">The seed used for the randomisation</typeparam>
+        /// <returns>A weighted quanity of stars in the system</returns>
+        private static int DetermineStarCount(int seed)
+        {
+            int randomValue = RandomUtils.RandomInt(1, 1000, seed);
+            int starCount;
+
+            switch (randomValue)
+            {
+                case >= 1 and <= 400:
+                    starCount = 1;
+                    break;
+                case >= 401 and <= 800:
+                    starCount = 2;
+                    break;
+                case >= 801 and <= 875:
+                    starCount = 3;
+                    break;
+                default:
+                    // Log the value when it falls into the default case
+                    Logger.Log("System Generator", "Star Quantity random outside expected range. Defaulting to 0.");
+                    starCount = 0;
+                break;
+            }
+
+            return starCount;
+        }
+
+        /// <summary>
+        /// Finds the parent body of a given body using the parent's seed value.
+        /// </summary>
+        /// <param name="key">The unique identifier (SeedValue) of the parent body.</param>
+        /// <returns>The parent body associated with the given SeedValue, or the barycenter body if not found.</returns>
+        public BodyProperties FindParent(int key)
+        {
+            // Iterate through the stellarBodies to find parent, not so many elements to require 3d
+            foreach (BodyProperties body in stellarBodies)
+            {
+                if (key == body.SeedValue)
+                {
+                    return body;
+                }
+            }
+
+            // Return the barycentre if no parent expressely declared
+            return stellarBodies[0];
+        }
     }
 }

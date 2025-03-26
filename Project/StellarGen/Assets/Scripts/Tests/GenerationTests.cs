@@ -2,14 +2,14 @@ using UnityEngine;
 using NUnit.Framework;
 using System;
 using SystemGen;
+using Models;
 
 namespace Tests
 {
     public class GenerationTests
     {
-        private Planet testPlanet;
-        private Star testStar;
-        private SystemGenerator generator;
+        private PlanetProperties testPlanet;
+        private StarProperties testStar;
 
         [SetUp]
         public void Setup()

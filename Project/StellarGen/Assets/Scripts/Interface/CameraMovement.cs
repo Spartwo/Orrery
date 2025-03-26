@@ -56,7 +56,7 @@ public class CameraMovement : MonoBehaviour
     {
         //Reset the list of cycle objects if voided
         if(!Parent) {
-            Debug.Log("Nullskull");
+            Logger.Log(GetType().Name, "No Camera Parent Found");
             UpdateBodyList();
         } else {
            transform.SetParent(Parent, false);
@@ -104,12 +104,12 @@ public class CameraMovement : MonoBehaviour
         //zoom input keys
         if (Input.GetKey(KeyCode.Minus))
         {
-            Debug.Log("Zoom out");
+            Logger.Log(GetType().Name, "Zoom out");
             ZoomGoal += PanSpeed / 75000 * 1 / Time.unscaledDeltaTime;
         }
         if (Input.GetKey(KeyCode.Equals))
         {
-            Debug.Log("Zoom in");
+            Logger.Log(GetType().Name, "Zoom in");
             ZoomGoal -= PanSpeed / 75000 * 1 / Time.unscaledDeltaTime;
         }
         //traditional controls

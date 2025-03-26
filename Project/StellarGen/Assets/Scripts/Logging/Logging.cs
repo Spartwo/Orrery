@@ -25,7 +25,7 @@ public static class Logger
     public static void Log(string source, string message, LogLevel level = LogLevel.LOG)
     {
         string timestamp = DateTime.Now.ToString("HH:mm:ss");
-        string logMessage = $"[{timestamp} {level}] {source}: {message}";
+        string logMessage = $"[{timestamp} {level}] {source}: {(String)message}";
 
         // Log the message to the console
         Debug.Log(message);
@@ -37,19 +37,19 @@ public static class Logger
     // Log an error
     public static void LogError(string message, string source)
     {
-        Log(message, source, LogLevel.ERROR);
+        Log(source, message, LogLevel.ERROR);
     }
 
     // Log a warning
     public static void LogWarning(string message, string source)
     {
-        Log(message, source, LogLevel.WARNING);
+        Log(source, message, LogLevel.WARNING);
     }
 
     // Log a test
     public static void LogTest(string message, string source)
     {
-        Log(message, source, LogLevel.TEST);
+        Log(source, message, LogLevel.TEST);
     }
 
     /// <summary>
@@ -65,7 +65,7 @@ public static class Logger
             }
             // Ensure the directory exists
             Directory.CreateDirectory(Path.GetDirectoryName(logFilePath));
-            AppendToLogFile("Program Initialised\n-----------------------------", true);
+            Log("Application", "Program Initialised");
         }
         catch (Exception ex)
         {

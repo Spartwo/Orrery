@@ -62,23 +62,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Tests\PhysicsTests.cs" />
+    <Compile Include="Assets\Scripts\Generation\StarGen.cs" />
     <Compile Include="Assets\Scripts\Logging\Logging.cs" />
+    <Compile Include="Assets\Scripts\Settings\SettingsData.cs" />
+    <Compile Include="Assets\Scripts\Models\SiderealProperties.cs" />
     <Compile Include="Assets\Scripts\Helpers.cs" />
     <Compile Include="Assets\Scripts\Tests\TestController.cs" />
     <Compile Include="Assets\Scripts\Generation\SystemGenerator.cs" />
-    <Compile Include="Assets\Scripts\PhysicsConstants.cs" />
+    <Compile Include="Assets\Scripts\Models\BodyProperties.cs" />
+    <Compile Include="Assets\Scripts\Generation\BodyGen.cs" />
     <Compile Include="Assets\Scripts\Instantiation\BodyManager.cs" />
+    <Compile Include="Assets\Scripts\Settings\SettingsLoader.cs" />
+    <Compile Include="Assets\Scripts\Generation\PlanetGen.cs" />
     <Compile Include="Assets\Scripts\Instantiation\Orbiter.cs" />
+    <Compile Include="Assets\Scripts\Settings\GlobalSettings.cs" />
     <Compile Include="Assets\Scripts\Instantiation\StarManager.cs" />
     <Compile Include="Assets\Scripts\Logging\LogClearer.cs" />
     <Compile Include="Assets\Scripts\Interface\CameraMovement.cs" />
-    <Compile Include="Assets\Scripts\Generation\Planet.cs" />
     <Compile Include="Assets\Scripts\Tests\SerialisationTests.cs" />
-    <Compile Include="Assets\Scripts\Generation\Body.cs" />
+    <Compile Include="Assets\Scripts\Models\OrbitalProperties.cs" />
+    <Compile Include="Assets\Scripts\PhysicalConstants.cs" />
     <Compile Include="Assets\Scripts\Tests\UITests.cs" />
     <Compile Include="Assets\Scripts\Interface\FloatingPointManager.cs" />
+    <Compile Include="Assets\Scripts\Models\PlanetProperties.cs" />
     <Compile Include="Assets\Scripts\Tests\GenerationTests.cs" />
-    <Compile Include="Assets\Scripts\Generation\Star.cs" />
+    <Compile Include="Assets\Scripts\Models\StarProperties.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\StreamingAssets\Localisation\System_Names.txt" />

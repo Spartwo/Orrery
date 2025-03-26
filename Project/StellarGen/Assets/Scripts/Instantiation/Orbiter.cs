@@ -3,25 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Linq;
+using constants = StellarGenHelpers.PhysicalConstants;
 public class Orbiter : MonoBehaviour
 {
-    
-    struct Constants    //Put somewhere else
-    {
-        public const float G = 6.67f;
-    }
-
-    struct Math         //Put somewhere else
-    {
-        public const float TAU = 6.28318530718f;
-    }
 
     //Orbital Keplerian Parameters
-    [SerializeField] float SemiMajorAxis;        //a - size
+    [SerializeField] decimal SemiMajorAxis;        //a - size
     [SerializeField] [Range(0f, 0.99f)]         float Eccentricity;             //e - shape
-    [SerializeField] [Range(0f, Math.TAU)]      float Inclination;         //i - tilt
-    [SerializeField] [Range(0f, Math.TAU)]      float LongitudeOfAsc;  //n - swivel
-    [SerializeField] [Range(0f, Math.TAU)]      float PeriArgument;      //w - position
+    [SerializeField] [Range(0f, constants.TAU)]      float Inclination;         //i - tilt
+    [SerializeField] [Range(0f, constants.TAU)]      float LongitudeOfAsc;  //n - swivel
+    [SerializeField] [Range(0f, constants.TAU)]      float PeriArgument;      //w - position
     [SerializeField] Color OrbitColour;
     [SerializeField] float MeanLongitude;             //L - offset
     [SerializeField] Transform Parent;
@@ -50,7 +41,7 @@ public class Orbiter : MonoBehaviour
         //parse all lines of the system file to a list for reading
         SystemDataArray = File.ReadAllLines(SystemFileAddress).ToList();
 
-        //get saved body data from system file
+       /* //get saved body data from system file
         SemiMajorAxis = ReturnFileValue(LineReadIndex+1)*149597.870691f;
         Eccentricity = ReturnFileValue(LineReadIndex+2);
         LongitudeOfAsc = ReturnFileValue(LineReadIndex+3)/(360/ Math.TAU);
@@ -69,7 +60,7 @@ public class Orbiter : MonoBehaviour
         ColorS = new Color(R/255f, G/255f, B/255f, 0);
         ColorE = new Color(R/255f, G/255f, B/255f, 1);
         //apply initial value
-        OrbitRenderer.endColor = ColorE;
+        OrbitRenderer.endColor = ColorE;*/
         
     }
     float ReturnFileValue(int index)
@@ -90,19 +81,19 @@ public class Orbiter : MonoBehaviour
     }
     public void CalculateSemiConstants()    //Numbers that only need to be calculated once if the orbit doesn't change.
     {
-        mu = Constants.G * Parent.gameObject.GetComponent<Rigidbody>().mass;
+        /*mu = constants.G * Parent.gameObject.GetComponent<Rigidbody>().mass;
         n = Mathf.Sqrt(mu / Mathf.Pow(SemiMajorAxis, 3));
         trueAnomalyConstant = Mathf.Sqrt((1 + Eccentricity) / (1 - Eccentricity));
         cosLOAN = Mathf.Cos(LongitudeOfAsc);
         sinLOAN = Mathf.Sin(LongitudeOfAsc);
         cosI = Mathf.Cos(Inclination);
-        sinI = Mathf.Sin(Inclination);
+        sinI = Mathf.Sin(Inclination);*/
     }
 
     float EccentricAnomalyTrail;
     void Update()
     {
-        CalculateSemiConstants();
+       /* CalculateSemiConstants();
 
         //float CurrentTime = transform.root.GetComponent<Timekeep>().TimeInSeconds;
 
@@ -129,10 +120,10 @@ public class Orbiter : MonoBehaviour
         float z = distance * ((sinLOAN * cosAOPPlusTA) + (cosLOAN * sinAOPPlusTA * cosI));      //Switching z and y to be aligned with xz not xy
         float y = distance * (sinI * sinAOPPlusTA);
 
-        //Debug.Log(x + "," + y + "," + z);
+        //Logger.Log(GetType().Name, (x + "," + y + "," + z);
         transform.position = new Vector3(x, y, z)/149.597870691f + Parent.position;
 
-        //OrbitRenderer.positionCount = 0;
+        //OrbitRenderer.positionCount = 0;*/
     }
 
 
@@ -145,7 +136,7 @@ public class Orbiter : MonoBehaviour
 
     private void OrbitDraw()
     {
-        //declare orbital points array
+       /* //declare orbital points array
         OrbitalPoints = new Vector3[OrbitResolution];
         //declare orbital focus position
         Vector3 pos = Parent.transform.position;
@@ -179,7 +170,7 @@ public class Orbiter : MonoBehaviour
         ColorS.a = 0.1f; 
         //Apply properties to the orbit line display, end colour is already transparent
         OrbitRenderer.startColor = ColorS;
-        OrbitRenderer.SetWidth(LineWidth, LineWidth);
+        OrbitRenderer.SetWidth(LineWidth, LineWidth);*/
     }
 
    

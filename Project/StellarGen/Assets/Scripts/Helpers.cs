@@ -6,11 +6,39 @@ using Newtonsoft.Json;
 using UnityEngine;
 using Random = System.Random;
 using static UnityEngine.Rendering.DebugUI;
+using Models;
 
 namespace StellarGenHelpers
 {
     public static class JsonUtils
     { 
+        /// <summary>
+        /// Serializes a given object to a JSON file.
+        /// </summary>
+        /// <typeparam name="T">The type of the object.</typeparam>
+        /// <param name="data">The object to serialize.</param>
+        /// <param name="filePath">The path of the file to save the JSON data.</param>
+        public static void SerializeToJsonFile<T>(T data, string filePath)
+        {
+            string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+            File.WriteAllText(filePath, json);
+        }
+
+        /// <summary>
+        /// Deserializes a JSON file into an object.
+        /// </summary>
+        /// <typeparam name="T">The type of the object.</typeparam>
+        /// <param name="filePath">The path of the JSON file.</param>
+        /// <returns>The deserialized object, or default if the file does not exist.</returns>
+        public static T DeserializeFromJsonFile<T>(string filePath)
+        {
+            if (!File.Exists(filePath))
+                return default;
+
+            string json = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<T>(json);
+        }
+
         /// <summary>
         /// Serializes a given list to a JSON file.
         /// </summary>
@@ -19,8 +47,25 @@ namespace StellarGenHelpers
         /// <param name="filePath">The path of the file to save the JSON data.</param>
         public static void SerializeListToJsonFile<T>(List<T> list, string filePath)
         {
-            string json = JsonConvert.SerializeObject(list, Formatting.Indented);
-            File.WriteAllText(filePath, json);
+            SerializeToJsonFile(list, filePath);
+        }
+
+        /// <summary>
+        /// Deserializes a JSON file into an object.
+        /// </summary>
+        /// <typeparam name="T">Type of the object.</typeparam>
+        /// <param name="filePath">The path of the JSON file.</param>
+        /// <returns>Deserialized object of type T.</returns>
+        public static T DeserializeJsonFromFile<T>(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                Debug.LogWarning($"JsonUtils: File not found - {filePath}");
+                return default;
+            }
+
+            string json = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<T>(json);
         }
 
         /// <summary>
@@ -28,12 +73,14 @@ namespace StellarGenHelpers
         /// </summary>
         /// <typeparam name="T">The type of the elements in the list.</typeparam>
         /// <param name="filePath">The path of the JSON file.</param>
-        /// <returns>A list of deserialized objects.</returns>
-        public static string ToJson<T>(T[] array, bool prettyPrint)
+        /// <returns>A list of deserialized objects, or an empty list if the file does not exist.</returns>
+        public static List<T> DeserializeListFromJsonFile<T>(string filePath)
         {
-            JsonWrapper<T> wrapper = new JsonWrapper<T>();
-            wrapper.Content = array;
-            return JsonUtility.ToJson(wrapper, prettyPrint);
+            if (!File.Exists(filePath))
+                return new List<T>();
+
+            string json = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<List<T>>(json) ?? new List<T>();
         }
 
         [Serializable]
@@ -47,6 +94,18 @@ namespace StellarGenHelpers
     {
         // Default Random object when no seed is provided
         private static Random defaultRandom = new Random();
+
+        /// <summary>
+        /// Tweaks a seed value to try avoid generation overlap
+        /// </summary>
+        /// <param name="seedValue">The seed to be changed</typeparam>
+        /// <returns>A new sligtly randomised seed value.</returns>
+        public static int TweakSeed(int seedValue)
+        {
+            // Distinguish seed value from other generated bodies
+            float divisor = RandomUtils.RandomFloat(1f, 10f, seedValue);
+            return (int)Math.Round(seedValue / divisor);
+        }
 
         /// <summary>
         /// Generates a random decimal number between two given numbers
@@ -184,40 +243,6 @@ namespace StellarGenHelpers
     public static class PhysicsUtils
     {
         /// <summary>
-        /// Calculates the size of a body's stable "sphere of influence" in astronomical units (AU) by comparing
-        /// the masses of the body and its parent. 
-        /// </summary>
-        /// <param name="A">The body for which the Hill Sphere is being calculated.</param>
-        /// <param name="distance">The distance between the body and its parent in AU.</param>
-        /// <returns>The radius of the body's Hill Sphere in AU.</returns>
-        public static float CalculateHillSphere(Body A, float distance)
-        {
-            Body B = FindParent(A.Parent);
-
-            return distance * (float)(B.Mass / (3 * A.Mass));
-        }
-
-        /// <summary>
-        /// Finds the parent body of a given body using the parent's seed value.
-        /// </summary>
-        /// <param name="key">The unique identifier (SeedValue) of the parent body.</param>
-        /// <returns>The parent body associated with the given SeedValue, or the barycenter body if not found.</returns>
-        public static Body FindParent(int key)
-        {
-            // Iterate through the stellarBodies to find parent, not so many elements to require 3d
-            foreach (Body body in SystemGenerator.stellarBodies)
-            {
-                if (key == body.SeedValue)
-                {
-                    return body;
-                }
-            }
-
-            // Return the barycentre if no parent expressely declared
-            return SystemGenerator.stellarBodies[0];
-        }
-
-        /// <summary>
         /// Converts the given temperature into a color by sampling a gradient image.
         /// </summary>
         /// <param name="temperature">The temperature of the star in Kelvin.</param>
@@ -231,7 +256,7 @@ namespace StellarGenHelpers
             Texture2D texture = new Texture2D(2, 2);
             if (!texture.LoadImage(fileData))
             {
-                Debug.LogError("Failed to load PNG file.");
+                Logger.LogError("PhysicsUtils", "Failed to load PNG file.");
                 return Color.magenta;
             }
 
@@ -241,7 +266,7 @@ namespace StellarGenHelpers
             // Validate the temperature input incase of manual mass edits
             if (temperature < 1000 || temperature > 11000)
             {
-                Debug.LogWarning("Temperature out of expected range (1000K to 11000K). Clamping to valid range.");
+                Logger.LogWarning("PhysicsUtils", "Temperature out of expected range (1000K to 11000K). Clamping to valid range.");
                 temperature = Math.Clamp(temperature, 1000, 11000);
             }
 
@@ -256,6 +281,9 @@ namespace StellarGenHelpers
 
         }
 
+        /// <summary>
+        /// Lets you run power operations on decimal datatypes.
+        /// </summary>
         public static decimal DecimalPow(decimal baseValue, decimal exponent)
         {
             // Handle the case for exponent == 0
@@ -271,6 +299,80 @@ namespace StellarGenHelpers
 
             // Handle fractional exponents if necessary
             return result;
+        }
+
+        /// <summary>
+        /// Checks whether a body's orbit is stable within the sphere of its parent
+        /// Hill sphere minimum is stored but this is for live checks
+        /// </summary>
+        /// <param name="A">The body for which the Hill Sphere is being calculated.</param>
+        /// <param name="B">The body for which is being orbited.</param>
+        /// <param name="distance">The distance between the checked body and A</param>
+        /// <returns>True if the orbit is stable, otherwise false.</returns>
+        public static bool CheckOrbit(BodyProperties A, BodyProperties B, decimal distance)
+        {
+            // Calculate the semi-minor axis using the formula b = a⋅/1−e^2
+            decimal semiMinorAxis = (A.Orbit.SemiMajorAxis * (decimal)Math.Sqrt(1 - Math.Pow(A.Orbit.Eccentricity, 2)));
+            // Get the mimimum hill sphere of the parent body around the grandparent
+            decimal hillSphere = CalculateHillSphere(A, B, semiMinorAxis);
+
+            // True if the semi-major axis is within the hillsphere of the parent
+            return distance < hillSphere;
+        }
+
+        /// <summary>
+        /// Calculates the size of a body's stable "sphere of influence" in metres by comparing
+        /// the masses of the body and its parent. 
+        /// </summary>
+        /// <param name="A">The body for which the Hill Sphere is being calculated.</param>
+        /// <param name="B">The body for which is being orbited.</param>
+        /// <param name="distance">The distance between the body and its parent in AU.</param>
+        /// <returns>The radius of the body's Hill Sphere</returns>
+        public static decimal CalculateHillSphere(BodyProperties A, BodyProperties B, decimal distance)
+        {
+            return distance * (decimal)(B.Mass / (3 * A.Mass));
+        }
+
+        /// <summary>
+        /// Constructs the orbital properties of a celestial body based on given parameters and 
+        /// randomized variations within realistic constraints.
+        /// </summary>
+        /// <param name="seedValue">The random seed used for deterministic orbit generation.</param>
+        /// <param name="SMAInput">The initial semi-major axis (SMA) in astronomical units (AU).</param>
+        /// <param name="MeanEccentricity">
+        /// The mean eccentricity used as a basis for generating the orbital eccentricity.
+        /// </param>
+        /// <param name="MaxInclination">
+        /// The maximum inclination angle (degrees) allowed for the orbit.
+        /// </param>
+        /// <returns>
+        /// An <see cref="OrbitalProperties"/> object containing the body's semi-major axis,
+        /// eccentricity, longitude of ascending node, inclination, and argument of periapsis.
+        /// </returns>
+        public static OrbitalProperties ConstructOrbitProperties(int seedValue, float SMAInput, float MeanEccentricity, float MaxInclination)
+        {
+            // Jiggle the orbit a little within a permissible range
+            decimal semiMajorAxis = (decimal)(SMAInput + (RandomUtils.RandomFloat(-0.03f, 0.03f, seedValue) * SMAInput)) * PhysicalConstants.AU_TO_METERS;
+
+            // Generate Eccentricity with a basis in the mean solar eccentricity
+            // Mean is generated by shared SOI and isn't the actual mean
+            float eccentricity = RandomUtils.RandomFloat(0.001f, MeanEccentricity * 2, seedValue);
+
+            // Generate the angle where the orbit goes from below the equator to above it
+            float longitudeOfAscending = RandomUtils.RandomFloat(0f, 359f, seedValue);
+
+            // Generate the inclination of the body in a given range
+            float inclination = RandomUtils.RandomFloat(0f, MaxInclination, seedValue);
+
+            // Generate how far in the inclined disk the body will set its periapsis
+            float periArgument = RandomUtils.RandomFloat(0f, 359f, seedValue);
+
+            // Create new OrbitData Instance
+            OrbitalProperties orbit = new OrbitalProperties(semiMajorAxis, eccentricity, longitudeOfAscending, inclination, periArgument);
+
+            Logger.Log("System Generation", $"Produced orbit {orbit.ToString()}");
+
+            return orbit;
         }
     }
 }

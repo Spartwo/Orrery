@@ -1,3 +1,6 @@
-Program Initialised
------------------------------
-[02:46:23 LOG] SystemGenerator: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Greg.json
+[23:48:18 LOG] Application: Program Initialised
+[23:48:18 LOG] SystemGenerator: Stars: 2
+[23:48:18 LOG] Star: Sols Mass: 0.4858404
+[23:48:18 LOG] Star: Sols Mass: 1.723955
+[23:48:18 LOG] SystemGenerator: System Age: 1.708
+[23:48:18 LOG] SystemGenerator: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Greg.json
