@@ -31,7 +31,10 @@
    - If it’s a portable build, run the `Orrery.exe` file located in the extracted folder.
 
 ## ○⃝° Contributing
-  Pull requests, issue reports, and suggestions are welcome. Please ensure contributions adhere to architectural consistency and are documented appropriately.
+  Issue reports and suggestions are welcome. If you would like to contribute to the project please use the following guides
+  - [Forking a Repo](https://help.github.com/articles/fork-a-repo/)
+  - [Creating a Pull Request](https://help.github.com/articles/creating-a-pull-request-from-a-fork/)
+  Pull requests to the `Main` branch will not be accepted.
 
 ## ○⃝° License
   All Rights Reserved
