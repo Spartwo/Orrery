@@ -68,16 +68,20 @@ namespace SystemGen
             return graphY;
         }
 
-        public void GenerateChildren(int seedValue)
+        /// <summary>
+        /// Method to generate 
+        /// </summary>
+        /// <param name="children">The elements being passed downwards from the inherited classes</param>
+        public void GenerateChildren(int seedValue, StarProperties star)
         {
 
             // Generate number of planets
-            int planetCount = (int)(Mathf.Max((Mathf.Pow(stellarMass, 0.3f) * RandomUtils.RandomInt(1, 10, seedValue)), 1));
+            int planetCount = (int)(Mathf.Max((Mathf.Pow(star.StellarMass, 0.3f) * RandomUtils.RandomInt(1, 10, seedValue)), 1));
 
             // Estimated distance of the heliopause
-            float SOIEdge = Mathf.Sqrt(Luminosity) * 75;
+            float SOIEdge = Mathf.Sqrt(star.Luminosity) * 75;
             // Set inner edge as closest bearable temperature limit
-            float SOIInner = Mathf.Pow((3f * stellarMass) / (9f * 3.14f * 5.51f), 0.33f);
+            float SOIInner = Mathf.Pow((3f * star.StellarMass) / (9f * 3.14f * 5.51f), 0.33f);
             // Set keystone planet(others resonate to it)
             float innerOrbit = RandomUtils.RandomFloat(SOIInner, SOIInner * 5, seedValue);
             float planetarySpacing = RandomUtils.RandomFloat((0.06f) * SOIEdge, 10, seedValue);
@@ -110,7 +114,7 @@ namespace SystemGen
                 i++;
             }
 
-            List<BodyGen> childBodies = new List<BodyGen>();
+            List<BodyProperties> childBodies = new List<BodyProperties>();
             // Populate the orbital positions
             for (int p = 0; p < planetCount; p++)
             {
@@ -128,18 +132,16 @@ namespace SystemGen
                 orbitalPositions.RemoveAt(pos);
 
                 // Create a new planet with a unique seed value
-                BodyGen newPlanet = new PlanetGen(seedValue + p);
+                PlanetProperties newPlanet = new PlanetGen().Generate(seedValue + p);
 
                 // Set the orbital properties of the new planet
-                PhysicsUtils.ConstructOrbitProperties(position, meanEccentricity, maxInclination);
+                PhysicsUtils.ConstructOrbitProperties(seedValue, position, meanEccentricity, maxInclination);
 
                 // Add the new planet to the childBodies list
                 childBodies.Add(newPlanet);
 
             }
 
-
-            base.GenerateChildren(childBodies);
         }
     }
 }

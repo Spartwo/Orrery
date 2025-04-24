@@ -21,7 +21,7 @@ namespace SystemGen
         /// Base method to generate planets, moons, etc
         /// </summary>
         /// <param name="children">The elements being passed downwards from the inherited classes</param>
-        public void GenerateChildren(List<BodyGen> children = null)
+        public virtual void GenerateChildren(List<BodyGen> children)
         {
 
         }

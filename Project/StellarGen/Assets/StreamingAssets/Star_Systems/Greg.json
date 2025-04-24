@@ -1,28 +1,30 @@
 [
   {
-    "Name": "GregA",
+    "Name": "Unnamed Body",
+    "CustomName": false,
     "Parent": 0,
-    "SeedValue": 61471832,
-    "Mass": 573983.921430,
+    "SeedValue": 4369555,
+    "Mass": 161758.6178184,
     "Age": 1.708,
     "OrbitLine": [
-      222,
-      199,
-      22
+      255,
+      255,
+      255
     ],
     "Orbit": null,
     "ChildBodies": []
   },
   {
-    "Name": "GregB",
+    "Name": "Unnamed Body",
+    "CustomName": false,
     "Parent": 0,
-    "SeedValue": 25799898,
-    "Mass": 161758.6178184,
+    "SeedValue": 6943127,
+    "Mass": 573983.921430,
     "Age": 1.708,
     "OrbitLine": [
-      138,
-      56,
-      159
+      255,
+      255,
+      255
     ],
     "Orbit": null,
     "ChildBodies": []

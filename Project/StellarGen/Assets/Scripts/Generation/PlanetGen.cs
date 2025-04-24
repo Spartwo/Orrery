@@ -9,13 +9,18 @@ namespace SystemGen
 {
     public class PlanetGen : BodyGen
     {
-        public override BodyProperties Generate(int seedValue)
+        public PlanetProperties Generate(int seedValue)
         {
             seedValue = RandomUtils.TweakSeed(seedValue);
 
             return new PlanetProperties();
         }
-        public void GenerateChildren()
+
+        /// <summary>
+        /// Base method to generate planets, moons, etc
+        /// </summary>
+        /// <param name="children">The elements being passed downwards from the inherited classes</param>
+        public void GenerateChildren(int seedValue, StarProperties star)
         {
             base.GenerateChildren(new List<BodyGen>());
         }

@@ -60,7 +60,7 @@ namespace SystemGen
             // Temporarily define the stellar systems total age
             float systemAge = await GenerateStellarBodies(usableSeed, starCount);
 
-            await AssignAges(systemAge);
+            AssignAges(systemAge);
 
 
             // Check for ejected bodies(P-type orbits)
@@ -99,6 +99,7 @@ namespace SystemGen
                     // Add the generated properties to the stellarBodies list
                     stellarBodies.Add(newStarProperties);
 
+                    // Roll back all the stars to the youngest
                     shortestLifespan = Math.Min(shortestLifespan, newStarProperties.Lifespan);
 
                     // Every star, yield execution to prevent blocking
@@ -109,7 +110,9 @@ namespace SystemGen
             return systemAge;
         }
 
-        // Ages are assigned twice, upon stellar creation and before finalisation
+        /// <summary>
+        /// Sets the ages of all bodies to one shared value
+        /// </summary>
         private void AssignAges(float systemAge)
         {
             // Convert to decimal to limit the points when exported
@@ -125,48 +128,70 @@ namespace SystemGen
 
         /// <summary>
         /// Recursively assigns names to stars, planets, and moons based on their mass and parent star.
+        /// This method is called after the generation process to ensure all bodies are properly named.
         /// Stars are named A, B, C, etc.; planets are named Aa, Ab, Ac, etc.; moons are named Aa-1, Aa-2, etc.
         /// </summary>
         private async Task AssignNames()
         {
-            // Sort the bodies by mass, larger stars get the first letters
+            // Sort root stellar bodies, larger stars get the first letters
             stellarBodies.Sort((a, b) => b.Mass.CompareTo(a.Mass));
+            char rootSuffix = 'A'; // Start base object names from A
 
-            // Iterate over all bodies and assign appropriate names
-            foreach (var body in stellarBodies)
+            // Iterate through the stellarBodies to assign names to stars
+            foreach (var star in stellarBodies.OfType<StarProperties>())
             {
-                string bodySuffix = string.Empty;
-
-                if (body is StarProperties star)  // If the body is a star
+                // Assign initial star name ('A', 'B', 'C') if no custom name
+                if (!star.CustomName)
                 {
-                    // Stars are named A, B, C, etc., based on mass
-                    bodyName = $"{seedInput} {starSuffix}";
-                    starSuffix++;  // Increment for the next star
-                }
-                else if (body is PlanetProperties planet)  // If the body is a planet
-                {
-                    // Planets are named Aa, Ab, Ac, etc., based on mass, prefixed with their parent star's name
-                    bodyName = $"{seedInput} {char.ToLower((char)('A' + planet.Index))}";
-                }
-                else if (body is MoonProperties moon)  // If the body is a moon
-                {
-                    // Moons are named Aa-1, Aa-2, etc., based on their parent planet
-                    bodyName = $"{seedInput} {moon.ParentPlanet.Name.ToLower()}-{moon.Index + 1}";
+                    star.Name = $"{seedInput} {rootSuffix}";
                 }
 
-                // Assign the generated name to the body
-                body.Name = $"{seedInput} bodySuffix";
+                // Assign names to planets and their moons recursively
+                if (star.ChildBodies.Any())
+                {
+                    await AssignNamesRecursive(star, star.Name);
+                }
+
+                rootSuffix++;
             }
         }
+
+        /// <summary>
+        /// Recursively assigns names to child bodies (planets and moons) based on their parent name.
+        /// </summary>
+        /// <param name="parent">The parent body whose children are being named.</param>
+        /// <param name="parentName">The name of the parent body.</param>
+        private async Task AssignNamesRecursive(BodyProperties parent, string parentName)
+        {
+            char childSuffix = 'a'; // Start child names from 'a'
+
+            foreach (var child in parent.ChildBodies)
+            {
+                // Assign name to the child body
+                if (!child.CustomName)
+                {
+                    child.Name = $"{parentName}{childSuffix}";
+                }
+
+                // If the child has its own children (moons), assign names recursively
+                if (child.ChildBodies.Any())
+                {
+                    await AssignNamesRecursive(child, child.Name);
+                }
+
+                childSuffix++;
+            }
+        }
+
         private async Task GenerateMajorBodies()
         {
             // Generate children (planets)
-            body.GenerateChildren();
+            //body.GenerateChildren();
         }
         private async Task GenerateLesserBodies()
         {
             // Generate children without children of their own (moons etc)
-            body.GenerateChildren();
+            //body.GenerateChildren();
         }
 
         /// <summary>

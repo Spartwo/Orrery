@@ -12,7 +12,9 @@ namespace Models
     {
         protected int seedValue;
         private int parent;
+
         private string name;
+        private bool customName;
 
         private decimal age;
         private decimal mass;
@@ -41,6 +43,7 @@ namespace Models
             }
 
             this.name = name ?? "Unnamed Body";  // Default to "Unnamed Body" if not provided
+            this.customName = false; // New or Generated names are never custom
             this.age = age ?? 0m;  // Default to 0 if not provided
             this.mass = mass ?? 0m;  // Default to 0 if not provided
             this.hillSphere = hillSphere ?? 0m;  // Default to 0 if not provided
@@ -65,6 +68,12 @@ namespace Models
             get => name;
             set => name = value;
         }
+        public bool CustomName
+        {
+            get => customName;
+            set => customName = value;
+        }
+
         // SeedValue of body being orbited
         public int Parent
         {

@@ -1,0 +1,10 @@
+{
+  "GenerateOnStartup": true,
+  "EnableScanlines": false,
+  "EnableFlicker": false,
+  "EnableGlow": true,
+  "ColorPalette": "Default",
+  "FrameRateLimit": 60,
+  "VSyncEnabled": true,
+  "ShowDebugLogs": false
+}
