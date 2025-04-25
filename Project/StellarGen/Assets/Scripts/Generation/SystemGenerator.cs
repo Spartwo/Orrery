@@ -272,14 +272,43 @@ namespace SystemGen
         private async Task GenerateMajorBodies(int seed)
         {
             Logger.Log(GetType().Name, "Generating Major Bodies");
-            // Generate children (planets)
-            //body.GenerateChildren();
+
+            for (int i = 0; i < stellarBodies.Count; i++)
+            {
+                // Create a new Generator to build the children
+                StarGen starGen = new StarGen();
+                stellarBodies[i].ChildBodies = starGen.GenerateChildren((StarProperties)stellarBodies[i]);
+
+                await Task.Yield();
+            }
         }
         private async Task GenerateMinorBodies(int seed)
         {
             Logger.Log(GetType().Name, "Generating Minor Bodies");
+
             // Generate children without children of their own (moons etc)
-            //body.GenerateChildren();
+            for (int i = 0; i < stellarBodies.Count; i++)
+            {
+                if (stellarBodies[i] is StarProperties star)
+                {
+                    // Create a new Generator to build the children
+                    StarGen starGen = new StarGen();
+                    stellarBodies[i].ChildBodies = starGen.GenerateMinorChildren((StarProperties)stellarBodies[i]);
+
+                    for (int j = 0; j < stellarBodies[i].ChildBodies.Count; i++)
+                    {
+                        PlanetGen planetGen = new PlanetGen();
+                        stellarBodies[i].ChildBodies[j].ChildBodies = planetGen.GenerateMinorChildren((BodyProperties)stellarBodies[i].ChildBodies[j]);
+                    }
+                }
+                else
+                {
+                    PlanetGen planetGen = new PlanetGen();
+                    stellarBodies[i].ChildBodies = planetGen.GenerateMinorChildren((StarProperties)stellarBodies[i]);
+
+                }
+                await Task.Yield();
+            }
         }
 
         /// <summary>
@@ -405,7 +434,7 @@ namespace SystemGen
         /// <returns>A weighted quanity of stars in the system</returns>
         private static int DetermineStarCount(int seed)
         {
-            int randomValue = RandomUtils.RandomInt(1, 1000, seed);
+            int randomValue = RandomUtils.RandomInt(1, 900, seed);
             int starCount;
 
             switch (randomValue)
@@ -421,7 +450,7 @@ namespace SystemGen
                     break;
                 default:
                     // Log the value when it falls into the default case
-                    Logger.Log("System Generator", "Star Quantity random outside expected range. Defaulting to 0.");
+                    Logger.Log("System Generator", "Defaulting to 0 stars");
                     starCount = 0;
                 break;
             }

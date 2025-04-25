@@ -271,7 +271,7 @@ namespace StellarGenHelpers
             }
 
             // Scale the temperature to the image index range (0 to imageWidth - 1)
-            int pixelIndex = (temperature - 1000) / (11000 - 1000) * (imageWidth - 1);
+            int pixelIndex = (int)((temperature - 1000f) / (11000f - 1000f) * (imageWidth - 1));
 
             // Extract all pixels from the texture
             Color[] colors = texture.GetPixels();

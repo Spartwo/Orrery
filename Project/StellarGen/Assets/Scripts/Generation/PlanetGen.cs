@@ -11,7 +11,16 @@ namespace SystemGen
     {
         public PlanetProperties Generate(int seedValue)
         {
-            seedValue = RandomUtils.TweakSeed(seedValue);
+            if (seedValue == 0)
+            {
+                // If no seed is provided then pick one at random
+                seedValue = RandomUtils.RandomInt(0, int.MaxValue);
+            }
+            else
+            {
+                // If it is provided then adjust its value to avoid intersections
+                seedValue = RandomUtils.TweakSeed(seedValue);
+            }
 
             return new PlanetProperties();
         }
@@ -20,19 +29,12 @@ namespace SystemGen
         /// Base method to generate planets, moons, etc
         /// </summary>
         /// <param name="children">The elements being passed downwards from the inherited classes</param>
-        public void GenerateChildren(int seedValue, StarProperties star)
+        public List<BodyProperties> GenerateChildren(StarProperties planet)
         {
-            base.GenerateChildren(new List<BodyGen>());
-        }
+            base.GenerateChildren((BodyProperties)planet);
 
-
-        private void Generate(string ParentBody, string ParentBodyName, int BodyNumber, float MeanEccentricity, float MaxInclination, float OrbitScale)
-        {
-
-            //call the orbit generation method and add to the saved print data
-            //BodyOrbitArray.Add(SetOrbit(OrbitalPositions[i] * OrbitScale, MeanEccentricity, MaxInclination));
-            //remove SMA index from the array
-            //OrbitalPositions.RemoveAt(i);
+            List<BodyProperties> childBodies = new List<BodyProperties>();
+            return childBodies;
         }
 
 

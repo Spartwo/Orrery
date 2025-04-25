@@ -66,86 +66,112 @@ namespace SystemGen
         }
 
         /// <summary>
-        /// Method to generate 
+        /// Method to generate the major child bodies(planets) of a star
         /// </summary>
         /// <param name="children">The elements being passed downwards from the inherited classes</param>
-        public void GenerateChildren(int seedValue, StarProperties star)
+        public List<BodyProperties> GenerateChildren(StarProperties star)
         {
+            base.GenerateChildren((BodyProperties)star);
 
+
+            int seedValue = star.SeedValue;
             // Generate number of planets
-            int planetCount = (int)(Mathf.Max((Mathf.Pow(star.StellarMass, 0.3f) * RandomUtils.RandomInt(1, 10, seedValue)), 1));
+            int planetCount = GeneratePlanetCount(star, seedValue);
 
-            // Estimated distance of the heliopause
-            float SOIEdge = Mathf.Sqrt(star.Luminosity) * 75;
-            // Set inner edge as closest bearable temperature limit
-            float SOIInner = Mathf.Pow((3f * star.StellarMass) / (9f * 3.14f * 5.51f), 0.33f);
-            // Set keystone planet(others resonate to it)
-            float innerOrbit = RandomUtils.RandomFloat(SOIInner, SOIInner * 5, seedValue);
-            float planetarySpacing = RandomUtils.RandomFloat((0.06f) * SOIEdge, 10, seedValue);
+            float SOIEdge, SOIInner, innerOrbit, planetarySpacing;
+            InitializeOrbitalBounds(star, seedValue, out SOIEdge, out SOIInner, out innerOrbit, out planetarySpacing);
 
             // Mean eccentricity due to planet count
             float meanEccentricity = (float)Math.Max(Math.Pow(planetCount, -0.15) - 0.65, 0.01);
             float maxInclination = (15f - planetCount) / 2;
 
-
             // Define all resonant orbital positions relative to the keystone
-            List<float> orbitalPositions = new List<float>();
+            List<float> orbitalPositions = CalculateOrbitalPositions(SOIEdge, innerOrbit, planetarySpacing);
             List<int> usedPositions = new List<int>();
-            // Iterate until the position exceeds the SOI edge
-            int i = 0;
-            while (true)
-            {
-                // Calculate the orbital position based on the formula
-                float position = innerOrbit + (planetarySpacing * Mathf.Pow(2, i));
 
-                // Check if the position exceeds the SOI edge
-                if (position > SOIEdge)
-                {
-                    // Stop adding further positions once we exceed the SOI edge
-                    break;
-                }
+            DetermineArrangement(star);
 
-                // Add the position to the list if it is within the SOI edge
-                orbitalPositions.Add(position);
+            List<BodyProperties> childBodies = GeneratePlanetsFromPositions(
+                seedValue, planetCount, orbitalPositions, meanEccentricity, maxInclination
+            );
 
-                i++;
-            }
-
-            List<BodyProperties> childBodies = new List<BodyProperties>();
-            // Populate the orbital positions
-            for (int p = 0; p < planetCount; p++)
-            {
-                // Generate a random position in the positions array
-                int pos = RandomUtils.RandomInt(0, orbitalPositions.Count, seedValue + p);
-
-                // Ensure that the position isn't used yet
-                do pos = RandomUtils.RandomInt(0, orbitalPositions.Count, seedValue + p);
-                while (usedPositions.Contains(pos));
-
-                // Get the position from the orbitalPositions list
-                float position = orbitalPositions[pos];
-
-                // Remove the used position from the list to avoid duplicates
-                orbitalPositions.RemoveAt(pos);
-
-                // Create a new planet with a unique seed value
-                PlanetProperties newPlanet = new PlanetGen().Generate(seedValue + p);
-
-                // Set the orbital properties of the new planet
-                PhysicsUtils.ConstructOrbitProperties(seedValue, position, meanEccentricity, maxInclination);
-
-                // Add the new planet to the childBodies list
-                childBodies.Add(newPlanet);
-
-            }
+            return childBodies;
 
         }
-
-        private int GetPlanetCount(int seedValue)
+        private void InitializeOrbitalBounds(StarProperties star, int seed, out float SOIEdge, out float SOIInner, out float innerOrbit, out float spacing)
         {
-            // Generate number of planets
-            int planetCount = 1;
+            // Estimated distance of the heliopause
+            SOIEdge = Mathf.Sqrt(star.Luminosity) * 75;
+            // Set inner edge as closest bearable temperature limit
+            SOIInner = Mathf.Pow((3f * star.StellarMass) / (9f * 3.14f * 5.51f), 0.33f);
+
+            innerOrbit = RandomUtils.RandomFloat(SOIInner, SOIInner * 5, seed);
+            // Set keystone planet(others resonate to it)
+            spacing = RandomUtils.RandomFloat(0.004f * SOIEdge, 0.05f * SOIEdge, seed);
+        }
+        private List<float> CalculateOrbitalPositions(float SOIEdge, float innerOrbit, float spacing)
+        {
+            List<float> positions = new List<float>();
+            int i = 0;
+
+            int maxIterations = 30;
+            while (i < maxIterations)
+            {
+                // Calculate the orbital position based on the formula
+                float pos = innerOrbit + spacing * Mathf.Pow(2, i);
+                Debug.Log($"Orbital Position: {pos}");
+                // Stop adding further positions once we exceed the SOI edge
+                if (pos > SOIEdge) break;
+                positions.Add(pos);
+                i++;
+            }
+            if (i >= maxIterations)
+            {
+                Debug.LogWarning("Orbital position generation hit maximum iteration cap.");
+            }
+
+            Debug.Log($"Orbital Positions: {positions.Count+1}");
+            return positions;
+        }
+        private List<BodyProperties> GeneratePlanetsFromPositions(int seed, int count, List<float> positions, float eccentricity, float inclination)
+        {
+            var planets = new List<BodyProperties>();
+            var used = new HashSet<int>();
+
+            for (int p = 0; p < count; p++)
+            {
+                break;
+                int index;
+                do
+                {
+                    index = RandomUtils.RandomInt(0, positions.Count, seed + p);
+                    Debug.Log(positions.Count);
+                }
+                while (used.Contains(index));
+
+                used.Add(index);
+                float position = positions[index];
+                positions.RemoveAt(index); // Optional: can skip if not reusing
+
+                var newPlanet = new PlanetGen().Generate(seed + p);
+                PhysicsUtils.ConstructOrbitProperties(seed, position, eccentricity, inclination);
+
+                planets.Add(newPlanet);
+            }
+
+            return planets;
+        }
+
+        private int GeneratePlanetCount(StarProperties star, int seed)
+        {
+            int planetCount = (int)Mathf.Max(Mathf.Pow(star.StellarMass, 0.3f) * RandomUtils.RandomInt(1, 10, seed), 1);
+            Logger.Log("System Generation", "Planet Count: " + planetCount);
             return planetCount;
+        }
+
+        private PlanetOrder DetermineArrangement(StarProperties star)
+        {
+            return PlanetOrder.SIMILAR;
         }
 
 

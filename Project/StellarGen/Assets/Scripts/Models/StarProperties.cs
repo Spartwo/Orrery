@@ -62,7 +62,7 @@ namespace Models
 
             // Set Luminosity and Diameter now  knowing the age
             diameter = baseDiameter + ((baseDiameter / 2) * ageAjustment);
-            luminosity = Mathf.Pow(diameter, 2) * Mathf.Pow((Temperature / PhysicalConstants.SOLAR_TEMPERATURE), 4);
+            luminosity = Mathf.Pow(diameter, 2) * Mathf.Pow(((float)Temperature / PhysicalConstants.SOLAR_TEMPERATURE), 4);
         }
 
         #region Getters and Setters

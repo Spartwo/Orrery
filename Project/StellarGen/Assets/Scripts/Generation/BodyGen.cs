@@ -21,13 +21,19 @@ namespace SystemGen
         /// Base method to generate planets, moons, etc
         /// </summary>
         /// <param name="children">The elements being passed downwards from the inherited classes</param>
-        public virtual void GenerateChildren(List<BodyGen> children)
+        public virtual List<BodyProperties> GenerateChildren(BodyProperties body)
         {
-
+            List<BodyProperties> childBodies = new List<BodyProperties>();
+            return childBodies;
         }
 
-    
-        
+        public virtual List<BodyProperties> GenerateMinorChildren(BodyProperties body)
+        {
+            // Generate a list of minor bodies (e.g., asteroids, comets) based on the parent body
+            List<BodyProperties> minorBodies = new List<BodyProperties>();
+            return minorBodies;
+        }
+
 
         /*/// <summary>
         /// Adds a new child body to the list of child bodies.
