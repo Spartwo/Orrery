@@ -1,32 +1,44 @@
 [
   {
-    "Name": "Unnamed Body",
+    "Name": "Greg A",
     "CustomName": false,
     "Parent": 0,
-    "SeedValue": 4369555,
-    "Mass": 161758.6178184,
-    "Age": 1.708,
+    "SeedValue": 61471832,
+    "Mass": 3428947276353840000000000.0,
+    "Age": 2.74,
     "OrbitLine": [
       255,
-      255,
-      255
+      9,
+      0
     ],
-    "Orbit": null,
+    "Orbit": {
+      "SemiMajorAxis": 9365829011553.0,
+      "Eccentricity": 0.344611764,
+      "LongitudeOfAscending": 180.0,
+      "Inclination": 0.0,
+      "PeriArgument": 0.0
+    },
     "ChildBodies": []
   },
   {
-    "Name": "Unnamed Body",
+    "Name": "Greg B",
     "CustomName": false,
     "Parent": 0,
-    "SeedValue": 6943127,
-    "Mass": 573983.921430,
-    "Age": 1.708,
+    "SeedValue": 25799898,
+    "Mass": 966336516201496000000000.0,
+    "Age": 2.74,
     "OrbitLine": [
       255,
-      255,
-      255
+      9,
+      0
     ],
-    "Orbit": null,
+    "Orbit": {
+      "SemiMajorAxis": 33233690568552.0,
+      "Eccentricity": 0.344611764,
+      "LongitudeOfAscending": 0.0,
+      "Inclination": 0.0,
+      "PeriArgument": 0.0
+    },
     "ChildBodies": []
   }
 ]

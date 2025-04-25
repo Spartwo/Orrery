@@ -3,7 +3,9 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using RandomUtils = StellarGenHelpers.RandomUtils;
-using ColorUtils = StellarGenHelpers.ColorUtils;
+using ColourUtils = StellarGenHelpers.ColourUtils;
+using System.Linq;
+using UnityEngine;
 
 namespace Models
 {
@@ -31,17 +33,7 @@ namespace Models
         /// </summary>
         public BodyProperties(int seedValue = 0, string name = null, decimal? age = null, decimal? mass = null, decimal? hillSphere = 0m, int[] orbitLine = null)
         {
-            if (seedValue == 0)
-            {
-                // If no seed is provided then pick one at random
-                this.seedValue = RandomUtils.RandomInt(0, int.MaxValue);
-            }
-            else
-            {
-                // If it is provided then adjust its value to avoid intersections
-                this.seedValue = RandomUtils.TweakSeed(seedValue);
-            }
-
+            this.seedValue = seedValue;
             this.name = name ?? "Unnamed Body";  // Default to "Unnamed Body" if not provided
             this.customName = false; // New or Generated names are never custom
             this.age = age ?? 0m;  // Default to 0 if not provided
@@ -87,7 +79,7 @@ namespace Models
             private set => seedValue = value;
         }
 
-        // Unified value in earth masses
+        // Unified value in kilotons
         public decimal Mass
         {
             get => mass;
@@ -118,13 +110,18 @@ namespace Models
                 // If the array is empty generate a color first
                 if (orbitLine == null)
                 {
-                    orbitLine = ColorUtils.ColorToArray(RandomUtils.RandomColor(seedValue));
+                    orbitLine = ColourUtils.ColorToArray(RandomUtils.RandomColor(seedValue));
                 }
 
                 // Return a color made from the RGB elements of the array
                 return orbitLine;
             }
-            set => orbitLine = value;
+            set
+            {
+
+                Logger.Log("SystemGenerator", $"Setting Colour To {value[0]},{value[1]},{value[2]}");
+                orbitLine = value;
+            }
         }
 
         // Orbital Data
@@ -145,11 +142,10 @@ namespace Models
                 {
                     childBodies = new List<BodyProperties>();
                 }
-                Logger.Log(GetType().Name, "Adding " + value.Count + " Children");
+                Logger.Log(GetType().Name, $"Adding {value.Count} Children");
                 childBodies = value;
             }
         }
-
         #endregion
     }
 }

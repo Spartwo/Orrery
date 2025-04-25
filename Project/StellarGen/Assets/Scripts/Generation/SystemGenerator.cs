@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 using Random = System.Random;
 using RandomUtils = StellarGenHelpers.RandomUtils;
 using PhysicsUtils = StellarGenHelpers.PhysicsUtils;
-using ColorUtils = StellarGenHelpers.ColorUtils;
+using ColourUtils = StellarGenHelpers.ColourUtils;
 using JsonUtils = StellarGenHelpers.JsonUtils;
 using System;
 using Models;
 using Settings;
+using StellarGenHelpers;
 
 namespace SystemGen
 {
@@ -53,21 +54,41 @@ namespace SystemGen
             // Convert alphanumeric seed to a usable integer
             int usableSeed = seedInput.GetHashCode();
 
+            Logger.Log("System Generation", $"Seed: {seedInput} / {usableSeed}");
+
             // Kick on a generator for quanity of stars.
             int starCount = DetermineStarCount(usableSeed);
             Logger.Log("System Generator", "Stars: " + starCount);
 
             // Temporarily define the stellar systems total age
             float systemAge = await GenerateStellarBodies(usableSeed, starCount);
-
             AssignAges(systemAge);
 
-
-            // Check for ejected bodies(P-type orbits)
+            // This sectionn is the important bit, drives the layered generation processes from stellar orbits to body positions
             if (starCount > 1)
             {
+                // Generate the orbits of the stars
+                await PositionStars(usableSeed, starCount);
+                // Call Planet Generation in the stars
+                await GenerateMajorBodies(usableSeed);
+                // Generate minor bodies with no children of their own
+                await GenerateMinorBodies(usableSeed);
+                // Check for ejected bodies(P-type orbits)
                 await MoveEjectedBodies();
+            } 
+            else
+            {
+                // Call Planet Generation in the stars
+                await GenerateMajorBodies(usableSeed);
+                // Generate minor bodies with no children of their own
+                await GenerateMinorBodies(usableSeed);
             }
+
+            // Set Orbit Lines
+            await AssignColours();
+
+            // Determine Names in the current configuration
+            await AssignNames();
 
             // Save the System Data Arrays
             CreateSystemFile();
@@ -94,13 +115,13 @@ namespace SystemGen
                 {
                     // Generate a new star but only get the properties via StarProperties
                     StarGen newStarGen = new StarGen();
-                    StarProperties newStarProperties = newStarGen.Generate(seed + i);  // Get properties
+                    StarProperties newStarProperties = newStarGen.Generate(seed + i);
 
                     // Add the generated properties to the stellarBodies list
                     stellarBodies.Add(newStarProperties);
 
                     // Roll back all the stars to the youngest
-                    shortestLifespan = Math.Min(shortestLifespan, newStarProperties.Lifespan);
+                    shortestLifespan = Math.Min((float)shortestLifespan, (float)newStarProperties.Lifespan);
 
                     // Every star, yield execution to prevent blocking
                     await Task.Yield();
@@ -108,6 +129,70 @@ namespace SystemGen
                 systemAge = RandomUtils.RandomFloat(0.25f, shortestLifespan, seed);
             }
             return systemAge;
+        }
+
+        /// <summary>
+        /// Sets the orbital parameters of the stars in the system before planet generation.
+        /// </summary>
+        /// <param name="starCount">The number of stars in the system.</param>
+        private async Task PositionStars(int seed, int starCount)
+        {
+            Logger.Log(GetType().Name, "Setting Stellar Positions");
+
+            if (starCount < 2) return; // No need to position stars if there's only one
+
+            // Binary star separation
+            float abDistance = RandomUtils.RandomFloat(1f, 10000f, seed) / 25f;
+
+            if (starCount == 3)
+            {
+                // Reduce binary separation when there is a third, otherwise it's not stable
+                abDistance = Math.Max(abDistance / 50f, 0.05f);
+
+                // Generate P-type separation for the third star
+                float cDistance = (abDistance * RandomUtils.RandomFloat( 25f, 50f, seed));
+                float cEccentricity = RandomUtils.RandomFloat(0f, 0.5f, seed);
+
+                Logger.Log(GetType().Name, $"ABC Trinary Spacing: \nAB:{abDistance}AU\nC:{cDistance}AU");
+
+                // Assign orbit to the third star
+                stellarBodies[2].Orbit = PhysicsUtils.ConstructOrbitProperties(
+                    seed,
+                    cDistance,
+                    cEccentricity,
+                    45f
+                );
+            } 
+            else
+            {
+                Logger.Log(GetType().Name, $"AB Binary Spacing: {abDistance}AU");
+            }
+
+            // Generate eccentricity for the binary stars
+            float abEccentricity = RandomUtils.RandomFloat(0f, (float)(abDistance * 0.0017f), seed);
+            // Assign orbits to the first two stars
+            // Semi-Major Axis is proportional to the mass of each body
+            decimal totalMass = stellarBodies[0].Mass + stellarBodies[1].Mass;
+            float aDistance = abDistance * (float)(stellarBodies[1].Mass / totalMass);
+            float bDistance = abDistance * (float)(stellarBodies[0].Mass / totalMass);
+
+            // Assign orbit to the first star
+            stellarBodies[0].Orbit = new OrbitalProperties(
+                PhysicsUtils.ConvertToMetres(aDistance),
+                abEccentricity,
+                0f,
+                0f,
+                0f
+            );
+
+            // Assign orbit to the second star
+            stellarBodies[1].Orbit = new OrbitalProperties(
+                PhysicsUtils.ConvertToMetres(bDistance),
+                abEccentricity,
+                180f,
+                0f,
+                0f
+            );
         }
 
         /// <summary>
@@ -133,6 +218,7 @@ namespace SystemGen
         /// </summary>
         private async Task AssignNames()
         {
+            Logger.Log(GetType().Name, "Generating Body Names");
             // Sort root stellar bodies, larger stars get the first letters
             stellarBodies.Sort((a, b) => b.Mass.CompareTo(a.Mass));
             char rootSuffix = 'A'; // Start base object names from A
@@ -183,13 +269,15 @@ namespace SystemGen
             }
         }
 
-        private async Task GenerateMajorBodies()
+        private async Task GenerateMajorBodies(int seed)
         {
+            Logger.Log(GetType().Name, "Generating Major Bodies");
             // Generate children (planets)
             //body.GenerateChildren();
         }
-        private async Task GenerateLesserBodies()
+        private async Task GenerateMinorBodies(int seed)
         {
+            Logger.Log(GetType().Name, "Generating Minor Bodies");
             // Generate children without children of their own (moons etc)
             //body.GenerateChildren();
         }
@@ -200,6 +288,7 @@ namespace SystemGen
         /// </summary>
         private async Task MoveEjectedBodies()
         {
+            Logger.Log(GetType().Name, "Resolving Unstable Orbits");
             foreach (BodyProperties b in stellarBodies)
             {
 
@@ -221,6 +310,57 @@ namespace SystemGen
                     //stellarBodies.Add(ejectedPlanet);
                 }
 
+            }
+        }
+
+        /// <summary>
+        /// Assigns star-based orbit lines to all bodies in the system.
+        /// </summary>
+        private async Task AssignColours()
+        {
+            Logger.Log(GetType().Name, "Assigning Orbital Colours");
+
+            // Default color if no stars exist
+            if (!stellarBodies.OfType<StarProperties>().Any())
+            {
+                foreach (var body in stellarBodies)
+                {
+                    body.OrbitLine = new int[] { 255, 255, 255 }; // White
+                }
+                return;
+            }
+
+            // Iterate through the stellarBodies to assign colors
+            foreach (BodyProperties body in stellarBodies)
+            {
+                if (body is StarProperties star)
+                {
+                    body.OrbitLine  = ColourUtils.ColorToArray(PhysicsUtils.DetermineSpectralColor(star.Temperature));
+                    
+                    // Assign color downwards to all children
+                    foreach (BodyProperties child in star.ChildBodies)
+                    {
+                        child.OrbitLine = body.OrbitLine;
+                        foreach (BodyProperties grandchild in star.ChildBodies)
+                        {
+                            grandchild.OrbitLine = body.OrbitLine;
+                        }
+                    }
+                }
+                else
+                {
+                    var parentStars = stellarBodies.OfType<StarProperties>().Take(2).ToList();
+                    if (parentStars.Count == 2)
+                    {
+                        body.OrbitLine = new int[]
+                        {
+                            (parentStars[0].OrbitLine[0] + parentStars[1].OrbitLine[0]) / 2,
+                            (parentStars[0].OrbitLine[1] + parentStars[1].OrbitLine[1]) / 2,
+                            (parentStars[0].OrbitLine[2] + parentStars[1].OrbitLine[2]) / 2
+                        };
+                    }
+                }
+                await Task.Yield();
             }
         }
 

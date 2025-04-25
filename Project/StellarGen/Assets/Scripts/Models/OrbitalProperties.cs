@@ -15,8 +15,8 @@ namespace Models
         // Constructor
         public OrbitalProperties(decimal semiMajorAxis, float eccentricity, float longitudeOfAscending, float inclination, float periArgument)
         {
-            this.SemiMajorAxis = Math.Max(semiMajorAxis, 1m);
-            this.Eccentricity = Math.Clamp(eccentricity, 0f, 0.9999f); ;
+            this.SemiMajorAxis = Math.Floor(Math.Max(semiMajorAxis, 1m));
+            this.Eccentricity = Math.Clamp(eccentricity, 0f, 0.9999f);
             this.LongitudeOfAscending = longitudeOfAscending;
             this.Inclination = inclination;
             this.PeriArgument = periArgument;
@@ -36,7 +36,7 @@ namespace Models
         public decimal SemiMajorAxis
         {
             get => semiMajorAxis;
-            set => semiMajorAxis = Math.Max(value, 1m);
+            set => semiMajorAxis = Math.Floor(Math.Max(value, 1m));
         }
 
         public float Eccentricity

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using RandomUtils = StellarGenHelpers.RandomUtils;
 using PhysicsUtils = StellarGenHelpers.PhysicsUtils;
-using ColorUtils = StellarGenHelpers.ColorUtils;
+using ColourUtils = StellarGenHelpers.ColourUtils;
 using CONST = StellarGenHelpers.PhysicalConstants;
 using UnityEngine;
 using System.Linq;
@@ -26,34 +26,10 @@ namespace SystemGen
 
         }
 
-        /// <summary>
-        /// Generates an orbital color for a body, either randomly or based on its temperature.
-        /// </summary>
-        /// <param name="seedValue">The seed used for generating a random color if no temperature is provided.</param>
-        /// <param name="temperature">
-        /// (Optional) The temperature of the body in Kelvin. If provided, the color is determined 
-        /// based on the spectral characteristics of the given temperature.
-        /// </param>
-        /// <returns>An integer array representing the RGB values of the generated color.</returns>
-        public static int[] GenerateOrbitalColour(int seedValue, float? temperature = null)
-        {
-            int[] orbitLine;
+    
+        
 
-            if (temperature.HasValue)
-            {
-                Color spectralColor = PhysicsUtils.DetermineSpectralColor((int)temperature.Value);
-                orbitLine = ColorUtils.ColorToArray(spectralColor);
-            }
-            else
-            {
-                orbitLine = ColorUtils.ColorToArray(RandomUtils.RandomColor(seedValue));
-            }
-
-            Logger.Log("System Generation", $"Orbit Colour: {string.Join(", ", orbitLine)}");
-            return orbitLine;
-        }
-
-       /* /// <summary>
+        /*/// <summary>
         /// Adds a new child body to the list of child bodies.
         /// </summary>
         /// <param name="newChild">The new body to be added to the child list</param>

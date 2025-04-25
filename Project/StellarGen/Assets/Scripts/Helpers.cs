@@ -153,7 +153,7 @@ namespace StellarGenHelpers
     }
 
     // Folks get confused if theres a U
-    public static class ColorUtils
+    public static class ColourUtils
     {
         /// <summary>
         /// Converts user RGB values to a unity colour
@@ -249,11 +249,11 @@ namespace StellarGenHelpers
         /// <returns>A System.Drawing.Color sampled from the gradient based on the given temperature.</returns>
         public static Color DetermineSpectralColor(int temperature)
         {
+            Logger.Log("Helpers", $"Determining spectral color for {temperature}K");
             // Load the PNG file as a byte array
             byte[] fileData = File.ReadAllBytes("Assets/Materials/gradient.png");
 
-
-            Texture2D texture = new Texture2D(2, 2);
+            Texture2D texture = new Texture2D(1000, 1);
             if (!texture.LoadImage(fileData))
             {
                 Logger.LogError("PhysicsUtils", "Failed to load PNG file.");
@@ -278,7 +278,6 @@ namespace StellarGenHelpers
 
             // Return the corresponding color
             return colors[pixelIndex];
-
         }
 
         /// <summary>
@@ -331,6 +330,70 @@ namespace StellarGenHelpers
         public static decimal CalculateHillSphere(BodyProperties A, BodyProperties B, decimal distance)
         {
             return distance * (decimal)(B.Mass / (3 * A.Mass));
+        }
+
+        /// <summary>
+        /// Converts an SMA value in AU to a metre value
+        /// </summary>
+        public static decimal ConvertToMetres(float SMAInput)
+        {
+            try
+            {
+                return (decimal)(SMAInput) * PhysicalConstants.AU_TO_METERS;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Helpers", $"ConvertToMetres: An error occurred during conversion. {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Converts an SMA value in metres to AU
+        /// </summary>
+        public static float ConvertToAU(decimal SMAInput)
+        {
+            try
+            {
+                return (float)(SMAInput / PhysicalConstants.AU_TO_METERS);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Helpers", $"ConvertToAU: An error occurred during conversion. {ex.Message}");
+                throw;
+            }
+        }
+        
+        /// <summary>
+        /// Converts a sol mass to standard values
+        /// </summary>
+        public static decimal MassToRaw(float SolMass)
+        {
+            try
+            {
+                return (decimal)(SolMass * PhysicalConstants.SOLAR_MASS);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Helpers", $"MassToRaw: An error occurred during conversion. {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Converts standard mass values to sol mass
+        /// </summary>
+        public static float RawToMass(decimal RawMass)
+        {
+            try
+            {
+                return (float)((double)RawMass / PhysicalConstants.SOLAR_MASS);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Helpers", $"RawToMass: An error occurred during conversion. {ex.Message}");
+                throw;
+            }
         }
 
         /// <summary>

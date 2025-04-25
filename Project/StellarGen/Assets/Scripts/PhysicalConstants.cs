@@ -2,11 +2,12 @@
 
 namespace StellarGenHelpers
 {
-    public static class PhysicalConstants
+    public static class PhysicalConstants 
     {
         public const double GRAV = 6.6720e-08; // Gravitational Constant (dyne-cm^2/g^2)
         public const double GRAV_ACC = 980.67; // Earth's Gravitational Acceleration (cm/sec^2)
-        public const double SOLAR_MASS = 1.99e33; // Solar Mass (g)
+        public const int SOLAR_TEMPERATURE = 5780; // Kelvin
+        public const double SOLAR_MASS = 1.989e24; // Solar Mass (Metric Kiloton)
         public const double SOLAR_RADIUS = 6.96e10; // Solar Radius (cm)
         public const double SOLAR_LUM = 3.90e33; // Solar Luminosity (erg/sec)
         public const double SOLAR_FLUX = 6.41e10; // Solar Flux (erg/cm^2-sec)

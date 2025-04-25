@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Random = System.Random;
 using RandomUtils = StellarGenHelpers.RandomUtils;
 using PhysicsUtils = StellarGenHelpers.PhysicsUtils;
-using ColorUtils = StellarGenHelpers.ColorUtils;
+using ColourUtils = StellarGenHelpers.ColourUtils;
 using JsonUtils = StellarGenHelpers.JsonUtils;
 using UnityEngine;
 using Unity.VisualScripting;
@@ -12,40 +12,37 @@ using System.Collections;
 using Newtonsoft.Json;
 using Models;
 using System.Xml.Linq;
+using StellarGenHelpers;
 
 namespace SystemGen
 {
     public class StarGen : BodyGen
     {
+        // Default to most common
+        private PlanetOrder planetOrder = PlanetOrder.SIMILAR; 
+        private StarProperties starProperties;
+
         public StarProperties Generate(int seedValue)
         {
-            seedValue = RandomUtils.TweakSeed(seedValue);
+            if (seedValue == 0)
+            {
+                // If no seed is provided then pick one at random
+                seedValue = RandomUtils.RandomInt(0, int.MaxValue);
+            }
+            else
+            {
+                // If it is provided then adjust its value to avoid intersections
+                seedValue = RandomUtils.TweakSeed(seedValue);
+            }
 
             // Generate Stellar mass using the method
             float stellarMass = GenerateStellarMass(seedValue);
-            decimal mass = (decimal)stellarMass * 332946;
-            // Diameter at formation
-            float diameter = Mathf.Pow(stellarMass, 0.7f);
-            // General luminosity from size and mass based temperature
-            float luminosity = Mathf.Pow(diameter, 2) * Mathf.Pow((Mathf.Pow(stellarMass, 0.5f)), 4);
-            // Estimate main sequence lifespan from diameter divided by luminosity
-            float lifespan = (diameter / luminosity) * 10;
 
-            return new StarProperties(
-                seedValue: seedValue,
-                mass: mass,
-                diameter: diameter,
-                luminosity: luminosity,
-                lifespan: lifespan
-            );
-        }
+            StarProperties newStar = new StarProperties(seedValue);
+            // Determine the properties of the star at the current time from its mass
+            newStar.GenerateStarProperties(stellarMass);
 
-        // Stellar Generation segments after comparing lifespans
-        public BodyProperties LateGenerate(int seedValue, StarProperties star)
-        {
-
-            // Send the star back up to systemgen
-            return star;
+            return newStar;
         }
 
         /// <summary>
@@ -142,6 +139,25 @@ namespace SystemGen
 
             }
 
+        }
+
+        private int GetPlanetCount(int seedValue)
+        {
+            // Generate number of planets
+            int planetCount = 1;
+            return planetCount;
+        }
+
+
+        /// <summary>
+        /// Enum to store the arrangement of the given star's planets
+        /// </summary>
+        private enum PlanetOrder
+        {
+            ORDERED,
+            ANTI_ORDERED,
+            MIXED,
+            SIMILAR
         }
     }
 }
