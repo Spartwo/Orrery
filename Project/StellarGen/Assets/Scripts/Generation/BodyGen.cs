@@ -33,44 +33,6 @@ namespace SystemGen
             List<BodyProperties> minorBodies = new List<BodyProperties>();
             return minorBodies;
         }
-
-
-        /*/// <summary>
-        /// Adds a new child body to the list of child bodies.
-        /// </summary>
-        /// <param name="newChild">The new body to be added to the child list</param>
-        public void AddChild(BodyProperties newChild)
-        {
-            // Check if a body with the same seedValue isn't already present
-            if (!childBodies.Any(child => child.SeedValue == newChild.SeedValue))
-            {
-                childBodies.Add(newChild);
-            }
-        }
-
-        /// <summary>
-        /// Removes a child body from the list by its seed value.
-        /// </summary>
-        /// <param name="seedValue">The seed value of the body to be removed</param>
-        /// <returns>The removed body if found, otherwise null</returns>
-        public BodyGen RemoveChild(int seedValue)
-        {
-            // Find the body with the matching seedValue
-            BodyGen bodyToRemove = childBodies.FirstOrDefault(child => child.SeedValue == seedValue);
-
-            if (bodyToRemove != null)
-            {
-                // Remove the found body from the list
-                childBodies.Remove(bodyToRemove);
-                return bodyToRemove;
-            }
-            else
-            {
-                Logger.LogWarning(GetType().Name, $"Child body {seedValue} not found.");
-                return null;
-            }
-        }*/
-
         #endregion
     }
 

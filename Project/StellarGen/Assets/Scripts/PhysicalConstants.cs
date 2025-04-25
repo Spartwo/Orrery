@@ -6,6 +6,8 @@ namespace StellarGenHelpers
     {
         public const double GRAV = 6.6720e-08; // Gravitational Constant (dyne-cm^2/g^2)
         public const double GRAV_ACC = 980.67; // Earth's Gravitational Acceleration (cm/sec^2)
+        public const double JOV_MASS = 1.898e21; // Jupiter Mass (Metric Kiloton)
+        public const double E_MASS = 5.972e18; // Earth Mass (Metric Kiloton)
         public const int SOLAR_TEMPERATURE = 5780; // Kelvin
         public const double SOLAR_MASS = 1.989e24; // Solar Mass (Metric Kiloton)
         public const double SOLAR_RADIUS = 6.96e10; // Solar Radius (cm)

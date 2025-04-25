@@ -1,22 +1,26 @@
-[06:46:05 LOG] Application: Program Initialised
-[06:46:05 LOG] System Generation: Sols Mass: 1.723955
-[06:46:05 LOG] StarProperties: Generating Star Properties
-[06:46:06 LOG] SystemGenerator: System Age: 2.74bY
-[06:46:06 LOG] SystemGenerator: Setting Stellar Positions
-[06:46:06 LOG] SystemGenerator: AB Binary Spacing: 284.7603AU
-[06:46:06 LOG] SystemGenerator: Generating Major Bodies
-[06:46:06 LOG] System Generation: Planet Count: 4
-[06:46:06 LOG] StarProperties: Adding 0 Children
-[06:46:35 LOG] System Generation: Planet Count: 10
-[06:46:35 LOG] StarProperties: Adding 0 Children
-[06:46:35 LOG] SystemGenerator: Generating Minor Bodies
-[06:46:35 LOG] StarProperties: Adding 0 Children
-[06:46:35 LOG] StarProperties: Adding 0 Children
-[06:46:35 LOG] SystemGenerator: Resolving Unstable Orbits
-[06:46:35 LOG] SystemGenerator: Assigning Orbital Colours
-[06:46:35 LOG] Helpers: Determining spectral color for 4399K
-[06:46:35 LOG] SystemGenerator: Setting Colour To 231,255,205
-[06:46:35 LOG] Helpers: Determining spectral color for 7101K
-[06:46:35 LOG] SystemGenerator: Setting Colour To 160,251,255
-[06:46:35 LOG] SystemGenerator: Generating Body Names
-[06:46:35 LOG] SystemGenerator: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Greg.json
+[21:30:45 LOG] Application: Program Initialised
+[21:30:45 LOG] System Generation: Sols Mass: 1.723955
+[21:30:45 LOG] StarProperties: Generating Star Properties
+[21:30:46 LOG] SystemGenerator: System Age: 2.74bY
+[21:30:46 LOG] SystemGenerator: Setting Stellar Positions
+[21:30:46 LOG] SystemGenerator: AB Binary Spacing: 284.7603AU
+[21:30:46 LOG] SystemGenerator: Generating Major Bodies
+[21:30:46 LOG] System Generation: Planet Count: 4
+[21:30:46 LOG] System Generation: Disk Mass Fraction: 0.002862352
+[21:30:46 LOG] System Generation: Star 25799898 order: SIMILAR
+[21:30:46 LOG] System Generation: Generating Planets
+[21:30:46 LOG] System Generation: Planet Count: 10
+[21:30:46 LOG] System Generation: Disk Mass Fraction: 0.003681562
+[21:30:46 LOG] System Generation: Star 61471832 order: ORDERED
+[21:30:46 LOG] System Generation: Generating Planets
+[21:30:46 LOG] SystemGenerator: Generating Minor Bodies
+[21:30:46 LOG] System Generation: Adding 0 Children
+[21:30:46 LOG] System Generation: Adding 0 Children
+[21:30:46 LOG] SystemGenerator: Resolving Unstable Orbits
+[21:30:46 LOG] SystemGenerator: Assigning Orbital Colours
+[21:30:46 LOG] Helpers: Determining spectral color for 4399K
+[21:30:46 LOG] SystemGenerator: Setting Colour To 231,255,205
+[21:30:46 LOG] Helpers: Determining spectral color for 7101K
+[21:30:46 LOG] SystemGenerator: Setting Colour To 160,251,255
+[21:30:46 LOG] SystemGenerator: Generating Body Names
+[21:30:46 LOG] SystemGenerator: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Greg.json

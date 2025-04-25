@@ -13,13 +13,12 @@ using Newtonsoft.Json;
 using Models;
 using System.Xml.Linq;
 using StellarGenHelpers;
+using UnityEngine.UI;
 
 namespace SystemGen
 {
     public class StarGen : BodyGen
     {
-        // Default to most common
-        private PlanetOrder planetOrder = PlanetOrder.SIMILAR; 
         private StarProperties starProperties;
 
         public StarProperties Generate(int seedValue)
@@ -66,9 +65,11 @@ namespace SystemGen
         }
 
         /// <summary>
-        /// Method to generate the major child bodies(planets) of a star
+        /// Generates the primary child bodies (planets) of a star system by computing orbital positions,
+        /// disk characteristics, and planet formation order, then creating the corresponding planetary bodies.
         /// </summary>
-        /// <param name="children">The elements being passed downwards from the inherited classes</param>
+        /// <param name="star">The <see cref="StarProperties"/> object from which planetary parameters are derived.</param>
+        /// <returns>A list of generated <see cref="BodyProperties"/> representing the planets of the star.</returns>
         public List<BodyProperties> GenerateChildren(StarProperties star)
         {
             base.GenerateChildren((BodyProperties)star);
@@ -89,15 +90,31 @@ namespace SystemGen
             List<float> orbitalPositions = CalculateOrbitalPositions(SOIEdge, innerOrbit, planetarySpacing);
             List<int> usedPositions = new List<int>();
 
-            DetermineArrangement(star);
+            // Declare variables for the out parameters
+            float metalicity;
+            PlanetOrder planetOrder;
+            decimal diskMass;
+
+            // Pass the required out parameters
+            DetermineArrangement(star, out metalicity, out planetOrder, out diskMass);
 
             List<BodyProperties> childBodies = GeneratePlanetsFromPositions(
-                seedValue, planetCount, orbitalPositions, meanEccentricity, maxInclination
+                seedValue, planetCount, orbitalPositions, meanEccentricity, maxInclination, metalicity, planetOrder, diskMass
             );
 
             return childBodies;
-
         }
+
+        /// <summary>
+        /// Initializes the orbital bounds for planet formation by determining the inner and outer edges of the star's
+        /// sphere of influence and calculating the initial orbital spacing.
+        /// </summary>
+        /// <param name="star">The parent star whose parameters affect orbital bounds.</param>
+        /// <param name="seed">Seed value used for consistent procedural generation.</param>
+        /// <param name="SOIEdge">Calculated outer edge of the star’s sphere of influence (heliopause).</param>
+        /// <param name="SOIInner">Calculated inner orbital bound for planet placement.</param>
+        /// <param name="innerOrbit">Randomized starting position for the keystone planet.</param>
+        /// <param name="spacing">Spacing factor used for resonance-based orbital position generation.</param>
         private void InitializeOrbitalBounds(StarProperties star, int seed, out float SOIEdge, out float SOIInner, out float innerOrbit, out float spacing)
         {
             // Estimated distance of the heliopause
@@ -109,6 +126,15 @@ namespace SystemGen
             // Set keystone planet(others resonate to it)
             spacing = RandomUtils.RandomFloat(0.004f * SOIEdge, 0.05f * SOIEdge, seed);
         }
+
+        /// <summary>
+        /// Calculates a list of resonant orbital positions for potential planets, spaced exponentially
+        /// from a keystone orbit until the outer limit of the sphere of influence is reached.
+        /// </summary>
+        /// <param name="SOIEdge">Outer bound of the orbital zone.</param>
+        /// <param name="innerOrbit">The orbit of the keystone planet from which others resonate.</param>
+        /// <param name="spacing">Base spacing value to determine resonance distance.</param>
+        /// <returns>A list of orbital radii (in AU) for planet placement.</returns>
         private List<float> CalculateOrbitalPositions(float SOIEdge, float innerOrbit, float spacing)
         {
             List<float> positions = new List<float>();
@@ -133,27 +159,58 @@ namespace SystemGen
             Debug.Log($"Orbital Positions: {positions.Count+1}");
             return positions;
         }
-        private List<BodyProperties> GeneratePlanetsFromPositions(int seed, int count, List<float> positions, float eccentricity, float inclination)
+
+        /// <summary>
+        /// Instantiates planetary bodies at selected orbital positions using the given parameters,
+        /// including orbital eccentricity, inclination, metallicity, and planetary ordering.
+        /// </summary>
+        /// <param name="seed">Seed value for deterministic randomization.</param>
+        /// <param name="count">The number of planets to generate.</param>
+        /// <param name="positions">List of valid orbital positions for placement.</param>
+        /// <param name="eccentricity">Mean eccentricity of planetary orbits.</param>
+        /// <param name="inclination">Maximum inclination variance allowed.</param>
+        /// <param name="metalicity">Stellar metallicity used in planetary type selection.</param>
+        /// <param name="planetOrder">The overall orbital pattern (e.g. similar, mixed).</param>
+        /// <param name="diskMass">Estimated protoplanetary disk mass used in formation logic.</param>
+        /// <returns>A list of instantiated planetary <see cref="BodyProperties"/>.</returns>
+        private List<BodyProperties> GeneratePlanetsFromPositions(int seed, int count, List<float> positions, float eccentricity, float inclination, float metalicity, PlanetOrder planetOrder, decimal diskMass)
         {
+            int minCount = Math.Min(count, positions.Count);
+            Logger.Log("System Generation", $"Generating Planets");
+
             var planets = new List<BodyProperties>();
             var used = new HashSet<int>();
 
-            for (int p = 0; p < count; p++)
+            // Deviation is the largest allowed / smallest allowed
+            // 
+            float deviation;
+            // Determine mass range deviation
+            switch (planetOrder)
             {
-                break;
+                case PlanetOrder.ORDERED:
+                    deviation = RandomUtils.RandomFloat(0.1f, 0.5f, seed);
+                    break;
+            }
+
+
+            // Generate the required number of planets or maximum available
+            for (int p = 0; p < minCount; p++)
+            {
                 int index;
                 do
                 {
                     index = RandomUtils.RandomInt(0, positions.Count, seed + p);
-                    Debug.Log(positions.Count);
                 }
                 while (used.Contains(index));
 
+                Debug.Log("got here fine");
+
                 used.Add(index);
+                break;
                 float position = positions[index];
                 positions.RemoveAt(index); // Optional: can skip if not reusing
 
-                var newPlanet = new PlanetGen().Generate(seed + p);
+                BodyProperties newPlanet = new PlanetGen().Generate(seed + p);
                 PhysicsUtils.ConstructOrbitProperties(seed, position, eccentricity, inclination);
 
                 planets.Add(newPlanet);
@@ -162,16 +219,91 @@ namespace SystemGen
             return planets;
         }
 
+        /// <summary>
+        /// Calculates the number of planets for a given star based on stellar mass and a seeded random factor.
+        /// </summary>
+        /// <param name="star">The parent star for which to generate the planet count.</param>
+        /// <param name="seed">Seed value for consistent generation.</param>
+        /// <returns>An integer representing the number of planets to be created.</returns>
         private int GeneratePlanetCount(StarProperties star, int seed)
         {
             int planetCount = (int)Mathf.Max(Mathf.Pow(star.StellarMass, 0.3f) * RandomUtils.RandomInt(1, 10, seed), 1);
             Logger.Log("System Generation", "Planet Count: " + planetCount);
             return planetCount;
         }
+        
 
-        private PlanetOrder DetermineArrangement(StarProperties star)
+        /// <summary>
+        /// Determines the stellar metallicity, protoplanetary disk mass, and overall planetary ordering scheme
+        /// based on the star’s age, mass, and randomly derived variables.
+        /// </summary>
+        /// <param name="star">The star whose attributes influence system arrangement.</param>
+        /// <param name="metalicity">Outputs the calculated metallicity value [Fe/H] of the star.</param>
+        /// <param name="planetOrder">Outputs the type of orbital order (e.g., similar, ordered).</param>
+        /// <param name="diskMass">Outputs the calculated mass of the protoplanetary disk.</param>
+        private void DetermineArrangement(StarProperties star, out float metalicity, out PlanetOrder planetOrder, out decimal diskMass)
         {
-            return PlanetOrder.SIMILAR;
+            int seed = star.SeedValue;
+
+            // Calculate metalicity ratio based on the star's age Fe/H
+            // Metalicity increases as the star is more recently formed but does depend on proximity to the galactic core
+            float metalDeviation = RandomUtils.RandomFloat(-0.2f, 0.2f, seed);
+            float metalAge;
+            if ((float)star.Age >= 8f)
+            {
+                metalAge = -0.3f;
+            }
+            else
+            {
+                metalAge = -(((float)star.Age * 0.04f) - 0.15f);
+            }
+            metalicity = metalAge + metalDeviation;
+
+            // Estimate the disk mass compared to the star's mass
+            // High mass makes a dominant jupiter-like more likely
+            float diskMassPercentile = (RandomUtils.RandomFloat((1500 * star.StellarMass), 4000 * star.StellarMass, seed) / 1000000) / star.StellarMass;
+            diskMass = (decimal)diskMassPercentile * star.Mass;
+            Logger.Log("System Generation", $"Disk Mass Fraction: {diskMassPercentile}");
+
+            // Preset percentages for the planet order
+            float draw = RandomUtils.RandomFloat(0f, 1f, seed);
+
+            // Default order is similar
+            PlanetOrder ordering = PlanetOrder.SIMILAR;
+            if (metalicity >= 0f && diskMassPercentile > 0.003f)
+            {
+                // High Metalicity, High Mass
+                // 2/10 mixed; 1/10 ordered; 7/10 anti-ordered
+
+                if (draw < 1f / 3f)
+                    planetOrder = PlanetOrder.MIXED;
+                else if (draw < 2f / 3f)
+                    planetOrder = PlanetOrder.ANTI_ORDERED;
+                else
+                    planetOrder = PlanetOrder.ORDERED;
+            }
+            else if (metalicity < 0f && diskMassPercentile <= 0.003f)
+            {
+                // Low Metalicity, High Mass
+                // 1/10 mixed; 1/20 ordered or anti-ordered
+
+                if (draw < 0.10f)
+                    planetOrder = PlanetOrder.MIXED;
+                else if (draw < 0.15f)
+                    planetOrder = PlanetOrder.ANTI_ORDERED;
+                else if (draw < 0.20f)
+                    planetOrder = PlanetOrder.ORDERED;
+                else
+                    planetOrder = PlanetOrder.SIMILAR;
+            }
+            else
+            {
+                // Low Metalicity, Low Mass
+                // e.g. metal ≥ 0 but disk ≤ 0.3% → fallback to ‘Similar’
+                planetOrder = PlanetOrder.SIMILAR;
+            }
+
+            Logger.Log("System Generation", $"Star {star.SeedValue} order: {planetOrder}");
         }
 
 

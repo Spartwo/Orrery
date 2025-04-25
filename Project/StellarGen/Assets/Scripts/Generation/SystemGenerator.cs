@@ -269,6 +269,12 @@ namespace SystemGen
             }
         }
 
+        /// <summary>
+        /// Asynchronously generates the major celestial bodies (e.g., planets) for each star in the system by 
+        /// delegating to a <see cref="StarGen"/> instance and invoking its planet generation logic.
+        /// </summary>
+        /// <param name="seed">Seed value used to ensure deterministic generation across runs.</param>
+        /// <returns>A task representing the asynchronous generation operation.</returns>
         private async Task GenerateMajorBodies(int seed)
         {
             Logger.Log(GetType().Name, "Generating Major Bodies");
@@ -277,11 +283,18 @@ namespace SystemGen
             {
                 // Create a new Generator to build the children
                 StarGen starGen = new StarGen();
-                stellarBodies[i].ChildBodies = starGen.GenerateChildren((StarProperties)stellarBodies[i]);
+                starGen.GenerateChildren((StarProperties)stellarBodies[i]);
 
                 await Task.Yield();
             }
         }
+        
+        /// <summary>
+        /// Asynchronously generates the minor celestial bodies (e.g., moons, dwarf planets) for each stellar or planetary body
+        /// by recursively invoking appropriate generators for each hierarchical level.
+        /// </summary>
+        /// <param name="seed">Seed value used to ensure deterministic generation across runs.</param>
+        /// <returns>A task representing the asynchronous generation operation.</returns>
         private async Task GenerateMinorBodies(int seed)
         {
             Logger.Log(GetType().Name, "Generating Minor Bodies");

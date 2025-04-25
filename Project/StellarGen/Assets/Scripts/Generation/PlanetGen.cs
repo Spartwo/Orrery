@@ -22,6 +22,8 @@ namespace SystemGen
                 seedValue = RandomUtils.TweakSeed(seedValue);
             }
 
+            Logger.Log("System Generation", $"Planet Seed: {seedValue}");
+
             return new PlanetProperties();
         }
 
@@ -76,33 +78,5 @@ namespace SystemGen
         }
     }
 
-    // Sidereal properties specific to celestial bodies
-    [Serializable]
-    public class SiderealProperties
-    {
-        private double siderealDayLength; // Sidereal Day Length (in hours)
-        private float axialTilt; // Sidereal Longitude (degrees)
-
-        // Constructor
-        public SiderealProperties(double SiderealDayLength, float AxialTilt)
-        {
-            this.SiderealDayLength = Math.Max(siderealDayLength, 0.001);  // Sidereal day cannot be zero or negative
-            this.axialTilt = axialTilt;
-        }
-
-        #region Getter and Setters
-        public double SiderealDayLength
-        {
-            get => siderealDayLength;
-            set => siderealDayLength = Math.Max(value, 0.001);  // Ensures sidereal day is not too small
-        }
-
-        public float AxialTilt
-        {
-            get => axialTilt;
-            set => axialTilt = value;
-        }
-
-        #endregion
-    }
+    
 }
