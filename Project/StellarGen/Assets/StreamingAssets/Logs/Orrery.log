@@ -1,24 +1,42 @@
-[00:52:28 LOG] Application: Program Initialised
-[00:52:28 LOG] System Generation: Sols Mass: 1.723955
-[00:52:28 LOG] StarProperties: Generating Star Properties
-[00:52:29 LOG] SystemGenerator: System Age: 2.74bY
-[00:52:29 LOG] SystemGenerator: Setting Stellar Positions
-[00:52:29 LOG] SystemGenerator: AB Binary Spacing: 284.7603AU
-[00:52:29 LOG] SystemGenerator: Generating Major Bodies
-[00:52:29 LOG] System Generation: Planet Count: 4
-[00:52:29 LOG] System Generation: Disk Mass Fraction: 0.002862352
-[00:52:29 LOG] System Generation: Star 25799898 order: SIMILAR
-[00:52:29 LOG] System Generation: Generating Planets
-[00:52:29 LOG] System Generation: Planet Count: 10
-[00:52:29 LOG] System Generation: Disk Mass Fraction: 0.003681562
-[00:52:29 LOG] System Generation: Star 61471832 order: ORDERED
-[00:52:29 LOG] System Generation: Generating Planets
-[00:52:29 LOG] SystemGenerator: Generating Minor Bodies
-[00:52:29 LOG] SystemGenerator: Resolving Unstable Orbits
-[00:52:29 LOG] SystemGenerator: Assigning Orbital Colours
-[00:52:29 LOG] Helpers: Determining spectral color for 4399K
-[00:52:29 LOG] SystemGenerator: Setting Colour To 231,255,205
-[00:52:29 LOG] Helpers: Determining spectral color for 7101K
-[00:52:29 LOG] SystemGenerator: Setting Colour To 160,251,255
-[00:52:29 LOG] SystemGenerator: Generating Body Names
-[00:52:29 LOG] SystemGenerator: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Greg.json
+[18:18:19 LOG] Application: Program Initialised
+[18:18:19 LOG] System Generation: Sols Mass: 1.723955
+[18:18:19 LOG] StarProperties: Generating Star Properties
+[18:18:19 LOG] SystemGenerator: System Age: 2.74bY
+[18:18:19 LOG] SystemGenerator: Setting Stellar Positions
+[18:18:19 LOG] SystemGenerator: AB Binary Spacing: 284.7603AU
+[18:18:19 LOG] SystemGenerator: Generating Major Bodies
+[18:18:19 LOG] System Generation: Planet Count: 4
+[18:18:19 LOG] System Generation: Disk Mass Fraction: 0.002862352
+[18:18:19 LOG] System Generation: Star 25799898 order: SIMILAR
+[18:18:19 LOG] System Generation: Generating Planets
+[18:18:19 LOG] System Generation: Produced orbit Models.OrbitalProperties
+[18:18:19 LOG] System Generation: Planet Seed: 4369555
+[18:18:19 LOG] System Generation: Produced orbit Models.OrbitalProperties
+[18:18:19 LOG] System Generation: Planet Seed: 16061740
+[18:18:19 LOG] System Generation: Produced orbit Models.OrbitalProperties
+[18:18:19 LOG] System Generation: Planet Seed: 4089949
+[18:18:19 LOG] System Generation: Produced orbit Models.OrbitalProperties
+[18:18:19 LOG] System Generation: Planet Seed: 12836083
+[18:18:19 LOG] System Generation: Planet Count: 10
+[18:18:19 LOG] System Generation: Disk Mass Fraction: 0.003681562
+[18:18:19 LOG] System Generation: Star 61471832 order: ORDERED
+[18:18:19 LOG] System Generation: Generating Planets
+[18:18:19 LOG] System Generation: Produced orbit Models.OrbitalProperties
+[18:18:19 LOG] System Generation: Planet Seed: 6943127
+[18:18:19 LOG] System Generation: Produced orbit Models.OrbitalProperties
+[18:18:19 LOG] System Generation: Planet Seed: 13494125
+[18:18:19 LOG] System Generation: Produced orbit Models.OrbitalProperties
+[18:18:19 LOG] System Generation: Planet Seed: 6640378
+[18:18:19 LOG] System Generation: Produced orbit Models.OrbitalProperties
+[18:18:19 LOG] System Generation: Planet Seed: 12395746
+[18:18:19 LOG] System Generation: Produced orbit Models.OrbitalProperties
+[18:18:19 LOG] System Generation: Planet Seed: 6362928
+[18:18:19 LOG] SystemGenerator: Generating Minor Bodies
+[18:18:20 LOG] SystemGenerator: Resolving Unstable Orbits
+[18:18:20 LOG] SystemGenerator: Assigning Orbital Colours
+[18:18:20 LOG] Helpers: Determining spectral color for 4399K
+[18:18:20 LOG] SystemGenerator: Setting Colour To 231,255,205
+[18:18:20 LOG] Helpers: Determining spectral color for 7101K
+[18:18:20 LOG] SystemGenerator: Setting Colour To 160,251,255
+[18:18:20 LOG] SystemGenerator: Generating Body Names
+[18:18:20 LOG] SystemGenerator: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Greg.json

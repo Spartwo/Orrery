@@ -18,11 +18,9 @@ using static StarDataPrototype;
 
 namespace SystemGen
 {
-    public class StarGen : BodyGen
+    public static class StarGen
     {
-        private StarProperties starProperties;
-
-        public StarProperties Generate(int seedValue)
+        public static StarProperties Generate(int seedValue)
         {
             if (seedValue == 0)
             {
@@ -71,11 +69,8 @@ namespace SystemGen
         /// </summary>
         /// <param name="star">The <see cref="StarProperties"/> object from which planetary parameters are derived.</param>
         /// <returns>A list of generated <see cref="BodyProperties"/> representing the planets of the star.</returns>
-        public List<BodyProperties> GenerateChildren(StarProperties star)
+        public static List<BodyProperties> GenerateChildren(StarProperties star)
         {
-            base.GenerateChildren((BodyProperties)star);
-
-
             int seedValue = star.SeedValue;
             // Generate number of planets
             int planetCount = GeneratePlanetCount(star, seedValue);
@@ -100,16 +95,14 @@ namespace SystemGen
             DetermineArrangement(star, out metalicity, out planetOrder, out diskMass);
 
             List<BodyProperties> childBodies = GeneratePlanetsFromPositions(
-                seedValue, planetCount, orbitalPositions, meanEccentricity, maxInclination, metalicity, planetOrder, diskMass
+                star, seedValue, planetCount, orbitalPositions, meanEccentricity, maxInclination, metalicity, planetOrder, diskMass
             );
 
             return childBodies;
         }
 
-        public List<BodyProperties> GenerateMinorChildren(StarProperties body)
+        public static List<BodyProperties> GenerateMinorChildren(StarProperties star)
         {
-            base.GenerateMinorChildren((BodyProperties)body);
-
             // Generate a list of minor bodies (e.g., asteroids, comets) based on the parent body
             List<BodyProperties> minorBodies = new List<BodyProperties>();
             return minorBodies;
@@ -125,7 +118,7 @@ namespace SystemGen
         /// <param name="SOIInner">Calculated inner orbital bound for planet placement.</param>
         /// <param name="innerOrbit">Randomized starting position for the keystone planet.</param>
         /// <param name="spacing">Spacing factor used for resonance-based orbital position generation.</param>
-        private void InitializeOrbitalBounds(StarProperties star, int seed, out float SOIEdge, out float SOIInner, out float innerOrbit, out float spacing)
+        private static void InitializeOrbitalBounds(StarProperties star, int seed, out float SOIEdge, out float SOIInner, out float innerOrbit, out float spacing)
         {
             // Estimated distance of the heliopause
             SOIEdge = Mathf.Sqrt(star.Luminosity) * 75;
@@ -145,7 +138,7 @@ namespace SystemGen
         /// <param name="innerOrbit">The orbit of the keystone planet from which others resonate.</param>
         /// <param name="spacing">Base spacing value to determine resonance distance.</param>
         /// <returns>A list of orbital radii (in AU) for planet placement.</returns>
-        private List<float> CalculateOrbitalPositions(float SOIEdge, float innerOrbit, float spacing)
+        private static List<float> CalculateOrbitalPositions(float SOIEdge, float innerOrbit, float spacing)
         {
             List<float> positions = new List<float>();
             int i = 0;
@@ -183,7 +176,7 @@ namespace SystemGen
         /// <param name="planetOrder">The overall orbital pattern (e.g. similar, mixed).</param>
         /// <param name="diskMass">Estimated protoplanetary disk mass used in formation logic.</param>
         /// <returns>A list of instantiated planetary <see cref="BodyProperties"/>.</returns>
-        private List<BodyProperties> GeneratePlanetsFromPositions(int seed, int count, List<float> positions, float eccentricity, float inclination, float metalicity, PlanetOrder planetOrder, decimal diskMass)
+        private static List<BodyProperties> GeneratePlanetsFromPositions(StarProperties star, int seed, int count, List<float> positions, float eccentricity, float inclination, float metalicity, PlanetOrder planetOrder, decimal diskMass)
         {
             int minCount = Math.Min(count, positions.Count);
             Logger.Log("System Generation", $"Generating Planets");
@@ -209,14 +202,11 @@ namespace SystemGen
                 float position = positions[index];
                 positions.RemoveAt(index);
 
-                // Instantiate a planet generator
-                PlanetGen planetGen = new PlanetGen();
-
                 // Generate the planet's properties
                 // Orbital parameters
                 PhysicsUtils.ConstructOrbitProperties(planetSeed, position, eccentricity, inclination);
                 // Estimate surface composition
-                BodyProperties newPlanet = new PlanetGen().Generate(planetSeed, starProperties);
+                BodyProperties newPlanet = PlanetGen.Generate(planetSeed, star);
 
                 planets.Add(newPlanet);
             }
@@ -232,7 +222,7 @@ namespace SystemGen
         /// <param name="star">The parent star for which to generate the planet count.</param>
         /// <param name="seed">Seed value for consistent generation.</param>
         /// <returns>An integer representing the number of planets to be created.</returns>
-        private int GeneratePlanetCount(StarProperties star, int seed)
+        private static int GeneratePlanetCount(StarProperties star, int seed)
         {
             int planetCount = (int)Mathf.Max(Mathf.Pow(star.StellarMass, 0.3f) * RandomUtils.RandomInt(1, 10, seed), 1);
             Logger.Log("System Generation", "Planet Count: " + planetCount);
@@ -248,7 +238,7 @@ namespace SystemGen
         /// <param name="metalicity">Outputs the calculated metallicity value [Fe/H] of the star.</param>
         /// <param name="planetOrder">Outputs the type of orbital order (e.g., similar, ordered).</param>
         /// <param name="diskMass">Outputs the calculated mass of the protoplanetary disk.</param>
-        private void DetermineArrangement(StarProperties star, out float metalicity, out PlanetOrder planetOrder, out decimal diskMass)
+        private static void DetermineArrangement(StarProperties star, out float metalicity, out PlanetOrder planetOrder, out decimal diskMass)
         {
             int seed = star.SeedValue;
 

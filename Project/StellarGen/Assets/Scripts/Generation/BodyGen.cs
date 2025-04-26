@@ -12,7 +12,7 @@ using Models;
 
 namespace SystemGen
 {
-    public class BodyGen
+    public static class BodyGen
     {
 
         #region Childcare
@@ -21,13 +21,13 @@ namespace SystemGen
         /// Base method to generate planets, moons, etc
         /// </summary>
         /// <param name="children">The elements being passed downwards from the inherited classes</param>
-        public virtual List<BodyProperties> GenerateChildren(BodyProperties body)
+        public static List<BodyProperties> GenerateChildren(BodyProperties body)
         {
             List<BodyProperties> childBodies = new List<BodyProperties>();
             return childBodies;
         }
 
-        public virtual List<BodyProperties> GenerateMinorChildren(BodyProperties body)
+        public static List<BodyProperties> GenerateMinorChildren(BodyProperties body)
         {
             // Generate a list of minor bodies (e.g., asteroids, comets) based on the parent body
             List<BodyProperties> minorBodies = new List<BodyProperties>();

@@ -102,10 +102,7 @@ namespace SystemGen
             if (starCount == 0)
             {
                 // Generate a new planet
-                PlanetGen newRogueGen = new PlanetGen();
-
-                // Add the generated properties to the stellarBodies list
-                stellarBodies.Add(newRogueGen.Generate(seed));
+                stellarBodies.Add(PlanetGen.Generate(seed, null));
                 systemAge = RandomUtils.RandomFloat(0.25f, 10.5f, seed);
             }
             else
@@ -114,8 +111,7 @@ namespace SystemGen
                 for (int i = 0; i < starCount; i++)
                 {
                     // Generate a new star but only get the properties via StarProperties
-                    StarGen newStarGen = new StarGen();
-                    StarProperties newStarProperties = newStarGen.Generate(seed + i);
+                    StarProperties newStarProperties = StarGen.Generate(seed + i);
 
                     // Add the generated properties to the stellarBodies list
                     stellarBodies.Add(newStarProperties);
@@ -282,8 +278,7 @@ namespace SystemGen
             for (int i = 0; i < stellarBodies.Count; i++)
             {
                 // Create a new Generator to build the children
-                StarGen starGen = new StarGen();
-                starGen.GenerateChildren((StarProperties)stellarBodies[i]);
+                StarGen.GenerateChildren((StarProperties)stellarBodies[i]);
 
                 await Task.Yield();
             }
@@ -305,19 +300,16 @@ namespace SystemGen
                 if (stellarBodies[i] is StarProperties star)
                 {
                     // Create a new Generator to build the children
-                    StarGen starGen = new StarGen();
-                    stellarBodies[i].ChildBodies = starGen.GenerateMinorChildren((StarProperties)stellarBodies[i]);
+                    stellarBodies[i].ChildBodies = StarGen.GenerateMinorChildren((StarProperties)stellarBodies[i]);
 
                     for (int j = 0; j < stellarBodies[i].ChildBodies.Count; i++)
                     {
-                        PlanetGen planetGen = new PlanetGen();
-                        stellarBodies[i].ChildBodies[j].ChildBodies = planetGen.GenerateMinorChildren((BodyProperties)stellarBodies[i].ChildBodies[j]);
+                        stellarBodies[i].ChildBodies[j].ChildBodies = PlanetGen.GenerateMinorChildren((PlanetProperties)stellarBodies[i].ChildBodies[j]);
                     }
                 }
                 else
                 {
-                    PlanetGen planetGen = new PlanetGen();
-                    stellarBodies[i].ChildBodies = planetGen.GenerateMinorChildren((StarProperties)stellarBodies[i]);
+                    stellarBodies[i].ChildBodies = PlanetGen.GenerateMinorChildren((PlanetProperties)stellarBodies[i]);
 
                 }
                 await Task.Yield();

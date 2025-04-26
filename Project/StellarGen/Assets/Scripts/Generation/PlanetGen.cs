@@ -7,9 +7,9 @@ using StellarGenHelpers;
 
 namespace SystemGen
 {
-    public class PlanetGen : BodyGen
+    public static class PlanetGen
     {
-        public PlanetProperties Generate(int seedValue, StarProperties parent)
+        public static PlanetProperties Generate(int seedValue, StarProperties parent)
         {
             if (seedValue == 0)
             {
@@ -24,6 +24,12 @@ namespace SystemGen
 
             Logger.Log("System Generation", $"Planet Seed: {seedValue}");
 
+            if (parent != null)
+            {
+                //GenerateRogue();
+            }
+
+
             return new PlanetProperties();
         }
 
@@ -31,10 +37,8 @@ namespace SystemGen
         /// Base method to generate planets, moons, etc
         /// </summary>
         /// <param name="children">The elements being passed downwards from the inherited classes</param>
-        public List<BodyProperties> GenerateChildren(StarProperties planet)
+        public static List<BodyProperties> GenerateMinorChildren(PlanetProperties planet)
         {
-            base.GenerateChildren((BodyProperties)planet);
-
             List<BodyProperties> childBodies = new List<BodyProperties>();
             return childBodies;
         }
@@ -46,7 +50,7 @@ namespace SystemGen
         /// </summary>
         /// <param name="seedValue">The numerical seed for this </param>
         /// <returns>A stellar mass in sols</returns>
-        private void GeneratePlanetaryComposition()
+        private static void GeneratePlanetaryComposition()
         {
             /* // Instantiate random number generator 
              Random rand = new Random(seedValue);
@@ -80,7 +84,7 @@ namespace SystemGen
         /// <summary>
         /// Calculates the atmosphere of a planet based on its properties and the star's characteristics.
         /// </summary>
-        private void CalculateAtmosphere()
+        private static void CalculateAtmosphere()
         {
 
         }
