@@ -14,6 +14,7 @@ using Models;
 using System.Xml.Linq;
 using StellarGenHelpers;
 using UnityEngine.UI;
+using static StarDataPrototype;
 
 namespace SystemGen
 {
@@ -105,6 +106,15 @@ namespace SystemGen
             return childBodies;
         }
 
+        public List<BodyProperties> GenerateMinorChildren(StarProperties body)
+        {
+            base.GenerateMinorChildren((BodyProperties)body);
+
+            // Generate a list of minor bodies (e.g., asteroids, comets) based on the parent body
+            List<BodyProperties> minorBodies = new List<BodyProperties>();
+            return minorBodies;
+        }
+
         /// <summary>
         /// Initializes the orbital bounds for planet formation by determining the inner and outer edges of the star's
         /// sphere of influence and calculating the initial orbital spacing.
@@ -179,38 +189,34 @@ namespace SystemGen
             Logger.Log("System Generation", $"Generating Planets");
 
             var planets = new List<BodyProperties>();
-            var used = new HashSet<int>();
 
             // Calculate the rocky materials available for planet formation
             decimal rockyMass = 0.1m;
 
 
-            // Deviation is the largest allowed / smallest allowed
-            // 
-            float deviation;
-            // Determine mass range deviation
-            if (planetOrder != PlanetOrder.SIMILAR) 
+            // Deviation is the largest core allowed / smallest allowed
+            float deviation = planetOrder != PlanetOrder.SIMILAR ? 0.7f : 0.2f;
 
 
             // Generate the required number of planets or maximum available
             for (int p = 0; p < minCount; p++)
             {
-                int index;
-                do
-                {
-                    index = RandomUtils.RandomInt(0, positions.Count, seed + p);
-                }
-                while (used.Contains(index));
+                int planetSeed = seed + p;
+                int index = RandomUtils.RandomInt(0, positions.Count - 1, planetSeed);
 
                 Debug.Log("got here fine");
 
-                used.Add(index);
-                break;
                 float position = positions[index];
-                positions.RemoveAt(index); // Optional: can skip if not reusing
+                positions.RemoveAt(index);
 
-                BodyProperties newPlanet = new PlanetGen().Generate(seed + p);
-                PhysicsUtils.ConstructOrbitProperties(seed, position, eccentricity, inclination);
+                // Instantiate a planet generator
+                PlanetGen planetGen = new PlanetGen();
+
+                // Generate the planet's properties
+                // Orbital parameters
+                PhysicsUtils.ConstructOrbitProperties(planetSeed, position, eccentricity, inclination);
+                // Estimate surface composition
+                BodyProperties newPlanet = new PlanetGen().Generate(planetSeed, starProperties);
 
                 planets.Add(newPlanet);
             }
@@ -218,13 +224,7 @@ namespace SystemGen
             return planets;
         }
 
-        /// <summary>
-        /// Calculates the atmosphere of a planet based on its properties and the star's characteristics.
-        /// </summary>
-        private void CalculateAtmosphere()
-        {
-
-        }
+        
 
         /// <summary>
         /// Calculates the number of planets for a given star based on stellar mass and a seeded random factor.

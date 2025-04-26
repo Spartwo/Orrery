@@ -9,7 +9,7 @@ namespace SystemGen
 {
     public class PlanetGen : BodyGen
     {
-        public PlanetProperties Generate(int seedValue)
+        public PlanetProperties Generate(int seedValue, StarProperties parent)
         {
             if (seedValue == 0)
             {
@@ -75,6 +75,14 @@ namespace SystemGen
                  + "\n\t}\n}\n";
                  File.AppendAllText(SystemFileName, PlanetaryData);
              }*/
+        }
+        
+        /// <summary>
+        /// Calculates the atmosphere of a planet based on its properties and the star's characteristics.
+        /// </summary>
+        private void CalculateAtmosphere()
+        {
+
         }
     }
 
