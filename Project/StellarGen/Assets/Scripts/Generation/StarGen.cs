@@ -181,16 +181,15 @@ namespace SystemGen
             var planets = new List<BodyProperties>();
             var used = new HashSet<int>();
 
+            // Calculate the rocky materials available for planet formation
+            decimal rockyMass = 0.1m;
+
+
             // Deviation is the largest allowed / smallest allowed
             // 
             float deviation;
             // Determine mass range deviation
-            switch (planetOrder)
-            {
-                case PlanetOrder.ORDERED:
-                    deviation = RandomUtils.RandomFloat(0.1f, 0.5f, seed);
-                    break;
-            }
+            if (planetOrder != PlanetOrder.SIMILAR) 
 
 
             // Generate the required number of planets or maximum available
@@ -217,6 +216,14 @@ namespace SystemGen
             }
 
             return planets;
+        }
+
+        /// <summary>
+        /// Calculates the atmosphere of a planet based on its properties and the star's characteristics.
+        /// </summary>
+        private void CalculateAtmosphere()
+        {
+
         }
 
         /// <summary>

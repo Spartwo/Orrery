@@ -80,8 +80,10 @@
     <Compile Include="Assets\Scripts\Logging\LogClearer.cs" />
     <Compile Include="Assets\Scripts\Interface\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Tests\SerialisationTests.cs" />
+    <Compile Include="Assets\Scripts\Models\AtmosphereProperties.cs" />
     <Compile Include="Assets\Scripts\Models\OrbitalProperties.cs" />
     <Compile Include="Assets\Scripts\PhysicalConstants.cs" />
+    <Compile Include="Assets\Skybox\StarDataPrototype.cs" />
     <Compile Include="Assets\Scripts\Tests\UITests.cs" />
     <Compile Include="Assets\Scripts\Interface\FloatingPointManager.cs" />
     <Compile Include="Assets\Scripts\Models\PlanetProperties.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="Assets\Scripts\Models\StarProperties.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Skybox\Plugins\Sylvan.Data.Csv.dll" />
     <None Include="Assets\StreamingAssets\Localisation\System_Names.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -578,6 +581,10 @@
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>Library\PackageCache\com.unity.nuget.mono-cecil\Mono.Cecil.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Sylvan.Data.Csv">
+      <HintPath>Assets\Skybox\Plugins\Sylvan.Data.Csv.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">
