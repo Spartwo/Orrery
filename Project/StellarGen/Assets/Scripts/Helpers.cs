@@ -7,6 +7,7 @@ using UnityEngine;
 using Random = System.Random;
 using static UnityEngine.Rendering.DebugUI;
 using Models;
+using UnityEditor;
 
 namespace StellarGenHelpers
 {
@@ -329,9 +330,20 @@ namespace StellarGenHelpers
         /// <returns>The radius of the body's Hill Sphere</returns>
         public static decimal CalculateHillSphere(BodyProperties A, BodyProperties B, decimal distance)
         {
-            return distance * (decimal)(B.Mass / (3 * A.Mass));
+            return distance * DecimalPow(B.Mass / (3 * A.Mass), (1/3));
         }
 
+        /// <summary>
+        /// Calculates if a given object is within the Roche limit of its parent body.
+        /// </summary>
+        /// <param name="A">The body for which the roche is being calculated.</param>
+        /// <param name="B">The body for which is being orbited.</param>
+        /// <param name="distance">The distance between the body and its parent in AU.</param>
+        /// <returns>The radius of the body's Hill Sphere</returns>
+        public static decimal CalculateRoche(BodyProperties A, BodyProperties B, decimal distance)
+        {
+            return distance * DecimalPow(B.Mass / (3 * A.Mass), (1 / 3));
+        }
         /// <summary>
         /// Converts an SMA value in AU to a metre value
         /// </summary>

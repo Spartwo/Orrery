@@ -24,6 +24,7 @@ namespace Models
         private decimal hillSphere;
         private int[] orbitLine;
         private OrbitalProperties orbit;
+        private SiderealProperties rotation;
 
         private List<BodyProperties> childBodies = new List<BodyProperties>();
 
@@ -31,7 +32,7 @@ namespace Models
         /// Generates initial properties from a default state
         /// <param name="seedValue">The seed being passed into the body pre-adjustment</param>
         /// </summary>
-        public BodyProperties(int seedValue = 0, string name = null, decimal? age = null, decimal? mass = null, decimal? hillSphere = 0m, int[] orbitLine = null)
+        public BodyProperties(int seedValue = 0, string name = null, decimal? age = null, decimal? mass = null, decimal? hillSphere = 0m, int[] orbitLine = null, double? siderealDayLength = null, float? axialTilt = null)
         {
             this.seedValue = seedValue;
             this.name = name ?? "Unnamed Body";  // Default to "Unnamed Body" if not provided
@@ -41,6 +42,8 @@ namespace Models
             this.hillSphere = hillSphere ?? 0m;  // Default to 0 if not provided
 
             this.orbitLine = orbitLine ?? new int[] { 255, 255, 255 };  // Default to white
+           
+            this.rotation = new SiderealProperties(siderealDayLength ?? 24.0, axialTilt ?? 0f);
         }
         public virtual string GetInfo()
         {
@@ -160,7 +163,6 @@ namespace Models
             }
         }
 
-
         // Orbital Data
         public OrbitalProperties Orbit
         {
@@ -181,6 +183,20 @@ namespace Models
                 }
                 childBodies = value;
             }
+        }
+
+        // Getter for Sidereal Day Length (Rotation Period)
+        public double Rotation
+        {
+            get => rotation.SiderealDayLength;
+            set => rotation.SiderealDayLength = value;
+        }
+
+        // Getter for Axial Tilt
+        public float AxialTilt
+        {
+            get => rotation.AxialTilt;
+            set => rotation.AxialTilt = value;
         }
         #endregion
     }

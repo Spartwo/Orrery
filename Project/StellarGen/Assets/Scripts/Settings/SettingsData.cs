@@ -21,5 +21,9 @@ namespace Settings
 
         // Debug settings
         public bool ShowDebugLogs { get; set; } = false;
+
+        // Localisation
+        public string GameLanguage { get; set; } = "en-IE";
+
     }
 }

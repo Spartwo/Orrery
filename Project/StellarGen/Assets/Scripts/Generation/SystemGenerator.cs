@@ -58,6 +58,8 @@ namespace SystemGen
 
             // Kick on a generator for quanity of stars.
             int starCount = DetermineStarCount(usableSeed);
+            // Override the star count to 1 for testing
+            starCount = 1;
             Logger.Log("System Generator", "Stars: " + starCount);
 
             // Temporarily define the stellar systems total age
@@ -129,6 +131,7 @@ namespace SystemGen
 
         /// <summary>
         /// Sets the orbital parameters of the stars in the system before planet generation.
+        /// Stars at medium distances(3-50AU) don't produce planets. These are filtered.
         /// </summary>
         /// <param name="starCount">The number of stars in the system.</param>
         private async Task PositionStars(int seed, int starCount)
@@ -142,15 +145,15 @@ namespace SystemGen
 
             if (starCount == 3)
             {
-                // Reduce binary separation when there is a third, otherwise it's not stable
-                abDistance = Math.Max(abDistance / 50f, 0.05f);
+                // Teriary stars are so far away that there is little point in modeling them but we will note their existance
 
                 // Generate P-type separation for the third star
-                float cDistance = (abDistance * RandomUtils.RandomFloat( 25f, 50f, seed));
+                float cDistance = (abDistance * RandomUtils.RandomFloat( 500f, 750f, seed));
                 float cEccentricity = RandomUtils.RandomFloat(0f, 0.5f, seed);
 
                 Logger.Log(GetType().Name, $"ABC Trinary Spacing: \nAB:{abDistance}AU\nC:{cDistance}AU");
 
+                /*
                 // Assign orbit to the third star
                 stellarBodies[2].Orbit = PhysicsUtils.ConstructOrbitProperties(
                     seed,
@@ -158,6 +161,7 @@ namespace SystemGen
                     cEccentricity,
                     45f
                 );
+                */
             } 
             else
             {
@@ -189,6 +193,28 @@ namespace SystemGen
                 0f,
                 0f
             );
+        }
+
+        private void CalculateDeadZone(out float closeMax, out float farMin)
+        {
+            if (stellarBodies[0] is StarProperties star1 && stellarBodies[1] is StarProperties star2)
+            {
+                // Now you can access StarProperties-specific members
+                float mass1 = star1.StellarMass;
+                float mass2 = star2.StellarMass;
+
+                // Perform calculations for closeMax and farMin based on the star's properties
+                closeMax = (float)(mass1 * 0.1f); // Example calculation
+                farMin = (float)(mass1 * 0.5f); // Example calculation
+            }
+            else
+            {
+                // Handle the case where stellarBodies[0] is not a StarProperties instance
+                Logger.LogWarning(GetType().Name, "One or more of the bodies are not stars");
+                closeMax = 0f;
+                farMin = 0f;
+            }
+
         }
 
         /// <summary>

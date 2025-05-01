@@ -75,6 +75,8 @@ namespace SystemGen
             // Generate number of planets
             int planetCount = GeneratePlanetCount(star, seedValue);
 
+            GenerateKuiperBelt(star);
+
             float SOIEdge, SOIInner, innerOrbit, planetarySpacing;
             InitializeOrbitalBounds(star, seedValue, out SOIEdge, out SOIInner, out innerOrbit, out planetarySpacing);
 
@@ -101,11 +103,39 @@ namespace SystemGen
             return childBodies;
         }
 
+        /// <summary>
+        /// Generates the minor child bodies (dwarf planets, major asteroids) of a star.
+        /// </summary>
+        /// <param name="star">The <see cref="StarProperties"/> object from which planetary parameters are derived.</param>
+        /// <returns>A list of generated <see cref="BodyProperties"/> representing the planets of the star.</returns>
         public static List<BodyProperties> GenerateMinorChildren(StarProperties star)
         {
             // Generate a list of minor bodies (e.g., asteroids, comets) based on the parent body
             List<BodyProperties> minorBodies = new List<BodyProperties>();
             return minorBodies;
+        }
+
+        /// <summary>
+        /// Generates a Kuiper Belt around the star, which is a region of icy bodies and debris beyond the outermost planet.
+        /// </summary>
+        /// <param name="star"></param>
+        /// <returns></returns>
+        public static (float lowerEdge, float upperEdge) GenerateKuiperBelt(StarProperties star)
+        {
+            int seedValue = star.SeedValue;
+            // Declare parameters of the observed trends
+            const float baseline = 45;    // Base radius for 1 L☉ (AU)
+            const float slope = 0.14f;      // Slope of the trendline
+            const float scatter = 0.44f;    // Scatter of the trendline
+
+            float baseRadius = (float)(baseline * Math.Pow(star.Luminosity, slope));
+
+            // Scatter 2 edges
+            float edgeA = baseRadius * RandomUtils.RandomFloat(1 - scatter, 1 + scatter);
+            float edgeB = baseRadius * RandomUtils.RandomFloat(1 - scatter, 1 + scatter);
+
+            Logger.Log("System Generation", $"Generated Kuiper Belt from {Mathf.Min(edgeA, edgeB)}AU to {Mathf.Max(edgeA, edgeB)}AU");
+            return (Mathf.Min(edgeA, edgeB), Mathf.Max(edgeA, edgeB));
         }
 
         /// <summary>
@@ -121,7 +151,7 @@ namespace SystemGen
         private static void InitializeOrbitalBounds(StarProperties star, int seed, out float SOIEdge, out float SOIInner, out float innerOrbit, out float spacing)
         {
             // Estimated distance of the heliopause
-            SOIEdge = Mathf.Sqrt(star.Luminosity) * 75;
+            SOIEdge = Mathf.Sqrt(star.Luminosity) * 100;
             // Set inner edge as closest bearable temperature limit
             SOIInner = Mathf.Pow((3f * star.StellarMass) / (9f * 3.14f * 5.51f), 0.33f);
 
@@ -129,6 +159,8 @@ namespace SystemGen
             // Set keystone planet(others resonate to it)
             spacing = RandomUtils.RandomFloat(0.004f * SOIEdge, 0.05f * SOIEdge, seed);
         }
+
+
 
         /// <summary>
         /// Calculates a list of resonant orbital positions for potential planets, spaced exponentially

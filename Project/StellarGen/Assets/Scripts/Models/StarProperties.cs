@@ -15,7 +15,7 @@ namespace Models
         private float luminosity;
         private int temperature;
 
-        public StarProperties(int seedValue = 0, string name = null, decimal? age = null, decimal? mass = null, decimal? hillSphere = 0m, int[] orbitLine = null, decimal? lifespan = null, float? diameter = null, float? luminosity = null, float? stellarMass = null, int? temperature = null) : base(seedValue, name, age, mass, hillSphere, orbitLine)
+        public StarProperties(int seedValue = 0, string name = null, decimal? age = null, decimal? mass = null, decimal? hillSphere = 0m, int[] orbitLine = null, double? siderealDayLength = null, float? axialTilt = null, decimal? lifespan = null, float? diameter = null, float? luminosity = null, float? stellarMass = null, int? temperature = null) : base(seedValue, name, age, mass, hillSphere, orbitLine, siderealDayLength, axialTilt)
         {
             // Set specific properties for the Star
             this.diameter = diameter ?? 0f;  // Default to 0 if not provided
