@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
@@ -10,7 +11,7 @@ namespace Settings
     public class LocalisationProvider
     {
         // Cached localisation data for the current language.
-        private static Dictionary<string, string> localisationCache
+        private static Dictionary<string, string> localisationCache;
         private static string cachedLanguage;
 
         private static readonly string localisationFolderPath = $"{Application.streamingAssetsPath}/localisation/";
@@ -31,19 +32,19 @@ namespace Settings
             else
             {
                 Logger.LogError("SettingsManager", $"Couldn't find loc file {file}");
-                break;
+                return;
             }
 
             IsLoaded = true;
-            ApplySettings();
+            //ApplySettings();
         }
 
         // Returns the available loc files and their display names.
         public static List<(string, string)> GetLocOptions()
         {
-            List values = new List<(string, string)>();
+            List<(string, string)> values = new List<(string, string)>();
 
-            string files = Directory.GetFiles(localisationFolderPath, "*.json");
+            string[] files = Directory.GetFiles(localisationFolderPath, "*.json");
             foreach (var file in files)
             {
                 try
@@ -74,11 +75,11 @@ namespace Settings
         /// <summary>
         /// Returns the localized text for the given key.
         /// </summary>
-        string GetLocalizedString(string key);
+        //string GetLocalizedString(string key);
 
         /// <summary>
         /// Forces a reload of localisation data.
         /// </summary>
-        void ReloadLocalisation();
+        //void ReloadLocalisation();
     }
 }

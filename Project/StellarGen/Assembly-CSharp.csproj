@@ -9,8 +9,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{4F5A179C-5D2F-AC6B-2EA7-E5072BF1759D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -62,12 +61,12 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.26f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Settings\LocalisationProvider.cs" />
     <Compile Include="Assets\Scripts\Tests\PhysicsTests.cs" />
     <Compile Include="Assets\Scripts\Generation\StarGen.cs" />
     <Compile Include="Assets\Scripts\Logging\Logging.cs" />
     <Compile Include="Assets\Scripts\Settings\SettingsData.cs" />
     <Compile Include="Assets\Scripts\Models\SiderealProperties.cs" />
+    <Compile Include="Assets\Scripts\Models\BeltProperties.cs" />
     <Compile Include="Assets\Scripts\Helpers.cs" />
     <Compile Include="Assets\Scripts\Tests\TestController.cs" />
     <Compile Include="Assets\Scripts\Generation\SystemGenerator.cs" />
@@ -75,9 +74,11 @@
     <Compile Include="Assets\Scripts\Generation\BodyGen.cs" />
     <Compile Include="Assets\Scripts\Instantiation\BodyManager.cs" />
     <Compile Include="Assets\Scripts\Settings\SettingsLoader.cs" />
+    <Compile Include="Assets\Scripts\Interface\Timekeep.cs" />
     <Compile Include="Assets\Scripts\Generation\PlanetGen.cs" />
     <Compile Include="Assets\Scripts\Instantiation\Orbiter.cs" />
     <Compile Include="Assets\Scripts\Settings\GlobalSettings.cs" />
+    <Compile Include="Assets\Scripts\Settings\LocalisationProvider.cs" />
     <Compile Include="Assets\Scripts\Instantiation\StarManager.cs" />
     <Compile Include="Assets\Scripts\Logging\LogClearer.cs" />
     <Compile Include="Assets\Scripts\Interface\CameraMovement.cs" />

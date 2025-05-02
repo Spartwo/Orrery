@@ -6,9 +6,12 @@ namespace StellarGenHelpers
     {
         public const double GRAV = 6.6720e-08;              // Gravitational Constant (dyne-cm^2/g^2)
         public const double GRAV_ACC = 980.67;              // Earth's Gravitational Acceleration (cm/sec^2)
-        public const int ICE_DENSITY = 1000;                // Ice Density (kg/m^3)
-        public const int ROCK_DENSITY = 3300;               // Rock Density (kg/m^3)
+        public const int ICE_DENSITY = 900;                 // Ice Density (kg/m^3)
+        public const int ROCK_DENSITY = 3000;               // Rock Density (kg/m^3) averaged
         public const int METAL_DENSITY = 7800;              // Metal Density (kg/m^3)
+        public const float ICE_ROCHE_C = 1.6f;              // Roche Coefficient, higher less holdy-togethery
+        public const float ROCK_ROCHE_C = 1.4f;             // Roche Coefficient, higher less holdy-togethery
+        public const float METAL_ROCHE_C = 1.2f;            // Roche Coefficient, higher less holdy-togethery
         public const double E_MASS = 5.972e18;              // Earth Mass (Metric Kiloton)
         public const double JOV_MASS = 1.898e21;            // Jupiter Mass (Metric Kiloton)
         public const double SOLAR_MASS = 1.989e24;          // Solar Mass (Metric Kiloton)

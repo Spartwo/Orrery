@@ -3,42 +3,17 @@
     "Name": "Greg A",
     "CustomName": false,
     "Parent": 0,
-    "SeedValue": 61471832,
-    "Mass": 3428947276353840000000000.0,
-    "Age": 2.74,
-    "OrbitLine": [
-      160,
-      251,
-      255
-    ],
-    "Orbit": {
-      "SemiMajorAxis": 9365829011553.0,
-      "Eccentricity": 0.344611764,
-      "LongitudeOfAscending": 180.0,
-      "Inclination": 0.0,
-      "PeriArgument": 0.0
-    },
-    "ChildBodies": []
-  },
-  {
-    "Name": "Greg B",
-    "CustomName": false,
-    "Parent": 0,
     "SeedValue": 25799898,
     "Mass": 966336516201496000000000.0,
-    "Age": 2.74,
+    "Age": 7.547,
     "OrbitLine": [
       231,
       255,
       205
     ],
-    "Orbit": {
-      "SemiMajorAxis": 33233690568552.0,
-      "Eccentricity": 0.344611764,
-      "LongitudeOfAscending": 0.0,
-      "Inclination": 0.0,
-      "PeriArgument": 0.0
-    },
-    "ChildBodies": []
+    "Orbit": null,
+    "ChildBodies": [],
+    "Rotation": 0.001,
+    "AxialTilt": 0.0
   }
 ]

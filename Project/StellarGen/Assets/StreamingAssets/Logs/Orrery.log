@@ -1,42 +1,22 @@
-[18:18:19 LOG] Application: Program Initialised
-[18:18:19 LOG] System Generation: Sols Mass: 1.723955
-[18:18:19 LOG] StarProperties: Generating Star Properties
-[18:18:19 LOG] SystemGenerator: System Age: 2.74bY
-[18:18:19 LOG] SystemGenerator: Setting Stellar Positions
-[18:18:19 LOG] SystemGenerator: AB Binary Spacing: 284.7603AU
-[18:18:19 LOG] SystemGenerator: Generating Major Bodies
-[18:18:19 LOG] System Generation: Planet Count: 4
-[18:18:19 LOG] System Generation: Disk Mass Fraction: 0.002862352
-[18:18:19 LOG] System Generation: Star 25799898 order: SIMILAR
-[18:18:19 LOG] System Generation: Generating Planets
-[18:18:19 LOG] System Generation: Produced orbit Models.OrbitalProperties
-[18:18:19 LOG] System Generation: Planet Seed: 4369555
-[18:18:19 LOG] System Generation: Produced orbit Models.OrbitalProperties
-[18:18:19 LOG] System Generation: Planet Seed: 16061740
-[18:18:19 LOG] System Generation: Produced orbit Models.OrbitalProperties
-[18:18:19 LOG] System Generation: Planet Seed: 4089949
-[18:18:19 LOG] System Generation: Produced orbit Models.OrbitalProperties
-[18:18:19 LOG] System Generation: Planet Seed: 12836083
-[18:18:19 LOG] System Generation: Planet Count: 10
-[18:18:19 LOG] System Generation: Disk Mass Fraction: 0.003681562
-[18:18:19 LOG] System Generation: Star 61471832 order: ORDERED
-[18:18:19 LOG] System Generation: Generating Planets
-[18:18:19 LOG] System Generation: Produced orbit Models.OrbitalProperties
-[18:18:19 LOG] System Generation: Planet Seed: 6943127
-[18:18:19 LOG] System Generation: Produced orbit Models.OrbitalProperties
-[18:18:19 LOG] System Generation: Planet Seed: 13494125
-[18:18:19 LOG] System Generation: Produced orbit Models.OrbitalProperties
-[18:18:19 LOG] System Generation: Planet Seed: 6640378
-[18:18:19 LOG] System Generation: Produced orbit Models.OrbitalProperties
-[18:18:19 LOG] System Generation: Planet Seed: 12395746
-[18:18:19 LOG] System Generation: Produced orbit Models.OrbitalProperties
-[18:18:19 LOG] System Generation: Planet Seed: 6362928
-[18:18:19 LOG] SystemGenerator: Generating Minor Bodies
-[18:18:20 LOG] SystemGenerator: Resolving Unstable Orbits
-[18:18:20 LOG] SystemGenerator: Assigning Orbital Colours
-[18:18:20 LOG] Helpers: Determining spectral color for 4399K
-[18:18:20 LOG] SystemGenerator: Setting Colour To 231,255,205
-[18:18:20 LOG] Helpers: Determining spectral color for 7101K
-[18:18:20 LOG] SystemGenerator: Setting Colour To 160,251,255
-[18:18:20 LOG] SystemGenerator: Generating Body Names
-[18:18:20 LOG] SystemGenerator: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Greg.json
+[01:39:24 LOG] Application: Program Initialised
+[01:39:24 LOG] SystemGenerator: System Age: 7.547bY
+[01:39:24 LOG] SystemGenerator: Generating Major Bodies
+[01:39:24 LOG] System Generation: Planet Count: 4
+[01:39:24 LOG] System Generation: Generated Kuiper Belt from 19.77462AU to 24.70834AU
+[01:39:24 LOG] System Generation: Disk Mass Fraction: 0.002862352
+[01:39:24 LOG] System Generation: Star 25799898 order: SIMILAR
+[01:39:24 LOG] System Generation: Generating Planets
+[01:39:24 LOG] System Generation: Produced orbit Models.OrbitalProperties
+[01:39:24 LOG] System Generation: Planet Seed: 4369555
+[01:39:24 LOG] System Generation: Produced orbit Models.OrbitalProperties
+[01:39:24 LOG] System Generation: Planet Seed: 16061740
+[01:39:24 LOG] System Generation: Produced orbit Models.OrbitalProperties
+[01:39:24 LOG] System Generation: Planet Seed: 4089949
+[01:39:24 LOG] System Generation: Produced orbit Models.OrbitalProperties
+[01:39:24 LOG] System Generation: Planet Seed: 12836083
+[01:39:25 LOG] SystemGenerator: Generating Minor Bodies
+[01:39:25 LOG] SystemGenerator: Assigning Orbital Colours
+[01:39:25 LOG] Helpers: Determining spectral color for 4399K
+[01:39:25 LOG] SystemGenerator: Setting Colour To 231,255,205
+[01:39:25 LOG] SystemGenerator: Generating Body Names
+[01:39:25 LOG] SystemGenerator: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Greg.json
