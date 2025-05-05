@@ -51,11 +51,8 @@ namespace SystemGen
         /// <returns>A stellar mass in sols</returns>
         private static float GenerateStellarMass(int seedValue)
         {
-            // Instantiate random number generator 
-            Random rand = new Random(seedValue);
-
             // Get a random percentile
-            float graphX = (float)rand.NextDouble();
+            float graphX = RandomUtils.RandomFloat(0, 1, seedValue);
             // Convert it to stellar masses between 0.1 and 5 using the formula
             float graphY = (0.1f + ((-0.374495f * graphX) / (-1.073858f + graphX)));
 

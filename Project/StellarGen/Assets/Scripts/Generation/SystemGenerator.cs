@@ -140,18 +140,34 @@ namespace SystemGen
 
             if (starCount < 2) return; // No need to position stars if there's only one
 
-            // Binary star separation
-            float abDistance = RandomUtils.RandomFloat(1f, 10000f, seed) / 25f;
+            // Binary star separation log distribution
+            double muAB = 3.059;
+            double sigmaAB = 0.6;
+
+            double u1 = 1.0 - RandomUtils.RandomFloat(0f, 1f, seed);
+            double u2 = 1.0 - RandomUtils.RandomFloat(0f, 1f, seed);
+
+            double standardNormalAB = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Cos(2.0 * Math.PI * u2);
+            double log10_r = muAB + sigmaAB * standardNormalAB;
+            float distanceAB = (float)Math.Pow(10, log10_r);
 
             if (starCount == 3)
             {
-                // Teriary stars are so far away that there is little point in modeling them but we will note their existance
+                // Ternary stars are so far away that there is little point in modeling them but we will note their existence
 
                 // Generate P-type separation for the third star
-                float cDistance = (abDistance * RandomUtils.RandomFloat( 500f, 750f, seed));
-                float cEccentricity = RandomUtils.RandomFloat(0f, 0.5f, seed);
+                double muC = 4.7;      
+                double sigmaC = 0.7;
 
-                Logger.Log(GetType().Name, $"ABC Trinary Spacing: \nAB:{abDistance}AU\nC:{cDistance}AU");
+                double uc1 = 1.0 - RandomUtils.RandomFloat(0f, 1f, seed);
+                double uc2 = 1.0 - RandomUtils.RandomFloat(0f, 1f, seed);
+
+                double standardNormalC = Math.Sqrt(-2.0 * Math.Log(uc1)) * Math.Cos(2.0 * Math.PI * uc2);
+                double log10_rC = muC + sigmaC * standardNormalC;
+                float distanceC = (float)Math.Pow(10, log10_rC); // Log-normal C star distance
+                float eccentricityC = RandomUtils.RandomFloat(0f, 0.5f, seed);
+
+                Logger.Log(GetType().Name, $"ABC Trinary Spacing: \nAB:{distanceAB}AU\nC:{distanceC}AU");
 
                 /*
                 // Assign orbit to the third star
@@ -165,21 +181,21 @@ namespace SystemGen
             } 
             else
             {
-                Logger.Log(GetType().Name, $"AB Binary Spacing: {abDistance}AU");
+                Logger.Log(GetType().Name, $"AB Binary Spacing: {distanceAB}AU");
             }
 
             // Generate eccentricity for the binary stars
-            float abEccentricity = RandomUtils.RandomFloat(0f, (float)(abDistance * 0.0017f), seed);
+            float eccentricityAB = RandomUtils.RandomFloat(0f, (float)(distanceAB * 0.0017f), seed);
             // Assign orbits to the first two stars
             // Semi-Major Axis is proportional to the mass of each body
             decimal totalMass = stellarBodies[0].Mass + stellarBodies[1].Mass;
-            float aDistance = abDistance * (float)(stellarBodies[1].Mass / totalMass);
-            float bDistance = abDistance * (float)(stellarBodies[0].Mass / totalMass);
+            float distanceA = distanceAB * (float)(stellarBodies[1].Mass / totalMass);
+            float distanceB = distanceAB * (float)(stellarBodies[0].Mass / totalMass);
 
             // Assign orbit to the first star
             stellarBodies[0].Orbit = new OrbitalProperties(
-                PhysicsUtils.ConvertToMetres(aDistance),
-                abEccentricity,
+                PhysicsUtils.ConvertToMetres(distanceA),
+                eccentricityAB,
                 0f,
                 0f,
                 0f
@@ -187,8 +203,8 @@ namespace SystemGen
 
             // Assign orbit to the second star
             stellarBodies[1].Orbit = new OrbitalProperties(
-                PhysicsUtils.ConvertToMetres(bDistance),
-                abEccentricity,
+                PhysicsUtils.ConvertToMetres(distanceB),
+                eccentricityAB,
                 180f,
                 0f,
                 0f
@@ -465,18 +481,18 @@ namespace SystemGen
         /// <returns>A weighted quanity of stars in the system</returns>
         private static int DetermineStarCount(int seed)
         {
-            int randomValue = RandomUtils.RandomInt(1, 900, seed);
+            int randomValue = RandomUtils.RandomInt(1, 120, seed);
             int starCount;
 
             switch (randomValue)
             {
-                case >= 1 and <= 400:
+                case >= 1 and <= 78:
                     starCount = 1;
                     break;
-                case >= 401 and <= 800:
+                case >= 79 and <= 93:
                     starCount = 2;
                     break;
-                case >= 801 and <= 875:
+                case >= 94 and <= 100:
                     starCount = 3;
                     break;
                 default:

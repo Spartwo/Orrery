@@ -1,22 +1,22 @@
-[01:39:24 LOG] Application: Program Initialised
-[01:39:24 LOG] SystemGenerator: System Age: 7.547bY
-[01:39:24 LOG] SystemGenerator: Generating Major Bodies
-[01:39:24 LOG] System Generation: Planet Count: 4
-[01:39:24 LOG] System Generation: Generated Kuiper Belt from 19.77462AU to 24.70834AU
-[01:39:24 LOG] System Generation: Disk Mass Fraction: 0.002862352
-[01:39:24 LOG] System Generation: Star 25799898 order: SIMILAR
-[01:39:24 LOG] System Generation: Generating Planets
-[01:39:24 LOG] System Generation: Produced orbit Models.OrbitalProperties
-[01:39:24 LOG] System Generation: Planet Seed: 4369555
-[01:39:24 LOG] System Generation: Produced orbit Models.OrbitalProperties
-[01:39:24 LOG] System Generation: Planet Seed: 16061740
-[01:39:24 LOG] System Generation: Produced orbit Models.OrbitalProperties
-[01:39:24 LOG] System Generation: Planet Seed: 4089949
-[01:39:24 LOG] System Generation: Produced orbit Models.OrbitalProperties
-[01:39:24 LOG] System Generation: Planet Seed: 12836083
-[01:39:25 LOG] SystemGenerator: Generating Minor Bodies
-[01:39:25 LOG] SystemGenerator: Assigning Orbital Colours
-[01:39:25 LOG] Helpers: Determining spectral color for 4399K
-[01:39:25 LOG] SystemGenerator: Setting Colour To 231,255,205
-[01:39:25 LOG] SystemGenerator: Generating Body Names
-[01:39:25 LOG] SystemGenerator: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Greg.json
+[06:28:09 LOG] Application: Program Initialised
+[06:28:09 LOG] SystemGenerator: System Age: 7.547bY
+[06:28:09 LOG] SystemGenerator: Generating Major Bodies
+[06:28:09 LOG] System Generation: Planet Count: 4
+[06:28:09 LOG] System Generation: Generated Kuiper Belt from 24.81221AU to 25.31347AU
+[06:28:09 LOG] System Generation: Disk Mass Fraction: 0.002862352
+[06:28:09 LOG] System Generation: Star 25799898 order: SIMILAR
+[06:28:09 LOG] System Generation: Generating Planets
+[06:28:09 LOG] System Generation: Produced orbit Models.OrbitalProperties
+[06:28:09 LOG] System Generation: Planet Seed: 4369555
+[06:28:09 LOG] System Generation: Produced orbit Models.OrbitalProperties
+[06:28:09 LOG] System Generation: Planet Seed: 16061740
+[06:28:09 LOG] System Generation: Produced orbit Models.OrbitalProperties
+[06:28:09 LOG] System Generation: Planet Seed: 4089949
+[06:28:09 LOG] System Generation: Produced orbit Models.OrbitalProperties
+[06:28:09 LOG] System Generation: Planet Seed: 12836083
+[06:28:10 LOG] SystemGenerator: Generating Minor Bodies
+[06:28:10 LOG] SystemGenerator: Assigning Orbital Colours
+[06:28:10 LOG] Helpers: Determining spectral color for 4399K
+[06:28:10 LOG] SystemGenerator: Setting Colour To 231,255,205
+[06:28:10 LOG] SystemGenerator: Generating Body Names
+[06:28:10 LOG] SystemGenerator: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Greg.json

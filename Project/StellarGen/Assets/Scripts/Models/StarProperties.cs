@@ -52,11 +52,9 @@ namespace Models
             float baseDiameter = Mathf.Pow(stellarMass, 0.7f)*0.8f;
             // Surface temperature is constant through the main sequence
             temperature = (int)(Mathf.Pow(baseDiameter*1.25f, 0.54f) * PhysicalConstants.SOLAR_TEMPERATURE);
-            // General luminosity from size and mass based temperature
-            float baseLuminosity = Mathf.Pow(baseDiameter, 2) * Mathf.Pow(((float)temperature / PhysicalConstants.SOLAR_TEMPERATURE), 4);
 
-            // Estimate main sequence lifespan from diameter divided by luminosity
-            lifespan = (decimal)(baseDiameter / baseLuminosity) * 10;
+            // Estimate main sequence lifespan
+            lifespan = (decimal)(Math.Pow(inputMass, -2.5)) * 10;
             // Age Ajustment is % though lifespan
             float ageAjustment = (float)(base.Age / (decimal)lifespan);
 
