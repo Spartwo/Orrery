@@ -72,17 +72,18 @@ namespace SystemGen
             // Generate number of planets
             int planetCount = GeneratePlanetCount(star, seedValue);
 
-            GenerateKuiperBelt(star);
+            float lowerEdge, upperEdge;
+            GenerateKuiperBelt(star, out lowerEdge, out upperEdge);
 
-            float SOIEdge, SOIInner, innerOrbit, planetarySpacing;
-            InitializeOrbitalBounds(star, seedValue, out SOIEdge, out SOIInner, out innerOrbit, out planetarySpacing);
+            float heatEdge, innerOrbit, planetarySpacing;
+            InitializeOrbitalBounds(star, seedValue, lowerEdge, out heatEdge, out innerOrbit, out planetarySpacing);
 
             // Mean eccentricity due to planet count
             float meanEccentricity = (float)Math.Max(Math.Pow(planetCount, -0.15) - 0.65, 0.01);
             float maxInclination = (15f - planetCount) / 2;
 
             // Define all resonant orbital positions relative to the keystone
-            List<float> orbitalPositions = CalculateOrbitalPositions(SOIEdge, innerOrbit, planetarySpacing);
+            List<float> orbitalPositions = CalculateOrbitalPositions(lowerEdge, innerOrbit, planetarySpacing);
             List<int> usedPositions = new List<int>();
 
             // Declare variables for the out parameters
@@ -117,7 +118,7 @@ namespace SystemGen
         /// </summary>
         /// <param name="star"></param>
         /// <returns></returns>
-        public static (float lowerEdge, float upperEdge) GenerateKuiperBelt(StarProperties star)
+        public static void GenerateKuiperBelt(StarProperties star, out float lowerEdge, out float upperEdge)
         {
             int seedValue = star.SeedValue;
             // Declare parameters of the observed trends
@@ -131,8 +132,10 @@ namespace SystemGen
             float edgeA = baseRadius * RandomUtils.RandomFloat(1 - scatter, 1 + scatter);
             float edgeB = baseRadius * RandomUtils.RandomFloat(1 - scatter, 1 + scatter);
 
+            lowerEdge = Mathf.Min(edgeA, edgeB);
+            upperEdge = Mathf.Max(edgeA, edgeB);
+
             Logger.Log("System Generation", $"Generated Kuiper Belt from {Mathf.Min(edgeA, edgeB)}AU to {Mathf.Max(edgeA, edgeB)}AU");
-            return (Mathf.Min(edgeA, edgeB), Mathf.Max(edgeA, edgeB));
         }
 
         /// <summary>
@@ -145,16 +148,14 @@ namespace SystemGen
         /// <param name="SOIInner">Calculated inner orbital bound for planet placement.</param>
         /// <param name="innerOrbit">Randomized starting position for the keystone planet.</param>
         /// <param name="spacing">Spacing factor used for resonance-based orbital position generation.</param>
-        private static void InitializeOrbitalBounds(StarProperties star, int seed, out float SOIEdge, out float SOIInner, out float innerOrbit, out float spacing)
+        private static void InitializeOrbitalBounds(StarProperties star, int seed, float kuiperEdge, out float heatEdge, out float innerOrbit, out float spacing)
         {
-            // Estimated distance of the heliopause
-            SOIEdge = Mathf.Sqrt(star.Luminosity) * 100;
             // Set inner edge as closest bearable temperature limit
-            SOIInner = Mathf.Pow((3f * star.StellarMass) / (9f * 3.14f * 5.51f), 0.33f);
+            heatEdge = Mathf.Pow((3f * star.StellarMass) / (9f * 3.14f * 5.51f), 0.33f);
 
-            innerOrbit = RandomUtils.RandomFloat(SOIInner, SOIInner * 5, seed);
-            // Set keystone planet(others resonate to it)
-            spacing = RandomUtils.RandomFloat(0.004f * SOIEdge, 0.05f * SOIEdge, seed);
+            innerOrbit = RandomUtils.RandomFloat(heatEdge, heatEdge * 5, seed);
+            // Set keystone position(others resonate to it)
+            spacing = RandomUtils.RandomFloat(0.004f * kuiperEdge, 0.05f * kuiperEdge, seed);
         }
 
 
@@ -167,7 +168,7 @@ namespace SystemGen
         /// <param name="innerOrbit">The orbit of the keystone planet from which others resonate.</param>
         /// <param name="spacing">Base spacing value to determine resonance distance.</param>
         /// <returns>A list of orbital radii (in AU) for planet placement.</returns>
-        private static List<float> CalculateOrbitalPositions(float SOIEdge, float innerOrbit, float spacing)
+        private static List<float> CalculateOrbitalPositions(float kuiperEdge, float innerOrbit, float spacing)
         {
             List<float> positions = new List<float>();
             int i = 0;
@@ -179,7 +180,7 @@ namespace SystemGen
                 float pos = innerOrbit + spacing * Mathf.Pow(2, i);
                 Debug.Log($"Orbital Position: {pos}");
                 // Stop adding further positions once we exceed the SOI edge
-                if (pos > SOIEdge) break;
+                if (pos > kuiperEdge) break;
                 positions.Add(pos);
                 i++;
             }
@@ -287,7 +288,7 @@ namespace SystemGen
 
             // Estimate the disk mass compared to the star's mass
             // High mass makes a dominant jupiter-like more likely
-            float diskMassPercentile = (RandomUtils.RandomFloat((1500 * star.StellarMass), 4000 * star.StellarMass, seed) / 1000000) / star.StellarMass;
+            float diskMassPercentile = (RandomUtils.RandomFloat((1000 * star.StellarMass), 4000 * star.StellarMass, seed) / 1000000) / star.StellarMass;
             diskMass = (decimal)diskMassPercentile * star.Mass;
             Logger.Log("System Generation", $"Disk Mass Fraction: {diskMassPercentile}");
 
