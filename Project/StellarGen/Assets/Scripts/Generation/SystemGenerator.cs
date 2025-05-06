@@ -60,7 +60,7 @@ namespace SystemGen
             int starCount = DetermineStarCount(usableSeed);
             // Override the star count to 1 for testing
             starCount = 1;
-            Logger.Log("System Generator", "Stars: " + starCount);
+            Logger.Log("System Generation", "Stars: " + starCount);
 
             // Temporarily define the stellar systems total age
             float systemAge = await GenerateStellarBodies(usableSeed, starCount);
@@ -226,7 +226,7 @@ namespace SystemGen
             else
             {
                 // Handle the case where stellarBodies[0] is not a StarProperties instance
-                Logger.LogWarning(GetType().Name, "One or more of the bodies are not stars");
+                Logger.LogWarning("System Generation", "One or more of the bodies are not stars");
                 closeMax = 0f;
                 farMin = 0f;
             }
@@ -240,7 +240,7 @@ namespace SystemGen
         {
             // Convert to decimal to limit the points when exported
             decimal transferredAge = (decimal)Math.Round(systemAge, 3);
-            Logger.Log(GetType().Name, $"System Age: {transferredAge}bY");
+            Logger.Log("System Generation", $"System Age: {transferredAge}bY");
 
             // Assign the system age to each body
             foreach (var body in stellarBodies)
@@ -256,7 +256,7 @@ namespace SystemGen
         /// </summary>
         private async Task AssignNames()
         {
-            Logger.Log(GetType().Name, "Generating Body Names");
+            Logger.Log("System Generation", "Generating Body Names");
             // Sort root stellar bodies, larger stars get the first letters
             stellarBodies.Sort((a, b) => b.Mass.CompareTo(a.Mass));
             char rootSuffix = 'A'; // Start base object names from A
@@ -315,12 +315,12 @@ namespace SystemGen
         /// <returns>A task representing the asynchronous generation operation.</returns>
         private async Task GenerateMajorBodies(int seed)
         {
-            Logger.Log(GetType().Name, "Generating Major Bodies");
+            Logger.Log("System Generation", "Generating Major Bodies");
 
             for (int i = 0; i < stellarBodies.Count; i++)
             {
                 // Create a new Generator to build the children
-                StarGen.GenerateChildren((StarProperties)stellarBodies[i]);
+                stellarBodies[i].ChildBodies = (StarGen.GenerateChildren((StarProperties)stellarBodies[i]));
 
                 await Task.Yield();
             }
@@ -334,7 +334,7 @@ namespace SystemGen
         /// <returns>A task representing the asynchronous generation operation.</returns>
         private async Task GenerateMinorBodies(int seed)
         {
-            Logger.Log(GetType().Name, "Generating Minor Bodies");
+            Logger.Log("System Generation", "Generating Minor Bodies");
 
             // Generate children without children of their own (moons etc)
             for (int i = 0; i < stellarBodies.Count; i++)
@@ -394,7 +394,7 @@ namespace SystemGen
         /// </summary>
         private async Task AssignColours()
         {
-            Logger.Log(GetType().Name, "Assigning Orbital Colours");
+            Logger.Log("System Generation", "Assigning Orbital Colours");
 
             // Default color if no stars exist
             if (!stellarBodies.OfType<StarProperties>().Any())
@@ -451,7 +451,7 @@ namespace SystemGen
             // Turn the lists into usable outputs
             JsonUtils.SerializeListToJsonFile(stellarBodies, systemFilePath);
 
-            Logger.Log(GetType().Name, $"Exported System File to {systemFilePath}");
+            Logger.Log("I/O", $"Exported System File to {systemFilePath}");
         }
 
         /// <summary>

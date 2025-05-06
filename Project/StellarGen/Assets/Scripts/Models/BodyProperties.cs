@@ -122,7 +122,7 @@ namespace Models
             set
             {
 
-                Logger.Log("SystemGenerator", $"Setting Colour To {value[0]},{value[1]},{value[2]}");
+                Logger.Log("System Generation", $"Setting Colour To r{value[0]},g{value[1]},b{value[2]}");
                 orbitLine = value;
             }
         }
