@@ -344,6 +344,7 @@ namespace StellarGenHelpers
         {
             return distance * DecimalPow(B.Mass / (3 * A.Mass), (1 / 3));
         }
+
         /// <summary>
         /// Converts an SMA value in AU to a metre value
         /// </summary>
@@ -379,15 +380,15 @@ namespace StellarGenHelpers
         /// <summary>
         /// Converts a sol mass to standard values
         /// </summary>
-        public static decimal MassToRaw(float SolMass)
+        public static decimal SolMassToRaw(float solMass)
         {
             try
             {
-                return (decimal)(SolMass * PhysicalConstants.SOLAR_MASS);
+                return (decimal)(solMass * PhysicalConstants.SOLAR_MASS);
             }
             catch (Exception ex)
             {
-                Logger.LogError("Helpers", $"MassToRaw: An error occurred during conversion. {ex.Message}");
+                Logger.LogError("Helpers", $"SolMassToRaw: An error occurred during conversion. {ex.Message}");
                 throw;
             }
         }
@@ -395,7 +396,7 @@ namespace StellarGenHelpers
         /// <summary>
         /// Converts standard mass values to sol mass
         /// </summary>
-        public static float RawToMass(decimal RawMass)
+        public static float RawToSolMass(decimal RawMass)
         {
             try
             {
@@ -403,7 +404,39 @@ namespace StellarGenHelpers
             }
             catch (Exception ex)
             {
-                Logger.LogError("Helpers", $"RawToMass: An error occurred during conversion. {ex.Message}");
+                Logger.LogError("Helpers", $"RawToSolMass: An error occurred during conversion. {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Converts a earth mass to standard values
+        /// </summary>
+        public static decimal EarthMassToRaw(float earthMass)
+        {
+            try
+            {
+                return (decimal)(earthMass * PhysicalConstants.EARTH_MASS);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Helpers", $"EarthMassToRaw: An error occurred during conversion. {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Converts standard mass values to earth masses
+        /// </summary>
+        public static float RawToEarthMass(decimal RawMass)
+        {
+            try
+            {
+                return (float)((double)RawMass / PhysicalConstants.EARTH_MASS);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Helpers", $"RawToEarthMass: An error occurred during conversion. {ex.Message}");
                 throw;
             }
         }

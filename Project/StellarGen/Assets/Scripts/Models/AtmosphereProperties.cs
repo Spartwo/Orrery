@@ -13,10 +13,10 @@ namespace Models
     public class AtmosphereProperties
     {
         // List of elements in the atmosphere with their respective percentages
-        public List<(Element, float)> ElementPercentages { get; set; }
+        public List<(Element, float)> elementPercentages { get; set; }
 
-        // Total atmospheric mass in kilograms
-        public decimal TotalAtmosphericMass { get; set; }
+        // Total atmospheric mass in kilotons
+        private decimal totalAtmosphericMass;
 
         // Predefined elements: molarMass, freezingPoint (K), boilingPoint (K), gasConstant (J/kg·K), latentHeat(J/mol), localisation
         public static readonly Element H2 = new Element(2.016f, 14.01f, 20.28f, 4124f, 0.452f, "#loc_Hydrogen");
@@ -33,13 +33,11 @@ namespace Models
 
 
 
-        public AtmosphereProperties(decimal initialMass)
+        public AtmosphereProperties(decimal? totalAtmosphericMass = null)
         {
-            TotalAtmosphericMass = initialMass;
-            ElementPercentages = new List<(Element, float)>();
+            this.totalAtmosphericMass = totalAtmosphericMass ?? 0m;
+            this.elementPercentages = new List<(Element, float)>();
         }
-
-
         /// <summary>
         /// Calculates the weighted average of gas constants based on the percentages of elements in the atmosphere.
         /// </summary>
@@ -48,7 +46,7 @@ namespace Models
         {
             double totalGasConstant = 0;
             // Iterate through each element and its percentage
-            foreach (var (element, percentage) in ElementPercentages)
+            foreach (var (element, percentage) in elementPercentages)
             {
                 totalGasConstant += element.GasConstant * (percentage / 100);
             }
@@ -66,27 +64,27 @@ namespace Models
             if (percentage < 0 || percentage > 100)
                 throw new ArgumentOutOfRangeException(nameof(percentage), "Percentage must be between 0 and 100.");
 
-            var existingElementIndex = ElementPercentages.FindIndex(e => e.Item1 == element);
+            var existingElementIndex = elementPercentages.FindIndex(e => e.Item1 == element);
             if (existingElementIndex >= 0)
             {
-                ElementPercentages[existingElementIndex] = (element, percentage);
+                elementPercentages[existingElementIndex] = (element, percentage);
             }
             else
             {
-                ElementPercentages.Add((element, percentage));
+                elementPercentages.Add((element, percentage));
             }
 
             // Adjust other elements to ensure the total adds up to 100%
-            float totalPercentage = ElementPercentages.Sum(e => e.Item2);
+            float totalPercentage = elementPercentages.Sum(e => e.Item2);
             if (totalPercentage > 100)
             {
                 float excess = totalPercentage - 100;
-                for (int i = 0; i < ElementPercentages.Count; i++)
+                for (int i = 0; i < elementPercentages.Count; i++)
                 {
-                    if (ElementPercentages[i].Item1 != element && ElementPercentages[i].Item2 > 0)
+                    if (elementPercentages[i].Item1 != element && elementPercentages[i].Item2 > 0)
                     {
-                        float adjustment = Math.Min(ElementPercentages[i].Item2, excess);
-                        ElementPercentages[i] = (ElementPercentages[i].Item1, ElementPercentages[i].Item2 - adjustment);
+                        float adjustment = Math.Min(elementPercentages[i].Item2, excess);
+                        elementPercentages[i] = (elementPercentages[i].Item1, elementPercentages[i].Item2 - adjustment);
                         excess -= adjustment;
 
                         if (excess <= 0)
@@ -95,7 +93,7 @@ namespace Models
                 }
             }
 
-            Logger.Log(GetType().Name, $"Updated Atmospheric Composition: {string.Join(", ", ElementPercentages.Select(e => $"{e.Item1.Localisation}: {e.Item2}%"))}");
+            Logger.Log(GetType().Name, $"Updated Atmospheric Composition: {string.Join(", ", elementPercentages.Select(e => $"{e.Item1.Localisation}: {e.Item2}%"))}");
         }
 
         /// <summary>
@@ -105,7 +103,7 @@ namespace Models
         /// <returns>The percentage of the element, or 0 if the element is not present.</returns>
         public float GetElementPercentage(Element element)
         {
-            var elementEntry = ElementPercentages.Find(e => e.Item1 == element);
+            var elementEntry = elementPercentages.Find(e => e.Item1 == element);
             return elementEntry != default ? elementEntry.Item2 : 0;
         }
         /// <summary>
@@ -115,10 +113,16 @@ namespace Models
         public string GetInfo()
         {
             // Print off all elements in the atmosphere above 0%
-            string elementsInfo = string.Join(", ", ElementPercentages
+            string elementsInfo = string.Join(", ", elementPercentages
                 .FindAll(e => e.Item2 > 0)
                 .ConvertAll(e => $"{e.Item1.Localisation}: {e.Item2}%"));
-            return $"Total Atmospheric Mass: {TotalAtmosphericMass} kg\nComposition: {elementsInfo}\n";
+            return $"Total Atmospheric Mass: {totalAtmosphericMass} kg\nComposition: {elementsInfo}\n";
+        }
+
+        public decimal TotalAtmosphericMass
+        {
+            get => totalAtmosphericMass;
+            set => totalAtmosphericMass = value;
         }
     }
 

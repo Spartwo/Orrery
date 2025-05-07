@@ -228,9 +228,9 @@ namespace SystemGen
 
                 // Generate the planet's properties
                 // Orbital parameters
-                PhysicsUtils.ConstructOrbitProperties(planetSeed, position, eccentricity, inclination);
+                OrbitalProperties orbit = PhysicsUtils.ConstructOrbitProperties(planetSeed, position, eccentricity, inclination);
                 // Estimate surface composition
-                BodyProperties newPlanet = PlanetGen.Generate(planetSeed, star);
+                PlanetProperties newPlanet = PlanetGen.Generate(planetSeed, star, orbit, rockyMass);
 
                 planets.Add(newPlanet);
 
@@ -238,6 +238,11 @@ namespace SystemGen
             }
 
             return planets;
+        }
+
+        private static List<BodyProperties> StructureSystem()
+        {
+            return null;
         }
 
         

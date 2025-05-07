@@ -13,6 +13,7 @@ using System;
 using Models;
 using Settings;
 using StellarGenHelpers;
+using Unity.VisualScripting;
 
 namespace SystemGen
 {
@@ -103,8 +104,15 @@ namespace SystemGen
 
             if (starCount == 0)
             {
+                OrbitalProperties orbit = new OrbitalProperties(
+                    0,
+                    0f,
+                    0f,
+                    0f,
+                    0f
+                );
                 // Generate a new planet
-                stellarBodies.Add(PlanetGen.Generate(seed, null));
+                stellarBodies.Add(PlanetGen.Generate(seed, null, orbit, (decimal)RandomUtils.RandomFloat(0.1f, 5f, seed)));
                 systemAge = RandomUtils.RandomFloat(0.25f, 10.5f, seed);
             }
             else
@@ -138,7 +146,17 @@ namespace SystemGen
         {
             Logger.Log(GetType().Name, "Setting Stellar Positions");
 
-            if (starCount < 2) return; // No need to position stars if there's only one
+            if (starCount < 2)
+            {
+                stellarBodies[0].Orbit = new OrbitalProperties(
+                    0,
+                    0f,
+                    0f,
+                    0f,
+                    0f
+                );
+                return; // No need to position stars if there's only one
+            }
 
             // Binary star separation log distribution
             double muAB = 3.059;
@@ -321,6 +339,7 @@ namespace SystemGen
             {
                 // Create a new Generator to build the children
                 stellarBodies[i].ChildBodies = (StarGen.GenerateChildren((StarProperties)stellarBodies[i]));
+                Debug.Log($"bleh");
 
                 await Task.Yield();
             }

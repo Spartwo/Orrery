@@ -84,9 +84,8 @@ namespace SystemGen
         // ApplyData is called by UI 
         public void ApplyData()
         {
-
-            //Volume Displayed in Cubic km
-            float Diameter = 1 * BodyMass;
+            /*
+           // float Diameter = 2 * Body.Radius;
 
 
             //set size of the star itself relative to earth=1
@@ -96,7 +95,7 @@ namespace SystemGen
             //All bodies are weighed where 1 = Earth
             float MassInEarth = BodyMass;
             //get rigidbody and apply the mass
-            transform.GetComponent<Rigidbody>().mass = MassInEarth / 10000;
+            transform.GetComponent<Rigidbody>().mass = MassInEarth / 10000;*/
         }
     }
 }

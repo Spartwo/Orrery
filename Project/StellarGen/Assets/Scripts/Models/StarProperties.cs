@@ -10,19 +10,23 @@ namespace Models
     public class StarProperties : BodyProperties
     {
         private decimal lifespan;
-        private float diameter;
+        private float radius;
         private float stellarMass;
         private float luminosity;
-        private int temperature;
+        private short temperature;
 
-        public StarProperties(int seedValue = 0, string name = null, decimal? age = null, decimal? mass = null, decimal? hillSphere = 0m, int[] orbitLine = null, double? siderealDayLength = null, float? axialTilt = null, decimal? lifespan = null, float? diameter = null, float? luminosity = null, float? stellarMass = null, int? temperature = null) : base(seedValue, name, age, mass, hillSphere, orbitLine, siderealDayLength, axialTilt)
+        [JsonIgnore]
+        private float baseLuminosity;
+
+        public StarProperties(int seedValue = 0, string name = null, decimal? age = null, decimal? mass = null, decimal? hillSphere = 0m, int[] orbitLine = null, double? siderealDayLength = null, float? axialTilt = null, decimal? lifespan = null, float? radius = null, float? luminosity = null, float? baseLuminosity = null, float? stellarMass = null, short? temperature = null) : base(seedValue, name, age, mass, hillSphere, orbitLine, siderealDayLength, axialTilt)
         {
             // Set specific properties for the Star
-            this.diameter = diameter ?? 0f;  // Default to 0 if not provided
+            this.radius = radius ?? 0f;  // Default to 0 if not provided
             this.temperature = temperature ?? 0;  // Default to 0 if not provided
             this.lifespan = lifespan ?? 0m;  // Default to 0 if not provided
             this.stellarMass = stellarMass ?? 0f;  // Default to 0 if not provided
             this.luminosity = luminosity ?? 0f;  // Default to 0 if not provided
+            this.baseLuminosity = baseLuminosity ?? 0f;  // Default to 0 if not provided
         }
 
         public override string GetInfo()
@@ -31,7 +35,7 @@ namespace Models
                    $"Stellar Mass: {StellarMass} Solar masses\n" +
                    $"Luminosity: {Luminosity} L☉\n" +
                    $"Surface Temperature: {Luminosity} K\n" +
-                   $"Diameter: {Diameter} Solar diameters\n" +
+                   $"Diameter: {Radius} Solar Radii\n" +
                    $"Lifespan: {Lifespan} billion years";
         }
 
@@ -44,23 +48,25 @@ namespace Models
         {
             stellarMass = inputMass;
             // Set the raw mass
-            base.Mass = PhysicsUtils.MassToRaw(inputMass);
+            base.Mass = PhysicsUtils.SolMassToRaw(inputMass);
 
             Logger.Log(GetType().Name, $"Generating Star Properties");
 
-            // Diameter at formation
-            float baseDiameter = Mathf.Pow(stellarMass, 0.7f)*0.8f;
+            // Radius at formation
+            float baseRadius = Mathf.Pow(stellarMass, 0.7f) * 0.8f;
             // Surface temperature is constant through the main sequence
-            temperature = (int)(Mathf.Pow(baseDiameter*1.25f, 0.54f) * PhysicalConstants.SOLAR_TEMPERATURE);
+            temperature = (short)(Mathf.Pow(baseRadius * 1.25f, 0.54f) * PhysicalConstants.SOLAR_TEMPERATURE);
 
             // Estimate main sequence lifespan
             lifespan = (decimal)(Math.Pow(inputMass, -2.5)) * 10;
-            // Age Ajustment is % though lifespan
-            float ageAjustment = (float)(base.Age / (decimal)lifespan);
+            // Age Adjustment is % though lifespan
+            float ageAdjustment = (float)(base.Age / (decimal)lifespan);
 
             // Set Luminosity and Diameter now  knowing the age
-            diameter = baseDiameter + ((baseDiameter / 2) * ageAjustment);
-            luminosity = Mathf.Pow(diameter, 2) * Mathf.Pow(((float)Temperature / PhysicalConstants.SOLAR_TEMPERATURE), 4);
+            radius = baseRadius + ((baseRadius / 2) * ageAdjustment);
+            // Base luminosity controls formation materials while age adjusted is current atmospheric states
+            baseLuminosity = Mathf.Pow(baseRadius, 2) * Mathf.Pow(((float)Temperature / PhysicalConstants.SOLAR_TEMPERATURE), 4);
+            luminosity = Mathf.Pow(radius, 2) * Mathf.Pow(((float)Temperature / PhysicalConstants.SOLAR_TEMPERATURE), 4);
         }
 
         #region Getters and Setters
@@ -81,9 +87,9 @@ namespace Models
         // Diameter, Temperature, and Luminosity are derivative of Lifespan and Mass, they are not directly set
 
         [JsonIgnore]
-        public float Diameter
+        public float Radius
         {
-            get => diameter;
+            get => radius;
         }
 
         [JsonIgnore]
@@ -93,7 +99,13 @@ namespace Models
         }
 
         [JsonIgnore]
-        public int Temperature
+        public float BaseLuminosity
+        {
+            get => baseLuminosity;
+        }
+
+        [JsonIgnore]
+        public short Temperature
         {
             get => temperature;
         }

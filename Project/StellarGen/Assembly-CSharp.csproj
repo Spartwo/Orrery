@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\Instantiation\StarManager.cs" />
     <Compile Include="Assets\Scripts\Logging\LogClearer.cs" />
     <Compile Include="Assets\Scripts\Interface\CameraMovement.cs" />
+    <Compile Include="Assets\Scripts\Models\SurfaceProperties.cs" />
     <Compile Include="Assets\Scripts\Tests\SerialisationTests.cs" />
     <Compile Include="Assets\Scripts\Models\AtmosphereProperties.cs" />
     <Compile Include="Assets\Scripts\Models\OrbitalProperties.cs" />
