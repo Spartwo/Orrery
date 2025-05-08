@@ -1,13 +1,15 @@
+using Newtonsoft.Json;
 using System;
 
 namespace Models
 {
     // Sidereal properties specific to celestial bodies
     [Serializable]
+    [JsonObject(MemberSerialization.OptIn)]
     public class SiderealProperties
     {
-        private double siderealDayLength; // Sidereal Day Length (in hours)
-        private float axialTilt; // Sidereal Longitude (degrees)
+        [JsonProperty] private double siderealDayLength; // Sidereal Day Length (in hours)
+        [JsonProperty] private float axialTilt; // Sidereal Longitude (degrees)
 
         // Constructor
         public SiderealProperties(double SiderealDayLength, float AxialTilt)
@@ -24,12 +26,14 @@ namespace Models
         }
 
         #region Getter and Setters
+        
         public double SiderealDayLength
         {
             get => siderealDayLength;
             set => siderealDayLength = Math.Max(value, 0.001);  // Ensures sidereal day is not too small
         }
 
+        
         public float AxialTilt
         {
             get => axialTilt;

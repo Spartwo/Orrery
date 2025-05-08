@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.IO;
 using System.Linq;
+using Models;
 
 namespace SystemGen
 {
@@ -12,14 +13,12 @@ namespace SystemGen
     {
         //public knowledge variables that will be accessed by UI
         [HideInInspector] public string BodySearchTerm;
-        [SerializeField] float BodyMass;
-        [SerializeField] float AxialTilt;
+        [SerializeField] public BodyProperties Body;
         public string ParentObject;
         public string BodyName;
         [SerializeField][Range(0f, 70f)] float RotationRate;
         [HideInInspector] public string SystemFileName;
-        //system loaddata
-        protected List<string> SystemDataArray;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -32,36 +31,8 @@ namespace SystemGen
                 + SystemFileName
                 + ".system";
 
-            //parse all lines of the system file to a list for reading
-            SystemDataArray = File.ReadAllLines(SystemFileAddress).ToList();
-
-            //search each line until unique identifier is found
-            for (int i = 0; i < SystemDataArray.Count; i++)
-            {
-                if (SystemDataArray[i] == BodySearchTerm + " {")
-                {
-
-                    //get saved body data from system file
-                    BodyName = ReturnFileValue(i + 1);
-                    BodyMass = float.Parse(ReturnFileValue(i + 2));
-                    ParentObject = ReturnFileValue(i + 3);
-                    //set the parent gameobject
-                    GameObject ParentBody = GameObject.Find(ParentObject);
-                    transform.SetParent(ParentBody.transform, true);
-
-                    RotationRate = float.Parse(ReturnFileValue(i + 4));
-                    AxialTilt = float.Parse(ReturnFileValue(i + 5));
-                    //pass lineread address and file address to orbiter script
-                    transform.gameObject.GetComponent<Orbiter>().LoadOrbit(i + 6, SystemFileAddress, ParentBody.transform);
-                }
-            }
 
             ApplyData();
-        }
-        string ReturnFileValue(int index)
-        {
-            int FilePoint = SystemDataArray[index].IndexOf("=");
-            return (SystemDataArray[index].Substring(FilePoint + 2));
         }
 
         // Update is called once per frame
@@ -97,5 +68,78 @@ namespace SystemGen
             //get rigidbody and apply the mass
             transform.GetComponent<Rigidbody>().mass = MassInEarth / 10000;*/
         }
+        /*
+
+        /// <summary>
+        /// Adds a new child body to the list of child bodies.
+        /// </summary>
+        /// <param name="newChild">The new body to be added to the child list</param>
+        public void AddPlanet(PlanetProperties newChild)
+        {
+            // Check if a body with the same seedValue isn't already present
+            if (!Body.ChildBodies.Any(child => child.SeedValue == newChild.SeedValue))
+            {
+                Body.ChildBodies.Add(newChild);
+            }
+        }
+
+        /// <summary>
+        /// Removes a child body from the list by its seed value.
+        /// </summary>
+        /// <param name="seedValue">The seed value of the body to be removed</param>
+        /// <returns>The removed body if found, otherwise null</returns>
+        public BodyProperties RemovePlanet(int seedValue)
+        {
+            // Find the body with the matching seedValue
+            PlanetProperties bodyToRemove = Body.ChildBodies.FirstOrDefault(child => child.SeedValue == seedValue);
+
+            if (bodyToRemove != null)
+            {
+                // Remove the found body from the list
+                Body.ChildBodies.Remove(bodyToRemove);
+                return bodyToRemove;
+            }
+            else
+            {
+                Logger.LogWarning(GetType().Name, $"Child body {seedValue} not found.");
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Adds a new child body to the list of child bodies.
+        /// </summary>
+        /// <param name="newChild">The new body to be added to the child list</param>
+        public void AddBelt(BeltProperties newChild)
+        {
+            // Check if a body with the same seedValue isn't already present
+            if (!Body.Belts.Any(child => child.SeedValue == newChild.SeedValue))
+            {
+                Body.Belts.Add(newChild);
+            }
+        }
+
+        /// <summary>
+        /// Removes a child body from the list by its seed value.
+        /// </summary>
+        /// <param name="seedValue">The seed value of the body to be removed</param>
+        /// <returns>The removed body if found, otherwise null</returns>
+        public BeltProperties RemoveBelt(int seedValue)
+        {
+            // Find the body with the matching seedValue
+            BeltProperties bodyToRemove = Body.Belts.FirstOrDefault(child => child.SeedValue == seedValue);
+
+            if (bodyToRemove != null)
+            {
+                // Remove the found body from the list
+                Body.Belts.Remove(bodyToRemove);
+                return bodyToRemove;
+            }
+            else
+            {
+                Logger.LogWarning(GetType().Name, $"Child body {seedValue} not found.");
+                return null;
+            }
+        }*/
     }
 }

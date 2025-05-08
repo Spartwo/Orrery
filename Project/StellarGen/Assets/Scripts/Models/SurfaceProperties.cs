@@ -1,4 +1,5 @@
-﻿using StellarGenHelpers;
+﻿using Newtonsoft.Json;
+using StellarGenHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,13 @@ namespace Models
 {
     // solid object properties specific to celestial bodies
     [Serializable]
+    [JsonObject(MemberSerialization.OptIn)]
     public class SurfaceProperties
     {
-        private float rock, ice, metals;
+        [JsonProperty] private float rock, ice, metals;
 
         // Total mass in kilotons
-        private decimal totalSolidMass;
+        [JsonProperty] private decimal totalSolidMass;
 
         public SurfaceProperties(float? rock = null, float? ice = null, float? metals = null, decimal? totalSolidMass = null)
         {
@@ -26,7 +28,7 @@ namespace Models
             this.ice = ice ?? 40f;
             this.metals = metals ?? 20f;
             // Default mass
-            this.totalSolidMass = 0m; 
+            this.totalSolidMass = totalSolidMass ?? 0m; 
         }
 
         /// <summary>
@@ -50,7 +52,6 @@ namespace Models
             float density = (rock * PhysicalConstants.ROCK_DENSITY +
                              ice * PhysicalConstants.ICE_DENSITY +
                              metals * PhysicalConstants.METAL_DENSITY) / 100f;
-            Logger.Log("Planet Generation", $"Core Density: {density} kg/m^3");
             return density;
         }
 
@@ -70,7 +71,7 @@ namespace Models
             .FindAll(e => e.Item2 > 0)
             .ConvertAll(e => $"{e.Item1}: {e.Item2}%"));
 
-            return $"Surface Composition: {elementsInfo}";
+            return $"Surface Composition: {elementsInfo}\nDensity: {CalculateDensity()} kg/m^3\"";
         }
 
         #region getters & setters
@@ -82,6 +83,7 @@ namespace Models
             NormaliseComposition();
         }
 
+        
         public float Rock
         {
             get => rock;
@@ -92,6 +94,7 @@ namespace Models
             }
         }
 
+        
         public float Ice
         {
             get => ice;
@@ -102,6 +105,7 @@ namespace Models
             }
         }
 
+        
         public float Metals
         {
             get => metals;
@@ -112,6 +116,7 @@ namespace Models
             }
         }
 
+        
         public decimal TotalSolidMass
         {
             get => totalSolidMass;

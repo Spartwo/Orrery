@@ -14,19 +14,16 @@ using Models;
 using Settings;
 using StellarGenHelpers;
 using Unity.VisualScripting;
+using Newtonsoft.Json;
+using static StarDataPrototype;
 
 namespace SystemGen
 {
     public class SystemGenerator : MonoBehaviour
     {
-        // Declare seed input
-        [SerializeField]
-        private string seedInput;
-        public string SeedInput { set => seedInput = value; }
-
         private readonly string assetsFolder = Application.streamingAssetsPath;
-        // The generated stellar data
-        public List<BodyProperties> stellarBodies = new List<BodyProperties>();
+        [SerializeField] private string seedInput;
+        public SystemProperties systemProperties;
 
         void Start()
         {
@@ -37,8 +34,9 @@ namespace SystemGen
         /// <summary>
         /// Starts the system generation process asynchronously.
         /// </summary>
-        public void StartGeneration() 
-        { 
+        public void StartGeneration()
+        {
+            systemProperties = new SystemProperties(seedInput);
             GenerateSystem().ConfigureAwait(false); 
         }
 
@@ -50,24 +48,19 @@ namespace SystemGen
             // Create folder on initialisation incase of total deletion
             Directory.CreateDirectory($"{assetsFolder}/Star_Systems/");
 
-            // Check for a manual seed input
-            seedInput ??= GenerateSystemName();
             // Convert alphanumeric seed to a usable integer
-            int usableSeed = seedInput.GetHashCode();
+            int usableSeed = systemProperties.seedInput.GetHashCode();
 
-            Logger.Log("System Generation", $"Seed: {seedInput} / {usableSeed}");
+            Logger.Log("System Generation", $"Seed: {systemProperties.seedInput} / {usableSeed}");
 
             // Kick on a generator for quanity of stars.
             int starCount = DetermineStarCount(usableSeed);
-            // Override the star count to 1 for testing
-            starCount = 1;
             Logger.Log("System Generation", "Stars: " + starCount);
 
-            // Temporarily define the stellar systems total age
-            float systemAge = await GenerateStellarBodies(usableSeed, starCount);
-            AssignAges(systemAge);
+            // Define the stellar systems total age, generation occurs at 0bY
+            decimal systemAge = (decimal)Math.Round(await GenerateStellarBodies(usableSeed, starCount), 3);
 
-            // This sectionn is the important bit, drives the layered generation processes from stellar orbits to body positions
+            // This section is the important bit, drives the layered generation processes from stellar orbits to body positions
             if (starCount > 1)
             {
                 // Generate the orbits of the stars
@@ -93,6 +86,9 @@ namespace SystemGen
             // Determine Names in the current configuration
             await AssignNames();
 
+            // Set a Current age for the system
+            AssignAges(systemAge);
+
             // Save the System Data Arrays
             CreateSystemFile();
         }
@@ -100,7 +96,6 @@ namespace SystemGen
         private async Task<float> GenerateStellarBodies(int seed, int starCount)
         {
             float systemAge;
-            stellarBodies.Clear();
 
             if (starCount == 0)
             {
@@ -112,7 +107,7 @@ namespace SystemGen
                     0f
                 );
                 // Generate a new planet
-                stellarBodies.Add(PlanetGen.Generate(seed, null, orbit, (decimal)RandomUtils.RandomFloat(0.1f, 5f, seed)));
+                systemProperties.solidBodies.Add(PlanetGen.Generate(seed, null, orbit, (decimal)RandomUtils.RandomFloat(0.1f, 5f, seed)));
                 systemAge = RandomUtils.RandomFloat(0.25f, 10.5f, seed);
             }
             else
@@ -123,11 +118,11 @@ namespace SystemGen
                     // Generate a new star but only get the properties via StarProperties
                     StarProperties newStarProperties = StarGen.Generate(seed + i);
 
-                    // Add the generated properties to the stellarBodies list
-                    stellarBodies.Add(newStarProperties);
-
                     // Roll back all the stars to the youngest
                     shortestLifespan = Math.Min((float)shortestLifespan, (float)newStarProperties.Lifespan);
+
+                    // Add the generated properties to the stellarBodies list
+                    systemProperties.stellarBodies.Add(newStarProperties);
 
                     // Every star, yield execution to prevent blocking
                     await Task.Yield();
@@ -148,7 +143,7 @@ namespace SystemGen
 
             if (starCount < 2)
             {
-                stellarBodies[0].Orbit = new OrbitalProperties(
+                systemProperties.stellarBodies[0].Orbit = new OrbitalProperties(
                     0,
                     0f,
                     0f,
@@ -206,12 +201,12 @@ namespace SystemGen
             float eccentricityAB = RandomUtils.RandomFloat(0f, (float)(distanceAB * 0.0017f), seed);
             // Assign orbits to the first two stars
             // Semi-Major Axis is proportional to the mass of each body
-            decimal totalMass = stellarBodies[0].Mass + stellarBodies[1].Mass;
-            float distanceA = distanceAB * (float)(stellarBodies[1].Mass / totalMass);
-            float distanceB = distanceAB * (float)(stellarBodies[0].Mass / totalMass);
+            decimal totalMass = systemProperties.stellarBodies[0].Mass + systemProperties.stellarBodies[1].Mass;
+            float distanceA = distanceAB * (float)(systemProperties.stellarBodies[1].Mass / totalMass);
+            float distanceB = distanceAB * (float)(systemProperties.stellarBodies[0].Mass / totalMass);
 
             // Assign orbit to the first star
-            stellarBodies[0].Orbit = new OrbitalProperties(
+            systemProperties.stellarBodies[0].Orbit = new OrbitalProperties(
                 PhysicsUtils.ConvertToMetres(distanceA),
                 eccentricityAB,
                 0f,
@@ -220,7 +215,7 @@ namespace SystemGen
             );
 
             // Assign orbit to the second star
-            stellarBodies[1].Orbit = new OrbitalProperties(
+            systemProperties.stellarBodies[1].Orbit = new OrbitalProperties(
                 PhysicsUtils.ConvertToMetres(distanceB),
                 eccentricityAB,
                 180f,
@@ -231,7 +226,7 @@ namespace SystemGen
 
         private void CalculateDeadZone(out float closeMax, out float farMin)
         {
-            if (stellarBodies[0] is StarProperties star1 && stellarBodies[1] is StarProperties star2)
+            if (systemProperties.stellarBodies[0] is StarProperties star1 && systemProperties.stellarBodies[1] is StarProperties star2)
             {
                 // Now you can access StarProperties-specific members
                 float mass1 = star1.StellarMass;
@@ -254,16 +249,25 @@ namespace SystemGen
         /// <summary>
         /// Sets the ages of all bodies to one shared value
         /// </summary>
-        private void AssignAges(float systemAge)
+        private void AssignAges(decimal systemAge)
         {
-            // Convert to decimal to limit the points when exported
-            decimal transferredAge = (decimal)Math.Round(systemAge, 3);
-            Logger.Log("System Generation", $"System Age: {transferredAge}bY");
+            Logger.Log("System Generation", $"System Age: {systemAge}bY");
+            // Set the system age
+            systemProperties.systemAge = systemAge;
 
             // Assign the system age to each body
-            foreach (var body in stellarBodies)
+            foreach (StarProperties body in systemProperties.stellarBodies)
             {
-                body.Age = transferredAge;
+                body.Age = systemAge;
+                body.GenerateAgedStarProperties();
+            }
+            foreach (PlanetProperties body in systemProperties.solidBodies)
+            {
+                body.Age = systemAge;
+            }
+            foreach (BeltProperties body in systemProperties.belts)
+            {
+                body.Age = systemAge;
             }
         }
 
@@ -276,52 +280,49 @@ namespace SystemGen
         {
             Logger.Log("System Generation", "Generating Body Names");
             // Sort root stellar bodies, larger stars get the first letters
-            stellarBodies.Sort((a, b) => b.Mass.CompareTo(a.Mass));
-            char rootSuffix = 'A'; // Start base object names from A
+            systemProperties.stellarBodies.Sort((a, b) => b.Mass.CompareTo(a.Mass));
+            char rootSuffix = 'A';
 
-            // Iterate through the stellarBodies to assign names to stars
-            foreach (var star in stellarBodies.OfType<StarProperties>())
+            foreach (StarProperties star in systemProperties.stellarBodies)
             {
-                // Assign initial star name ('A', 'B', 'C') if no custom name
                 if (!star.CustomName)
                 {
-                    star.Name = $"{seedInput} {rootSuffix}";
+                    star.Name = $"{systemProperties.seedInput}-{rootSuffix}";
                 }
 
-                // Assign names to planets and their moons recursively
-                if (star.ChildBodies.Any())
+                // Find planets orbiting this star
+                var planets = systemProperties.solidBodies
+                    .Where(p => p.Parent == star.SeedValue)
+                    .OrderByDescending(p => p.Mass)
+                    .ToList();
+
+                char planetSuffix = 'a';
+                foreach (PlanetProperties planet in planets)
                 {
-                    await AssignNamesRecursive(star, star.Name);
+                    if (!planet.CustomName)
+                    {
+                        planet.Name = $"{star.Name}{planetSuffix}";
+                    }
+
+                    // Find moons of this planet
+                    var moons = systemProperties.solidBodies
+                        .Where(m => m.Parent == planet.SeedValue)
+                        .OrderByDescending(m => m.Mass)
+                        .ToList();
+
+                    for (int i = 0; i < moons.Count; i++)
+                    {
+                        if (!moons[i].CustomName)
+                        {
+                            moons[i].Name = $"{planet.Name}-{i + 1}";
+                        }
+                    }
+
+                    planetSuffix++;
                 }
 
                 rootSuffix++;
-            }
-        }
-
-        /// <summary>
-        /// Recursively assigns names to child bodies (planets and moons) based on their parent name.
-        /// </summary>
-        /// <param name="parent">The parent body whose children are being named.</param>
-        /// <param name="parentName">The name of the parent body.</param>
-        private async Task AssignNamesRecursive(BodyProperties parent, string parentName)
-        {
-            char childSuffix = 'a'; // Start child names from 'a'
-
-            foreach (var child in parent.ChildBodies)
-            {
-                // Assign name to the child body
-                if (!child.CustomName)
-                {
-                    child.Name = $"{parentName}{childSuffix}";
-                }
-
-                // If the child has its own children (moons), assign names recursively
-                if (child.ChildBodies.Any())
-                {
-                    await AssignNamesRecursive(child, child.Name);
-                }
-
-                childSuffix++;
+                await Task.Yield();
             }
         }
 
@@ -335,11 +336,11 @@ namespace SystemGen
         {
             Logger.Log("System Generation", "Generating Major Bodies");
 
-            for (int i = 0; i < stellarBodies.Count; i++)
+            for (int i = 0; i < systemProperties.stellarBodies.Count; i++)
             {
+                List<PlanetProperties> children = (StarGen.GenerateChildren((StarProperties)systemProperties.stellarBodies[i]));
                 // Create a new Generator to build the children
-                stellarBodies[i].ChildBodies = (StarGen.GenerateChildren((StarProperties)stellarBodies[i]));
-                Debug.Log($"bleh");
+                systemProperties.solidBodies.AddRange(children);
 
                 await Task.Yield();
             }
@@ -355,10 +356,10 @@ namespace SystemGen
         {
             Logger.Log("System Generation", "Generating Minor Bodies");
 
-            // Generate children without children of their own (moons etc)
-            for (int i = 0; i < stellarBodies.Count; i++)
+           /* // Generate children without children of their own (moons etc)
+            for (int i = 0; i < systemProperties.stellarBodies.Count; i++)
             {
-                if (stellarBodies[i] is StarProperties star)
+                if (systemProperties.stellarBodies[i] is StarProperties star)
                 {
                     // Create a new Generator to build the children
                     stellarBodies[i].ChildBodies = StarGen.GenerateMinorChildren((StarProperties)stellarBodies[i]);
@@ -374,7 +375,7 @@ namespace SystemGen
 
                 }
                 await Task.Yield();
-            }
+            }*/
         }
 
         /// <summary>
@@ -384,7 +385,7 @@ namespace SystemGen
         private async Task MoveEjectedBodies()
         {
             Logger.Log(GetType().Name, "Resolving Unstable Orbits");
-            foreach (BodyProperties b in stellarBodies)
+            foreach (BodyProperties b in systemProperties.stellarBodies)
             {
 
                 // Check the stability of the planet's orbit
@@ -416,45 +417,77 @@ namespace SystemGen
             Logger.Log("System Generation", "Assigning Orbital Colours");
 
             // Default color if no stars exist
-            if (!stellarBodies.OfType<StarProperties>().Any())
+            if (systemProperties.stellarBodies.Count() == 0)
             {
-                foreach (var body in stellarBodies)
+                foreach (PlanetProperties body in systemProperties.solidBodies)
                 {
                     body.OrbitLine = new int[] { 255, 255, 255 }; // White
+                }
+                foreach (BeltProperties belt in systemProperties.belts)
+                {
+                    belt.OrbitLine = new int[] { 255, 255, 255 }; // White
                 }
                 return;
             }
 
             // Iterate through the stellarBodies to assign colors
-            foreach (BodyProperties body in stellarBodies)
+            foreach (StarProperties star in systemProperties.stellarBodies)
             {
-                if (body is StarProperties star)
+                star.OrbitLine = ColourUtils.ColorToArray(PhysicsUtils.DetermineSpectralColor(star.Temperature));
+            }
+            
+            // Iterate through belts and bodies to inherit their colour
+            foreach (PlanetProperties planet in systemProperties.solidBodies)
+            {
+                BodyProperties parent = FindBody(planet.Parent);
+
+                if (parent != null)
                 {
-                    body.OrbitLine  = ColourUtils.ColorToArray(PhysicsUtils.DetermineSpectralColor(star.Temperature));
-                    
-                    // Assign color downwards to all children
-                    foreach (BodyProperties child in star.ChildBodies)
-                    {
-                        child.OrbitLine = body.OrbitLine;
-                        foreach (BodyProperties grandchild in star.ChildBodies)
-                        {
-                            grandchild.OrbitLine = body.OrbitLine;
-                        }
-                    }
+                    planet.OrbitLine = parent.OrbitLine;
                 }
                 else
                 {
-                    var parentStars = stellarBodies.OfType<StarProperties>().Take(2).ToList();
+                    // If no parent is found it must be circumbinary
+                    var parentStars = systemProperties.stellarBodies.Take(2).ToList();
                     if (parentStars.Count == 2)
                     {
-                        body.OrbitLine = new int[]
+                        planet.OrbitLine = new int[]
                         {
                             (parentStars[0].OrbitLine[0] + parentStars[1].OrbitLine[0]) / 2,
                             (parentStars[0].OrbitLine[1] + parentStars[1].OrbitLine[1]) / 2,
                             (parentStars[0].OrbitLine[2] + parentStars[1].OrbitLine[2]) / 2
                         };
                     }
+                    planet.OrbitLine = new int[] { 255, 255, 255 }; // White
                 }
+
+                await Task.Yield();
+            }
+
+            foreach (BeltProperties belt in systemProperties.belts)
+            {
+                BodyProperties parent = FindBody(belt.Parent);
+
+                if (parent != null)
+                {
+                    belt.OrbitLine = parent.OrbitLine;
+                }
+                else
+                {
+                    // If no parent is found it must be circumbinary
+                    var parentStars = systemProperties.stellarBodies.Take(2).ToList();
+                    if (parentStars.Count == 2)
+                    {
+                        belt.OrbitLine = new int[]
+                        {
+                            (parentStars[0].OrbitLine[0] + parentStars[1].OrbitLine[0]) / 2,
+                            (parentStars[0].OrbitLine[1] + parentStars[1].OrbitLine[1]) / 2,
+                            (parentStars[0].OrbitLine[2] + parentStars[1].OrbitLine[2]) / 2
+                        };
+                    }
+                    belt.OrbitLine = new int[] { 255, 255, 255 }; // White
+                }
+
                 await Task.Yield();
             }
         }
@@ -464,33 +497,13 @@ namespace SystemGen
         /// </summary>
         private void CreateSystemFile()
         {
+            Debug.Log(systemProperties.seedInput);
             // Set appropriate file name to the name value
-            string systemFilePath = $"{assetsFolder}/Star_Systems/{seedInput}.json";
+            string systemFilePath = $"{assetsFolder}/Star_Systems/{systemProperties.seedInput}.json";
 
-            // Turn the lists into usable outputs
-            JsonUtils.SerializeListToJsonFile(stellarBodies, systemFilePath);
+            JsonUtils.SerializeToJsonFile(systemProperties, systemFilePath);
 
             Logger.Log("I/O", $"Exported System File to {systemFilePath}");
-        }
-
-        /// <summary>
-        /// Generates a seed input value / system file name
-        /// </summary>
-        /// <returns>An input string of the systems seed</returns>
-        private string GenerateSystemName()
-        {
-            // Import list from a plaintext file
-            string nameGenerationFilePath = $"{assetsFolder}/Localisation/System_Names.txt";
-            List<string> systemNameArray = File.ReadAllLines(nameGenerationFilePath).ToList();
-
-            // Choose a random row in the file
-            Random random = new Random();
-            string randName = systemNameArray[random.Next(1, (systemNameArray.Count))];
-            int randNumber = random.Next(1, 1000);
-
-            // Format the output as [RandName RandNumber]
-            Logger.Log(GetType().Name, $"System Name: {randName}-{randNumber}");
-            return $"{randName}-{randNumber}";
         }
 
         /// <summary>
@@ -529,19 +542,54 @@ namespace SystemGen
         /// </summary>
         /// <param name="key">The unique identifier (SeedValue) of the parent body.</param>
         /// <returns>The parent body associated with the given SeedValue, or the barycenter body if not found.</returns>
-        public BodyProperties FindParent(int key)
+        public BodyProperties FindBody(int key)
         {
-            // Iterate through the stellarBodies to find parent, not so many elements to require 3d
-            foreach (BodyProperties body in stellarBodies)
-            {
-                if (key == body.SeedValue)
-                {
-                    return body;
-                }
-            }
+            // Combine all body lists into one and search for the parent
+            var allBodies = systemProperties.stellarBodies
+                .Cast<BodyProperties>()
+                .Concat(systemProperties.solidBodies)
+                .Concat(systemProperties.belts);
 
-            // Return the barycentre if no parent expressely declared
-            return stellarBodies[0];
+            return allBodies.FirstOrDefault(body => body.SeedValue == key);
         }
+    }
+    
+    
+    // I wish these could share one structure but it simply won't serialise that way.
+    [Serializable]
+    public class SystemProperties
+    {
+        // System age in billions of years
+        [JsonProperty] public decimal systemAge = 0m;
+        // Declare seed input
+        [JsonProperty][HideInInspector] public string seedInput;
+
+        public SystemProperties(string seedInput)
+        {
+            // Check for a manual seed input  
+            this.seedInput = string.IsNullOrEmpty(seedInput) ? RandomUtils.GenerateSystemName() : seedInput;
+        }
+
+        [JsonProperty]
+        private decimal starCount
+        {
+            get => stellarBodies.Count;
+        }
+
+        [JsonProperty]
+        private decimal bodyCount
+        {
+            get => solidBodies.Count;
+        }
+
+        [JsonProperty]
+        private decimal beltCount
+        {
+            get => belts.Count;
+        }
+
+        [JsonProperty] public List<StarProperties> stellarBodies = new List<StarProperties>();
+        [JsonProperty] public List<PlanetProperties> solidBodies = new List<PlanetProperties>();
+        [JsonProperty] public List<BeltProperties> belts = new List<BeltProperties>();
     }
 }

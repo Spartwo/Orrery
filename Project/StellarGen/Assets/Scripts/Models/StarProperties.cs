@@ -7,24 +7,22 @@ using UnityEngine;
 namespace Models
 {
     [Serializable]
+    [JsonObject(MemberSerialization.OptIn)]
     public class StarProperties : BodyProperties
     {
-        private decimal lifespan;
-        private float radius;
-        private float stellarMass;
-        private float luminosity;
-        private short temperature;
-
-        [JsonIgnore]
-        private float baseLuminosity;
+        [JsonProperty] private decimal lifespan;
+        [JsonProperty] private float radius;
+        [JsonProperty] private float luminosity;
+        [JsonProperty] private short temperature;
+         private float baseLuminosity;
 
         public StarProperties(int seedValue = 0, string name = null, decimal? age = null, decimal? mass = null, decimal? hillSphere = 0m, int[] orbitLine = null, double? siderealDayLength = null, float? axialTilt = null, decimal? lifespan = null, float? radius = null, float? luminosity = null, float? baseLuminosity = null, float? stellarMass = null, short? temperature = null) : base(seedValue, name, age, mass, hillSphere, orbitLine, siderealDayLength, axialTilt)
         {
+            base.Name = name ?? "Unnamed Star";
             // Set specific properties for the Star
             this.radius = radius ?? 0f;  // Default to 0 if not provided
             this.temperature = temperature ?? 0;  // Default to 0 if not provided
             this.lifespan = lifespan ?? 0m;  // Default to 0 if not provided
-            this.stellarMass = stellarMass ?? 0f;  // Default to 0 if not provided
             this.luminosity = luminosity ?? 0f;  // Default to 0 if not provided
             this.baseLuminosity = baseLuminosity ?? 0f;  // Default to 0 if not provided
         }
@@ -36,29 +34,27 @@ namespace Models
                    $"Luminosity: {Luminosity} L☉\n" +
                    $"Surface Temperature: {Luminosity} K\n" +
                    $"Diameter: {Radius} Solar Radii\n" +
-                   $"Lifespan: {Lifespan} billion years";
+                   $"Lifespan: {Lifespan} billion years\n";
         }
 
         /// <summary>
-        /// From Initial mass and age, determine the properties of the star at the current time
+        /// From Initial mass determine the properties of the star
         /// </summary>
         /// <param name="mass"></param>
-        /// <param name="age"> age is unchanging and inherited from the system at large </param>
         public void GenerateStarProperties(float inputMass)
         {
-            stellarMass = inputMass;
             // Set the raw mass
             base.Mass = PhysicsUtils.SolMassToRaw(inputMass);
 
             Logger.Log(GetType().Name, $"Generating Star Properties");
 
             // Radius at formation
-            float baseRadius = Mathf.Pow(stellarMass, 0.7f) * 0.8f;
+            float baseRadius = Mathf.Pow(StellarMass, 0.7f) * 0.8f;
             // Surface temperature is constant through the main sequence
             temperature = (short)(Mathf.Pow(baseRadius * 1.25f, 0.54f) * PhysicalConstants.SOLAR_TEMPERATURE);
 
             // Estimate main sequence lifespan
-            lifespan = (decimal)(Math.Pow(inputMass, -2.5)) * 10;
+            lifespan = (decimal)Math.Round((Math.Pow(inputMass, -2.5)) * 10, 3);
             // Age Adjustment is % though lifespan
             float ageAdjustment = (float)(base.Age / (decimal)lifespan);
 
@@ -69,42 +65,50 @@ namespace Models
             luminosity = Mathf.Pow(radius, 2) * Mathf.Pow(((float)Temperature / PhysicalConstants.SOLAR_TEMPERATURE), 4);
         }
 
+        /// <summary>
+        /// From generated paramaters, determine the properties of the star at the current time
+        /// </summary>
+        public void GenerateAgedStarProperties()
+        {
+            GenerateStarProperties(PhysicsUtils.RawToSolMass(base.Mass));
+        }
+
         #region Getters and Setters
 
         // Lifespan is derivative of Formation Diameter and Luminosity, it is not directly set
-        [JsonIgnore]
+
         public decimal Lifespan
         {
             get => lifespan;
         }
 
-        [JsonIgnore]
+        
         public float StellarMass
         {
-            get => stellarMass;
+            get => PhysicsUtils.RawToSolMass(base.Mass);
         }
 
         // Diameter, Temperature, and Luminosity are derivative of Lifespan and Mass, they are not directly set
 
-        [JsonIgnore]
+        
         public float Radius
         {
             get => radius;
         }
 
-        [JsonIgnore]
+        
         public float Luminosity
         {
             get => luminosity;
         }
 
-        [JsonIgnore]
+        
         public float BaseLuminosity
         {
             get => baseLuminosity;
         }
 
-        [JsonIgnore]
+        
         public short Temperature
         {
             get => temperature;

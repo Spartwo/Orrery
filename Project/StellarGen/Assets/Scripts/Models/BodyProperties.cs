@@ -10,23 +10,22 @@ using UnityEngine;
 namespace Models
 {
     [Serializable]
+    [JsonObject(MemberSerialization.OptIn)]
     public class BodyProperties
     {
-        protected int seedValue;
-        private int parent;
+        [JsonProperty] protected int seedValue;
+        [JsonProperty] private int parent;
 
-        private string name;
-        private bool customName;
+        [JsonProperty] private string name;
+        [JsonProperty] private bool customName;
 
-        private decimal age;
-        private decimal mass;
+        [JsonProperty] private decimal age;
+        [JsonProperty] private decimal mass;
 
-        private decimal hillSphere;
-        private int[] orbitLine;
-        private OrbitalProperties orbit;
-        private SiderealProperties rotation;
-
-        private List<BodyProperties> childBodies = new List<BodyProperties>();
+        [JsonProperty] private decimal hillSphere;
+        [JsonProperty] private int[] orbitLine;
+        [JsonProperty] private OrbitalProperties orbit;
+        [JsonProperty] private SiderealProperties rotation;
 
         /// <summary>
         /// Generates initial properties from a default state
@@ -47,22 +46,25 @@ namespace Models
         }
         public virtual string GetInfo()
         {
-            return $"Name: {Name}\n" +
+            return $"\nName: {Name}\n" +
                    (parent != 0 ? $"Parent ID: {parent}\n" : string.Empty) +
                    $"Age: {Age} billion years\n" +
-                   $"Mass: {Mass} Earth masses\n" +
-                   $"Hill Sphere: {HillSphere} AU" + 
+                   $"Hill Sphere: {HillSphere} AU\n" + 
                    Orbit?.GetInfo();
         }
+
+
 
         #region Getters and Setters
 
         // Body Name for distinction
+        
         public string Name
         {
             get => name;
             set => name = value;
         }
+        
         public bool CustomName
         {
             get => customName;
@@ -70,12 +72,14 @@ namespace Models
         }
 
         // SeedValue of body being orbited
+        
         public int Parent
         {
             get => parent;
             set => parent = value;
         }
         // Unique identifier and generation seed
+        
         public int SeedValue
         {
             get => seedValue;
@@ -83,6 +87,7 @@ namespace Models
         }
 
         // Unified value in kilotons
+        
         public decimal Mass
         {
             get => mass;
@@ -90,7 +95,7 @@ namespace Models
         }
 
         // The range to which this body is the main gravitational point
-        [JsonIgnore]
+        
         public decimal HillSphere
         {
             get => hillSphere;
@@ -98,7 +103,7 @@ namespace Models
         }
 
         // Age stored in billions
-
+        
         public decimal Age
         {
             get => age;
@@ -106,6 +111,7 @@ namespace Models
         }
 
         // Orbital Line gets and sets translates from serializeable float array to a color
+        
         public int[] OrbitLine
         {
             get
@@ -121,71 +127,20 @@ namespace Models
             }
             set
             {
-
-                Logger.Log("System Generation", $"Setting Colour To r{value[0]},g{value[1]},b{value[2]}");
                 orbitLine = value;
             }
         }
 
-        /// <summary>
-        /// Adds a new child body to the list of child bodies.
-        /// </summary>
-        /// <param name="newChild">The new body to be added to the child list</param>
-        public void AddChild(BodyProperties newChild)
-        {
-            // Check if a body with the same seedValue isn't already present
-            if (!childBodies.Any(child => child.SeedValue == newChild.SeedValue))
-            {
-                childBodies.Add(newChild);
-            }
-        }
-
-        /// <summary>
-        /// Removes a child body from the list by its seed value.
-        /// </summary>
-        /// <param name="seedValue">The seed value of the body to be removed</param>
-        /// <returns>The removed body if found, otherwise null</returns>
-        public BodyProperties RemoveChild(int seedValue)
-        {
-            // Find the body with the matching seedValue
-            BodyProperties bodyToRemove = childBodies.FirstOrDefault(child => child.SeedValue == seedValue);
-
-            if (bodyToRemove != null)
-            {
-                // Remove the found body from the list
-                childBodies.Remove(bodyToRemove);
-                return bodyToRemove;
-            }
-            else
-            {
-                Logger.LogWarning(GetType().Name, $"Child body {seedValue} not found.");
-                return null;
-            }
-        }
-
         // Orbital Data
+        
         public OrbitalProperties Orbit
         {
             get => orbit;
             set => orbit = value;
         }
 
-        // Child Body Array
-        public List<BodyProperties> ChildBodies
-        {
-            get => childBodies;
-            set
-            {
-                // Provide a default empty list if the list or new list are null
-                if (value == null || childBodies == null)
-                {
-                    childBodies = new List<BodyProperties>();
-                }
-                childBodies = value;
-            }
-        }
-
         // Getter for Sidereal Day Length (Rotation Period)
+        
         public double Rotation
         {
             get => rotation.SiderealDayLength;
@@ -193,6 +148,7 @@ namespace Models
         }
 
         // Getter for Axial Tilt
+        
         public float AxialTilt
         {
             get => rotation.AxialTilt;

@@ -12,19 +12,15 @@ namespace Models
     [Serializable]
     public class BeltProperties : BodyProperties
     {
-        private decimal mass;
-        private int[] orbitLine;
-        private OrbitalProperties orbit;
+        private SurfaceProperties meanComposition;
         public BeltProperties(int seedValue = 0, string name = null, decimal? age = null, decimal? mass = null, decimal? hillSphere = 0m, int[] orbitLine = null) : base(seedValue, name, age, mass, hillSphere, orbitLine)
         {
-            this.mass = mass ?? 0m;  // Default to 0 if not provided
-            this.orbitLine = orbitLine ?? new int[] { 255, 255, 255 };  // Default to white
+            base.Name = name ?? "Unnamed Belt";
+            this.meanComposition = new SurfaceProperties();
         }
         public override string GetInfo()
         {
-            return base.GetInfo() + $"\n" +
-                   $"Mass: {Mass} Earth masses\n" +
-                   $"Hill Sphere: {HillSphere} AU";
+            return base.GetInfo();
         }
     }
 }

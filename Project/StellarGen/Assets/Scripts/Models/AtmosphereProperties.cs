@@ -1,4 +1,5 @@
-﻿using StellarGenHelpers;
+﻿using Newtonsoft.Json;
+using StellarGenHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +11,14 @@ namespace Models
 {
     // Atmospheric properties specific to celestial bodies
     [Serializable]
+    [JsonObject(MemberSerialization.OptIn)]
     public class AtmosphereProperties
     {
         // List of elements in the atmosphere with their respective percentages
-        public List<(Element, float)> elementPercentages { get; set; }
+        [JsonProperty] public List<(Element, float)> elementPercentages { get; set; }
 
         // Total atmospheric mass in kilotons
-        private decimal totalAtmosphericMass;
+        [JsonProperty] private decimal totalAtmosphericMass;
 
         // Predefined elements: molarMass, freezingPoint (K), boilingPoint (K), gasConstant (J/kg·K), latentHeat(J/mol), localisation
         public static readonly Element H2 = new Element(2.016f, 14.01f, 20.28f, 4124f, 0.452f, "#loc_Hydrogen");
@@ -116,9 +118,10 @@ namespace Models
             string elementsInfo = string.Join(", ", elementPercentages
                 .FindAll(e => e.Item2 > 0)
                 .ConvertAll(e => $"{e.Item1.Localisation}: {e.Item2}%"));
-            return $"Total Atmospheric Mass: {totalAtmosphericMass} kg\nComposition: {elementsInfo}\n";
+            return $"Atmospheric Composition: {elementsInfo}\n";
         }
 
+        
         public decimal TotalAtmosphericMass
         {
             get => totalAtmosphericMass;

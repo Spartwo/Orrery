@@ -8,11 +8,26 @@ using Random = System.Random;
 using static UnityEngine.Rendering.DebugUI;
 using Models;
 using UnityEditor;
+using Newtonsoft.Json.Serialization;
+using System.Reflection;
+using System.Linq;
 
 namespace StellarGenHelpers
 {
     public static class JsonUtils
     { 
+        // Settings that include type names in the JSON
+        private static readonly JsonSerializerSettings _settings = new JsonSerializerSettings
+        {
+            Formatting = Formatting.Indented,
+            ContractResolver = new DefaultContractResolver
+            {
+                // Include public AND non-public instance members
+                DefaultMembersSearchFlags =
+                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance
+            }
+        };
+
         /// <summary>
         /// Serializes a given object to a JSON file.
         /// </summary>
@@ -21,7 +36,7 @@ namespace StellarGenHelpers
         /// <param name="filePath">The path of the file to save the JSON data.</param>
         public static void SerializeToJsonFile<T>(T data, string filePath)
         {
-            string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(data, _settings);
             File.WriteAllText(filePath, json);
         }
 
@@ -37,7 +52,7 @@ namespace StellarGenHelpers
                 return default;
 
             string json = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<T>(json);
+            return JsonConvert.DeserializeObject<T>(json, _settings);
         }
 
         /// <summary>
@@ -66,7 +81,7 @@ namespace StellarGenHelpers
             }
 
             string json = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<T>(json);
+            return JsonConvert.DeserializeObject<T>(json, _settings);
         }
 
         /// <summary>
@@ -150,6 +165,26 @@ namespace StellarGenHelpers
 
             // Create a Color object in Unity
             return new Color(r, g, b);  
+        }
+
+        /// <summary>
+        /// Generates a seed input value / system file name
+        /// </summary>
+        /// <returns>An input string of the systems seed</returns>
+        public static string GenerateSystemName()
+        {
+            // Import list from a plaintext file
+            string nameGenerationFilePath = $"{Application.streamingAssetsPath}/Localisation/System_Names.txt";
+            List<string> systemNameArray = File.ReadAllLines(nameGenerationFilePath).ToList();
+
+            // Choose a random row in the file
+            Random random = new Random();
+            string randName = systemNameArray[random.Next(1, (systemNameArray.Count))];
+            int randNumber = random.Next(1, 1000);
+
+            // Format the output as [RandName RandNumber]
+            Logger.Log("RandomUtils", $"System Name: {randName}-{randNumber}");
+            return $"{randName}-{randNumber}";
         }
     }
 
@@ -250,7 +285,6 @@ namespace StellarGenHelpers
         /// <returns>A System.Drawing.Color sampled from the gradient based on the given temperature.</returns>
         public static Color DetermineSpectralColor(int temperature)
         {
-            Logger.Log("Helpers", $"Determining spectral color for {temperature}K");
             // Load the PNG file as a byte array
             byte[] fileData = File.ReadAllBytes("Assets/Materials/gradient.png");
 
@@ -477,8 +511,6 @@ namespace StellarGenHelpers
 
             // Create new OrbitData Instance
             OrbitalProperties orbit = new OrbitalProperties(semiMajorAxis, eccentricity, longitudeOfAscending, inclination, periArgument);
-
-            Logger.Log("System Generation", $"Produced orbit {orbit.ToString()}");
 
             return orbit;
         }

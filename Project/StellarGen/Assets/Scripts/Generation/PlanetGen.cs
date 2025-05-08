@@ -24,17 +24,10 @@ namespace SystemGen
                 seedValue = RandomUtils.TweakSeed(seedValue);
             }
 
-            Logger.Log("Planet Generation", $"Planet Seed: {seedValue}");
-
-            if (parent != null)
-            {
-                //GenerateRogue();
-            }
-
             PlanetProperties newPlanet = new PlanetProperties(seedValue);
             newPlanet.Orbit = orbit;
 
-            //EstimatePlanetMass
+            // EstimatePlanetMass
 
             newPlanet.Composition = GeneratePlanetaryComposition(parent, newPlanet, coreMass);
             newPlanet.Atmosphere = GenerateAtmosphereComposition(parent, newPlanet);
@@ -49,10 +42,8 @@ namespace SystemGen
                 out float totalRadius
             );
 
-            newPlanet.Radius = coreRadius;
-
+            newPlanet.Radius = totalRadius;
             newPlanet.Mass = (newPlanet.Composition.TotalSolidMass + newPlanet.Atmosphere.TotalAtmosphericMass);
-
 
             return newPlanet;
         }
@@ -61,10 +52,10 @@ namespace SystemGen
         /// Base method to generate planets, moons, etc
         /// </summary>
         /// <param name="children">The elements being passed downwards from the inherited classes</param>
-        public static List<BodyProperties> GenerateMinorChildren(PlanetProperties planet)
+        public static List<PlanetProperties> GenerateMinorChildren(PlanetProperties planet)
         {
-            List<BodyProperties> childBodies = new List<BodyProperties>();
-            return childBodies;
+            List<PlanetProperties> moons = new List<PlanetProperties>();
+            return moons;
         }
 
 
@@ -126,8 +117,6 @@ namespace SystemGen
 
             float baselineMetal = Math.Max(3f, 80f * (float)Math.Exp(-0.85714f * (float)Math.Pow(distance, 1.3205f)));
 
-            Logger.Log("Planet Generation", $"Baseline Materials: Ice: {baselineIce}, Metal: {baselineMetal}");
-
             // Calculate the composition deviation based on the seed value and body mass
             float sharedDeviation = CalculateCompositionDeviation(earthMasses) / 100f;
 
@@ -135,15 +124,12 @@ namespace SystemGen
             float metal = baselineMetal * (1 + RandomUtils.RandomFloat(-sharedDeviation, sharedDeviation, seedValue+1));
             float rock = 100f - (ice + metal);
 
-            Logger.Log("Planet Generation", $"Final Materials: Ice: {ice}%, Metal: {metal}%, Rock: {rock}%");
-
             return new SurfaceProperties(rock, ice, metal, coreMass);
         }
 
         private static float CalculateCompositionDeviation(float mass)
         {
             float deviation = (0.25f * MathF.Exp(-MathF.Log10(mass + 0.001f) * 1.15f)) * 6;
-            Logger.Log("Planet Generation", $"Deviation: {deviation}%");
             return deviation;
         }
 
@@ -162,6 +148,7 @@ namespace SystemGen
             // Calculate the core radius using a power-law relationship
             coreRadius = MathF.Pow(coreMass, 0.27f) * Mathf.Pow(solidDensity, 1.2f);
 
+            Debug.Log($"Core Radius: {coreRadius} Earth Radii \n Core Mass: {coreMass} Earth Masses \n Solid Density: {solidDensity} kg/m^3");
 
             // Calculate the atmospheric inflation factor based on temperature
             float atmInflation = MathF.Pow(temperature / 650f, PhysicalConstants.ATMOSPHERE_TEMPERATURE_EXPONENT);
@@ -176,43 +163,6 @@ namespace SystemGen
 
             // Calculate the total radius as the sum of the core and atmosphere radii
             totalRadius = coreRadius + atmRadius;
-        }
-
-
-        /// <summary>
-        /// Calculates the properties of a rogue planet, ejected from its parent system
-        /// </summary>
-        /// <param name="seedValue">The numerical seed for this </param>
-        private static PlanetProperties GenerateRogue(int seedValue, StarProperties parent, OrbitalProperties orbit)
-        {
-            if (seedValue == 0)
-            {
-                // If no seed is provided then pick one at random
-                seedValue = RandomUtils.RandomInt(0, int.MaxValue);
-            }
-            else
-            {
-                // If it is provided then adjust its value to avoid intersections
-                seedValue = RandomUtils.TweakSeed(seedValue);
-            }
-
-            Logger.Log("Planet Generation", $"Planet Seed: {seedValue}");
-
-            if (parent != null)
-            {
-                //GenerateRogue();
-            }
-
-            // GeneratePlanetaryComposition(seedValue, parent, orbit);
-
-            PlanetProperties newPlanet = new PlanetProperties(seedValue);
-
-            newPlanet.Orbit = orbit;
-
-            //EstimatePlanetRadius
-
-
-            return newPlanet;
         }
     }
 }

@@ -1,19 +1,574 @@
-[
-  {
-    "Name": "Greg A",
-    "CustomName": false,
-    "Parent": 0,
-    "SeedValue": 25799898,
-    "Mass": 966336516201496000000000.0,
-    "Age": 7.547,
-    "OrbitLine": [
-      231,
-      255,
-      205
-    ],
-    "Orbit": null,
-    "ChildBodies": [],
-    "Rotation": 0.001,
-    "AxialTilt": 0.0
-  }
-]
+{
+  "systemAge": 1.897,
+  "seedInput": "Greg",
+  "stellarBodies": [
+    {
+      "lifespan": 2.563,
+      "radius": 1.6047312,
+      "luminosity": 5.86639547,
+      "temperature": 7101,
+      "seedValue": 61471832,
+      "parent": 0,
+      "name": "Greg-A",
+      "customName": false,
+      "age": 1.897,
+      "mass": 3428947276353840000000000.0,
+      "hillSphere": 0.0,
+      "orbitLine": [
+        160,
+        251,
+        255
+      ],
+      "orbit": {
+        "semiMajorAxis": 22463182430486.0,
+        "eccentricity": 0.8265232,
+        "longitudeOfAscending": 180.0,
+        "inclination": 0.0,
+        "periArgument": 0.0
+      },
+      "rotation": {
+        "siderealDayLength": 0.001,
+        "axialTilt": 0.0
+      }
+    },
+    {
+      "lifespan": 60.781,
+      "radius": 0.4901855,
+      "luminosity": 0.0806167647,
+      "temperature": 4399,
+      "seedValue": 25799898,
+      "parent": 0,
+      "name": "Greg-B",
+      "customName": false,
+      "age": 1.897,
+      "mass": 966336516201496000000000.0,
+      "hillSphere": 0.0,
+      "orbitLine": [
+        231,
+        255,
+        205
+      ],
+      "orbit": {
+        "semiMajorAxis": 79708303632548.0,
+        "eccentricity": 0.8265232,
+        "longitudeOfAscending": 0.0,
+        "inclination": 0.0,
+        "periArgument": 0.0
+      },
+      "rotation": {
+        "siderealDayLength": 0.001,
+        "axialTilt": 0.0
+      }
+    }
+  ],
+  "solidBodies": [
+    {
+      "composition": {
+        "rock": 45.9885521,
+        "ice": 4.14159775,
+        "metals": 49.86985,
+        "totalSolidMass": 13044723282814000000.0
+      },
+      "radius": 36426.082,
+      "atmosphere": {
+        "totalAtmosphericMass": 0.0,
+        "elementPercentages": []
+      },
+      "seedValue": 4369555,
+      "parent": 25799898,
+      "name": "Greg-Bb",
+      "customName": false,
+      "age": 1.897,
+      "mass": 13044723282814000000.0,
+      "hillSphere": 0.0,
+      "orbitLine": [
+        231,
+        255,
+        205
+      ],
+      "orbit": {
+        "semiMajorAxis": 94973838830.0,
+        "eccentricity": 0.177290976,
+        "longitudeOfAscending": 195.633759,
+        "inclination": 2.99717474,
+        "periArgument": 195.633759
+      },
+      "rotation": {
+        "siderealDayLength": 0.001,
+        "axialTilt": 0.0
+      }
+    },
+    {
+      "composition": {
+        "rock": 27.7710419,
+        "ice": 69.17547,
+        "metals": 3.053489,
+        "totalSolidMass": 1664939913988110000.0
+      },
+      "radius": 5307.444,
+      "atmosphere": {
+        "totalAtmosphericMass": 0.0,
+        "elementPercentages": []
+      },
+      "seedValue": 16061740,
+      "parent": 25799898,
+      "name": "Greg-Bd",
+      "customName": false,
+      "age": 1.897,
+      "mass": 1664939913988110000.0,
+      "hillSphere": 0.0,
+      "orbitLine": [
+        231,
+        255,
+        205
+      ],
+      "orbit": {
+        "semiMajorAxis": 3785774579210.0,
+        "eccentricity": 0.0227932781,
+        "longitudeOfAscending": 24.184454,
+        "inclination": 0.370513916,
+        "periArgument": 24.184454
+      },
+      "rotation": {
+        "siderealDayLength": 0.001,
+        "axialTilt": 0.0
+      }
+    },
+    {
+      "composition": {
+        "rock": 29.2805862,
+        "ice": 0.0,
+        "metals": 70.71941,
+        "totalSolidMass": 14113435890197800000.0
+      },
+      "radius": 46539.23,
+      "atmosphere": {
+        "totalAtmosphericMass": 0.0,
+        "elementPercentages": []
+      },
+      "seedValue": 4089949,
+      "parent": 25799898,
+      "name": "Greg-Ba",
+      "customName": false,
+      "age": 1.897,
+      "mass": 14113435890197800000.0,
+      "hillSphere": 0.0,
+      "orbitLine": [
+        231,
+        255,
+        205
+      ],
+      "orbit": {
+        "semiMajorAxis": 32951115150.0,
+        "eccentricity": 0.191800371,
+        "longitudeOfAscending": 211.735138,
+        "inclination": 3.243853,
+        "periArgument": 211.735138
+      },
+      "rotation": {
+        "siderealDayLength": 0.001,
+        "axialTilt": 0.0
+      }
+    },
+    {
+      "composition": {
+        "rock": 30.9455,
+        "ice": 65.9956741,
+        "metals": 3.05882668,
+        "totalSolidMass": 2733653233289720000.0
+      },
+      "radius": 6357.033,
+      "atmosphere": {
+        "totalAtmosphericMass": 0.0,
+        "elementPercentages": []
+      },
+      "seedValue": 12836083,
+      "parent": 25799898,
+      "name": "Greg-Bc",
+      "customName": false,
+      "age": 1.897,
+      "mass": 2733653233289720000.0,
+      "hillSphere": 0.0,
+      "orbitLine": [
+        231,
+        255,
+        205
+      ],
+      "orbit": {
+        "semiMajorAxis": 2233078831491.0,
+        "eccentricity": 0.03730267,
+        "longitudeOfAscending": 40.2858276,
+        "inclination": 0.6171924,
+        "periArgument": 40.2858276
+      },
+      "rotation": {
+        "siderealDayLength": 0.001,
+        "axialTilt": 0.0
+      }
+    },
+    {
+      "composition": {
+        "rock": 25.5802765,
+        "ice": 0.0,
+        "metals": 74.41972,
+        "totalSolidMass": 20852869123458900000.0
+      },
+      "radius": 53440.5977,
+      "atmosphere": {
+        "totalAtmosphericMass": 0.0,
+        "elementPercentages": []
+      },
+      "seedValue": 6943127,
+      "parent": 61471832,
+      "name": "Greg-Ac",
+      "customName": false,
+      "age": 1.897,
+      "mass": 20852869123458900000.0,
+      "hillSphere": 0.0,
+      "orbitLine": [
+        160,
+        251,
+        255
+      ],
+      "orbit": {
+        "semiMajorAxis": 23202958860.0,
+        "eccentricity": 0.101257242,
+        "longitudeOfAscending": 313.272339,
+        "inclination": 2.18156219,
+        "periArgument": 313.272339
+      },
+      "rotation": {
+        "siderealDayLength": 0.001,
+        "axialTilt": 0.0
+      }
+    },
+    {
+      "composition": {
+        "rock": 74.71339,
+        "ice": 22.2693577,
+        "metals": 3.0172565,
+        "totalSolidMass": 9473086110591890000.0
+      },
+      "radius": 14699.8193,
+      "atmosphere": {
+        "totalAtmosphericMass": 0.0,
+        "elementPercentages": []
+      },
+      "seedValue": 13494125,
+      "parent": 61471832,
+      "name": "Greg-Ah",
+      "customName": false,
+      "age": 1.897,
+      "mass": 9473086110591890000.0,
+      "hillSphere": 0.0,
+      "orbitLine": [
+        160,
+        251,
+        255
+      ],
+      "orbit": {
+        "semiMajorAxis": 925421553620.0,
+        "eccentricity": 0.0463879332,
+        "longitudeOfAscending": 141.823013,
+        "inclination": 0.9876254,
+        "periArgument": 141.823013
+      },
+      "rotation": {
+        "siderealDayLength": 0.001,
+        "axialTilt": 0.0
+      }
+    },
+    {
+      "composition": {
+        "rock": 22.4853134,
+        "ice": 0.0,
+        "metals": 77.51469,
+        "totalSolidMass": 21921583154678300000.0
+      },
+      "radius": 55639.2266,
+      "atmosphere": {
+        "totalAtmosphericMass": 0.0,
+        "elementPercentages": []
+      },
+      "seedValue": 6640378,
+      "parent": 61471832,
+      "name": "Greg-Ab",
+      "customName": false,
+      "age": 1.897,
+      "mass": 21921583154678300000.0,
+      "hillSphere": 0.0,
+      "orbitLine": [
+        160,
+        251,
+        255
+      ],
+      "orbit": {
+        "semiMajorAxis": 13684722530.0,
+        "eccentricity": 0.1064102,
+        "longitudeOfAscending": 329.3737,
+        "inclination": 2.29368877,
+        "periArgument": 329.3737
+      },
+      "rotation": {
+        "siderealDayLength": 0.001,
+        "axialTilt": 0.0
+      }
+    },
+    {
+      "composition": {
+        "rock": 94.19935,
+        "ice": 2.7839,
+        "metals": 3.01675463,
+        "totalSolidMass": 10541799429893500000.0
+      },
+      "radius": 17946.0039,
+      "atmosphere": {
+        "totalAtmosphericMass": 0.0,
+        "elementPercentages": []
+      },
+      "seedValue": 12395746,
+      "parent": 61471832,
+      "name": "Greg-Ag",
+      "customName": false,
+      "age": 1.897,
+      "mass": 10541799429893500000.0,
+      "hillSphere": 0.0,
+      "orbitLine": [
+        160,
+        251,
+        255
+      ],
+      "orbit": {
+        "semiMajorAxis": 545839845193.0,
+        "eccentricity": 0.0515408926,
+        "longitudeOfAscending": 157.9244,
+        "inclination": 1.09975207,
+        "periArgument": 157.9244
+      },
+      "rotation": {
+        "siderealDayLength": 0.001,
+        "axialTilt": 0.0
+      }
+    },
+    {
+      "composition": {
+        "rock": 30.6058578,
+        "ice": 0.0,
+        "metals": 69.39414,
+        "totalSolidMass": 22990295762062100000.0
+      },
+      "radius": 52459.5977,
+      "atmosphere": {
+        "totalAtmosphericMass": 0.0,
+        "elementPercentages": []
+      },
+      "seedValue": 6362928,
+      "parent": 61471832,
+      "name": "Greg-Aa",
+      "customName": false,
+      "age": 1.897,
+      "mass": 22990295762062100000.0,
+      "hillSphere": 0.0,
+      "orbitLine": [
+        160,
+        251,
+        255
+      ],
+      "orbit": {
+        "semiMajorAxis": 39652680883.0,
+        "eccentricity": 0.111563161,
+        "longitudeOfAscending": 345.475067,
+        "inclination": 2.40581536,
+        "periArgument": 345.475067
+      },
+      "rotation": {
+        "siderealDayLength": 0.001,
+        "axialTilt": 0.0
+      }
+    },
+    {
+      "composition": {
+        "rock": 60.94718,
+        "ice": 36.0348167,
+        "metals": 3.01800132,
+        "totalSolidMass": 11610512749195100000.0
+      },
+      "radius": 13540.2871,
+      "atmosphere": {
+        "totalAtmosphericMass": 0.0,
+        "elementPercentages": []
+      },
+      "seedValue": 11462717,
+      "parent": 61471832,
+      "name": "Greg-Af",
+      "customName": false,
+      "age": 1.897,
+      "mass": 11610512749195100000.0,
+      "hillSphere": 0.0,
+      "orbitLine": [
+        160,
+        251,
+        255
+      ],
+      "orbit": {
+        "semiMajorAxis": 1581737182357.0,
+        "eccentricity": 0.0566938519,
+        "longitudeOfAscending": 174.025772,
+        "inclination": 1.21187854,
+        "periArgument": 174.025772
+      },
+      "rotation": {
+        "siderealDayLength": 0.001,
+        "axialTilt": 0.0
+      }
+    },
+    {
+      "composition": {
+        "rock": 36.93339,
+        "ice": 60.1225739,
+        "metals": 2.94403386,
+        "totalSolidMass": 230729602843523000.0
+      },
+      "radius": 3524.72778,
+      "atmosphere": {
+        "totalAtmosphericMass": 0.0,
+        "elementPercentages": []
+      },
+      "seedValue": 57742229,
+      "parent": 61471832,
+      "name": "Greg-Aj",
+      "customName": false,
+      "age": 1.897,
+      "mass": 230729602843523000.0,
+      "hillSphere": 0.0,
+      "orbitLine": [
+        160,
+        251,
+        255
+      ],
+      "orbit": {
+        "semiMajorAxis": 7548196930804.0,
+        "eccentricity": 0.00182454812,
+        "longitudeOfAscending": 2.57645321,
+        "inclination": 0.0179418754,
+        "periArgument": 2.57645321
+      },
+      "rotation": {
+        "siderealDayLength": 0.001,
+        "axialTilt": 0.0
+      }
+    },
+    {
+      "composition": {
+        "rock": 75.19824,
+        "ice": 0.0,
+        "metals": 24.8017578,
+        "totalSolidMass": 12679226068496700000.0
+      },
+      "radius": 27227.01,
+      "atmosphere": {
+        "totalAtmosphericMass": 0.0,
+        "elementPercentages": []
+      },
+      "seedValue": 10660315,
+      "parent": 61471832,
+      "name": "Greg-Ae",
+      "customName": false,
+      "age": 1.897,
+      "mass": 12679226068496700000.0,
+      "hillSphere": 0.0,
+      "orbitLine": [
+        160,
+        251,
+        255
+      ],
+      "orbit": {
+        "semiMajorAxis": 189892057173.0,
+        "eccentricity": 0.06184681,
+        "longitudeOfAscending": 190.127136,
+        "inclination": 1.32400513,
+        "periArgument": 190.127136
+      },
+      "rotation": {
+        "siderealDayLength": 0.001,
+        "axialTilt": 0.0
+      }
+    },
+    {
+      "composition": {
+        "rock": 46.66202,
+        "ice": 50.4223328,
+        "metals": 2.91564465,
+        "totalSolidMass": 1299442966640000000.0
+      },
+      "radius": 6354.908,
+      "atmosphere": {
+        "totalAtmosphericMass": 0.0,
+        "elementPercentages": []
+      },
+      "seedValue": 41867521,
+      "parent": 61471832,
+      "name": "Greg-Ai",
+      "customName": false,
+      "age": 1.897,
+      "mass": 1299442966640000000.0,
+      "hillSphere": 0.0,
+      "orbitLine": [
+        160,
+        251,
+        255
+      ],
+      "orbit": {
+        "semiMajorAxis": 4452429066389.0,
+        "eccentricity": 0.006977507,
+        "longitudeOfAscending": 18.67783,
+        "inclination": 0.130068451,
+        "periArgument": 18.67783
+      },
+      "rotation": {
+        "siderealDayLength": 0.001,
+        "axialTilt": 0.0
+      }
+    },
+    {
+      "composition": {
+        "rock": 55.0434341,
+        "ice": 0.0,
+        "metals": 44.9565659,
+        "totalSolidMass": 13747940099716200000.0
+      },
+      "radius": 35705.9844,
+      "atmosphere": {
+        "totalAtmosphericMass": 0.0,
+        "elementPercentages": []
+      },
+      "seedValue": 9962901,
+      "parent": 61471832,
+      "name": "Greg-Ad",
+      "customName": false,
+      "age": 1.897,
+      "mass": 13747940099716200000.0,
+      "hillSphere": 0.0,
+      "orbitLine": [
+        160,
+        251,
+        255
+      ],
+      "orbit": {
+        "semiMajorAxis": 112001292870.0,
+        "eccentricity": 0.06699977,
+        "longitudeOfAscending": 206.228516,
+        "inclination": 1.43613172,
+        "periArgument": 206.228516
+      },
+      "rotation": {
+        "siderealDayLength": 0.001,
+        "axialTilt": 0.0
+      }
+    }
+  ],
+  "belts": [],
+  "starCount": 2.0,
+  "bodyCount": 14.0,
+  "beltCount": 0.0
+}

@@ -56,7 +56,6 @@ namespace SystemGen
             // Convert it to stellar masses between 0.1 and 5 using the formula
             float graphY = (0.1f + ((-0.374495f * graphX) / (-1.073858f + graphX)));
 
-            Logger.Log("System Generation", "Sols Mass: " + graphY);
             return graphY;
         }
 
@@ -66,7 +65,7 @@ namespace SystemGen
         /// </summary>
         /// <param name="star">The <see cref="StarProperties"/> object from which planetary parameters are derived.</param>
         /// <returns>A list of generated <see cref="BodyProperties"/> representing the planets of the star.</returns>
-        public static List<BodyProperties> GenerateChildren(StarProperties star)
+        public static List<PlanetProperties> GenerateChildren(StarProperties star)
         {
             int seedValue = star.SeedValue;
             // Generate number of planets
@@ -91,7 +90,7 @@ namespace SystemGen
             float meanEccentricity = (float)Math.Max(Math.Pow(planetCount, -0.15) - 0.65, 0.01);
             float maxInclination = (15f - planetCount) / 2;
 
-            List<BodyProperties> childBodies = GeneratePlanetsFromPositions(
+            List<PlanetProperties> childBodies = GeneratePlanetsFromPositions(
                 star, seedValue, planetCount, orbitalPositions, meanEccentricity, maxInclination, metalicity, planetOrder, diskMass
             );
 
@@ -103,10 +102,10 @@ namespace SystemGen
         /// </summary>
         /// <param name="star">The <see cref="StarProperties"/> object from which planetary parameters are derived.</param>
         /// <returns>A list of generated <see cref="BodyProperties"/> representing the planets of the star.</returns>
-        public static List<BodyProperties> GenerateMinorChildren(StarProperties star)
+        public static List<PlanetProperties> GenerateMinorChildren(StarProperties star)
         {
             // Generate a list of minor bodies (e.g., asteroids, comets) based on the parent body
-            List<BodyProperties> minorBodies = new List<BodyProperties>();
+            List<PlanetProperties> minorBodies = new List<PlanetProperties>();
             return minorBodies;
         }
 
@@ -152,7 +151,6 @@ namespace SystemGen
         public static float GenerateSublimationRadius(StarProperties star)
         {
             float radius = 0.034f * (float)Math.Sqrt(star.Luminosity) * (1500f / PhysicalConstants.SUBLIMATION_TEMPERATURE);
-            Logger.Log("System Generation", $"Calculated Sublimation Radius: {radius}AU");
             return radius;
         }
 
@@ -202,16 +200,15 @@ namespace SystemGen
         /// <param name="planetOrder">The overall orbital pattern (e.g. similar, mixed).</param>
         /// <param name="diskMass">Estimated protoplanetary disk mass used in formation logic.</param>
         /// <returns>A list of instantiated planetary <see cref="BodyProperties"/>.</returns>
-        private static List<BodyProperties> GeneratePlanetsFromPositions(StarProperties star, int seed, int count, List<float> positions, float eccentricity, float inclination, float metalicity, PlanetOrder planetOrder, decimal diskMass)
+        private static List<PlanetProperties> GeneratePlanetsFromPositions(StarProperties star, int seed, int count, List<float> positions, float eccentricity, float inclination, float metalicity, PlanetOrder planetOrder, decimal diskMass)
         {
             int minCount = Math.Min(count, positions.Count);
             Logger.Log("System Generation", $"Generating Planets");
 
-            var planets = new List<BodyProperties>();
+            var planets = new List<PlanetProperties>();
 
             // Calculate the rocky materials available for planet formation
             decimal rockyMass = PhysicsUtils.EarthMassToRaw(0.1f);
-
 
             // Deviation is the largest core allowed / smallest allowed
             float deviation = planetOrder != PlanetOrder.SIMILAR ? 0.7f : 0.2f;
@@ -220,23 +217,24 @@ namespace SystemGen
             // Generate the required number of planets or maximum available
             for (int p = 0; p < minCount; p++)
             {
+                rockyMass = PhysicsUtils.EarthMassToRaw(RandomUtils.RandomFloat(0.01f, 4f, seed + p));
+
                 int planetSeed = seed + p;
                 int index = RandomUtils.RandomInt(0, positions.Count - 1, planetSeed);
 
                 float position = positions[index];
                 positions.RemoveAt(index);
 
-                Logger.Log("Planet Generation", $"Planet Mass {PhysicsUtils.RawToEarthMass(rockyMass)} @ {position}AU");
-
                 // Generate the planet's properties
                 // Orbital parameters
                 OrbitalProperties orbit = PhysicsUtils.ConstructOrbitProperties(planetSeed, position, eccentricity, inclination);
                 // Estimate surface composition
                 PlanetProperties newPlanet = PlanetGen.Generate(planetSeed, star, orbit, rockyMass);
+                newPlanet.Parent = star.SeedValue;
 
                 planets.Add(newPlanet);
 
-                Debug.Log(newPlanet.GetInfo());
+                Logger.Log("Planet Generation", newPlanet.GetInfo());
             }
 
             return planets;
