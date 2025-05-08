@@ -210,7 +210,7 @@ namespace SystemGen
             var planets = new List<BodyProperties>();
 
             // Calculate the rocky materials available for planet formation
-            decimal rockyMass = 0.1m;
+            decimal rockyMass = PhysicsUtils.EarthMassToRaw(0.1f);
 
 
             // Deviation is the largest core allowed / smallest allowed
@@ -225,6 +225,8 @@ namespace SystemGen
 
                 float position = positions[index];
                 positions.RemoveAt(index);
+
+                Logger.Log("Planet Generation", $"Planet Mass {PhysicsUtils.RawToEarthMass(rockyMass)} @ {position}AU");
 
                 // Generate the planet's properties
                 // Orbital parameters

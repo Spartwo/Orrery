@@ -50,7 +50,7 @@ namespace Models
             float density = (rock * PhysicalConstants.ROCK_DENSITY +
                              ice * PhysicalConstants.ICE_DENSITY +
                              metals * PhysicalConstants.METAL_DENSITY) / 100f;
-            Logger.Log("Planet Generation", $"Crore density: {density} kg/m^3");
+            Logger.Log("Planet Generation", $"Core Density: {density} kg/m^3");
             return density;
         }
 

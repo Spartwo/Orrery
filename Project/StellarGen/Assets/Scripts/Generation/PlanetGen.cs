@@ -116,7 +116,7 @@ namespace SystemGen
             if (distance < frostLine)
             {
                 float term = Math.Max(0f, (distance - sublimationLine) / (frostLine - sublimationLine));
-                baselineIce = Math.Max(0f, 76.27810046f * (float)Math.Pow(term, 3.8263522568f) - 0.11f);
+                baselineIce = Math.Min(Math.Max(0f, 76.27810046f * (float)Math.Pow(term, 3.8263522568f) - 0.11f), 37.9f);
             }
             else
             {
@@ -129,11 +129,11 @@ namespace SystemGen
             Logger.Log("Planet Generation", $"Baseline Materials: Ice: {baselineIce}, Metal: {baselineMetal}");
 
             // Calculate the composition deviation based on the seed value and body mass
-            float sharedDeviation = CalculateCompositionDeviation(earthMasses);
+            float sharedDeviation = CalculateCompositionDeviation(earthMasses) / 100f;
 
             float ice = baselineIce * (1 + RandomUtils.RandomFloat(-sharedDeviation, sharedDeviation, seedValue));
             float metal = baselineMetal * (1 + RandomUtils.RandomFloat(-sharedDeviation, sharedDeviation, seedValue+1));
-            float rock = 100f - ice - metal;
+            float rock = 100f - (ice + metal);
 
             Logger.Log("Planet Generation", $"Final Materials: Ice: {ice}%, Metal: {metal}%, Rock: {rock}%");
 
@@ -142,8 +142,8 @@ namespace SystemGen
 
         private static float CalculateCompositionDeviation(float mass)
         {
-            float deviation = (0.25f * MathF.Exp(-MathF.Log10(mass + 0.001f) * 1.1f)) * 6;
-            Logger.Log("Planet Generation", $"Deviation: {deviation}");
+            float deviation = (0.25f * MathF.Exp(-MathF.Log10(mass + 0.001f) * 1.15f)) * 6;
+            Logger.Log("Planet Generation", $"Deviation: {deviation}%");
             return deviation;
         }
 
