@@ -15,6 +15,7 @@ using System.Xml.Linq;
 using StellarGenHelpers;
 using UnityEngine.UI;
 using static StarDataPrototype;
+using UnityEngine.UIElements;
 
 namespace SystemGen
 {
@@ -64,8 +65,8 @@ namespace SystemGen
         /// disk characteristics, and planet formation order, then creating the corresponding planetary bodies.
         /// </summary>
         /// <param name="star">The <see cref="StarProperties"/> object from which planetary parameters are derived.</param>
-        /// <returns>A list of generated <see cref="BodyProperties"/> representing the planets of the star.</returns>
-        public static List<PlanetProperties> GenerateChildren(StarProperties star)
+        /// <returns>A list of generated <see cref="BaseProperties"/> representing the planets of the star.</returns>
+        public static void GenerateChildren(StarProperties star, out List<BodyProperties> planets, out List<BeltProperties> belts)
         {
             int seedValue = star.SeedValue;
             // Generate number of planets
@@ -79,33 +80,32 @@ namespace SystemGen
             // Pass the required out parameters
             DetermineArrangement(star, out metalicity, out planetOrder, out diskMass);
 
-            float lowerEdge, upperEdge, sublimationRadius;
-            GenerateKuiperBelt(star, out lowerEdge, out upperEdge);
-            sublimationRadius = GenerateSublimationRadius(star);
+            belts = new List<BeltProperties>();
+            belts.Add(GenerateKuiperBelt(star));
+
+            float sublimationRadius = GenerateSublimationRadius(star);
 
             // Define all resonant orbital positions relative to the keystone
-            List<float> orbitalPositions = CalculateOrbitalPositions(sublimationRadius, lowerEdge);
+            List<float> orbitalPositions = CalculateOrbitalPositions(sublimationRadius, PhysicsUtils.ConvertToAU(belts[0].LowerEdge));
 
             // Mean eccentricity due to planet count
             float meanEccentricity = (float)Math.Max(Math.Pow(planetCount, -0.15) - 0.65, 0.01);
             float maxInclination = (15f - planetCount) / 2;
 
-            List<PlanetProperties> childBodies = GeneratePlanetsFromPositions(
+            planets = GeneratePlanetsFromPositions(
                 star, seedValue, planetCount, orbitalPositions, meanEccentricity, maxInclination, metalicity, planetOrder, diskMass
             );
-
-            return childBodies;
         }
 
         /// <summary>
         /// Generates the minor child bodies (dwarf planets, major asteroids) of a star.
         /// </summary>
         /// <param name="star">The <see cref="StarProperties"/> object from which planetary parameters are derived.</param>
-        /// <returns>A list of generated <see cref="BodyProperties"/> representing the planets of the star.</returns>
-        public static List<PlanetProperties> GenerateMinorChildren(StarProperties star)
+        /// <returns>A list of generated <see cref="BaseProperties"/> representing the planets of the star.</returns>
+        public static List<BodyProperties> GenerateMinorChildren(StarProperties star)
         {
             // Generate a list of minor bodies (e.g., asteroids, comets) based on the parent body
-            List<PlanetProperties> minorBodies = new List<PlanetProperties>();
+            List<BodyProperties> minorBodies = new List<BodyProperties>();
             return minorBodies;
         }
 
@@ -114,7 +114,7 @@ namespace SystemGen
         /// </summary>
         /// <param name="star"></param>
         /// <returns></returns>
-        public static void GenerateKuiperBelt(StarProperties star, out float lowerEdge, out float upperEdge)
+        public static BeltProperties GenerateKuiperBelt(StarProperties star)
         {
             int seedValue = star.SeedValue;
             // Declare parameters of the observed trends
@@ -123,14 +123,15 @@ namespace SystemGen
             const float scatter = 0.44f;    // Scatter of the trendline
 
             float baseRadius = (float)(baseline * Math.Pow(star.Luminosity, slope));
-            float minLowerEdge = MathF.Sqrt(star.Luminosity) * 4.8f; // Frost Line
+            float minLowerEdge = (float)Math.Sqrt(star.Luminosity) * 4.8f; // Frost Line
 
             // Scatter 2 edges
             float edgeA = baseRadius * RandomUtils.RandomFloat(1 - scatter, 1 + scatter);
             float edgeB = baseRadius * RandomUtils.RandomFloat(1 - scatter, 1 + scatter);
 
-            lowerEdge = Mathf.Min(edgeA, edgeB);
-            upperEdge = Mathf.Max(edgeA, edgeB);
+            float lowerEdge = Math.Min(edgeA, edgeB);
+            float upperEdge = Math.Max(edgeA, edgeB);
+            float position = (lowerEdge + upperEdge) / 2;
 
             // Adjust edges if lowerEdge is less than minLowerEdge in very high mass stars
             if (lowerEdge < minLowerEdge)
@@ -140,7 +141,25 @@ namespace SystemGen
                 upperEdge *= adjustmentFactor;
             }
 
+            // Calculate the rough area of the belt zone
+            double lowerArea = Math.PI * lowerEdge * lowerEdge;
+            double upperArea = Math.PI * upperEdge * upperEdge;
+            double beltArea = upperArea - lowerArea;
+
+            Debug.Log($"Kuiper Belt Area: {beltArea} AU^2");
+
+            // Apply the solar system to this area
+            decimal beltMass =(decimal)(PhysicalConstants.KUIPER_DENSITY * beltArea);
+
+            Debug.Log($"Kuiper Belt Mass: {beltMass} kg");
+
             Logger.Log("System Generation", $"Generated Kuiper Belt from {lowerEdge}AU to {upperEdge}AU");
+
+            // Produce a belt within the given paramaters
+            OrbitalProperties orbit = PhysicsUtils.ConstructOrbitProperties(seedValue, position, 0, 0);
+            BeltProperties kuiperBelt = BeltGen.Generate(seedValue, star, orbit, beltMass, lowerEdge, upperEdge);
+
+            return kuiperBelt;
         }
 
         /// <summary>
@@ -199,19 +218,19 @@ namespace SystemGen
         /// <param name="metalicity">Stellar metallicity used in planetary type selection.</param>
         /// <param name="planetOrder">The overall orbital pattern (e.g. similar, mixed).</param>
         /// <param name="diskMass">Estimated protoplanetary disk mass used in formation logic.</param>
-        /// <returns>A list of instantiated planetary <see cref="BodyProperties"/>.</returns>
-        private static List<PlanetProperties> GeneratePlanetsFromPositions(StarProperties star, int seed, int count, List<float> positions, float eccentricity, float inclination, float metalicity, PlanetOrder planetOrder, decimal diskMass)
+        /// <returns>A list of instantiated planetary <see cref="BaseProperties"/>.</returns>
+        private static List<BodyProperties> GeneratePlanetsFromPositions(StarProperties star, int seed, int count, List<float> positions, float eccentricity, float inclination, float metalicity, PlanetOrder planetOrder, decimal diskMass)
         {
             int minCount = Math.Min(count, positions.Count);
             Logger.Log("System Generation", $"Generating Planets");
 
-            var planets = new List<PlanetProperties>();
+            var planets = new List<BodyProperties>();
 
             // Calculate the rocky materials available for planet formation
             decimal rockyMass = PhysicsUtils.EarthMassToRaw(0.1f);
 
             // Deviation is the largest core allowed / smallest allowed
-            float deviation = planetOrder != PlanetOrder.SIMILAR ? 0.7f : 0.2f;
+            float deviation = planetOrder != PlanetOrder.SIMILAR ? 8f : 0.15f;
 
 
             // Generate the required number of planets or maximum available
@@ -229,18 +248,18 @@ namespace SystemGen
                 // Orbital parameters
                 OrbitalProperties orbit = PhysicsUtils.ConstructOrbitProperties(planetSeed, position, eccentricity, inclination);
                 // Estimate surface composition
-                PlanetProperties newPlanet = PlanetGen.Generate(planetSeed, star, orbit, rockyMass);
+                BodyProperties newPlanet = PlanetGen.Generate(planetSeed, star, orbit, rockyMass);
                 newPlanet.Parent = star.SeedValue;
 
                 planets.Add(newPlanet);
 
-                Logger.Log("Planet Generation", newPlanet.GetInfo());
+                //Logger.Log("Planet Generation", newPlanet.GetInfo());
             }
 
             return planets;
         }
 
-        private static List<BodyProperties> StructureSystem()
+        private static List<BaseProperties> StructureSystem()
         {
             return null;
         }
@@ -255,7 +274,7 @@ namespace SystemGen
         /// <returns>An integer representing the number of planets to be created.</returns>
         private static int GeneratePlanetCount(StarProperties star, int seed)
         {
-            int planetCount = (int)Mathf.Max(Mathf.Pow(star.StellarMass, 0.3f) * RandomUtils.RandomInt(1, 10, seed), 1);
+            int planetCount = (int)Math.Max(Math.Pow(star.StellarMass, 0.3f) * RandomUtils.RandomInt(1, 10, seed), 1);
             Logger.Log("System Generation", "Planet Count: " + planetCount);
             return planetCount;
         }

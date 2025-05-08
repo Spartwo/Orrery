@@ -9,7 +9,7 @@ using Models;
 
 namespace SystemGen
 {
-    public class BodyManager : MonoBehaviour
+    public class SystemManager : MonoBehaviour
     {
         //public knowledge variables that will be accessed by UI
         [HideInInspector] public string BodySearchTerm;
@@ -43,10 +43,12 @@ namespace SystemGen
         }
         void RotateBody()
         {
+            /*
             //rotation of body
-            float rotationRate = GameObject.Find("Barycenter").GetComponent<Timekeep>().GameSpeed;
-            transform.Rotate(0, (rotationRate / 300) / (600 * Time.deltaTime), 0);
-            
+            rotationrate
+            float Rate = GameObject.Find("Barycenter").GetComponent<Timekeep>().GameSpeed;
+            transform.Rotate(0, (Rate / 300) / (600 * Time.deltaTime), 0);
+            */
         }
 
 

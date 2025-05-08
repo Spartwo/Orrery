@@ -1,7 +1,2 @@
 Program Initialised
 -----------------------------
-Program Initialised
------------------------------
-Program Initialised
------------------------------
-[02:45:03 ERROR] Helpers: MassToRaw: An error occurred during conversion. Value was either too large or too small for a Decimal.

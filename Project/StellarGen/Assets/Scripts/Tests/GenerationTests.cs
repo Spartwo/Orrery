@@ -8,7 +8,7 @@ namespace Tests
 {
     public class GenerationTests
     {
-        private PlanetProperties testPlanet;
+        private BodyProperties testPlanet;
         private StarProperties testStar;
 
         [SetUp]

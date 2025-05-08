@@ -11,7 +11,7 @@ namespace SystemGen
 {
     public static class PlanetGen
     {
-        public static PlanetProperties Generate(int seedValue, StarProperties parent, OrbitalProperties orbit, decimal coreMass)
+        public static BodyProperties Generate(int seedValue, StarProperties parent, OrbitalProperties orbit, decimal coreMass)
         {
             if (seedValue == 0)
             {
@@ -24,7 +24,7 @@ namespace SystemGen
                 seedValue = RandomUtils.TweakSeed(seedValue);
             }
 
-            PlanetProperties newPlanet = new PlanetProperties(seedValue);
+            BodyProperties newPlanet = new BodyProperties(seedValue);
             newPlanet.Orbit = orbit;
 
             // EstimatePlanetMass
@@ -36,7 +36,7 @@ namespace SystemGen
                 PhysicsUtils.RawToEarthMass(newPlanet.Composition.TotalSolidMass),
                 newPlanet.Composition.CalculateDensity(),
                 PhysicsUtils.RawToEarthMass(newPlanet.Atmosphere.TotalAtmosphericMass),
-                CalculatePlanetTemperature(parent, orbit),
+                PhysicsUtils.CalculateBodyTemperature(parent, orbit),
                 out float coreRadius,
                 out float atmRadius,
                 out float totalRadius
@@ -52,22 +52,11 @@ namespace SystemGen
         /// Base method to generate planets, moons, etc
         /// </summary>
         /// <param name="children">The elements being passed downwards from the inherited classes</param>
-        public static List<PlanetProperties> GenerateMinorChildren(PlanetProperties planet)
+        public static List<BodyProperties> GenerateMinorChildren(BodyProperties planet)
         {
-            List<PlanetProperties> moons = new List<PlanetProperties>();
+            List<BodyProperties> moons = new List<BodyProperties>();
             return moons;
         }
-
-
-        private static short CalculatePlanetTemperature(StarProperties star, OrbitalProperties orbit)
-        {
-            // Calculate the distance from the star in AU
-            float distance = PhysicsUtils.ConvertToAU(orbit.SemiMajorAxis);
-            // Calculate the temperature using the Stefan-Boltzmann law
-            float temperature = Mathf.Sqrt(star.BaseLuminosity / (4 * Mathf.PI * Mathf.Pow(distance, 2)));
-            return (short)temperature;
-        }
-
 
         /// <summary>
         /// Estimates the composition and mass of the planet's atmosphere based on its core mass and distance from the star.
@@ -76,7 +65,7 @@ namespace SystemGen
         /// <param name="planet">The planet object containing its properties.</param>
         /// <param name="star">The star object containing its properties.</param>
         /// <returns> An AtmosphereProperties object containing the estimated composition of the planets atmosphere.</returns>
-        private static AtmosphereProperties GenerateAtmosphereComposition(StarProperties star, PlanetProperties planet) 
+        private static AtmosphereProperties GenerateAtmosphereComposition(StarProperties star, BodyProperties planet) 
         {
             float coreMass = PhysicsUtils.RawToEarthMass(planet.Composition.TotalSolidMass);
 
@@ -85,7 +74,6 @@ namespace SystemGen
             return atmosphere;
         }
 
-
         /// <summary>
         /// Estimates the composition of the planet based on its position in the system
         /// </summary>
@@ -93,10 +81,10 @@ namespace SystemGen
         /// <param name="planet">The planet object containing its properties.</param>
         /// <param name="star">The star object containing its properties.</param>
         /// <returns> A SurfaceProperties object containing the estimated composition of the planet.</returns>
-        private static SurfaceProperties GeneratePlanetaryComposition(StarProperties star, PlanetProperties planet, decimal coreMass)
+        private static SurfaceProperties GeneratePlanetaryComposition(StarProperties star, BodyProperties planet, decimal coreMass)
         {
-            float frostLine = Mathf.Sqrt(star.BaseLuminosity)*4.8f;
-            float sublimationLine = Mathf.Sqrt(star.BaseLuminosity) * 0.034f;
+            float frostLine = (float)Math.Sqrt(star.BaseLuminosity)*4.8f;
+            float sublimationLine = (float)Math.Sqrt(star.BaseLuminosity) * 0.034f;
             float earthMasses = PhysicsUtils.RawToEarthMass(coreMass);
 
             float distance = PhysicsUtils.ConvertToAU(planet.Orbit.SemiMajorAxis);
@@ -129,7 +117,7 @@ namespace SystemGen
 
         private static float CalculateCompositionDeviation(float mass)
         {
-            float deviation = (0.25f * MathF.Exp(-MathF.Log10(mass + 0.001f) * 1.15f)) * 6;
+            float deviation = (float)((0.25f * Math.Exp(-Math.Log10(mass + 0.001f) * 1.15f)) * 6);
             return deviation;
         }
 
@@ -146,20 +134,18 @@ namespace SystemGen
         public static void EstimatePlanetRadius(float coreMass, float solidDensity, float atmosphereMass, short temperature, out float coreRadius, out float atmRadius, out float totalRadius)
         {
             // Calculate the core radius using a power-law relationship
-            coreRadius = MathF.Pow(coreMass, 0.27f) * Mathf.Pow(solidDensity, 1.2f);
-
-            Debug.Log($"Core Radius: {coreRadius} Earth Radii \n Core Mass: {coreMass} Earth Masses \n Solid Density: {solidDensity} kg/m^3");
+            coreRadius = (float)(Math.Pow(coreMass, 0.27f) * Math.Pow(5515 / solidDensity, 1.2f));
 
             // Calculate the atmospheric inflation factor based on temperature
-            float atmInflation = MathF.Pow(temperature / 650f, PhysicalConstants.ATMOSPHERE_TEMPERATURE_EXPONENT);
+            float atmInflation = (float)(Math.Pow(temperature / 650f, PhysicalConstants.ATMOSPHERE_TEMPERATURE_EXPONENT));
 
             // Calculate the atmosphere radius based on its mass and inflation factor
             if (atmosphereMass <= 4.4f)
-                atmRadius = MathF.Pow(atmosphereMass, 0.27f) * atmInflation;
+                atmRadius = (float)(Math.Pow(atmosphereMass, 0.27f) * atmInflation);
             else if (atmosphereMass <= 127f)
-                atmRadius = MathF.Pow(4.4f, 0.27f) * MathF.Pow(atmosphereMass / 4.4f, 0.67f) * atmInflation;
+                atmRadius = (float)(Math.Pow(4.4f, 0.27f) * Math.Pow(atmosphereMass / 4.4f, 0.67f) * atmInflation);
             else
-                atmRadius = MathF.Pow(4.4f, 0.27f) * MathF.Pow(127f / 4.4f, 0.67f) * MathF.Pow(atmosphereMass / 127f, -0.06f) * atmInflation;
+                atmRadius = (float)(Math.Pow(4.4f, 0.27f) * Math.Pow(127f / 4.4f, 0.67f) * MathF.Pow(atmosphereMass / 127f, -0.06f) * atmInflation);
 
             // Calculate the total radius as the sum of the core and atmosphere radii
             totalRadius = coreRadius + atmRadius;

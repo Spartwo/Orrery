@@ -198,8 +198,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a0c12b97174e11459716a231fc40003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seedInput: Greg
   systemProperties:
-    seedInput: Greg
+    seedInput: 
     stellarBodies: []
     solidBodies: []
     belts: []

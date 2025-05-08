@@ -1,18 +1,21 @@
 ﻿
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using System.IO;
 using System.Linq;
 using constants = StellarGenHelpers.PhysicalConstants;
+using StellarGenHelpers;
+using UnityEditor;
 public class Orbiter : MonoBehaviour
 {
 
     //Orbital Keplerian Parameters
     [SerializeField] decimal SemiMajorAxis;        //a - size
     [SerializeField] [Range(0f, 0.99f)]         float Eccentricity;             //e - shape
-    [SerializeField] [Range(0f, constants.TAU)]      float Inclination;         //i - tilt
-    [SerializeField] [Range(0f, constants.TAU)]      float LongitudeOfAsc;  //n - swivel
-    [SerializeField] [Range(0f, constants.TAU)]      float PeriArgument;      //w - position
+    [SerializeField] [Range(0f, (float)constants.TAU)]      float Inclination;         //i - tilt
+    [SerializeField] [Range(0f, (float)constants.TAU)]      float LongitudeOfAsc;  //n - swivel
+    [SerializeField] [Range(0f, (float)constants.TAU)]      float PeriArgument;      //w - position
     [SerializeField] Color OrbitColour;
     [SerializeField] float MeanLongitude;             //L - offset
     [SerializeField] Transform Parent;
@@ -73,21 +76,21 @@ public class Orbiter : MonoBehaviour
     }
     public float F(float E, float e, float M)  //Function f(x) = 0
     {
-        return (M - E + e * Mathf.Sin(E));
+        return (float)(M - E + e * Math.Sin(E));
     }
     public float DF(float E, float e)      //Derivative of the function
     {
-        return (-1f) + e * Mathf.Cos(E);
+        return (float)((-1f) + e * Math.Cos(E));
     }
     public void CalculateSemiConstants()    //Numbers that only need to be calculated once if the orbit doesn't change.
     {
-        /*mu = constants.G * Parent.gameObject.GetComponent<Rigidbody>().mass;
-        n = Mathf.Sqrt(mu / Mathf.Pow(SemiMajorAxis, 3));
-        trueAnomalyConstant = Mathf.Sqrt((1 + Eccentricity) / (1 - Eccentricity));
-        cosLOAN = Mathf.Cos(LongitudeOfAsc);
-        sinLOAN = Mathf.Sin(LongitudeOfAsc);
-        cosI = Mathf.Cos(Inclination);
-        sinI = Mathf.Sin(Inclination);*/
+        mu = (float)(constants.GRAV * Parent.gameObject.GetComponent<Rigidbody>().mass);
+        n = (float)Math.Sqrt(mu / (float)PhysicsUtils.DecimalPow(SemiMajorAxis, 3));
+        trueAnomalyConstant = (float)Math.Sqrt((1 + Eccentricity) / (1 - Eccentricity));
+        cosLOAN = (float)Math.Cos(LongitudeOfAsc);
+        sinLOAN = (float)Math.Sin(LongitudeOfAsc);
+        cosI = (float)Math.Cos(Inclination);
+        sinI = (float)Math.Sin(Inclination);
     }
 
     float EccentricAnomalyTrail;

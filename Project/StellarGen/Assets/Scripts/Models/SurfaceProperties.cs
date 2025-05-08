@@ -19,7 +19,7 @@ namespace Models
         [JsonProperty] private float rock, ice, metals;
 
         // Total mass in kilotons
-        [JsonProperty] private decimal totalSolidMass;
+        [JsonProperty("Total Mass (Kilotons)")] private decimal totalSolidMass;
 
         public SurfaceProperties(float? rock = null, float? ice = null, float? metals = null, decimal? totalSolidMass = null)
         {

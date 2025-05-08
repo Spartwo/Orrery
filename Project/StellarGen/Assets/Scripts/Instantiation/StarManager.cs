@@ -1,23 +1,55 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine.UI;
 using TMPro;
 using System.IO;
 using System.Linq;
+using StellarGenHelpers;
+using Models;
 
 public class StarManager : MonoBehaviour
 {
+    public StarProperties star;
+
+    decimal aridLine, centreLine, outerHabitableLine, frostLine;
+
+    public StarManager(StarProperties star)
+    {
+        this.star = star;
+
+    }
+
+    public void CalculateLines()
+    {
+        // Set boundaries of various visible temperature zones
+        centreLine = PhysicsUtils.ConvertToMetres((float)Math.Sqrt(star.Luminosity));
+        aridLine = Decimal.Multiply(centreLine,  0.95m);
+        outerHabitableLine = Decimal.Multiply(centreLine, 1.35m);
+        frostLine = Decimal.Multiply(centreLine, 4.8m);
+    }
+
+    public void RecalculateColour()
+    {
+        Color color = PhysicsUtils.DetermineSpectralColor(star.Temperature);
+        // Relay to the orbit line
+        star.OrbitLine = ColourUtils.ColorToArray(color);
+
+        // Get the Renderer component from the new cube
+        Renderer stellarSurface = transform.GetChild(0).GetComponent<Renderer>();
+        // Call SetColor using the shader property name "_Color" and setting the color to red
+        stellarSurface.material.SetColor("_Color", color);
+        stellarSurface.material.SetColor("_EmissionColor", color);
+
+
+        // Set light properties
+        Light starlight = transform.GetChild(2).GetComponent<Light>();
+        starlight.range = (float)(frostLine * 30);
+        starlight.color = color;
+    }
+
     /*
-
-    // set boundaries of various visible temperature zones
-    float CenterLine = Mathf.Sqrt(Luminosity);
-    float AridLine = CenterLine * 0.95f;
-    float OuterHabitableLine = CenterLine * 1.35f;
-    float FrostLine = CenterLine * 4.8f;
-    float Heliopause = CenterLine * 75f;
-
-    
     int BoundScale = 250;
         //set radiation zone bounds
         transform.GetChild(1).GetChild(3).localScale = new Vector3(Heliopause * BoundScale, Heliopause * BoundScale, Heliopause * BoundScale);
@@ -31,17 +63,6 @@ public class StarManager : MonoBehaviour
         transform.GetChild(1).transform.LookAt(GameObject.Find("MainCam").transform.position);
         
 
-
-        //Get the Renderer component from the new cube
-        var StellarSurfaceTemp = transform.GetChild(0).GetComponent<Renderer>();
-        //Call SetColor using the shader property name "_Color" and setting the color to red
-        StellarSurfaceTemp.material.SetColor("_Color", StellarSurface);
-        StellarSurfaceTemp.material.SetColor("_EmissionColor", StellarSurface);
-
-        //set light properties
-        Light Starlight = transform.GetChild(2).GetComponent<Light>();
-        Starlight.range = FrostLine*BoundScale*20;
-        Starlight.color = StellarSurface;
 
         //set size of the star itself relative to earth=1
         transform.GetChild(0).localScale = new Vector3(Diameter * 10.9f, Diameter * 10.9f, Diameter * 10.9f);
@@ -60,5 +81,5 @@ public class StarManager : MonoBehaviour
     } 
     */
 
-    
+
 }

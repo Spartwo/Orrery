@@ -1,5 +1,7 @@
 // Class containing physical constants relevant to runtime calculations
 
+using System;
+
 namespace StellarGenHelpers
 {
     public static class PhysicalConstants 
@@ -24,10 +26,10 @@ namespace StellarGenHelpers
         public const double AU = 1.50e13;                               // Astronomical Unit (cm)
         public const double LIGHTSPEED = 2.9979e10;                     // Speed of Light (cm/sec)
         public const decimal AU_TO_METERS = 149597870700m;              //1 AU = 149,597,870.7 km, converted to meters
-        public const float TAU = 6.28318530718f;
-        public const float PI = 3.14159265359f;
+        public const double TAU = Math.PI*2;
         public const int pascalToAtm = 101325;                          // 1 atm 
         public const int pascalToBar = 100000;                          // 1 bar
         public const double gasConstantR = 8.314;                       // J/(mol·K) Idealised molar constant
+        public const double KUIPER_DENSITY = 53680898876405;             // Kuiper Belt Density KT/Cubic AU
     }
 }

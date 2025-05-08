@@ -8,8 +8,8 @@ namespace Models
     [JsonObject(MemberSerialization.OptIn)]
     public class SiderealProperties
     {
-        [JsonProperty] private double siderealDayLength; // Sidereal Day Length (in hours)
-        [JsonProperty] private float axialTilt; // Sidereal Longitude (degrees)
+        [JsonProperty("Day Length (Hours)")] private double siderealDayLength; // Sidereal Day Length (in hours)
+        [JsonProperty("Axial Tilt (Degrees)")] private float axialTilt; // Sidereal Longitude (degrees)
 
         // Constructor
         public SiderealProperties(double SiderealDayLength, float AxialTilt)

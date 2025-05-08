@@ -8,12 +8,12 @@ namespace Models
 {
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public class StarProperties : BodyProperties
+    public class StarProperties : BaseProperties
     {
-        [JsonProperty] private decimal lifespan;
-        [JsonProperty] private float radius;
-        [JsonProperty] private float luminosity;
-        [JsonProperty] private short temperature;
+        [JsonProperty("Lifespan (bY)")] private decimal lifespan;
+        [JsonProperty("Radius (Sols)")] private float radius;
+        [JsonProperty("Luminosity (Sols)")] private float luminosity;
+        [JsonProperty("Temperature (K)")] private short temperature;
          private float baseLuminosity;
 
         public StarProperties(int seedValue = 0, string name = null, decimal? age = null, decimal? mass = null, decimal? hillSphere = 0m, int[] orbitLine = null, double? siderealDayLength = null, float? axialTilt = null, decimal? lifespan = null, float? radius = null, float? luminosity = null, float? baseLuminosity = null, float? stellarMass = null, short? temperature = null) : base(seedValue, name, age, mass, hillSphere, orbitLine, siderealDayLength, axialTilt)

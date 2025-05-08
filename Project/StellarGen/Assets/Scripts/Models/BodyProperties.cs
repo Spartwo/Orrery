@@ -1,159 +1,53 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using StellarGenHelpers;
 using System;
-using System.Collections.Generic;
-using RandomUtils = StellarGenHelpers.RandomUtils;
-using ColourUtils = StellarGenHelpers.ColourUtils;
-using System.Linq;
-using UnityEngine;
 
 namespace Models
 {
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public class BodyProperties
+    public class BodyProperties : BaseProperties
     {
-        [JsonProperty] protected int seedValue;
-        [JsonProperty] private int parent;
+        [JsonProperty("Material Composition (%)")] private SurfaceProperties composition;
+        [JsonProperty("Radius (Earths)")] private float radius = 0f; // Earths
+        [JsonProperty("Atmospheric Composition (%)")] private AtmosphereProperties atmosphere;
 
-        [JsonProperty] private string name;
-        [JsonProperty] private bool customName;
-
-        [JsonProperty] private decimal age;
-        [JsonProperty] private decimal mass;
-
-        [JsonProperty] private decimal hillSphere;
-        [JsonProperty] private int[] orbitLine;
-        [JsonProperty] private OrbitalProperties orbit;
-        [JsonProperty] private SiderealProperties rotation;
-
-        /// <summary>
-        /// Generates initial properties from a default state
-        /// <param name="seedValue">The seed being passed into the body pre-adjustment</param>
-        /// </summary>
         public BodyProperties(int seedValue = 0, string name = null, decimal? age = null, decimal? mass = null, decimal? hillSphere = 0m, int[] orbitLine = null, double? siderealDayLength = null, float? axialTilt = null)
+            : base(seedValue, name, age, mass, hillSphere, orbitLine, siderealDayLength, axialTilt)
         {
-            this.seedValue = seedValue;
-            this.name = name ?? "Unnamed Body";  // Default to "Unnamed Body" if not provided
-            this.customName = false; // New or Generated names are never custom
-            this.age = age ?? 0m;  // Default to 0 if not provided
-            this.mass = mass ?? 0m;  // Default to 0 if not provided
-            this.hillSphere = hillSphere ?? 0m;  // Default to 0 if not provided
-
-            this.orbitLine = orbitLine ?? new int[] { 255, 255, 255 };  // Default to white
-           
-            this.rotation = new SiderealProperties(siderealDayLength ?? 24.0, axialTilt ?? 0f);
-        }
-        public virtual string GetInfo()
-        {
-            return $"\nName: {Name}\n" +
-                   (parent != 0 ? $"Parent ID: {parent}\n" : string.Empty) +
-                   $"Age: {Age} billion years\n" +
-                   $"Hill Sphere: {HillSphere} AU\n" + 
-                   Orbit?.GetInfo();
+            base.Name = name ?? "Unnamed Planet";
+            this.composition = new SurfaceProperties();
+            this.atmosphere = new AtmosphereProperties(0);
         }
 
-
+        public override string GetInfo()
+        {
+            return base.GetInfo() +
+                   $"Mass: {PhysicsUtils.RawToEarthMass(base.Mass)} Earth masses\nRadius: {radius} Earth radii\n {composition?.GetInfo()} \n {atmosphere?.GetInfo()}";
+        }
 
         #region Getters and Setters
-
-        // Body Name for distinction
         
-        public string Name
+        public float Radius
         {
-            get => name;
-            set => name = value;
+            get => radius;
+            set => radius = value;
         }
         
-        public bool CustomName
-        {
-            get => customName;
-            set => customName = value;
-        }
-
-        // SeedValue of body being orbited
         
-        public int Parent
+        public SurfaceProperties Composition
         {
-            get => parent;
-            set => parent = value;
-        }
-        // Unique identifier and generation seed
-        
-        public int SeedValue
-        {
-            get => seedValue;
-            private set => seedValue = value;
+            get => composition;
+            set => composition = value;
         }
 
-        // Unified value in kilotons
         
-        public decimal Mass
+        public AtmosphereProperties Atmosphere
         {
-            get => mass;
-            set => mass = value;
+            get => atmosphere;
+            set => atmosphere = value;
         }
 
-        // The range to which this body is the main gravitational point
-        
-        public decimal HillSphere
-        {
-            get => hillSphere;
-            set => hillSphere = value;
-        }
-
-        // Age stored in billions
-        
-        public decimal Age
-        {
-            get => age;
-            set => age = value;
-        }
-
-        // Orbital Line gets and sets translates from serializeable float array to a color
-        
-        public int[] OrbitLine
-        {
-            get
-            {
-                // If the array is empty generate a color first
-                if (orbitLine == null)
-                {
-                    orbitLine = ColourUtils.ColorToArray(RandomUtils.RandomColor(seedValue));
-                }
-
-                // Return a color made from the RGB elements of the array
-                return orbitLine;
-            }
-            set
-            {
-                orbitLine = value;
-            }
-        }
-
-        // Orbital Data
-        
-        public OrbitalProperties Orbit
-        {
-            get => orbit;
-            set => orbit = value;
-        }
-
-        // Getter for Sidereal Day Length (Rotation Period)
-        
-        public double Rotation
-        {
-            get => rotation.SiderealDayLength;
-            set => rotation.SiderealDayLength = value;
-        }
-
-        // Getter for Axial Tilt
-        
-        public float AxialTilt
-        {
-            get => rotation.AxialTilt;
-            set => rotation.AxialTilt = value;
-        }
         #endregion
     }
 }

@@ -67,13 +67,16 @@
     <Compile Include="Assets\Scripts\Settings\SettingsData.cs" />
     <Compile Include="Assets\Scripts\Models\SiderealProperties.cs" />
     <Compile Include="Assets\Scripts\Models\BeltProperties.cs" />
+    <Compile Include="Assets\Scripts\Generation\BeltGen.cs" />
     <Compile Include="Assets\Scripts\Helpers.cs" />
     <Compile Include="Assets\Scripts\Tests\TestController.cs" />
     <Compile Include="Assets\Scripts\Generation\SystemGenerator.cs" />
     <Compile Include="Assets\Scripts\Models\BodyProperties.cs" />
     <Compile Include="Assets\Scripts\Generation\BodyGen.cs" />
     <Compile Include="Assets\Scripts\Instantiation\BodyManager.cs" />
+    <Compile Include="Assets\Scripts\Models\BaseProperties.cs" />
     <Compile Include="Assets\Scripts\Settings\SettingsLoader.cs" />
+    <Compile Include="Assets\Scripts\Instantiation\SystemManager.cs" />
     <Compile Include="Assets\Scripts\Interface\Timekeep.cs" />
     <Compile Include="Assets\Scripts\Generation\PlanetGen.cs" />
     <Compile Include="Assets\Scripts\Instantiation\Orbiter.cs" />
@@ -90,7 +93,6 @@
     <Compile Include="Assets\Skybox\StarDataPrototype.cs" />
     <Compile Include="Assets\Scripts\Tests\UITests.cs" />
     <Compile Include="Assets\Scripts\Interface\FloatingPointManager.cs" />
-    <Compile Include="Assets\Scripts\Models\PlanetProperties.cs" />
     <Compile Include="Assets\Scripts\Tests\GenerationTests.cs" />
     <Compile Include="Assets\Scripts\Models\StarProperties.cs" />
   </ItemGroup>

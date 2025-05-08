@@ -316,6 +316,21 @@ namespace StellarGenHelpers
         }
 
         /// <summary>
+        /// Calcualtes the ambient temperature at a given distance from a star using the Stefan-Boltzmann law.
+        /// </summary>
+        /// <param name="star">The star object containing its properties.</param>
+        /// <param name="orbit">The orbital properties of the body.</param>
+        /// <returns>A kelvin temperature in short format</returns>
+        public static short CalculateBodyTemperature(StarProperties star, OrbitalProperties orbit)
+        {
+            // Calculate the distance from the star in AU
+            float distance = ConvertToAU(orbit.SemiMajorAxis);
+            // Calculate the temperature
+            float temperature = (float)Math.Sqrt(star.BaseLuminosity / (4 * Mathf.PI * Mathf.Pow(distance, 2)));
+            return (short)temperature;
+        }
+
+        /// <summary>
         /// Lets you run power operations on decimal datatypes.
         /// </summary>
         public static decimal DecimalPow(decimal baseValue, decimal exponent)
@@ -343,7 +358,7 @@ namespace StellarGenHelpers
         /// <param name="B">The body for which is being orbited.</param>
         /// <param name="distance">The distance between the checked body and A</param>
         /// <returns>True if the orbit is stable, otherwise false.</returns>
-        public static bool CheckOrbit(BodyProperties A, BodyProperties B, decimal distance)
+        public static bool CheckOrbit(BaseProperties A, BaseProperties B, decimal distance)
         {
             // Calculate the semi-minor axis using the formula b = a⋅/1−e^2
             decimal semiMinorAxis = (A.Orbit.SemiMajorAxis * (decimal)Math.Sqrt(1 - Math.Pow(A.Orbit.Eccentricity, 2)));
@@ -362,7 +377,7 @@ namespace StellarGenHelpers
         /// <param name="B">The body for which is being orbited.</param>
         /// <param name="distance">The distance between the body and its parent in AU.</param>
         /// <returns>The radius of the body's Hill Sphere</returns>
-        public static decimal CalculateHillSphere(BodyProperties A, BodyProperties B, decimal distance)
+        public static decimal CalculateHillSphere(BaseProperties A, BaseProperties B, decimal distance)
         {
             return distance * DecimalPow(B.Mass / (3 * A.Mass), (1/3));
         }
@@ -374,7 +389,7 @@ namespace StellarGenHelpers
         /// <param name="B">The body for which is being orbited.</param>
         /// <param name="distance">The distance between the body and its parent in AU.</param>
         /// <returns>The radius of the body's Hill Sphere</returns>
-        public static decimal CalculateRoche(BodyProperties A, BodyProperties B, decimal distance)
+        public static decimal CalculateRoche(BaseProperties A, BaseProperties B, decimal distance)
         {
             return distance * DecimalPow(B.Mass / (3 * A.Mass), (1 / 3));
         }

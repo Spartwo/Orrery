@@ -18,7 +18,7 @@ namespace Models
         [JsonProperty] public List<(Element, float)> elementPercentages { get; set; }
 
         // Total atmospheric mass in kilotons
-        [JsonProperty] private decimal totalAtmosphericMass;
+        [JsonProperty("Total Mass (Kilotons)")] private decimal totalAtmosphericMass;
 
         // Predefined elements: molarMass, freezingPoint (K), boilingPoint (K), gasConstant (J/kg·K), latentHeat(J/mol), localisation
         public static readonly Element H2 = new Element(2.016f, 14.01f, 20.28f, 4124f, 0.452f, "#loc_Hydrogen");
