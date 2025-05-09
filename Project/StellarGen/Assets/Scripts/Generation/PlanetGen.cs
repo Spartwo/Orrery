@@ -94,33 +94,33 @@ namespace SystemGen
         /// <returns> A SurfaceProperties object containing the estimated composition of the planet.</returns>
         private static SurfaceProperties GeneratePlanetaryComposition(StarProperties star, BodyProperties planet, decimal coreMass)
         {
-            float frostLine = (float)Math.Sqrt(star.BaseLuminosity)*4.8f;
-            float sublimationLine = (float)Math.Sqrt(star.BaseLuminosity) * 0.034f;
-            float earthMasses = PhysicsUtils.RawToEarthMass(coreMass);
+            double frostLine = (float)Math.Sqrt(star.BaseLuminosity)*4.8f;
+            double sublimationLine = (float)Math.Sqrt(star.BaseLuminosity) * 0.034f;
+            double earthMasses = PhysicsUtils.RawToEarthMass(coreMass);
 
-            float distance = PhysicsUtils.ConvertToAU(planet.Orbit.SemiMajorAxis);
+            double distance = PhysicsUtils.ConvertToAU(planet.Orbit.SemiMajorAxis);
             int seedValue = planet.SeedValue;
 
             // Calculate the baseline composition values
-            float baselineIce = 0f;
+            double baselineIce = 0f;
             if (distance < frostLine)
             {
-                float term = Math.Max(0f, (distance - sublimationLine) / (frostLine - sublimationLine));
+                double term = Math.Max(0f, (distance - sublimationLine) / (frostLine - sublimationLine));
                 baselineIce = Math.Min(Math.Max(0f, 76.27810046f * (float)Math.Pow(term, 3.8263522568f) - 0.11f), 37.9f);
             }
             else
             {
-                float term = Math.Max(0f, Math.Min(1f, (distance - frostLine) / (14f * frostLine - frostLine)));
+                double term = Math.Max(0f, Math.Min(1f, (distance - frostLine) / (14f * frostLine - frostLine)));
                 baselineIce = 25f + 45f * (float)Math.Pow(term, 0.35f);
             }
 
-            float baselineMetal = Math.Max(3f, 80f * (float)Math.Exp(-0.85714f * (float)Math.Pow(distance, 1.3205f)));
+            double baselineMetal = Math.Max(3f, 80f * (float)Math.Exp(-0.85714f * (float)Math.Pow(distance, 1.3205f)));
 
             // Calculate the composition deviation based on the seed value and body mass
-            float sharedDeviation = CalculateCompositionDeviation(earthMasses) / 100f;
+            float sharedDeviation = CalculateCompositionDeviation((float)earthMasses) / 100f;
 
-            float ice = baselineIce * (1 + RandomUtils.RandomFloat(-sharedDeviation, sharedDeviation, seedValue));
-            float metal = baselineMetal * (1 + RandomUtils.RandomFloat(-sharedDeviation, sharedDeviation, seedValue+1));
+            float ice = (float)baselineIce * (1 + RandomUtils.RandomFloat(-sharedDeviation, sharedDeviation, seedValue));
+            float metal = (float)baselineMetal * (1 + RandomUtils.RandomFloat(-sharedDeviation, sharedDeviation, seedValue+1));
             float rock = 100f - (ice + metal);
 
             return new SurfaceProperties(rock, ice, metal, coreMass);

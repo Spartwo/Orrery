@@ -1,40 +1,40 @@
-[21:57:49 LOG] Application: Program Initialised
-[21:57:49 LOG] StarProperties: Generating Star Properties
-[21:57:50 LOG] System Generation: System Age: 1.897bY
-[21:57:50 LOG] StarProperties: Generating Star Properties
-[21:57:50 LOG] StarProperties: Generating Star Properties
-[21:57:50 LOG] SystemGenerator: Setting Stellar Positions
-[21:57:50 LOG] SystemGenerator: AB Binary Spacing: 682.9742AU
-[21:57:50 LOG] System Generation: Generating Major Bodies
-[21:57:50 LOG] System Generation: Planet Count: 4
-[21:57:50 LOG] System Generation: Star 25799898 order: SIMILAR
-[21:57:50 LOG] System Generation: Generated Kuiper Belt from 17.79884AU to 43.50185AU
-[21:57:50 LOG] System Generation: Orbital Positions: 15
-[21:57:50 LOG] System Generation: Generating Planets
-[21:57:50 LOG] Planet Generation: Created Planet of 1.172507 Earth Masses at 0.2551527 AU
-[21:57:50 LOG] Planet Generation: Created Planet of 0.3151854 Earth Masses at 17.79884 AU
-[21:57:50 LOG] Planet Generation: Created Planet of 1.04545 Earth Masses at 0.1500898 AU
-[21:57:50 LOG] Planet Generation: Created Planet of 0.3129571 Earth Masses at 6.158767 AU
-[21:57:50 LOG] System Generation: Planet Count: 10
-[21:57:50 LOG] System Generation: Star 61471832 order: ORDERED
-[21:57:50 LOG] System Generation: Generated Kuiper Belt from 43.39692AU to 51.02612AU
-[21:57:50 LOG] System Generation: Orbital Positions: 13
-[21:57:50 LOG] System Generation: Generating Planets
-[21:57:50 LOG] Planet Generation: Created Planet of 2.374643 Earth Masses at 0.1266253 AU
-[21:57:50 LOG] Planet Generation: Created Planet of 2.380115 Earth Masses at 5.195928 AU
-[21:57:50 LOG] Planet Generation: Created Planet of 2.329828 Earth Masses at 0.07448549 AU
-[21:57:50 LOG] Planet Generation: Created Planet of 2.340943 Earth Masses at 3.056428 AU
-[21:57:50 LOG] Planet Generation: Created Planet of 1.826837 Earth Masses at 0.2152631 AU
-[21:57:50 LOG] Planet Generation: Created Planet of 2.255338 Earth Masses at 8.833078 AU
-[21:57:50 LOG] Planet Generation: Created Planet of 1.751766 Earth Masses at 43.39692 AU
-[21:57:50 LOG] Planet Generation: Created Planet of 0.9810438 Earth Masses at 1.057588 AU
-[21:57:50 LOG] Planet Generation: Created Planet of 1.735069 Earth Masses at 25.5276 AU
-[21:57:50 LOG] Planet Generation: Created Planet of 0.7768797 Earth Masses at 0.6221103 AU
-[21:57:50 LOG] System Generation: Generating Minor Bodies
-[21:57:50 LOG] SystemGenerator: Resolving Unstable Orbits
-[21:57:50 LOG] System Generation: Assigning Orbital Colours
-[21:57:51 LOG] System Generation: Generating Body Names
-[21:57:51 LOG] System Generation: System Age: 1.897bY
-[21:57:51 LOG] StarProperties: Generating Star Properties
-[21:57:51 LOG] StarProperties: Generating Star Properties
-[21:57:51 LOG] I/O: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Greg.json
+[22:15:55 LOG] Application: Program Initialised
+[22:15:55 LOG] StarProperties: Generating Star Properties
+[22:15:56 LOG] System Generation: System Age: 1.897bY
+[22:15:56 LOG] StarProperties: Generating Star Properties
+[22:15:56 LOG] StarProperties: Generating Star Properties
+[22:15:56 LOG] SystemGenerator: Setting Stellar Positions
+[22:15:56 LOG] SystemGenerator: AB Binary Spacing: 682.9742AU
+[22:15:56 LOG] System Generation: Generating Major Bodies
+[22:15:56 LOG] System Generation: Planet Count: 4
+[22:15:56 LOG] System Generation: Star 25799898 order: SIMILAR
+[22:15:56 LOG] System Generation: Generated Kuiper Belt from 25.01405AU to 35.08784AU
+[22:15:56 LOG] System Generation: Orbital Positions: 15
+[22:15:56 LOG] System Generation: Generating Planets
+[22:15:56 LOG] Planet Generation: Created Planet of 1.172507 Earth Masses at 0.3585854 AU
+[22:15:56 LOG] Planet Generation: Created Planet of 0.3151854 Earth Masses at 25.01405 AU
+[22:15:56 LOG] Planet Generation: Created Planet of 1.04545 Earth Masses at 0.2109326 AU
+[22:15:56 LOG] Planet Generation: Created Planet of 0.3129571 Earth Masses at 8.65538 AU
+[22:15:59 LOG] System Generation: Planet Count: 10
+[22:15:59 LOG] System Generation: Star 61471832 order: ORDERED
+[22:15:59 LOG] System Generation: Generated Kuiper Belt from 33.86478AU to 66.80515AU
+[22:15:59 LOG] System Generation: Orbital Positions: 12
+[22:15:59 LOG] System Generation: Generating Planets
+[22:15:59 LOG] Planet Generation: Created Planet of 2.374643 Earth Masses at 0.1679805 AU
+[22:15:59 LOG] Planet Generation: Created Planet of 2.380115 Earth Masses at 4.054642 AU
+[22:15:59 LOG] Planet Generation: Created Planet of 2.329828 Earth Masses at 0.09881208 AU
+[22:15:59 LOG] Planet Generation: Created Planet of 2.340943 Earth Masses at 6.892892 AU
+[22:15:59 LOG] Planet Generation: Created Planet of 1.826837 Earth Masses at 0.2855669 AU
+[22:15:59 LOG] Planet Generation: Created Planet of 2.255338 Earth Masses at 2.385084 AU
+[22:15:59 LOG] Planet Generation: Created Planet of 1.751766 Earth Masses at 33.86478 AU
+[22:15:59 LOG] Planet Generation: Created Planet of 0.9810438 Earth Masses at 1.40299 AU
+[22:15:59 LOG] Planet Generation: Created Planet of 1.735069 Earth Masses at 19.92046 AU
+[22:15:59 LOG] Planet Generation: Created Planet of 0.7768797 Earth Masses at 0.8252884 AU
+[22:15:59 LOG] System Generation: Generating Minor Bodies
+[22:15:59 LOG] SystemGenerator: Resolving Unstable Orbits
+[22:15:59 LOG] System Generation: Assigning Orbital Colours
+[22:15:59 LOG] System Generation: Generating Body Names
+[22:15:59 LOG] System Generation: System Age: 1.897bY
+[22:15:59 LOG] StarProperties: Generating Star Properties
+[22:15:59 LOG] StarProperties: Generating Star Properties
+[22:15:59 LOG] I/O: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Greg.json
