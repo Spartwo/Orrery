@@ -30,6 +30,7 @@ namespace StellarGenHelpers
         public const int pascalToAtm = 101325;                          // 1 atm 
         public const int pascalToBar = 100000;                          // 1 bar
         public const double gasConstantR = 8.314;                       // J/(mol·K) Idealised molar constant
-        public const double KUIPER_DENSITY = 53680898876405;             // Kuiper Belt Density KT/Cubic AU
+        public const double KUIPER_DENSITY = 53680898876405;            // Kuiper Belt Density KT/Cubic AU
+        public const float SOLAR_METALICITY = 0.0054f;                   // ~5.4% heavy elements
     }
 }

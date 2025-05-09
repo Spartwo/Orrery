@@ -45,13 +45,23 @@ namespace SystemGen
             newPlanet.Radius = totalRadius;
             newPlanet.Mass = (newPlanet.Composition.TotalSolidMass + newPlanet.Atmosphere.TotalAtmosphericMass);
 
+            newPlanet.Sidereal = GenerateSiderialProperties(parent, newPlanet);
+
             return newPlanet;
+        }
+
+        /// <summary>
+        /// Generate the siderial properties of the planet
+        /// </summary>
+        private static SiderealProperties GenerateSiderialProperties(StarProperties parent, BodyProperties planet)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
         /// Base method to generate planets, moons, etc
         /// </summary>
-        /// <param name="children">The elements being passed downwards from the inherited classes</param>
+        /// <param name="planet">The properties of the planet being generated for.</param>
         public static List<BodyProperties> GenerateMinorChildren(BodyProperties planet)
         {
             List<BodyProperties> moons = new List<BodyProperties>();

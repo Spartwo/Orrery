@@ -16,6 +16,9 @@ using StellarGenHelpers;
 using UnityEngine.UI;
 using static StarDataPrototype;
 using UnityEngine.UIElements;
+using System.Linq;
+using UnityEditor.PackageManager.UI;
+using UnityEngine.Profiling;
 
 namespace SystemGen
 {
@@ -80,6 +83,11 @@ namespace SystemGen
             // Pass the required out parameters
             DetermineArrangement(star, out metalicity, out planetOrder, out diskMass);
 
+            // metalicity is [Fe/H] index
+            float metalFraction = Mathf.Pow(10f, metalicity);
+            float solidsFraction = PhysicalConstants.SOLAR_METALICITY * metalFraction;
+            decimal totalSolidMass = diskMass * (decimal)solidsFraction;
+
             belts = new List<BeltProperties>();
             belts.Add(GenerateKuiperBelt(star));
 
@@ -93,7 +101,7 @@ namespace SystemGen
             float maxInclination = (15f - planetCount) / 2;
 
             planets = GeneratePlanetsFromPositions(
-                star, seedValue, planetCount, orbitalPositions, meanEccentricity, maxInclination, metalicity, planetOrder, diskMass
+                star, seedValue, planetCount, orbitalPositions, meanEccentricity, maxInclination, metalicity, planetOrder, totalSolidMass
             );
         }
 
@@ -122,8 +130,8 @@ namespace SystemGen
             const float slope = 0.14f;      // Slope of the trendline
             const float scatter = 0.44f;    // Scatter of the trendline
 
-            float baseRadius = (float)(baseline * Math.Pow(star.Luminosity, slope));
-            float minLowerEdge = (float)Math.Sqrt(star.Luminosity) * 4.8f; // Frost Line
+            float baseRadius = (float)(baseline * Math.Pow(star.BaseLuminosity, slope));
+            float minLowerEdge = (float)Math.Sqrt(star.BaseLuminosity) * 4.8f; // Frost Line
 
             // Scatter 2 edges
             float edgeA = baseRadius * RandomUtils.RandomFloat(1 - scatter, 1 + scatter);
@@ -146,12 +154,8 @@ namespace SystemGen
             double upperArea = Math.PI * upperEdge * upperEdge;
             double beltArea = upperArea - lowerArea;
 
-            Debug.Log($"Kuiper Belt Area: {beltArea} AU^2");
-
             // Apply the solar system to this area
             decimal beltMass =(decimal)(PhysicalConstants.KUIPER_DENSITY * beltArea);
-
-            Debug.Log($"Kuiper Belt Mass: {beltMass} kg");
 
             Logger.Log("System Generation", $"Generated Kuiper Belt from {lowerEdge}AU to {upperEdge}AU");
 
@@ -169,7 +173,7 @@ namespace SystemGen
         /// <returns></returns>
         public static float GenerateSublimationRadius(StarProperties star)
         {
-            float radius = 0.034f * (float)Math.Sqrt(star.Luminosity) * (1500f / PhysicalConstants.SUBLIMATION_TEMPERATURE);
+            float radius = 0.034f * (float)Math.Sqrt(star.BaseLuminosity) * (1500f / PhysicalConstants.SUBLIMATION_TEMPERATURE);
             return radius;
         }
 
@@ -217,51 +221,143 @@ namespace SystemGen
         /// <param name="inclination">Maximum inclination variance allowed.</param>
         /// <param name="metalicity">Stellar metallicity used in planetary type selection.</param>
         /// <param name="planetOrder">The overall orbital pattern (e.g. similar, mixed).</param>
-        /// <param name="diskMass">Estimated protoplanetary disk mass used in formation logic.</param>
+        /// <param name="solidMass">Estimated protoplanetary disk mass that isn't gas</param>
         /// <returns>A list of instantiated planetary <see cref="BaseProperties"/>.</returns>
-        private static List<BodyProperties> GeneratePlanetsFromPositions(StarProperties star, int seed, int count, List<float> positions, float eccentricity, float inclination, float metalicity, PlanetOrder planetOrder, decimal diskMass)
+        private static List<BodyProperties> GeneratePlanetsFromPositions(StarProperties star, int seed, int count, List<float> positions, float eccentricity, float inclination, float metalicity, PlanetOrder planetOrder, decimal solidMass)
         {
             int minCount = Math.Min(count, positions.Count);
             Logger.Log("System Generation", $"Generating Planets");
 
-            var planets = new List<BodyProperties>();
+            List<BodyProperties> planets = new List<BodyProperties>();
 
-            // Calculate the rocky materials available for planet formation
-            decimal rockyMass = PhysicsUtils.EarthMassToRaw(0.1f);
+            // Produce deviation factors for all the planets
+            List<float> factors = StructureSystem(planetOrder, seed, minCount);
 
-            // Deviation is the largest core allowed / smallest allowed
-            float deviation = planetOrder != PlanetOrder.SIMILAR ? 8f : 0.15f;
+            // Normalise to add up to 100%
+            float factorSum = factors.Sum();
+            var coreMasses = new decimal[minCount];
+            for (int i = 0; i < minCount; i++)
+            {
+                coreMasses[i] = solidMass * (decimal)(factors[i] / factorSum);
+            }
 
+            // Select the positions that will be populated
+            List<float> availablePositions = new List<float>(positions);
+            List<float> selectedPositions = new List<float>(minCount);
+            try
+            {
+                for (int i = 0; i < minCount; i++)
+                {
+                    int index = RandomUtils.RandomInt(0, availablePositions.Count -1, seed + i);
+                    selectedPositions.Add(availablePositions[index]);
+                    availablePositions.RemoveAt(index);
+                }
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Debug.LogError($"Error selecting positions: {e.Message}");
+                throw;
+            }
 
-            // Generate the required number of planets or maximum available
+            // Generate the required planets and slot into those positions
             for (int p = 0; p < minCount; p++)
             {
-                rockyMass = PhysicsUtils.EarthMassToRaw(RandomUtils.RandomFloat(0.01f, 4f, seed + p));
-
                 int planetSeed = seed + p;
-                int index = RandomUtils.RandomInt(0, positions.Count - 1, planetSeed);
-
-                float position = positions[index];
-                positions.RemoveAt(index);
+                float position = selectedPositions[p];
+                decimal coreMass = coreMasses[p];
 
                 // Generate the planet's properties
                 // Orbital parameters
                 OrbitalProperties orbit = PhysicsUtils.ConstructOrbitProperties(planetSeed, position, eccentricity, inclination);
                 // Estimate surface composition
-                BodyProperties newPlanet = PlanetGen.Generate(planetSeed, star, orbit, rockyMass);
+                BodyProperties newPlanet = PlanetGen.Generate(planetSeed, star, orbit, coreMass);
                 newPlanet.Parent = star.SeedValue;
+
+                
+
+                //newPlanet.Rotation = PlanetGen.GenerateSiderialProperties(planetSeed, newPlanet.Radius, newPlanet.Mass, newPlanet.Atmosphere.TotalAtmosphericMass);
 
                 planets.Add(newPlanet);
 
-                //Logger.Log("Planet Generation", newPlanet.GetInfo());
+                Logger.Log("Planet Generation", $"Created Planet of {PhysicsUtils.RawToEarthMass(coreMass)} Earth Masses at {position} AU");
             }
 
             return planets;
         }
 
-        private static List<BaseProperties> StructureSystem()
+
+        /// <summary>  
+        /// Generates a list of deviation factors for planetary mass distribution based on the specified planetary order.  
+        /// - For SIMILAR order: Uses a log-normal distribution to create similar-sized planets.  
+        /// - For ORDERED or ANTI_ORDERED: Sorts the factors in ascending or descending order with slight shuffling.  
+        /// - For MIXED order: Produces a random distribution without sorting.  
+        /// </summary>  
+        /// <param name="order">The planetary order type (e.g., SIMILAR, ORDERED, ANTI_ORDERED, MIXED).</param>  
+        /// <param name="seed">Seed value for deterministic randomization.</param>  
+        /// <param name="count">The number of factors to generate.</param>  
+        /// <returns>A list of deviation factors for planetary mass distribution.</returns>
+        private static List<float> StructureSystem(PlanetOrder order, int seed, int count)
         {
-            return null;
+            List<float> factors = new List<float>();
+
+            // Different processes for similar vs others
+            if (order == PlanetOrder.SIMILAR)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    int s = seed + i;
+
+                    double u1 = 1.0 - RandomUtils.RandomFloat(0f, 1f, s);
+                    double u2 = 1.0 - RandomUtils.RandomFloat(0f, 1f, s + 1);
+                    double z = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Cos(2.0 * Math.PI * u2);
+                    factors.Add((float)Math.Exp(0.9 * z));
+                }
+
+                return factors;
+            } 
+            else
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    int s = seed + i;
+
+                    double u1 = 1.0 - RandomUtils.RandomFloat(0f, 1f, s + 2);
+                    double u2 = 1.0 - RandomUtils.RandomFloat(0f, 1f, s + 3);
+                    double z = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Cos(2.0 * Math.PI * u2);
+                    double sampleNormal = 1.0 + 0.23 * z;
+                    factors.Add((float)(sampleNormal < 0.0 ? 0.0 : sampleNormal));
+                }
+            }
+
+            // Sorting the planets kinda to be ordered or anti-ordered systems
+            if (order == PlanetOrder.ORDERED || order == PlanetOrder.ANTI_ORDERED)
+            {
+                // Apply soft sort
+                var indexed = factors.Select((val, i) => new { Index = i, Value = val }).ToList();
+
+                // First sort strictly
+                indexed.Sort((a, b) => order == PlanetOrder.ORDERED ? b.Value.CompareTo(a.Value) : a.Value.CompareTo(b.Value));
+
+                // Introduce local shuffling
+                for (int i = 0; i < indexed.Count - 1; i++)
+                {
+                    if (RandomUtils.RandomFloat(0f, 1f, seed + i) > 0.2f) // 20% chance to swap with neighbor
+                    {
+                        var temp = indexed[i];
+                        indexed[i] = indexed[i + 1];
+                        indexed[i + 1] = temp;
+                        i++; // skip next to avoid re-swapping
+                    }
+                }
+                
+                // Return shuffled values
+                return indexed.Select(x => x.Value).ToList();
+            }
+            else
+            {
+                // Mixed don't need to be sorted
+                return factors;
+            }
         }
 
         
@@ -310,7 +406,6 @@ namespace SystemGen
             // High mass makes a dominant jupiter-like more likely
             float diskMassPercentile = (RandomUtils.RandomFloat((1000 * star.StellarMass), 4000 * star.StellarMass, seed) / 1000000) / star.StellarMass;
             diskMass = (decimal)diskMassPercentile * star.Mass;
-            Logger.Log("System Generation", $"Disk Mass Fraction: {diskMassPercentile}");
 
             // Preset percentages for the planet order
             float draw = RandomUtils.RandomFloat(0f, 1f, seed);

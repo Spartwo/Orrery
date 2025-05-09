@@ -64,22 +64,22 @@
   "Solid Bodies": [
     {
       "Material Composition (%)": {
-        "rock": 35.18006,
-        "ice": 0.296028,
-        "metals": 64.52391,
-        "Total Mass (Kilotons)": 13044723282814000000.0
+        "rock": 35.4113655,
+        "ice": 0.314695239,
+        "metals": 64.27394,
+        "Total Mass (Kilotons)": 7002213177400065572.1231798378
       },
-      "Radius (Earths)": 1.09609771,
+      "Radius (Earths)": 0.928873658,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
       },
       "Seed Value": 4369555,
       "Parental Seed Value": 25799898,
-      "Name": "Greg-Bb",
+      "Name": "Greg-Ba",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 13044723282814000000.0,
+      "Mass (Kilotons)": 7002213177400065572.1231798378,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         231,
@@ -87,7 +87,7 @@
         205
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 52084832410.0,
+        "Semi-Major Axis (m)": 52655458528.0,
         "Eccentricity (0-1)": 0.177290976,
         "Longitude of Ascending Node": 195.633759,
         "Inclination": 2.99717474,
@@ -100,22 +100,22 @@
     },
     {
       "Material Composition (%)": {
-        "rock": 27.7710419,
-        "ice": 69.17547,
-        "metals": 3.053489,
-        "Total Mass (Kilotons)": 1664939913988110000.0
+        "rock": 27.72536,
+        "ice": 69.22432,
+        "metals": 3.05032,
+        "Total Mass (Kilotons)": 1882286987258526527.0587312285
       },
-      "Radius (Earths)": 2.92024946,
+      "Radius (Earths)": 3.02113438,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
       },
       "Seed Value": 16061740,
       "Parental Seed Value": 25799898,
-      "Name": "Greg-Bd",
+      "Name": "Greg-Bc",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 1664939913988110000.0,
+      "Mass (Kilotons)": 1882286987258526527.0587312285,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         231,
@@ -123,7 +123,7 @@
         205
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 3529482011148.0,
+        "Semi-Major Axis (m)": 3568150068766.0,
         "Eccentricity (0-1)": 0.0227932781,
         "Longitude of Ascending Node": 24.184454,
         "Inclination": 0.370513916,
@@ -136,22 +136,22 @@
     },
     {
       "Material Composition (%)": {
-        "rock": 28.5499649,
+        "rock": 28.913269,
         "ice": 0.0,
-        "metals": 71.4500351,
-        "Total Mass (Kilotons)": 14113435890197800000.0
+        "metals": 71.08673,
+        "Total Mass (Kilotons)": 6243430369653564039.0084907427
       },
-      "Radius (Earths)": 1.04925787,
+      "Radius (Earths)": 0.844619453,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
       },
       "Seed Value": 4089949,
       "Parental Seed Value": 25799898,
-      "Name": "Greg-Ba",
+      "Name": "Greg-Bb",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 14113435890197800000.0,
+      "Mass (Kilotons)": 6243430369653564039.0084907427,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         231,
@@ -159,7 +159,7 @@
         205
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 30720356582.0,
+        "Semi-Major Axis (m)": 31056921871.0,
         "Eccentricity (0-1)": 0.191800371,
         "Longitude of Ascending Node": 211.735138,
         "Inclination": 3.243853,
@@ -172,22 +172,22 @@
     },
     {
       "Material Composition (%)": {
-        "rock": 39.7099342,
-        "ice": 57.23124,
-        "metals": 3.05882668,
-        "Total Mass (Kilotons)": 2733653233289720000.0
+        "rock": 39.5923424,
+        "ice": 57.3365631,
+        "metals": 3.0710938,
+        "Total Mass (Kilotons)": 1868980107247937131.0971456038
       },
-      "Radius (Earths)": 2.8283174,
+      "Radius (Earths)": 2.554911,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
       },
       "Seed Value": 12836083,
       "Parental Seed Value": 25799898,
-      "Name": "Greg-Bc",
+      "Name": "Greg-Bd",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 2733653233289720000.0,
+      "Mass (Kilotons)": 1868980107247937131.0971456038,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         231,
@@ -195,7 +195,7 @@
         205
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 1224647962583.0,
+        "Semi-Major Axis (m)": 1238064797215.0,
         "Eccentricity (0-1)": 0.03730267,
         "Longitude of Ascending Node": 40.2858276,
         "Inclination": 0.6171924,
@@ -208,22 +208,22 @@
     },
     {
       "Material Composition (%)": {
-        "rock": 26.0017853,
+        "rock": 23.8327332,
         "ice": 0.0,
-        "metals": 73.9982147,
-        "Total Mass (Kilotons)": 20852869123458900000.0
+        "metals": 76.16727,
+        "Total Mass (Kilotons)": 14181367059250015476.364764147
       },
-      "Radius (Earths)": 1.13981724,
+      "Radius (Earths)": 1.007878,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
       },
       "Seed Value": 6943127,
       "Parental Seed Value": 61471832,
-      "Name": "Greg-Ac",
+      "Name": "Greg-Ab",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 20852869123458900000.0,
+      "Mass (Kilotons)": 14181367059250015476.364764147,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -231,7 +231,7 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 24554785059.0,
+        "Semi-Major Axis (m)": 17426566199.0,
         "Eccentricity (0-1)": 0.101257242,
         "Longitude of Ascending Node": 313.272339,
         "Inclination": 2.18156219,
@@ -244,22 +244,22 @@
     },
     {
       "Material Composition (%)": {
-        "rock": 93.5255356,
-        "ice": 3.45720768,
-        "metals": 3.0172565,
-        "Total Mass (Kilotons)": 9473086110591890000.0
+        "rock": 89.69551,
+        "ice": 7.29039431,
+        "metals": 3.01409245,
+        "Total Mass (Kilotons)": 14214045652231901069.276478010
       },
-      "Radius (Earths)": 2.28565669,
+      "Radius (Earths)": 2.633029,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
       },
       "Seed Value": 13494125,
       "Parental Seed Value": 61471832,
-      "Name": "Greg-Ah",
+      "Name": "Greg-Aa",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 9473086110591890000.0,
+      "Mass (Kilotons)": 14214045652231901069.276478010,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -267,7 +267,7 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 576081054755.0,
+        "Semi-Major Axis (m)": 695037092795.0,
         "Eccentricity (0-1)": 0.0463879332,
         "Longitude of Ascending Node": 141.823013,
         "Inclination": 0.9876254,
@@ -280,22 +280,22 @@
     },
     {
       "Material Composition (%)": {
-        "rock": 22.7042618,
+        "rock": 21.4941864,
         "ice": 0.0,
-        "metals": 77.29574,
-        "Total Mass (Kilotons)": 21921583154678300000.0
+        "metals": 78.50581,
+        "Total Mass (Kilotons)": 13913734086295559719.200906061
       },
-      "Radius (Earths)": 1.12267876,
+      "Radius (Earths)": 0.982784152,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
       },
       "Seed Value": 6640378,
       "Parental Seed Value": 61471832,
-      "Name": "Greg-Ab",
+      "Name": "Greg-Ad",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 21921583154678300000.0,
+      "Mass (Kilotons)": 13913734086295559719.200906061,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -303,7 +303,7 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 14482011862.0,
+        "Semi-Major Axis (m)": 10277900301.0,
         "Eccentricity (0-1)": 0.1064102,
         "Longitude of Ascending Node": 329.3737,
         "Inclination": 2.29368877,
@@ -316,22 +316,22 @@
     },
     {
       "Material Composition (%)": {
-        "rock": 68.93615,
-        "ice": 28.0470943,
-        "metals": 3.01675463,
-        "Total Mass (Kilotons)": 10541799429893500000.0
+        "rock": 59.2899323,
+        "ice": 37.6955147,
+        "metals": 3.01455235,
+        "Total Mass (Kilotons)": 13980110378483234808.024664822
       },
-      "Radius (Earths)": 2.93395829,
+      "Radius (Earths)": 3.49641752,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
       },
       "Seed Value": 12395746,
       "Parental Seed Value": 61471832,
-      "Name": "Greg-Ag",
+      "Name": "Greg-Ac",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 10541799429893500000.0,
+      "Mass (Kilotons)": 13980110378483234808.024664822,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -339,7 +339,7 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 981990043653.0,
+        "Semi-Major Axis (m)": 1184762926287.0,
         "Eccentricity (0-1)": 0.0515408926,
         "Longitude of Ascending Node": 157.9244,
         "Inclination": 1.09975207,
@@ -352,22 +352,22 @@
     },
     {
       "Material Composition (%)": {
-        "rock": 31.4011078,
+        "rock": 27.0825119,
         "ice": 0.0,
-        "metals": 68.59889,
-        "Total Mass (Kilotons)": 22990295762062100000.0
+        "metals": 72.91749,
+        "Total Mass (Kilotons)": 10909872575563882482.842746489
       },
-      "Radius (Earths)": 1.22831845,
+      "Radius (Earths)": 0.9660829,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
       },
       "Seed Value": 6362928,
       "Parental Seed Value": 61471832,
-      "Name": "Greg-Aa",
+      "Name": "Greg-Af",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 22990295762062100000.0,
+      "Mass (Kilotons)": 10909872575563882482.842746489,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -375,7 +375,7 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 41962890881.0,
+        "Semi-Major Axis (m)": 29781106350.0,
         "Eccentricity (0-1)": 0.111563161,
         "Longitude of Ascending Node": 345.475067,
         "Inclination": 2.40581536,
@@ -388,22 +388,22 @@
     },
     {
       "Material Composition (%)": {
-        "rock": 93.31212,
-        "ice": 0.3495276,
-        "metals": 6.33835554,
-        "Total Mass (Kilotons)": 11610512749195100000.0
+        "rock": 96.0514,
+        "ice": 0.8489704,
+        "metals": 3.09963274,
+        "Total Mass (Kilotons)": 13468877421107265885.331128892
       },
-      "Radius (Earths)": 2.21863079,
+      "Radius (Earths)": 2.45702577,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
       },
       "Seed Value": 11462717,
       "Parental Seed Value": 61471832,
-      "Name": "Greg-Af",
+      "Name": "Greg-Ae",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 11610512749195100000.0,
+      "Mass (Kilotons)": 13468877421107265885.331128892,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -411,7 +411,7 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 340706607355.0,
+        "Semi-Major Axis (m)": 411059793183.0,
         "Eccentricity (0-1)": 0.0566938519,
         "Longitude of Ascending Node": 174.025772,
         "Inclination": 1.21187854,
@@ -424,22 +424,22 @@
     },
     {
       "Material Composition (%)": {
-        "rock": 43.3802757,
-        "ice": 53.67569,
-        "metals": 2.94403386,
-        "Total Mass (Kilotons)": 230729602843523000.0
+        "rock": 36.04349,
+        "ice": 60.9649429,
+        "metals": 2.99156618,
+        "Total Mass (Kilotons)": 10461546469626517998.978435752
       },
-      "Radius (Earths)": 1.391351,
+      "Radius (Earths)": 4.27804232,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
       },
       "Seed Value": 57742229,
       "Parental Seed Value": 61471832,
-      "Name": "Greg-Aj",
+      "Name": "Greg-Ag",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 230729602843523000.0,
+      "Mass (Kilotons)": 10461546469626517998.978435752,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -447,7 +447,7 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 4698803295623.0,
+        "Semi-Major Axis (m)": 9637413473958.0,
         "Eccentricity (0-1)": 0.00182454812,
         "Longitude of Ascending Node": 2.57645321,
         "Inclination": 0.0179418754,
@@ -460,22 +460,22 @@
     },
     {
       "Material Composition (%)": {
-        "rock": 77.3597946,
-        "ice": 0.0,
-        "metals": 22.6402054,
-        "Total Mass (Kilotons)": 12679226068496700000.0
+        "rock": 84.10666,
+        "ice": 0.0102038626,
+        "metals": 15.88314,
+        "Total Mass (Kilotons)": 5858793525654716516.1239864473
       },
-      "Radius (Earths)": 1.75584507,
+      "Radius (Earths)": 1.57428551,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
       },
       "Seed Value": 10660315,
       "Parental Seed Value": 61471832,
-      "Name": "Greg-Ae",
+      "Name": "Greg-Ai",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 12679226068496700000.0,
+      "Mass (Kilotons)": 5858793525654716516.1239864473,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -483,7 +483,7 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 200955418102.0,
+        "Semi-Major Axis (m)": 242451174673.0,
         "Eccentricity (0-1)": 0.06184681,
         "Longitude of Ascending Node": 190.127136,
         "Inclination": 1.32400513,
@@ -496,22 +496,22 @@
     },
     {
       "Material Composition (%)": {
-        "rock": 52.5228767,
-        "ice": 44.5614777,
-        "metals": 2.91564465,
-        "Total Mass (Kilotons)": 1299442966640000000.0
+        "rock": 43.6159554,
+        "ice": 53.4140129,
+        "metals": 2.97003269,
+        "Total Mass (Kilotons)": 10361833085050742487.611979997
       },
-      "Radius (Earths)": 1.99124646,
+      "Radius (Earths)": 3.8710146,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
       },
       "Seed Value": 41867521,
       "Parental Seed Value": 61471832,
-      "Name": "Greg-Ai",
+      "Name": "Greg-Ah",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 1299442966640000000.0,
+      "Mass (Kilotons)": 10361833085050742487.611979997,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -519,7 +519,7 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 2771665573522.0,
+        "Semi-Major Axis (m)": 5684787901620.0,
         "Eccentricity (0-1)": 0.006977507,
         "Longitude of Ascending Node": 18.67783,
         "Inclination": 0.130068451,
@@ -532,22 +532,22 @@
     },
     {
       "Material Composition (%)": {
-        "rock": 57.0393143,
+        "rock": 63.7990379,
         "ice": 0.0,
-        "metals": 42.9606857,
-        "Total Mass (Kilotons)": 13747940099716200000.0
+        "metals": 36.2009621,
+        "Total Mass (Kilotons)": 4639525880200492206.9411195032
       },
-      "Radius (Earths)": 1.388124,
+      "Radius (Earths)": 1.120921,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
       },
       "Seed Value": 9962901,
       "Parental Seed Value": 61471832,
-      "Name": "Greg-Ad",
+      "Name": "Greg-Aj",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 13747940099716200000.0,
+      "Mass (Kilotons)": 4639525880200492206.9411195032,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -555,7 +555,7 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 118526647271.0,
+        "Semi-Major Axis (m)": 143001412430.0,
         "Eccentricity (0-1)": 0.06699977,
         "Longitude of Ascending Node": 206.228516,
         "Inclination": 1.43613172,
@@ -574,29 +574,29 @@
           "rock": 27.0,
           "ice": 70.0,
           "metals": 3.0,
-          "Total Mass (Kilotons)": 2977484062662157.5300000
+          "Total Mass (Kilotons)": 2240770871535946.7780000
         },
         "Centre": {
           "rock": 27.0,
           "ice": 70.0,
           "metals": 3.0,
-          "Total Mass (Kilotons)": 2938772303621455.4888737050000
+          "Total Mass (Kilotons)": 2211637489049672.1659658330000
         },
         "Outer": {
           "rock": 27.0,
           "ice": 70.0,
           "metals": 3.0,
-          "Total Mass (Kilotons)": 2900563855515921.1353351135244
+          "Total Mass (Kilotons)": 2182882884235792.8533000282223
         }
       },
-      "Inner Edge (m)": 3623541672350.91600,
-      "Outer Edge (m)": 6597007293553.68900,
+      "Inner Edge (m)": 3663240459298.57500,
+      "Outer Edge (m)": 6024146183367.35100,
       "Seed Value": 4369555,
       "Parental Seed Value": 0,
       "Name": "Unnamed Belt",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 8816820221799534.15420881852,
+      "Mass (Kilotons)": 6635291244821411.79726586122,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         255,
@@ -604,7 +604,7 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 5124054690811.0,
+        "Semi-Major Axis (m)": 4856754711423.0,
         "Eccentricity (0-1)": 0.000455059169,
         "Longitude of Ascending Node": 195.633759,
         "Inclination": 0.0,
@@ -615,32 +615,32 @@
     {
       "Belt Composition": {
         "Inner": {
-          "rock": 45.66024,
-          "ice": 51.33976,
+          "rock": 36.0888329,
+          "ice": 60.9111671,
           "metals": 3.0,
-          "Total Mass (Kilotons)": 20570880218269648.98366000
+          "Total Mass (Kilotons)": 3180550971046657.10256300
         },
         "Centre": {
-          "rock": 42.6268539,
-          "ice": 54.3731461,
+          "rock": 35.6116867,
+          "ice": 61.3883133,
           "metals": 3.0,
-          "Total Mass (Kilotons)": 18576889874462589.127711049828
+          "Total Mass (Kilotons)": 2872251673352011.9350371045668
         },
         "Outer": {
-          "rock": 40.5777626,
-          "ice": 56.4222374,
+          "rock": 35.77668,
+          "ice": 61.22332,
           "metals": 3.0,
-          "Total Mass (Kilotons)": 16776182338634965.548449046779
+          "Total Mass (Kilotons)": 2593836649742033.5683020914720
         }
       },
-      "Inner Edge (m)": 4841977433756.03400,
-      "Outer Edge (m)": 7183785493651.24800,
+      "Inner Edge (m)": 9931069606206.5700,
+      "Outer Edge (m)": 10147925183594.58300,
       "Seed Value": 6943127,
       "Parental Seed Value": 0,
       "Name": "Unnamed Belt",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 55923952431367203.65982009661,
+      "Mass (Kilotons)": 8646639294140702.605902196039,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         255,
@@ -648,7 +648,7 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 6147313102272.0,
+        "Semi-Major Axis (m)": 10263956284066.0,
         "Eccentricity (0-1)": 0.00012737514,
         "Longitude of Ascending Node": 313.272339,
         "Inclination": 0.0,

@@ -66,7 +66,7 @@ namespace Models
             if (percentage < 0 || percentage > 100)
                 throw new ArgumentOutOfRangeException(nameof(percentage), "Percentage must be between 0 and 100.");
 
-            var existingElementIndex = elementPercentages.FindIndex(e => e.Item1 == element);
+            int existingElementIndex = elementPercentages.FindIndex(e => e.Item1 == element);
             if (existingElementIndex >= 0)
             {
                 elementPercentages[existingElementIndex] = (element, percentage);

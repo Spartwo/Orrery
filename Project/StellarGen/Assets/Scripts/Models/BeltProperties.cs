@@ -40,9 +40,9 @@ namespace Models
 
         public override string GetInfo()
         {
-            var baseInfo = base.GetInfo();
-            var compositionInfo = $"Mean Composition: {meanComposition.Inner.GetInfo()}, {meanComposition.Centre.GetInfo()}, {meanComposition.Outer.GetInfo()}";
-            var rangeInfo = $"Inner Range: {PhysicsUtils.ConvertToAU(lowerEdge)} AU, Outer Range: {PhysicsUtils.ConvertToAU(upperEdge)} AU";
+            string baseInfo = base.GetInfo();
+            string compositionInfo = $"Mean Composition: {meanComposition.Inner.GetInfo()}, {meanComposition.Centre.GetInfo()}, {meanComposition.Outer.GetInfo()}";
+            string rangeInfo = $"Inner Range: {PhysicsUtils.ConvertToAU(lowerEdge)} AU, Outer Range: {PhysicsUtils.ConvertToAU(upperEdge)} AU";
             return $"{baseInfo}\n{compositionInfo}\n{rangeInfo}";
         }
 

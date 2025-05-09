@@ -36,8 +36,13 @@ namespace SystemGen
         /// </summary>
         public void StartGeneration()
         {
-            systemProperties = new SystemProperties(seedInput);
             GenerateSystem().ConfigureAwait(false); 
+        }
+
+        public SystemGenerator(string seedInput)
+        {
+            this.seedInput = seedInput;
+            systemProperties = new SystemProperties(seedInput);
         }
 
         /// <summary>
@@ -59,6 +64,8 @@ namespace SystemGen
 
             // Define the stellar systems total age, generation occurs at 0bY
             decimal systemAge = (decimal)Math.Min(Math.Round(await GenerateStellarBodies(usableSeed, starCount), 3), 13.5f);
+            // Set a Current age for the system
+            AssignAges(systemAge);
 
             // This section is the important bit, drives the layered generation processes from stellar orbits to body positions
             if (starCount > 1)
@@ -449,7 +456,7 @@ namespace SystemGen
                 else
                 {
                     // If no parent is found it must be circumbinary
-                    var parentStars = systemProperties.stellarBodies.Take(2).ToList();
+                    List<StarProperties> parentStars = systemProperties.stellarBodies.Take(2).ToList();
                     if (parentStars.Count == 2)
                     {
                         planet.OrbitLine = new int[]
@@ -476,7 +483,7 @@ namespace SystemGen
                 else
                 {
                     // If no parent is found it must be circumbinary
-                    var parentStars = systemProperties.stellarBodies.Take(2).ToList();
+                    List<StarProperties> parentStars = systemProperties.stellarBodies.Take(2).ToList();
                     if (parentStars.Count == 2)
                     {
                         belt.OrbitLine = new int[]
