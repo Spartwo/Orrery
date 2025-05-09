@@ -512,7 +512,6 @@ namespace SystemGen
         /// </summary>
         private void CreateSystemFile()
         {
-            Debug.Log(systemProperties.seedInput);
             // Set appropriate file name to the name value
             string systemFilePath = $"{assetsFolder}/Star_Systems/{systemProperties.seedInput}.json";
 

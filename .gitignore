@@ -15,3 +15,5 @@
 *.meta
 /Project/StellarGen/Assets/Scripts/.vs
 /Project/StellarGen/Assets/StreamingAssets/Logs
+Project/StellarGen/.vs/StellarGen/v17/DocumentLayout.json
+Project/StellarGen/.vs/StellarGen/v17/DocumentLayout.backup.json

@@ -102,7 +102,7 @@ namespace SystemGen
             int seedValue = planet.SeedValue;
 
             // Calculate the baseline composition values
-            double baselineIce = 0f;
+            float baselineIce = 0f;
             if (distance < frostLine)
             {
                 double term = Math.Max(0f, (distance - sublimationLine) / (frostLine - sublimationLine));
@@ -110,11 +110,11 @@ namespace SystemGen
             }
             else
             {
-                double term = Math.Max(0f, Math.Min(1f, (distance - frostLine) / (14f * frostLine - frostLine)));
+                double term = Math.Max(0f, Math.Min(1f, (distance - frostLine) / (13f * frostLine)));
                 baselineIce = 25f + 45f * (float)Math.Pow(term, 0.35f);
             }
 
-            double baselineMetal = Math.Max(3f, 80f * (float)Math.Exp(-0.85714f * (float)Math.Pow(distance, 1.3205f)));
+            float baselineMetal = Math.Max(3f, 80f * (float)Math.Exp(-0.85714f * (float)Math.Pow(distance, 1.3205f)));
 
             // Calculate the composition deviation based on the seed value and body mass
             float sharedDeviation = CalculateCompositionDeviation((float)earthMasses) / 100f;

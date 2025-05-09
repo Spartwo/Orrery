@@ -131,8 +131,8 @@ namespace SystemGen
             float minLowerEdge = (float)Math.Sqrt(star.BaseLuminosity) * 4.8f; // Frost Line
 
             // Scatter 2 edges
-            float edgeA = baseRadius * RandomUtils.RandomFloat(1 - scatter, 1 + scatter);
-            float edgeB = baseRadius * RandomUtils.RandomFloat(1 - scatter, 1 + scatter);
+            float edgeA = baseRadius * RandomUtils.RandomFloat(1 - scatter, 1 + scatter, star.SeedValue);
+            float edgeB = baseRadius * RandomUtils.RandomFloat(1 - scatter, 1 + scatter, star.SeedValue + 1);
 
             float lowerEdge = Math.Min(edgeA, edgeB);
             float upperEdge = Math.Max(edgeA, edgeB);
@@ -202,6 +202,7 @@ namespace SystemGen
             {
                 Logger.LogWarning("System Generation", "Orbital position generation hit maximum iteration cap.");
             }
+            Logger.Log("System Generation", $"Selected Positions: {string.Join(", ", positions)}");
 
             Logger.Log("System Generation", $"Orbital Positions: {positions.Count}");
             return positions;
