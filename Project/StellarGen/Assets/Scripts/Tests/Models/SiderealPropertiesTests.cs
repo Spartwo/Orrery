@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Settings;
 
 namespace Models.Tests
 {
@@ -94,6 +95,8 @@ namespace Models.Tests
         [Test]
         public void GetInfo_ReturnsFormattedString()
         {
+            LocalisationProvider.LoadLoc("en-ie");
+
             var sidereal = new SiderealProperties(10, 15);
 
             string info = sidereal.GetInfo();

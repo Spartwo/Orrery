@@ -2,6 +2,8 @@
 using Models;
 using System.Linq;
 using System;
+using System.Diagnostics;
+using UnityEngine;
 
 namespace Models.Tests
 {
@@ -82,8 +84,10 @@ namespace Models.Tests
 
             string info = atmosphere.GetInfo();
 
-            Assert.IsTrue(info.Contains("#loc_Hydrogen: 80"));
-            Assert.IsTrue(info.Contains("#loc_Helium: 20"));
+            UnityEngine.Debug.Log(atmosphere.GetInfo());
+
+            Assert.IsTrue(info.Contains("Hydrogen: 80"));
+            Assert.IsTrue(info.Contains("Helium: 20"));
         }
 
         [Test]

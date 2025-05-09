@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
 using Models;
+using Settings;
+using System.Collections.Generic;
 
 namespace Models.Tests
 {
@@ -36,6 +38,8 @@ namespace Models.Tests
         [Test]
         public void GetInfo_ContainsExpectedTextSections()
         {
+            LocalisationProvider.LoadLoc("en-ie");
+
             var inner = new SurfaceProperties(60f, 20f, 20f);
             var center = new SurfaceProperties(50f, 25f, 25f);
             var outer = new SurfaceProperties(30f, 40f, 30f);
@@ -50,7 +54,7 @@ namespace Models.Tests
             Assert.IsTrue(info.Contains("Surface Composition: Rock:")); // Each section will be printed
             Assert.IsTrue(info.Contains("Inner Range:"));
             Assert.IsTrue(info.Contains("Outer Range:"));
-            Assert.IsTrue(info.Contains("AU")); // Assuming PhysicsUtils.ConvertToAU outputs with "AU"
+            Assert.IsTrue(info.Contains("AU")); 
         }
 
         [Test]

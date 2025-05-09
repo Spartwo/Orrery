@@ -91,10 +91,5 @@ namespace Settings
                 return key; // Return the key itself if not found.
             }
         }
-
-        /// <summary>
-        /// Forces a reload of localisation data.
-        /// </summary>
-        //void ReloadLocalisation();
     }
 }

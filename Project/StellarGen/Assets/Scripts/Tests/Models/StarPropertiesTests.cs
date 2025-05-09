@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StellarGenHelpers;
+using Settings;
 
 namespace Models.Tests
 {
@@ -27,6 +28,8 @@ namespace Models.Tests
         [Test]
         public void GetInfo_ReturnsExpectedString()
         {
+            LocalisationProvider.LoadLoc("en-ie");
+
             var star = new StarProperties(
                 name: "TestStar",
                 mass: PhysicsUtils.SolMassToRaw(1f),
@@ -42,7 +45,7 @@ namespace Models.Tests
             Assert.IsTrue(info.Contains("Stellar Mass: 1"));
             Assert.IsTrue(info.Contains("Luminosity: 1"));
             Assert.IsTrue(info.Contains("Surface Temperature: 5778"));
-            Assert.IsTrue(info.Contains("Diameter: 1"));
+            Assert.IsTrue(info.Contains("Radius: 1"));
             Assert.IsTrue(info.Contains("Lifespan: 10"));
         }
 
@@ -122,6 +125,8 @@ namespace Models.Tests
         [Test]
         public void GetInfo_ShouldIncludeAllFields()
         {
+            LocalisationProvider.LoadLoc("en-ie");
+
             var star = new StarProperties(age: 1m);
             star.GenerateStarProperties(1f);
             var info = star.GetInfo();
@@ -129,7 +134,7 @@ namespace Models.Tests
             StringAssert.Contains("Stellar Mass:", info);
             StringAssert.Contains("Luminosity:", info);
             StringAssert.Contains("Surface Temperature:", info);
-            StringAssert.Contains("Diameter:", info);
+            StringAssert.Contains("Radius:", info);
             StringAssert.Contains("Lifespan:", info);
         }
     }

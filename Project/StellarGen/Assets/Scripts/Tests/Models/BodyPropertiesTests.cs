@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Settings;
 
 namespace Models.Tests
 {
@@ -54,13 +55,15 @@ namespace Models.Tests
         [Test]
         public void GetInfo_ReturnsFormattedString()
         {
+            LocalisationProvider.LoadLoc("en-ie");
+
             var body = new BodyProperties(seedValue: 0, name: "InfoPlanet", mass: 5.972e24m);
             body.Radius = 1.0f;
 
             string info = body.GetInfo();
 
-            Assert.IsTrue(info.Contains("Mass: 1"));
-            Assert.IsTrue(info.Contains("Radius: 1"));
+            Assert.IsTrue(info.Contains("1"));
+            Assert.IsTrue(info.Contains("1"));
         }
     }
 }

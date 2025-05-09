@@ -1,42 +1,203 @@
-[22:48:13 LOG] Application: Program Initialised
-[22:48:13 LOG] StarProperties: Generating Star Properties
-[22:48:14 LOG] System Generation: System Age: 1.897bY
-[22:48:14 LOG] StarProperties: Generating Star Properties
-[22:48:14 LOG] StarProperties: Generating Star Properties
-[22:48:14 LOG] SystemGenerator: Setting Stellar Positions
-[22:48:14 LOG] SystemGenerator: AB Binary Spacing: 682.9742AU
-[22:48:14 LOG] System Generation: Generating Major Bodies
-[22:48:14 LOG] System Generation: Planet Count: 4
-[22:48:14 LOG] System Generation: Star 25799898 order: SIMILAR
-[22:48:14 LOG] System Generation: Generated Kuiper Belt from 19.50373AU to 32.73962AU
-[22:48:14 LOG] System Generation: Selected Positions: 19.50373, 11.47278, 6.748695, 3.969821, 2.335189, 1.37364, 0.8080237, 0.475308, 0.279593, 0.1644664, 0.09674496, 0.0569088, 0.03347576, 0.01969163, 0.01158331
-[22:48:14 LOG] System Generation: Orbital Positions: 15
-[22:48:14 LOG] System Generation: Generating Planets
-[22:48:14 LOG] Planet Generation: Created Planet of 1.172507 Earth Masses at 0.279593 AU
-[22:48:14 LOG] Planet Generation: Created Planet of 0.3151854 Earth Masses at 19.50373 AU
-[22:48:14 LOG] Planet Generation: Created Planet of 1.04545 Earth Masses at 0.1644664 AU
-[22:48:14 LOG] Planet Generation: Created Planet of 0.3129571 Earth Masses at 6.748695 AU
-[22:48:15 LOG] System Generation: Planet Count: 10
-[22:48:15 LOG] System Generation: Star 61471832 order: ORDERED
-[22:48:15 LOG] System Generation: Generated Kuiper Belt from 47.90841AU to 70.09141AU
-[22:48:15 LOG] System Generation: Selected Positions: 47.90841, 28.18142, 16.5773, 9.751354, 5.736091, 3.374171, 1.984806, 1.167533, 0.6867841, 0.4039907, 0.2376416, 0.1397891, 0.08222891
-[22:48:15 LOG] System Generation: Orbital Positions: 13
-[22:48:15 LOG] System Generation: Generating Planets
-[22:48:15 LOG] Planet Generation: Created Planet of 2.374643 Earth Masses at 0.1397891 AU
-[22:48:15 LOG] Planet Generation: Created Planet of 2.380115 Earth Masses at 5.736091 AU
-[22:48:15 LOG] Planet Generation: Created Planet of 2.329828 Earth Masses at 0.08222891 AU
-[22:48:15 LOG] Planet Generation: Created Planet of 2.340943 Earth Masses at 3.374171 AU
-[22:48:15 LOG] Planet Generation: Created Planet of 1.826837 Earth Masses at 0.2376416 AU
-[22:48:15 LOG] Planet Generation: Created Planet of 2.255338 Earth Masses at 9.751354 AU
-[22:48:15 LOG] Planet Generation: Created Planet of 1.751766 Earth Masses at 47.90841 AU
-[22:48:15 LOG] Planet Generation: Created Planet of 0.9810438 Earth Masses at 1.167533 AU
-[22:48:15 LOG] Planet Generation: Created Planet of 1.735069 Earth Masses at 28.18142 AU
-[22:48:15 LOG] Planet Generation: Created Planet of 0.7768797 Earth Masses at 0.6867841 AU
-[22:48:15 LOG] System Generation: Generating Minor Bodies
-[22:48:15 LOG] SystemGenerator: Resolving Unstable Orbits
-[22:48:15 LOG] System Generation: Assigning Orbital Colours
-[22:48:15 LOG] System Generation: Generating Body Names
-[22:48:15 LOG] System Generation: System Age: 1.897bY
-[22:48:15 LOG] StarProperties: Generating Star Properties
-[22:48:15 LOG] StarProperties: Generating Star Properties
-[22:48:15 LOG] I/O: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Greg.json
+[22:48:30 LOG] Application: Program Initialised
+[22:48:30 LOG] StarProperties: Generating Star Properties
+[22:48:31 LOG] System Generation: System Age: 1.897bY
+[22:48:31 LOG] StarProperties: Generating Star Properties
+[22:48:31 LOG] StarProperties: Generating Star Properties
+[22:48:31 LOG] SystemGenerator: Setting Stellar Positions
+[22:48:31 LOG] SystemGenerator: AB Binary Spacing: 682.9742AU
+[22:48:31 LOG] System Generation: Generating Major Bodies
+[22:48:31 LOG] System Generation: Planet Count: 4
+[22:48:31 LOG] System Generation: Star 25799898 order: SIMILAR
+[22:48:31 LOG] System Generation: Generated Kuiper Belt from 19.50373AU to 32.73962AU
+[22:48:31 LOG] System Generation: Selected Positions: 19.50373, 11.47278, 6.748695, 3.969821, 2.335189, 1.37364, 0.8080237, 0.475308, 0.279593, 0.1644664, 0.09674496, 0.0569088, 0.03347576, 0.01969163, 0.01158331
+[22:48:31 LOG] System Generation: Orbital Positions: 15
+[22:48:31 LOG] System Generation: Generating Planets
+[22:48:31 LOG] Planet Generation: Created Planet of 1.172507 Earth Masses at 0.279593 AU
+[22:48:31 LOG] Planet Generation: Created Planet of 0.3151854 Earth Masses at 19.50373 AU
+[22:48:31 LOG] Planet Generation: Created Planet of 1.04545 Earth Masses at 0.1644664 AU
+[22:48:31 LOG] Planet Generation: Created Planet of 0.3129571 Earth Masses at 6.748695 AU
+[22:48:31 LOG] System Generation: Planet Count: 10
+[22:48:31 LOG] System Generation: Star 61471832 order: ORDERED
+[22:48:31 LOG] System Generation: Generated Kuiper Belt from 47.90841AU to 70.09141AU
+[22:48:31 LOG] System Generation: Selected Positions: 47.90841, 28.18142, 16.5773, 9.751354, 5.736091, 3.374171, 1.984806, 1.167533, 0.6867841, 0.4039907, 0.2376416, 0.1397891, 0.08222891
+[22:48:31 LOG] System Generation: Orbital Positions: 13
+[22:48:31 LOG] System Generation: Generating Planets
+[22:48:31 LOG] Planet Generation: Created Planet of 2.374643 Earth Masses at 0.1397891 AU
+[22:48:31 LOG] Planet Generation: Created Planet of 2.380115 Earth Masses at 5.736091 AU
+[22:48:31 LOG] Planet Generation: Created Planet of 2.329828 Earth Masses at 0.08222891 AU
+[22:48:31 LOG] Planet Generation: Created Planet of 2.340943 Earth Masses at 3.374171 AU
+[22:48:31 LOG] Planet Generation: Created Planet of 1.826837 Earth Masses at 0.2376416 AU
+[22:48:31 LOG] Planet Generation: Created Planet of 2.255338 Earth Masses at 9.751354 AU
+[22:48:31 LOG] Planet Generation: Created Planet of 1.751766 Earth Masses at 47.90841 AU
+[22:48:31 LOG] Planet Generation: Created Planet of 0.9810438 Earth Masses at 1.167533 AU
+[22:48:31 LOG] Planet Generation: Created Planet of 1.735069 Earth Masses at 28.18142 AU
+[22:48:31 LOG] Planet Generation: Created Planet of 0.7768797 Earth Masses at 0.6867841 AU
+[22:48:33 LOG] System Generation: Generating Minor Bodies
+[22:48:33 LOG] SystemGenerator: Resolving Unstable Orbits
+[22:48:33 LOG] System Generation: Assigning Orbital Colours
+[22:48:33 LOG] System Generation: Generating Body Names
+[22:48:33 LOG] System Generation: System Age: 1.897bY
+[22:48:33 LOG] StarProperties: Generating Star Properties
+[22:48:33 LOG] StarProperties: Generating Star Properties
+[22:48:33 LOG] I/O: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Greg.json
+[22:49:03 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 50%
+[22:49:03 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 50%, #loc_Helium: 50%
+[22:49:04 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 80%
+[22:49:04 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 80%, #loc_Helium: 20%
+[22:49:04 WARNING] LocalisationProvider: Key '#loc_Compositon_Atmosphere' not found in localisation data.
+[22:49:04 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 25%
+[22:49:04 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 70%
+[22:49:04 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 70%, #loc_Nitrogen: 30%
+[22:49:04 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 50%, #loc_Nitrogen: 30%, #loc_CarbonDioxide: 20%
+[22:49:04 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 25%
+[22:49:04 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 40%
+[22:49:04 WARNING] LocalisationProvider: Key '#loc_Composition_Average' not found in localisation data.
+[22:49:04 WARNING] LocalisationProvider: Key 'loc_Earth_Radius' not found in localisation data.
+[22:49:04 WARNING] LocalisationProvider: Key '#loc_Compositon_Atmosphere' not found in localisation data.
+[22:49:04 LOG] StarProperties: Generating Star Properties
+[22:49:04 LOG] StarProperties: Generating Star Properties
+[22:49:04 LOG] StarProperties: Generating Star Properties
+[22:49:04 LOG] StarProperties: Generating Star Properties
+[22:49:04 LOG] StarProperties: Generating Star Properties
+[22:49:04 LOG] StarProperties: Generating Star Properties
+[22:49:04 LOG] StarProperties: Generating Star Properties
+[22:49:04 LOG] StarProperties: Generating Star Properties
+[22:49:04 LOG] StarProperties: Generating Star Properties
+[22:49:04 ERROR] JsonUtils: Line number must be greater than 0. Provided: 0
+[22:49:04 LOG] RandomUtils: System Name: Kerman-779
+[22:50:31 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 80%
+[22:50:31 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 80%, #loc_Helium: 20%
+[22:51:42 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 80%
+[22:51:42 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 80%, #loc_Helium: 20%
+[23:05:52 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 80%
+[23:05:52 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 80%, #loc_Helium: 20%
+[23:05:55 LOG] SettingsManager: Loaded localisation
+[23:05:55 WARNING] LocalisationProvider: Key 'loc_Earth_Radius' not found in localisation data.
+[23:05:55 WARNING] LocalisationProvider: Key '#loc_Compositon_Atmosphere' not found in localisation data.
+[23:05:59 LOG] StarProperties: Generating Star Properties
+[23:06:45 LOG] SettingsManager: Loaded localisation
+[23:06:55 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 50%
+[23:06:55 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 50%, #loc_Helium: 50%
+[23:06:55 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 80%
+[23:06:55 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 80%, #loc_Helium: 20%
+[23:06:55 WARNING] LocalisationProvider: Key '#loc_Compositon_Atmosphere' not found in localisation data.
+[23:06:55 WARNING] LocalisationProvider: Key '#loc_Compositon_Atmosphere' not found in localisation data.
+[23:06:55 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 25%
+[23:06:55 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 70%
+[23:06:55 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 70%, #loc_Nitrogen: 30%
+[23:06:55 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 50%, #loc_Nitrogen: 30%, #loc_CarbonDioxide: 20%
+[23:06:55 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 25%
+[23:06:55 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 40%
+[23:06:55 WARNING] LocalisationProvider: Key '#loc_Composition_Average' not found in localisation data.
+[23:06:55 LOG] SettingsManager: Loaded localisation
+[23:06:55 WARNING] LocalisationProvider: Key 'loc_Earth_Radius' not found in localisation data.
+[23:06:55 WARNING] LocalisationProvider: Key '#loc_Compositon_Atmosphere' not found in localisation data.
+[23:06:55 LOG] SettingsManager: Loaded localisation
+[23:06:55 LOG] StarProperties: Generating Star Properties
+[23:06:55 LOG] StarProperties: Generating Star Properties
+[23:06:55 LOG] StarProperties: Generating Star Properties
+[23:06:55 LOG] StarProperties: Generating Star Properties
+[23:06:55 LOG] StarProperties: Generating Star Properties
+[23:06:55 LOG] StarProperties: Generating Star Properties
+[23:06:55 LOG] StarProperties: Generating Star Properties
+[23:06:55 LOG] StarProperties: Generating Star Properties
+[23:06:55 LOG] SettingsManager: Loaded localisation
+[23:06:55 LOG] SettingsManager: Loaded localisation
+[23:06:55 LOG] StarProperties: Generating Star Properties
+[23:08:17 LOG] SettingsManager: Loaded localisation
+[23:08:19 LOG] SettingsManager: Loaded localisation
+[23:08:19 WARNING] LocalisationProvider: Key 'loc_Earth_Radius' not found in localisation data.
+[23:08:19 WARNING] LocalisationProvider: Key '#loc_Compositon_Atmosphere' not found in localisation data.
+[23:08:22 LOG] SettingsManager: Loaded localisation
+[23:08:22 WARNING] LocalisationProvider: Key '#loc_Composition_Average' not found in localisation data.
+[23:09:16 LOG] SettingsManager: Loaded localisation
+[23:09:31 LOG] SettingsManager: Loaded localisation
+[23:09:47 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 50%
+[23:09:47 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 50%, #loc_Helium: 50%
+[23:09:47 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 80%
+[23:09:47 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 80%, #loc_Helium: 20%
+[23:09:47 WARNING] LocalisationProvider: Key '#loc_Compositon_Atmosphere' not found in localisation data.
+[23:09:47 WARNING] LocalisationProvider: Key '#loc_Compositon_Atmosphere' not found in localisation data.
+[23:09:47 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 25%
+[23:09:47 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 70%
+[23:09:47 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 70%, #loc_Nitrogen: 30%
+[23:09:47 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 50%, #loc_Nitrogen: 30%, #loc_CarbonDioxide: 20%
+[23:09:47 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 25%
+[23:09:47 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 40%
+[23:09:47 LOG] SettingsManager: Loaded localisation
+[23:09:47 LOG] SettingsManager: Loaded localisation
+[23:09:47 WARNING] LocalisationProvider: Key 'loc_Earth_Radius' not found in localisation data.
+[23:09:47 WARNING] LocalisationProvider: Key '#loc_Compositon_Atmosphere' not found in localisation data.
+[23:09:47 LOG] SettingsManager: Loaded localisation
+[23:09:47 LOG] StarProperties: Generating Star Properties
+[23:09:47 LOG] StarProperties: Generating Star Properties
+[23:09:47 LOG] StarProperties: Generating Star Properties
+[23:09:47 LOG] StarProperties: Generating Star Properties
+[23:09:47 LOG] StarProperties: Generating Star Properties
+[23:09:47 LOG] StarProperties: Generating Star Properties
+[23:09:47 LOG] StarProperties: Generating Star Properties
+[23:09:47 LOG] StarProperties: Generating Star Properties
+[23:09:47 LOG] SettingsManager: Loaded localisation
+[23:09:47 LOG] SettingsManager: Loaded localisation
+[23:09:47 LOG] StarProperties: Generating Star Properties
+[23:11:19 LOG] SettingsManager: Loaded localisation
+[23:12:15 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 50%
+[23:12:15 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 50%, #loc_Helium: 50%
+[23:12:15 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 80%
+[23:12:15 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 80%, #loc_Helium: 20%
+[23:12:15 WARNING] LocalisationProvider: Key '#loc_Compositon_Atmosphere' not found in localisation data.
+[23:12:15 WARNING] LocalisationProvider: Key '#loc_Compositon_Atmosphere' not found in localisation data.
+[23:12:15 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 25%
+[23:12:15 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 70%
+[23:12:15 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 70%, #loc_Nitrogen: 30%
+[23:12:15 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 50%, #loc_Nitrogen: 30%, #loc_CarbonDioxide: 20%
+[23:12:15 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 25%
+[23:12:15 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 40%
+[23:12:15 LOG] SettingsManager: Loaded localisation
+[23:12:15 LOG] SettingsManager: Loaded localisation
+[23:12:15 WARNING] LocalisationProvider: Key 'loc_Earth_Radius' not found in localisation data.
+[23:12:15 WARNING] LocalisationProvider: Key '#loc_Compositon_Atmosphere' not found in localisation data.
+[23:12:15 LOG] SettingsManager: Loaded localisation
+[23:12:15 LOG] StarProperties: Generating Star Properties
+[23:12:15 LOG] StarProperties: Generating Star Properties
+[23:12:15 LOG] StarProperties: Generating Star Properties
+[23:12:15 LOG] StarProperties: Generating Star Properties
+[23:12:15 LOG] StarProperties: Generating Star Properties
+[23:12:15 LOG] StarProperties: Generating Star Properties
+[23:12:15 LOG] StarProperties: Generating Star Properties
+[23:12:15 LOG] StarProperties: Generating Star Properties
+[23:12:15 LOG] SettingsManager: Loaded localisation
+[23:12:15 LOG] SettingsManager: Loaded localisation
+[23:12:15 LOG] StarProperties: Generating Star Properties
+[23:13:08 LOG] SettingsManager: Loaded localisation
+[23:13:08 WARNING] LocalisationProvider: Key '#loc_Compositon_Atmosphere' not found in localisation data.
+[23:13:11 LOG] SettingsManager: Loaded localisation
+[23:13:11 WARNING] LocalisationProvider: Key '#loc_Compositon_Atmosphere' not found in localisation data.
+[23:14:53 LOG] SettingsManager: Loaded localisation
+[23:15:01 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 50%
+[23:15:01 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 50%, #loc_Helium: 50%
+[23:15:01 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 80%
+[23:15:01 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Hydrogen: 80%, #loc_Helium: 20%
+[23:15:01 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 25%
+[23:15:01 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 70%
+[23:15:01 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 70%, #loc_Nitrogen: 30%
+[23:15:01 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 50%, #loc_Nitrogen: 30%, #loc_CarbonDioxide: 20%
+[23:15:01 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 25%
+[23:15:01 LOG] AtmosphereProperties: Updated Atmospheric Composition: #loc_Oxygen: 40%
+[23:15:01 LOG] SettingsManager: Loaded localisation
+[23:15:01 LOG] SettingsManager: Loaded localisation
+[23:15:01 LOG] SettingsManager: Loaded localisation
+[23:15:01 LOG] StarProperties: Generating Star Properties
+[23:15:01 LOG] StarProperties: Generating Star Properties
+[23:15:01 LOG] StarProperties: Generating Star Properties
+[23:15:01 LOG] StarProperties: Generating Star Properties
+[23:15:01 LOG] StarProperties: Generating Star Properties
+[23:15:01 LOG] StarProperties: Generating Star Properties
+[23:15:01 LOG] StarProperties: Generating Star Properties
+[23:15:01 LOG] StarProperties: Generating Star Properties
+[23:15:01 LOG] SettingsManager: Loaded localisation
+[23:15:01 LOG] SettingsManager: Loaded localisation
+[23:15:01 LOG] StarProperties: Generating Star Properties
+[23:15:25 LOG] SettingsManager: Loaded localisation
+[23:27:13 LOG] SettingsManager: Loaded localisation
+[23:27:56 LOG] SettingsManager: Loaded localisation

@@ -25,19 +25,19 @@
   "#loc_Belt_Quantity": "Belts",
   
   // Atmosphere / Composition
-  "#loc_Composition_Atmosphere": "Atmospheric Composition:",
-  "#loc_Composition_Surface": "Surface Composition:",
-  "#loc_Mean_Composition": "Mean Composition:",
+  "#loc_Composition_Atmosphere": "Atmospheric Composition",
+  "#loc_Composition_Surface": "Surface Composition",
+  "#loc_Composition_Average": "Mean Composition",
   "#loc_Density": "Density:",
 
   // Belt Range
-  "#loc_Range_Inner": "Inner Range:",
-  "#loc_Range_Outer": "Outer Range:",
+  "#loc_Range_Inner": "Inner Range",
+  "#loc_Range_Outer": "Outer Range",
 
   // Mass & Radius
   "#loc_Mass": "Mass:",
   "#loc_Earth_Mass": "Earth Masses",
-  "#loc_Radius": "Radius:",
+  "#loc_Radius": "Radius",
   "#loc_Earth_Radius": "Earth Radii",
   
   // Body
