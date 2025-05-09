@@ -20,13 +20,13 @@ namespace Models
 
         public string GetInfo()
         {
-            return $"Sidereal Properties:\n" +
-                   $"Sidereal Day Length: {SiderealDayLength} hours\n" +
-                   $"Axial Tilt: {AxialTilt}°";
+            return $"{Settings.LocalisationProvider.GetLocalisedString("#loc_Sidereal_Properties")}:\n" +
+                   $"{Settings.LocalisationProvider.GetLocalisedString("#loc_SiderealDayLength")}: {SiderealDayLength} {Settings.LocalisationProvider.GetLocalisedString("#loc_Hours")}\n" +
+                   $"{Settings.LocalisationProvider.GetLocalisedString("#loc_AxialTilt")}: {AxialTilt}°";
         }
 
         #region Getter and Setters
-        
+
         public double SiderealDayLength
         {
             get => siderealDayLength;

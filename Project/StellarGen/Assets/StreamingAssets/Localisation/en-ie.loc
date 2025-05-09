@@ -23,4 +23,48 @@
   "#loc_Star_Quantity": "Stars",
   "#loc_Body_Quantity": "Planets",
   "#loc_Belt_Quantity": "Belts",
+  
+  // Atmosphere / Composition
+  "#loc_Composition_Atmosphere": "Atmospheric Composition:",
+  "#loc_Composition_Surface": "Surface Composition:",
+  "#loc_Mean_Composition": "Mean Composition:",
+  "#loc_Density": "Density:",
+
+  // Belt Range
+  "#loc_Range_Inner": "Inner Range:",
+  "#loc_Range_Outer": "Outer Range:",
+
+  // Mass & Radius
+  "#loc_Mass": "Mass:",
+  "#loc_Earth_Mass": "Earth Masses",
+  "#loc_Radius": "Radius:",
+  "#loc_Earth_Radius": "Earth Radii"
+  
+  // Body
+  "#loc_Name": "Name",
+  "#loc_ParentID": "Parent ID",
+  "#loc_Age": "Age",
+  "#loc_HillSphere": "Hill Sphere"
+  
+  // Orbital Parameters
+  "#loc_Orbital_Properties": "Orbital Properties",
+  "#loc_SemiMajorAxis": "Semi-Major Axis",
+  "#loc_Eccentricity": "Eccentricity",
+  "#loc_Inclination": "Inclination",
+  "#loc_LongitudeOfAscendingNode": "Longitude of Ascending Node",
+  "#loc_ArgumentOfPeriapsis": "Argument of Periapsis"
+  
+  // Sidereal
+  "#loc_Sidereal_Properties": "Sidereal Properties",
+  "#loc_SiderealDayLength": "Sidereal Day Length",
+  "#loc_AxialTilt": "Axial Tilt",
+  "#loc_Hours": "Hours" 
+  
+  // Stellar
+  "#loc_StellarMass": "Stellar Mass",
+  "#loc_SolarMasses": "Solar Masses",
+  "#loc_Luminosity": "Luminosity",
+  "#loc_SurfaceTemperature": "Surface Temperature",
+  "#loc_SolarRadii": "Solar Radii",
+  "#loc_Lifespan": "Lifespan"
 }

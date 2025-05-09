@@ -117,7 +117,7 @@ namespace Models
             string elementsInfo = string.Join(", ", elementPercentages
                 .FindAll(e => e.Item2 > 0)
                 .ConvertAll(e => $"{Settings.LocalisationProvider.GetLocalisedString(e.Item1.Localisation)}: {e.Item2}%"));
-            return $"Atmospheric Composition: {elementsInfo}\n";
+            return $"{Settings.LocalisationProvider.GetLocalisedString("#loc_Compositon_Atmosphere")}: {elementsInfo}\n";
         }
 
         

@@ -23,7 +23,7 @@ namespace Models
         public override string GetInfo()
         {
             return base.GetInfo() +
-                   $"Mass: {PhysicsUtils.RawToEarthMass(base.Mass)} Earth masses\nRadius: {radius} Earth radii\n {composition?.GetInfo()} \n {atmosphere?.GetInfo()}";
+                   $"{Settings.LocalisationProvider.GetLocalisedString("#loc_Mass")}: {PhysicsUtils.RawToEarthMass(base.Mass)} {Settings.LocalisationProvider.GetLocalisedString("#loc_Earth_Mass")}\n{Settings.LocalisationProvider.GetLocalisedString("#loc_Radius")}: {radius} {Settings.LocalisationProvider.GetLocalisedString("loc_Earth_Radius")}\n {composition?.GetInfo()} \n {atmosphere?.GetInfo()}";
         }
 
         #region Getters and Setters

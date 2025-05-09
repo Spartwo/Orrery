@@ -41,8 +41,8 @@ namespace Models
         public override string GetInfo()
         {
             string baseInfo = base.GetInfo();
-            string compositionInfo = $"Mean Composition: {meanComposition.Inner.GetInfo()}, {meanComposition.Centre.GetInfo()}, {meanComposition.Outer.GetInfo()}";
-            string rangeInfo = $"Inner Range: {PhysicsUtils.ConvertToAU(lowerEdge)} AU, Outer Range: {PhysicsUtils.ConvertToAU(upperEdge)} AU";
+            string compositionInfo = $"{Settings.LocalisationProvider.GetLocalisedString("#loc_Composition_Average")}: {meanComposition.Inner.GetInfo()}, {meanComposition.Centre.GetInfo()}, {meanComposition.Outer.GetInfo()}";
+            string rangeInfo = $"{Settings.LocalisationProvider.GetLocalisedString("#loc_Range_Inner")}: {PhysicsUtils.ConvertToAU(lowerEdge)} AU, {Settings.LocalisationProvider.GetLocalisedString("#loc_Range_Outer")}: {PhysicsUtils.ConvertToAU(upperEdge)} AU";
             return $"{baseInfo}\n{compositionInfo}\n{rangeInfo}";
         }
 

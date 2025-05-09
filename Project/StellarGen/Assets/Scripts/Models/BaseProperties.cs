@@ -46,10 +46,10 @@ namespace Models
         }
         public virtual string GetInfo()
         {
-            return $"\nName: {Name}\n" +
-                   (parent != 0 ? $"Parent ID: {parent}\n" : string.Empty) +
-                   $"Age: {Age} billion years\n" +
-                   $"Hill Sphere: {HillSphere} AU\n" + 
+            return $"\n{Settings.LocalisationProvider.GetLocalisedString("#loc_Name")}: {Name}\n" +
+                   (parent != 0 ? $"{Settings.LocalisationProvider.GetLocalisedString("#loc_ParentID")}: {parent}\n" : string.Empty) +
+                   $"{Settings.LocalisationProvider.GetLocalisedString("#loc_Age")}: {Age} bYo\n" +
+                   $"{Settings.LocalisationProvider.GetLocalisedString("#loc_HillSphere")}: {HillSphere} AU\n" +
                    Orbit?.GetInfo();
         }
 

@@ -29,12 +29,13 @@ namespace Models
 
         public override string GetInfo()
         {
-            return base.GetInfo() + $"\n" +
-                   $"Stellar Mass: {StellarMass} Solar masses\n" +
-                   $"Luminosity: {Luminosity} L☉\n" +
-                   $"Surface Temperature: {Temperature} K\n" +
-                   $"Diameter: {Radius} Solar Radii\n" +
-                   $"Lifespan: {Lifespan} billion years\n";
+            return base.GetInfo() + "\n" +
+               $"{Settings.LocalisationProvider.GetLocalisedString("#loc_StellarMass")}: {StellarMass} {Settings.LocalisationProvider.GetLocalisedString("#loc_SolarMasses")}\n" +
+               $"{Settings.LocalisationProvider.GetLocalisedString("#loc_Luminosity")}: {Luminosity} L☉\n" +
+               $"{Settings.LocalisationProvider.GetLocalisedString("#loc_SurfaceTemperature")}: {Temperature} K\n" +
+               $"{Settings.LocalisationProvider.GetLocalisedString("#loc_Radius")}: {Radius} {Settings.LocalisationProvider.GetLocalisedString("#loc_SolarRadii")}\n" +
+               $"{Settings.LocalisationProvider.GetLocalisedString("#loc_Lifespan")}: {Lifespan} bY\n";
+
         }
 
         /// <summary>

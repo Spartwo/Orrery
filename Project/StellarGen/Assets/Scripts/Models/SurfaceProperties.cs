@@ -69,7 +69,7 @@ namespace Models
             .FindAll(e => e.Item2 > 0)
             .ConvertAll(e => $"{e.Item1}: {e.Item2}%"));
 
-            return $"Surface Composition: {elementsInfo}\nDensity: {CalculateDensity()} kg/m^3\"";
+            return $"{Settings.LocalisationProvider.GetLocalisedString("#loc_Composition_Surface")}: {elementsInfo}\n{Settings.LocalisationProvider.GetLocalisedString("#loc_Density")}: {CalculateDensity()} kg/m^3\"";
         }
 
         #region getters & setters

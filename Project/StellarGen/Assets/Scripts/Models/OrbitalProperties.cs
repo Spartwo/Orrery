@@ -26,12 +26,12 @@ namespace Models
         }
         public string GetInfo()
         {
-            return $"Orbital Properties:\n" +
-                   $"Semi-Major Axis: {PhysicsUtils.ConvertToAU(SemiMajorAxis)} AU\n" +
-                   $"Eccentricity: {Eccentricity}\n" +
-                   $"Inclination: {Inclination}°\n" +
-                   $"Longitude of Ascending Node: {LongitudeOfAscending}°\n" +
-                   $"Argument of Periapsis: {PeriArgument}°\n";
+            return $"{Settings.LocalisationProvider.GetLocalisedString("#loc_Orbital_Properties")}:\n" +
+                   $"{Settings.LocalisationProvider.GetLocalisedString("#loc_SemiMajorAxis")}: {PhysicsUtils.ConvertToAU(SemiMajorAxis)} AU\n" +
+                   $"{Settings.LocalisationProvider.GetLocalisedString("#loc_Eccentricity")}: {Eccentricity}\n" +
+                   $"{Settings.LocalisationProvider.GetLocalisedString("#loc_Inclination")}: {Inclination}°\n" +
+                   $"{Settings.LocalisationProvider.GetLocalisedString("#loc_LongitudeOfAscendingNode")}: {LongitudeOfAscending}°\n" +
+                   $"{Settings.LocalisationProvider.GetLocalisedString("#loc_ArgumentOfPeriapsis")}: {PeriArgument}°\n";
         }
 
         #region Getter and Setters

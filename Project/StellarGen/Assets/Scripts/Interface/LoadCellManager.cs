@@ -23,9 +23,9 @@ public class LoadCellManager : MonoBehaviour
         transform.GetChild(0).GetComponent<TextMesh>().text = SystemName;
 
         string quantities =
-            $"{JsonUtils.ReadJsonValueAtLine(SystemFileLocation, 4)} {PassLoc("#loc_Star_Quantity")}\t|\t " +
-            $"{JsonUtils.ReadJsonValueAtLine(SystemFileLocation, 5)} {PassLoc("#loc_Body_Quantity")}\t|\t " +
-            $"{JsonUtils.ReadJsonValueAtLine(SystemFileLocation, 6)} {PassLoc("#loc_Belt_Quantity")}";
+            $"{JsonUtils.ReadJsonValueAtLine(SystemFileLocation, 4)} {Settings.LocalisationProvider.GetLocalisedString("#loc_Star_Quantity")}\t|\t " +
+            $"{JsonUtils.ReadJsonValueAtLine(SystemFileLocation, 5)} {Settings.LocalisationProvider.GetLocalisedString("#loc_Body_Quantity")}\t|\t " +
+            $"{JsonUtils.ReadJsonValueAtLine(SystemFileLocation, 6)} {Settings.LocalisationProvider.GetLocalisedString("#loc_Belt_Quantity")}";
         transform.GetChild(1).GetComponent<TextMesh>().text = quantities;
     }
 
@@ -42,11 +42,5 @@ public class LoadCellManager : MonoBehaviour
         File.Delete (SystemFileLocation + ".meta");
         //remove the entry from the list
         Destroy(gameObject);
-    }
-
-    private string PassLoc(string loc)
-    {
-        // Get the localisation string from the localisation provider
-        return Settings.LocalisationProvider.GetLocalisedString(loc);
     }
 }
