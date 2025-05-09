@@ -5,7 +5,6 @@ using SystemGen;
 using Newtonsoft.Json;
 using UnityEngine;
 using Random = System.Random;
-using static UnityEngine.Rendering.DebugUI;
 using Models;
 using UnityEditor;
 using Newtonsoft.Json.Serialization;
@@ -98,6 +97,44 @@ namespace StellarGenHelpers
             string json = File.ReadAllText(filePath);
             return JsonConvert.DeserializeObject<List<T>>(json) ?? new List<T>();
         }
+        
+        /// <summary>
+        /// Reads the given line number from a file and extracts the JSON string value.
+        /// </summary>
+        /// <param name="filePath">Path to the .loc (or any JSON) file.</param>
+        /// <param name="lineNumber">1-based line index to read.</param>
+        public static string ReadJsonValueAtLine(string filePath, int lineNumber)
+        {
+            if (lineNumber < 1)
+            {
+                Logger.LogError("JsonUtils", $"Line number must be greater than 0. Provided: {lineNumber}");
+                return "";
+            }
+
+            using var sr = new StreamReader(filePath);
+            string line = null;
+
+            for (int i = 1; i <= lineNumber; i++)
+            {
+                line = sr.ReadLine();
+                if (line == null)
+                    return "";
+            }
+
+            // Extract the colon position
+            int colonIdx = line.IndexOf(':');
+            if (colonIdx < 0)
+                return "";
+
+            // Get the substring after the colon
+            string after = line.Substring(colonIdx + 1).Trim();
+            if (after.EndsWith(","))
+                after = after.Substring(0, after.Length - 1).Trim();
+            if (after.Length >= 2 && after[0] == '"' && after[^1] == '"')
+                return after.Substring(1, after.Length - 2);
+
+            return after;
+        }
 
         [Serializable]
         private class JsonWrapper<T>
@@ -174,7 +211,7 @@ namespace StellarGenHelpers
         public static string GenerateSystemName()
         {
             // Import list from a plaintext file
-            string nameGenerationFilePath = $"{Application.streamingAssetsPath}/Localisation/System_Names.txt";
+            string nameGenerationFilePath = $"{Application.streamingAssetsPath}/Localisation/system-names.loc";
             List<string> systemNameArray = File.ReadAllLines(nameGenerationFilePath).ToList();
 
             // Choose a random row in the file
@@ -212,8 +249,8 @@ namespace StellarGenHelpers
         /// <returns>A Unity Color object created from the RGB values.</returns>
         public static Color ArrayToColor(int[] rgb, int? a = null)
         {
-            // If 'a' is not provided (null), default to 1f
-            float alpha = a ?? 1f;
+            // If 'a' is not provided (null), default to 255 alpha
+            float alpha = a ?? 255f;
             // Return a color made from the RGB elements of the array
             return new Color(rgb[0]/255f, rgb[1]/255f, rgb[2]/255f, alpha/255);
         }

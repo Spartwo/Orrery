@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;  
 
 public class Timekeep : MonoBehaviour
 {
@@ -28,21 +27,21 @@ public class Timekeep : MonoBehaviour
             Time.timeScale = 1;
         } else {
             Time.timeScale = 0;
-            GameSpeedUI.GetComponent<TMP_Text>().text = "Paused";
+            GameSpeedUI.GetComponent<TextMesh>().text = "Paused";
         }
     }
     public void FixedUpdate()
     {
         //Takes slider value and sets as gamespeed
-        GameSpeed = GameObject.Find("Time_Slider").GetComponent<Slider>().value;
+        GameSpeed = 1;// GameObject.Find("Time_Slider").GetComponent<Slider>().value;
         GameTimer();
         DisplayDate();
     }
 
     void DisplayDate()
     {
-        GameSpeedUI.GetComponent<TMP_Text>().text = GameSpeed.ToString() + "x";
-        CurrentTimeUI.GetComponent<TMP_Text>().text = CurrentTime.ToString();
+        //GameSpeedUI.GetComponent<TextMesh>().text = GameSpeed.ToString() + "x";
+        //CurrentTimeUI.GetComponent<TextMesh>().text = CurrentTime.ToString();
     }
 
     void GameTimer()

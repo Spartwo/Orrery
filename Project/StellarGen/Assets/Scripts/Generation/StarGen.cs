@@ -13,9 +13,6 @@ using Newtonsoft.Json;
 using Models;
 using System.Xml.Linq;
 using StellarGenHelpers;
-using UnityEngine.UI;
-using static StarDataPrototype;
-using UnityEngine.UIElements;
 using System.Linq;
 using UnityEditor.PackageManager.UI;
 using UnityEngine.Profiling;
@@ -241,6 +238,7 @@ namespace SystemGen
                 coreMasses[i] = solidMass * (decimal)(factors[i] / factorSum);
             }
 
+
             // Select the positions that will be populated
             List<float> availablePositions = new List<float>(positions);
             List<float> selectedPositions = new List<float>(minCount);
@@ -269,13 +267,10 @@ namespace SystemGen
                 // Generate the planet's properties
                 // Orbital parameters
                 OrbitalProperties orbit = PhysicsUtils.ConstructOrbitProperties(planetSeed, position, eccentricity, inclination);
+
                 // Estimate surface composition
                 BodyProperties newPlanet = PlanetGen.Generate(planetSeed, star, orbit, coreMass);
                 newPlanet.Parent = star.SeedValue;
-
-                
-
-                //newPlanet.Rotation = PlanetGen.GenerateSiderialProperties(planetSeed, newPlanet.Radius, newPlanet.Mass, newPlanet.Atmosphere.TotalAtmosphericMass);
 
                 planets.Add(newPlanet);
 
@@ -411,7 +406,6 @@ namespace SystemGen
             float draw = RandomUtils.RandomFloat(0f, 1f, seed);
 
             // Default order is similar
-            PlanetOrder ordering = PlanetOrder.SIMILAR;
             if (metalicity >= 0f && diskMassPercentile > 0.003f)
             {
                 // High Metalicity, High Mass

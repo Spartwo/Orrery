@@ -4,7 +4,6 @@ using Random = System.Random;
 using UnityEngine;
 using Models;
 using StellarGenHelpers;
-using static StarDataPrototype;
 using Unity.VisualScripting;
 
 namespace SystemGen
@@ -55,7 +54,9 @@ namespace SystemGen
         /// </summary>
         private static SiderealProperties GenerateSiderialProperties(StarProperties parent, BodyProperties planet)
         {
-            throw new NotImplementedException();
+            double siderealDayLength = RandomUtils.RandomFloat(0.5f, 24f, planet.SeedValue);
+            float axialTilt = RandomUtils.RandomFloat(0f, 180f, planet.SeedValue);
+            return new SiderealProperties(siderealDayLength, axialTilt);
         }
 
         /// <summary>

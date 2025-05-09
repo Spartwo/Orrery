@@ -23,7 +23,7 @@ namespace Settings
         public bool ShowDebugLogs { get; set; } = false;
 
         // Localisation
-        public string GameLanguage { get; set; } = "en-IE";
+        public string GameLanguage { get; set; } = "en-ie";
 
     }
 }

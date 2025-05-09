@@ -6,5 +6,6 @@
   "ColorPalette": "Default",
   "FrameRateLimit": 60,
   "VSyncEnabled": true,
-  "ShowDebugLogs": false
+  "ShowDebugLogs": false,
+  "GameLanguage": "en-ie"
 }

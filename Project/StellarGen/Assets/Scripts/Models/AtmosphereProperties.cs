@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using static UnityEditor.FilePathAttribute;
-using static UnityEngine.Rendering.DebugUI;
 
 namespace Models
 {
@@ -117,7 +116,7 @@ namespace Models
             // Print off all elements in the atmosphere above 0%
             string elementsInfo = string.Join(", ", elementPercentages
                 .FindAll(e => e.Item2 > 0)
-                .ConvertAll(e => $"{e.Item1.Localisation}: {e.Item2}%"));
+                .ConvertAll(e => $"{Settings.LocalisationProvider.GetLocalisedString(e.Item1.Localisation)}: {e.Item2}%"));
             return $"Atmospheric Composition: {elementsInfo}\n";
         }
 

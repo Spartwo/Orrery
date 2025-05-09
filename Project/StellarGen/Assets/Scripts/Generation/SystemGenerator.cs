@@ -15,7 +15,7 @@ using Settings;
 using StellarGenHelpers;
 using Unity.VisualScripting;
 using Newtonsoft.Json;
-using static StarDataPrototype;
+using UnityEngine.Rendering.VirtualTexturing;
 
 namespace SystemGen
 {
@@ -28,21 +28,18 @@ namespace SystemGen
         void Start()
         {
             //Currently instantly try to generate
-            if (GlobalSettings.GenerateOnStartup) { StartGeneration(); }
+            if (GlobalSettings.GenerateOnStartup) { StartGeneration(seedInput); }
         }
 
         /// <summary>
         /// Starts the system generation process asynchronously.
         /// </summary>
-        public void StartGeneration()
-        {
-            GenerateSystem().ConfigureAwait(false); 
-        }
-
-        public SystemGenerator(string seedInput)
+        public void StartGeneration(string seedInput)
         {
             this.seedInput = seedInput;
             systemProperties = new SystemProperties(seedInput);
+            // Start the generation process
+            GenerateSystem().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -52,6 +49,8 @@ namespace SystemGen
         {
             // Create folder on initialisation incase of total deletion
             Directory.CreateDirectory($"{assetsFolder}/Star_Systems/");
+
+            Debug.Log("Seed: " + seedInput);
 
             // Convert alphanumeric seed to a usable integer
             int usableSeed = systemProperties.seedInput.GetHashCode();
@@ -364,26 +363,30 @@ namespace SystemGen
         {
             Logger.Log("System Generation", "Generating Minor Bodies");
 
-            /* // Generate children without children of their own (moons etc)
-            for (int i = 0; i < systemProperties.stellarBodies.Count; i++)
+            // Simulate asynchronous work
+            await Task.Run(() =>
             {
-                if (systemProperties.stellarBodies[i] is StarProperties star)
+                // Placeholder for actual logic to generate minor bodies
+                // Uncomment and implement the logic as needed
+                /*
+                for (int i = 0; i < systemProperties.stellarBodies.Count; i++)
                 {
-                    // Create a new Generator to build the children
-                    stellarBodies[i].ChildBodies = StarGen.GenerateMinorChildren((StarProperties)stellarBodies[i]);
-
-                    for (int j = 0; j < stellarBodies[i].ChildBodies.Count; i++)
+                    if (systemProperties.stellarBodies[i] is StarProperties star)
                     {
-                        stellarBodies[i].ChildBodies[j].ChildBodies = PlanetGen.GenerateMinorChildren((PlanetProperties)stellarBodies[i].ChildBodies[j]);
+                        stellarBodies[i].ChildBodies = StarGen.GenerateMinorChildren((StarProperties)stellarBodies[i]);
+
+                        for (int j = 0; j < stellarBodies[i].ChildBodies.Count; i++)
+                        {
+                            stellarBodies[i].ChildBodies[j].ChildBodies = PlanetGen.GenerateMinorChildren((PlanetProperties)stellarBodies[i].ChildBodies[j]);
+                        }
+                    }
+                    else
+                    {
+                        stellarBodies[i].ChildBodies = PlanetGen.GenerateMinorChildren((PlanetProperties)stellarBodies[i]);
                     }
                 }
-                else
-                {
-                    stellarBodies[i].ChildBodies = PlanetGen.GenerateMinorChildren((PlanetProperties)stellarBodies[i]);
-
-                }
-                await Task.Yield();
-            }*/
+                */
+            });
         }
 
         /// <summary>
@@ -393,28 +396,32 @@ namespace SystemGen
         private async Task MoveEjectedBodies()
         {
             Logger.Log(GetType().Name, "Resolving Unstable Orbits");
-            foreach (BaseProperties b in systemProperties.stellarBodies)
+            await Task.Run(() =>
             {
-
-                // Check the stability of the planet's orbit
-                bool isStable = true;//b.Orbit.CheckOrbit();
-
-                if (!isStable)
+                foreach (BaseProperties b in systemProperties.stellarBodies)
                 {
-                    // Create a new planet instance as a copy of the original
-                    //Body ejectedPlanet = new Body(p);
+                    // Check the stability of the planet's orbit
+                    bool isStable = true; // Placeholder for actual stability check logic
 
-                    // Remove the original unstable planet from its star's planet list
-                    //s.planets.Remove(p);
-
-                    // Estimate a new safe barycentric orbit for the ejected planet
-                    //ejectedPlanet.Orbit.SemiMajorAxis = EstimateBarycenterOrbit(planet, stellarBodies);
-
-                    // Add the updated ejected planet to the stellar system as an independent body
-                    //stellarBodies.Add(ejectedPlanet);
+                    if (!isStable)
+                    {
+                        // Logic to handle unstable orbits (e.g., moving bodies to a higher orbit)
+                        // Placeholder for actual implementation
+                        //
+                        // // Create a new planet instance as a copy of the original
+                        // //Body ejectedPlanet = new Body(p);
+                        // 
+                        // // Remove the original unstable planet from its star's planet list
+                        // //s.planets.Remove(p);
+                        // 
+                        // // Estimate a new safe barycentric orbit for the ejected planet
+                        // //ejectedPlanet.Orbit.SemiMajorAxis = EstimateBarycenterOrbit(planet, stellarBodies);
+                        // 
+                        // // Add the updated ejected planet to the stellar system as an independent body
+                        // //stellarBodies.Add(ejectedPlanet);
+                    }
                 }
-
-            }
+            });
         }
 
         /// <summary>
@@ -568,9 +575,9 @@ namespace SystemGen
     public class SystemProperties
     {
         // System age in billions of years
-        [JsonProperty("System Age (bYo)")] public decimal systemAge = 0m;
+        [JsonProperty("System Age (bYo)", Order = 0)] public decimal systemAge = 0m;
         // Declare seed input
-        [JsonProperty("Seed")][HideInInspector] public string seedInput;
+        [JsonProperty("Seed", Order = 1)][HideInInspector] public string seedInput;
 
         public SystemProperties(string seedInput)
         {
@@ -578,26 +585,28 @@ namespace SystemGen
             this.seedInput = string.IsNullOrEmpty(seedInput) ? RandomUtils.GenerateSystemName() : seedInput;
         }
 
-        [JsonProperty]
-        private decimal starCount
+        [JsonProperty("Stellar Bodies", Order = 5)] public List<StarProperties> stellarBodies = new List<StarProperties>();
+        [JsonProperty("Solid Bodies", Order = 6)] public List<BodyProperties> solidBodies = new List<BodyProperties>();
+        [JsonProperty("Belts/Rings", Order = 7)] public List<BeltProperties> belts = new List<BeltProperties>();
+
+        // Metadata for the system
+        [JsonProperty("Stars", Order = 2)]
+        private int starCount
         {
             get => stellarBodies.Count;
         }
 
-        [JsonProperty]
-        private decimal bodyCount
+        [JsonProperty("Bodies", Order = 3)]
+        private int bodyCount
         {
             get => solidBodies.Count;
         }
 
-        [JsonProperty]
-        private decimal beltCount
+        [JsonProperty("Belts", Order = 4)]
+        private int beltCount
         {
-            get => belts.Count;
+            get => belts.Count(belt => stellarBodies.Any(star => star.SeedValue == belt.Parent));
         }
 
-        [JsonProperty("Stellar Bodies")] public List<StarProperties> stellarBodies = new List<StarProperties>();
-        [JsonProperty("Solid Bodies")] public List<BodyProperties> solidBodies = new List<BodyProperties>();
-        [JsonProperty("Belts/Rings")] public List<BeltProperties> belts = new List<BeltProperties>();
     }
 }

@@ -12,10 +12,10 @@ namespace Models
         [JsonProperty("Axial Tilt (Degrees)")] private float axialTilt; // Sidereal Longitude (degrees)
 
         // Constructor
-        public SiderealProperties(double SiderealDayLength, float AxialTilt)
+        public SiderealProperties(double siderealDayLength, float axialTilt)
         {
-            this.SiderealDayLength = Math.Max(siderealDayLength, 0.001);  // Sidereal day cannot be zero or negative
-            this.AxialTilt = axialTilt;
+            SiderealDayLength = siderealDayLength;  // Sidereal day cannot be zero or negative
+            AxialTilt = axialTilt;
         }
 
         public string GetInfo()
@@ -36,8 +36,16 @@ namespace Models
         
         public float AxialTilt
         {
-            get => axialTilt;
-            set => axialTilt = value;
+            get => axialTilt; 
+            set
+            {
+                // Ensure the value is in the range 0-360
+                float normalizedValue = value % 360;
+                if (normalizedValue < 0) normalizedValue += 360; // Adjust for negative values
+
+                // Ensure axial tilt is between 0 and 180 degrees
+                axialTilt = normalizedValue >= 180 ? 360 - normalizedValue : normalizedValue;
+            }
         }
 
         #endregion

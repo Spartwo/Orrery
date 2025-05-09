@@ -61,44 +61,33 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.26f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Tests\PhysicsTests.cs" />
-    <Compile Include="Assets\Scripts\Generation\StarGen.cs" />
-    <Compile Include="Assets\Scripts\Logging\Logging.cs" />
-    <Compile Include="Assets\Scripts\Settings\SettingsData.cs" />
-    <Compile Include="Assets\Scripts\Models\SiderealProperties.cs" />
-    <Compile Include="Assets\Scripts\Models\BeltProperties.cs" />
-    <Compile Include="Assets\Scripts\Generation\BeltGen.cs" />
-    <Compile Include="Assets\Scripts\Helpers.cs" />
-    <Compile Include="Assets\Scripts\Tests\TestController.cs" />
-    <Compile Include="Assets\Scripts\Generation\SystemGenerator.cs" />
-    <Compile Include="Assets\Scripts\Models\BodyProperties.cs" />
-    <Compile Include="Assets\Scripts\Generation\BodyGen.cs" />
-    <Compile Include="Assets\Scripts\Instantiation\BodyManager.cs" />
-    <Compile Include="Assets\Scripts\Models\BaseProperties.cs" />
-    <Compile Include="Assets\Scripts\Settings\SettingsLoader.cs" />
-    <Compile Include="Assets\Scripts\Instantiation\SystemManager.cs" />
-    <Compile Include="Assets\Scripts\Interface\Timekeep.cs" />
-    <Compile Include="Assets\Scripts\Generation\PlanetGen.cs" />
-    <Compile Include="Assets\Scripts\Instantiation\Orbiter.cs" />
-    <Compile Include="Assets\Scripts\Settings\GlobalSettings.cs" />
-    <Compile Include="Assets\Scripts\Settings\LocalisationProvider.cs" />
-    <Compile Include="Assets\Scripts\Instantiation\StarManager.cs" />
-    <Compile Include="Assets\Scripts\Logging\LogClearer.cs" />
-    <Compile Include="Assets\Scripts\Interface\CameraMovement.cs" />
-    <Compile Include="Assets\Scripts\Models\SurfaceProperties.cs" />
-    <Compile Include="Assets\Scripts\Tests\SerialisationTests.cs" />
-    <Compile Include="Assets\Scripts\Models\AtmosphereProperties.cs" />
-    <Compile Include="Assets\Scripts\Models\OrbitalProperties.cs" />
-    <Compile Include="Assets\Scripts\PhysicalConstants.cs" />
     <Compile Include="Assets\Skybox\StarDataPrototype.cs" />
-    <Compile Include="Assets\Scripts\Tests\UITests.cs" />
-    <Compile Include="Assets\Scripts\Interface\FloatingPointManager.cs" />
-    <Compile Include="Assets\Scripts\Tests\GenerationTests.cs" />
-    <Compile Include="Assets\Scripts\Models\StarProperties.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Skybox\Plugins\Sylvan.Data.Csv.dll" />
-    <None Include="Assets\StreamingAssets\Localisation\System_Names.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -1267,6 +1256,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Scripts.csproj">
+      <Project>{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}</Project>
+      <Name>Scripts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

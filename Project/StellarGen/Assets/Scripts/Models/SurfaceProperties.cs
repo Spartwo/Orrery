@@ -5,9 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using Unity.VisualScripting;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 using static UnityEditor.FilePathAttribute;
-using static UnityEngine.Rendering.DebugUI;
 
 namespace Models
 {
@@ -64,9 +62,9 @@ namespace Models
             // Print off all elements in the surface composition above 0%
             string elementsInfo = string.Join(", ", new List<(string, float)>
             {
-                ("Rock", rock),
-                ("Ice", ice),
-                ("Metals", metals)
+                (Settings.LocalisationProvider.GetLocalisedString("#loc_Rock"), rock),
+                (Settings.LocalisationProvider.GetLocalisedString("#loc_Ice"), ice),
+                (Settings.LocalisationProvider.GetLocalisedString("#loc_Metals"), metals)
             }
             .FindAll(e => e.Item2 > 0)
             .ConvertAll(e => $"{e.Item1}: {e.Item2}%"));
@@ -90,29 +88,41 @@ namespace Models
             set
             {
                 rock = Math.Clamp(value, 0f, 100f);
-                NormaliseComposition();
+                float remaining = 100f - rock;
+                float totalOther = ice + metals;
+
+                ice = (ice / totalOther) * remaining;
+                metals = (metals / totalOther) * remaining;
             }
         }
 
-        
+
         public float Ice
         {
             get => ice;
             set
             {
                 ice = Math.Clamp(value, 0f, 100f);
-                NormaliseComposition();
+                float remaining = 100f - ice;
+                float totalOther = rock + metals;
+
+                rock = (rock / totalOther) * remaining;
+                metals = (metals / totalOther) * remaining;
             }
         }
 
-        
+
         public float Metals
         {
             get => metals;
             set
             {
                 metals = Math.Clamp(value, 0f, 100f);
-                NormaliseComposition();
+                float remaining = 100f - metals;
+                float totalOther = rock + ice;
+
+                rock = (rock / totalOther) * remaining;
+                ice = (ice / totalOther) * remaining;
             }
         }
 

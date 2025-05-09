@@ -1,2 +1,5 @@
 Program Initialised
 -----------------------------
+[20:37:38 ERROR] JsonUtils: Line number must be greater than 0. Provided: 0
+[20:37:42 ERROR] JsonUtils: Line number must be greater than 0. Provided: 0
+[20:41:55 ERROR] JsonUtils: Line number must be greater than 0. Provided: 0

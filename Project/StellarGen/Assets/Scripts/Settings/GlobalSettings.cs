@@ -59,6 +59,7 @@ namespace Settings
         {
             Application.targetFrameRate = settings.FrameRateLimit;
             QualitySettings.vSyncCount = settings.VSyncEnabled ? 1 : 0;
+            LocalisationProvider.LoadLoc(settings.GameLanguage);
         }
 
         #region Getters and Setters

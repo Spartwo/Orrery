@@ -4,7 +4,6 @@ using Random = System.Random;
 using UnityEngine;
 using Models;
 using StellarGenHelpers;
-using static StarDataPrototype;
 using Unity.VisualScripting;
 using static Models.BeltProperties;
 

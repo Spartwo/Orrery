@@ -1,6 +1,9 @@
 {
   "System Age (bYo)": 1.897,
   "Seed": "Greg",
+  "Stars": 2,
+  "Bodies": 14,
+  "Belts": 0,
   "Stellar Bodies": [
     {
       "Lifespan (bY)": 2.563,
@@ -27,7 +30,7 @@
         "Argument of Periapsis": 0.0
       },
       "Rotation": {
-        "Day Length (Hours)": 0.001,
+        "Day Length (Hours)": 24.0,
         "Axial Tilt (Degrees)": 0.0
       }
     },
@@ -56,7 +59,7 @@
         "Argument of Periapsis": 0.0
       },
       "Rotation": {
-        "Day Length (Hours)": 0.001,
+        "Day Length (Hours)": 24.0,
         "Axial Tilt (Degrees)": 0.0
       }
     }
@@ -64,12 +67,12 @@
   "Solid Bodies": [
     {
       "Material Composition (%)": {
-        "rock": 35.4113655,
-        "ice": 0.314695239,
-        "metals": 64.27394,
+        "rock": 41.07563,
+        "ice": 1.32994056,
+        "metals": 57.59443,
         "Total Mass (Kilotons)": 7002213177400065572.1231798378
       },
-      "Radius (Earths)": 0.928873658,
+      "Radius (Earths)": 0.99570334,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
@@ -87,15 +90,15 @@
         205
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 52655458528.0,
+        "Semi-Major Axis (m)": 71879084109.0,
         "Eccentricity (0-1)": 0.177290976,
         "Longitude of Ascending Node": 195.633759,
         "Inclination": 2.99717474,
         "Argument of Periapsis": 195.633759
       },
       "Rotation": {
-        "Day Length (Hours)": 0.001,
-        "Axial Tilt (Degrees)": 0.0
+        "Day Length (Hours)": 20.944646835327148,
+        "Axial Tilt (Degrees)": 156.59729
       }
     },
     {
@@ -123,25 +126,25 @@
         205
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 3568150068766.0,
+        "Semi-Major Axis (m)": 2865188178368.0,
         "Eccentricity (0-1)": 0.0227932781,
         "Longitude of Ascending Node": 24.184454,
         "Inclination": 0.370513916,
         "Argument of Periapsis": 24.184454
       },
       "Rotation": {
-        "Day Length (Hours)": 0.001,
-        "Axial Tilt (Degrees)": 0.0
+        "Day Length (Hours)": 7.3659348487854,
+        "Axial Tilt (Degrees)": 52.5901375
       }
     },
     {
       "Material Composition (%)": {
-        "rock": 28.913269,
+        "rock": 26.9646072,
         "ice": 0.0,
-        "metals": 71.08673,
+        "metals": 73.03539,
         "Total Mass (Kilotons)": 6243430369653564039.0084907427
       },
-      "Radius (Earths)": 0.844619453,
+      "Radius (Earths)": 0.8300683,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
@@ -159,25 +162,25 @@
         205
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 31056921871.0,
+        "Semi-Major Axis (m)": 24938398879.0,
         "Eccentricity (0-1)": 0.191800371,
         "Longitude of Ascending Node": 211.735138,
         "Inclination": 3.243853,
         "Argument of Periapsis": 211.735138
       },
       "Rotation": {
-        "Day Length (Hours)": 0.001,
-        "Axial Tilt (Degrees)": 0.0
+        "Day Length (Hours)": 15.013266563415527,
+        "Axial Tilt (Degrees)": 111.165443
       }
     },
     {
       "Material Composition (%)": {
-        "rock": 39.5923424,
-        "ice": 57.3365631,
+        "rock": 35.21421,
+        "ice": 61.714695,
         "metals": 3.0710938,
         "Total Mass (Kilotons)": 1868980107247937131.0971456038
       },
-      "Radius (Earths)": 2.554911,
+      "Radius (Earths)": 2.70790935,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
@@ -195,25 +198,25 @@
         205
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 1238064797215.0,
+        "Semi-Major Axis (m)": 1690061000531.0,
         "Eccentricity (0-1)": 0.03730267,
         "Longitude of Ascending Node": 40.2858276,
         "Inclination": 0.6171924,
         "Argument of Periapsis": 40.2858276
       },
       "Rotation": {
-        "Day Length (Hours)": 0.001,
-        "Axial Tilt (Degrees)": 0.0
+        "Day Length (Hours)": 10.381187438964844,
+        "Axial Tilt (Degrees)": 75.68569
       }
     },
     {
       "Material Composition (%)": {
-        "rock": 23.8327332,
+        "rock": 25.40445,
         "ice": 0.0,
-        "metals": 76.16727,
+        "metals": 74.59555,
         "Total Mass (Kilotons)": 14181367059250015476.364764147
       },
-      "Radius (Earths)": 1.007878,
+      "Radius (Earths)": 1.02175939,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
@@ -231,25 +234,25 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 17426566199.0,
+        "Semi-Major Axis (m)": 22677690817.0,
         "Eccentricity (0-1)": 0.101257242,
         "Longitude of Ascending Node": 313.272339,
         "Inclination": 2.18156219,
         "Argument of Periapsis": 313.272339
       },
       "Rotation": {
-        "Day Length (Hours)": 0.001,
-        "Axial Tilt (Degrees)": 0.0
+        "Day Length (Hours)": 1.2208230495452881,
+        "Axial Tilt (Degrees)": 5.521198
       }
     },
     {
       "Material Composition (%)": {
-        "rock": 89.69551,
-        "ice": 7.29039431,
+        "rock": 76.5864944,
+        "ice": 20.3994122,
         "metals": 3.01409245,
         "Total Mass (Kilotons)": 14214045652231901069.276478010
       },
-      "Radius (Earths)": 2.633029,
+      "Radius (Earths)": 2.95641184,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
@@ -267,25 +270,25 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 695037092795.0,
+        "Semi-Major Axis (m)": 904471867807.0,
         "Eccentricity (0-1)": 0.0463879332,
         "Longitude of Ascending Node": 141.823013,
         "Inclination": 0.9876254,
         "Argument of Periapsis": 141.823013
       },
       "Rotation": {
-        "Day Length (Hours)": 0.001,
-        "Axial Tilt (Degrees)": 0.0
+        "Day Length (Hours)": 5.6482791900634766,
+        "Axial Tilt (Degrees)": 39.4336281
       }
     },
     {
       "Material Composition (%)": {
-        "rock": 21.4941864,
+        "rock": 22.3050919,
         "ice": 0.0,
-        "metals": 78.50581,
+        "metals": 77.69491,
         "Total Mass (Kilotons)": 13913734086295559719.200906061
       },
-      "Radius (Earths)": 0.982784152,
+      "Radius (Earths)": 0.9896096,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
@@ -303,25 +306,25 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 10277900301.0,
+        "Semi-Major Axis (m)": 13374929276.0,
         "Eccentricity (0-1)": 0.1064102,
         "Longitude of Ascending Node": 329.3737,
         "Inclination": 2.29368877,
         "Argument of Periapsis": 329.3737
       },
       "Rotation": {
-        "Day Length (Hours)": 0.001,
-        "Axial Tilt (Degrees)": 0.0
+        "Day Length (Hours)": 7.2968549728393555,
+        "Axial Tilt (Degrees)": 52.0610161
       }
     },
     {
       "Material Composition (%)": {
-        "rock": 59.2899323,
-        "ice": 37.6955147,
+        "rock": 94.446106,
+        "ice": 2.53934455,
         "metals": 3.01455235,
         "Total Mass (Kilotons)": 13980110378483234808.024664822
       },
-      "Radius (Earths)": 3.49641752,
+      "Radius (Earths)": 2.52004671,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
@@ -339,25 +342,25 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 1184762926287.0,
+        "Semi-Major Axis (m)": 533483061073.0,
         "Eccentricity (0-1)": 0.0515408926,
         "Longitude of Ascending Node": 157.9244,
         "Inclination": 1.09975207,
         "Argument of Periapsis": 157.9244
       },
       "Rotation": {
-        "Day Length (Hours)": 0.001,
-        "Axial Tilt (Degrees)": 0.0
+        "Day Length (Hours)": 5.7851958274841309,
+        "Axial Tilt (Degrees)": 40.4823532
       }
     },
     {
       "Material Composition (%)": {
-        "rock": 27.0825119,
+        "rock": 30.1032944,
         "ice": 0.0,
-        "metals": 72.91749,
+        "metals": 69.8967056,
         "Total Mass (Kilotons)": 10909872575563882482.842746489
       },
-      "Radius (Earths)": 0.9660829,
+      "Radius (Earths)": 0.9925936,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
@@ -375,25 +378,25 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 29781106350.0,
+        "Semi-Major Axis (m)": 38755018860.0,
         "Eccentricity (0-1)": 0.111563161,
         "Longitude of Ascending Node": 345.475067,
         "Inclination": 2.40581536,
         "Argument of Periapsis": 345.475067
       },
       "Rotation": {
-        "Day Length (Hours)": 0.001,
-        "Axial Tilt (Degrees)": 0.0
+        "Day Length (Hours)": 9.56644344329834,
+        "Axial Tilt (Degrees)": 69.4451
       }
     },
     {
       "Material Composition (%)": {
-        "rock": 96.0514,
-        "ice": 0.8489704,
-        "metals": 3.09963274,
+        "rock": 61.4009743,
+        "ice": 35.58231,
+        "metals": 3.01671529,
         "Total Mass (Kilotons)": 13468877421107265885.331128892
       },
-      "Radius (Earths)": 2.45702577,
+      "Radius (Earths)": 3.384507,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
@@ -411,25 +414,25 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 411059793183.0,
+        "Semi-Major Axis (m)": 1545930932005.0,
         "Eccentricity (0-1)": 0.0566938519,
         "Longitude of Ascending Node": 174.025772,
         "Inclination": 1.21187854,
         "Argument of Periapsis": 174.025772
       },
       "Rotation": {
-        "Day Length (Hours)": 0.001,
-        "Axial Tilt (Degrees)": 0.0
+        "Day Length (Hours)": 6.5260906219482422,
+        "Axial Tilt (Degrees)": 46.1572876
       }
     },
     {
       "Material Composition (%)": {
-        "rock": 36.04349,
-        "ice": 60.9649429,
+        "rock": 39.7750626,
+        "ice": 57.23337,
         "metals": 2.99156618,
         "Total Mass (Kilotons)": 10461546469626517998.978435752
       },
-      "Radius (Earths)": 4.27804232,
+      "Radius (Earths)": 4.07170343,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
@@ -447,25 +450,25 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 9637413473958.0,
+        "Semi-Major Axis (m)": 7377320258975.0,
         "Eccentricity (0-1)": 0.00182454812,
         "Longitude of Ascending Node": 2.57645321,
         "Inclination": 0.0179418754,
         "Argument of Periapsis": 2.57645321
       },
       "Rotation": {
-        "Day Length (Hours)": 0.001,
-        "Axial Tilt (Degrees)": 0.0
+        "Day Length (Hours)": 20.558404922485352,
+        "Axial Tilt (Degrees)": 153.63884
       }
     },
     {
       "Material Composition (%)": {
-        "rock": 84.10666,
-        "ice": 0.0102038626,
-        "metals": 15.88314,
+        "rock": 74.27522,
+        "ice": 0.0,
+        "metals": 25.724781,
         "Total Mass (Kilotons)": 5858793525654716516.1239864473
       },
-      "Radius (Earths)": 1.57428551,
+      "Radius (Earths)": 1.36587918,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
@@ -483,25 +486,25 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 242451174673.0,
+        "Semi-Major Axis (m)": 185593362358.0,
         "Eccentricity (0-1)": 0.06184681,
         "Longitude of Ascending Node": 190.127136,
         "Inclination": 1.32400513,
         "Argument of Periapsis": 190.127136
       },
       "Rotation": {
-        "Day Length (Hours)": 0.001,
-        "Axial Tilt (Degrees)": 0.0
+        "Day Length (Hours)": 3.7776248455047607,
+        "Axial Tilt (Degrees)": 25.1052113
       }
     },
     {
       "Material Composition (%)": {
-        "rock": 43.6159554,
-        "ice": 53.4140129,
+        "rock": 46.9722557,
+        "ice": 50.0577126,
         "metals": 2.97003269,
         "Total Mass (Kilotons)": 10361833085050742487.611979997
       },
-      "Radius (Earths)": 3.8710146,
+      "Radius (Earths)": 3.71499467,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
@@ -519,25 +522,25 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 5684787901620.0,
+        "Semi-Major Axis (m)": 4351634509047.0,
         "Eccentricity (0-1)": 0.006977507,
         "Longitude of Ascending Node": 18.67783,
         "Inclination": 0.130068451,
         "Argument of Periapsis": 18.67783
       },
       "Rotation": {
-        "Day Length (Hours)": 0.001,
-        "Axial Tilt (Degrees)": 0.0
+        "Day Length (Hours)": 13.166227340698242,
+        "Axial Tilt (Degrees)": 97.0179138
       }
     },
     {
       "Material Composition (%)": {
-        "rock": 63.7990379,
+        "rock": 53.97337,
         "ice": 0.0,
-        "metals": 36.2009621,
+        "metals": 46.02663,
         "Total Mass (Kilotons)": 4639525880200492206.9411195032
       },
-      "Radius (Earths)": 1.120921,
+      "Radius (Earths)": 1.00026965,
       "Atmospheric Composition (%)": {
         "Total Mass (Kilotons)": 0.0,
         "elementPercentages": []
@@ -555,15 +558,15 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 143001412430.0,
+        "Semi-Major Axis (m)": 109465803439.0,
         "Eccentricity (0-1)": 0.06699977,
         "Longitude of Ascending Node": 206.228516,
         "Inclination": 1.43613172,
         "Argument of Periapsis": 206.228516
       },
       "Rotation": {
-        "Day Length (Hours)": 0.001,
-        "Axial Tilt (Degrees)": 0.0
+        "Day Length (Hours)": 10.16798210144043,
+        "Axial Tilt (Degrees)": 74.05263
       }
     }
   ],
@@ -574,29 +577,29 @@
           "rock": 27.0,
           "ice": 70.0,
           "metals": 3.0,
-          "Total Mass (Kilotons)": 2240770871535946.7780000
+          "Total Mass (Kilotons)": 358408644438921.3032000
         },
         "Centre": {
           "rock": 27.0,
           "ice": 70.0,
           "metals": 3.0,
-          "Total Mass (Kilotons)": 2211637489049672.1659658330000
+          "Total Mass (Kilotons)": 353748794448248.66787644520000
         },
         "Outer": {
           "rock": 27.0,
           "ice": 70.0,
           "metals": 3.0,
-          "Total Mass (Kilotons)": 2182882884235792.8533000282223
+          "Total Mass (Kilotons)": 349149529497229.76282104959773
         }
       },
-      "Inner Edge (m)": 3663240459298.57500,
-      "Outer Edge (m)": 6024146183367.35100,
+      "Inner Edge (m)": 5000627471612.09100,
+      "Outer Edge (m)": 5353920795014.62500,
       "Seed Value": 4369555,
       "Parental Seed Value": 0,
       "Name": "Unnamed Belt",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 6635291244821411.79726586122,
+      "Mass (Kilotons)": 1061306968384399.733897494798,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         255,
@@ -604,7 +607,7 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 4856754711423.0,
+        "Semi-Major Axis (m)": 5191234606607.0,
         "Eccentricity (0-1)": 0.000455059169,
         "Longitude of Ascending Node": 195.633759,
         "Inclination": 0.0,
@@ -615,32 +618,32 @@
     {
       "Belt Composition": {
         "Inner": {
-          "rock": 36.0888329,
-          "ice": 60.9111671,
+          "rock": 39.8171,
+          "ice": 57.1829,
           "metals": 3.0,
-          "Total Mass (Kilotons)": 3180550971046657.10256300
+          "Total Mass (Kilotons)": 47615574374466119.65278000
         },
         "Centre": {
-          "rock": 35.6116867,
-          "ice": 61.3883133,
+          "rock": 36.64274,
+          "ice": 60.35726,
           "metals": 3.0,
-          "Total Mass (Kilotons)": 2872251673352011.9350371045668
+          "Total Mass (Kilotons)": 43000069616765538.850296561677
         },
         "Outer": {
-          "rock": 35.77668,
-          "ice": 61.22332,
+          "rock": 34.47584,
+          "ice": 62.52416,
           "metals": 3.0,
-          "Total Mass (Kilotons)": 2593836649742033.5683020914720
+          "Total Mass (Kilotons)": 38831958058626578.405548585662
         }
       },
-      "Inner Edge (m)": 9931069606206.5700,
-      "Outer Edge (m)": 10147925183594.58300,
+      "Inner Edge (m)": 7602110507425.77900,
+      "Outer Edge (m)": 11089586932460.21700,
       "Seed Value": 6943127,
       "Parental Seed Value": 0,
       "Name": "Unnamed Belt",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 8646639294140702.605902196039,
+      "Mass (Kilotons)": 129447602049858236.90862514734,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         255,
@@ -648,7 +651,7 @@
         255
       ],
       "Orbit": {
-        "Semi-Major Axis (m)": 10263956284066.0,
+        "Semi-Major Axis (m)": 9554798049864.0,
         "Eccentricity (0-1)": 0.00012737514,
         "Longitude of Ascending Node": 313.272339,
         "Inclination": 0.0,
@@ -656,8 +659,5 @@
       },
       "Rotation": null
     }
-  ],
-  "starCount": 2.0,
-  "bodyCount": 14.0,
-  "beltCount": 2.0
+  ]
 }

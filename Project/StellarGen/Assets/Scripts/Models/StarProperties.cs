@@ -32,7 +32,7 @@ namespace Models
             return base.GetInfo() + $"\n" +
                    $"Stellar Mass: {StellarMass} Solar masses\n" +
                    $"Luminosity: {Luminosity} L☉\n" +
-                   $"Surface Temperature: {Luminosity} K\n" +
+                   $"Surface Temperature: {Temperature} K\n" +
                    $"Diameter: {Radius} Solar Radii\n" +
                    $"Lifespan: {Lifespan} billion years\n";
         }

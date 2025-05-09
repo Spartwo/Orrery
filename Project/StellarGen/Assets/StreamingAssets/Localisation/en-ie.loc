@@ -1,0 +1,26 @@
+{
+  "#loc_DisplayName": "English(Ireland)",
+  
+  // Elements
+  "#loc_Hydrogen": "Hydrogen",
+  "#loc_Helium": "Helium",
+  "#loc_Ammonia": "Ammonia",
+  "#loc_Methane": "Methane",
+  "#loc_WaterVapour": "Water Vapour",
+  "#loc_Oxygen": "Oxygen",
+  "#loc_Nitrogen": "Nitrogen",
+  "#loc_CarbonDioxide": "Carbon Dioxide",
+  "#loc_Argon": "Argon",
+  "#loc_Sodium": "Sodium",
+  "#loc_Xenon": "Xenon",
+
+  // Surface properties
+  "#loc_Rock": "Rock",
+  "#loc_Ice": "Ice",
+  "#loc_Metals": "Metals",
+
+  // Quantities
+  "#loc_Star_Quantity": "Stars",
+  "#loc_Body_Quantity": "Planets",
+  "#loc_Belt_Quantity": "Belts",
+}
