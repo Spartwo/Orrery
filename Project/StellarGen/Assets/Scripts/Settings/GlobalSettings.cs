@@ -71,6 +71,12 @@ namespace Settings
             set { settings.GenerateOnStartup = value; SaveSettings(); }
         }
 
+        public static float FloatingPointThreshold
+        {
+            get { EnsureLoaded(); return settings.FloatingPointThreshold; }
+            set { settings.FloatingPointThreshold = value; SaveSettings(); }
+        }
+
         // --- Graphics Settings ---
         public static bool EnableScanlines
         {

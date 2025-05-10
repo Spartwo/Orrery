@@ -3,8 +3,10 @@ using StellarGenHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Xml.Linq;
 using static UnityEditor.FilePathAttribute;
+using UnityEngine;
 
 namespace Models
 {
@@ -14,45 +16,57 @@ namespace Models
     public class AtmosphereProperties
     {
         // List of elements in the atmosphere with their respective percentages
-        [JsonProperty] public List<(Element, float)> elementPercentages { get; set; }
+        [JsonProperty("Atmospheric Elements (%)")] 
+        public List<AtmosphereElement> Elements { get; private set; }
 
         // Total atmospheric mass in kilotons
-        [JsonProperty("Total Mass (Kilotons)")] private decimal totalAtmosphericMass;
+        [JsonProperty("Total Mass (Kilotons)")] 
+        private decimal totalAtmosphericMass;
 
         // Predefined elements: molarMass, freezingPoint (K), boilingPoint (K), gasConstant (J/kg·K), latentHeat(J/mol), localisation
-        public static readonly Element H2 = new Element(2.016f, 14.01f, 20.28f, 4124f, 0.452f, "#loc_Hydrogen");
-        public static readonly Element He = new Element(4.0026f, 0.95f, 4.22f, 2077f, 0.084f, "#loc_Helium");
-        public static readonly Element NH3 = new Element(17.031f, 195.45f, 239.82f, 488f, 23.35f, "#loc_Ammonia");
-        public static readonly Element CH4 = new Element(16.043f, 90.67f, 111.66f, 518f, 8.19f, "#loc_Methane");
-        public static readonly Element H2O = new Element(18.015f, 273.15f, 373.15f, 461.52f, 40.79f, "#loc_WaterVapour");
-        public static readonly Element O2 = new Element(31.998f, 54.36f, 90.20f, 259f, 5.0f, "#loc_Oxygen");
-        public static readonly Element N = new Element(28.014f, 63.15f, 77.36f, 296f, 7.57f, "#loc_Nitrogen");
-        public static readonly Element CO2 = new Element(44.009f, 216.58f, 194.65f, 189f, 1.98f, "#loc_CarbonDioxide");
-        public static readonly Element Ar = new Element(39.948f, 83.81f, 87.30f, 208f, 1.5f, "#loc_Argon");
-        public static readonly Element Na = new Element(22.990f, 370.87f, 1156.09f, 206f, 2.6f, "#loc_Sodium");
-        public static readonly Element Xe = new Element(131.293f, 161.4f, 165.1f, 63f, 12.4f, "#loc_Xenon");
+        public static readonly Element H2 = new(2.016f, 14.01f, 20.28f, 4124f, 0.452f, "#loc_Hydrogen");
+        public static readonly Element He = new(4.0026f, 0.95f, 4.22f, 2077f, 0.084f, "#loc_Helium");
+        public static readonly Element CO2 = new(44.009f, 216.58f, 194.65f, 189f, 1.98f, "#loc_CarbonDioxide");
+        public static readonly Element N = new(28.014f, 63.15f, 77.36f, 296f, 7.57f, "#loc_Nitrogen");
+        public static readonly Element O2 = new(31.998f, 54.36f, 90.20f, 259f, 5.0f, "#loc_Oxygen");
+        public static readonly Element NH3 = new(17.031f, 195.45f, 239.82f, 488f, 23.35f, "#loc_Ammonia");
+        public static readonly Element CH4 = new(16.043f, 90.67f, 111.66f, 518f, 8.19f, "#loc_Methane");
+        public static readonly Element H2O = new(18.015f, 273.15f, 373.15f, 461.52f, 40.79f, "#loc_WaterVapour");
+        public static readonly Element Ar = new(39.948f, 83.81f, 87.30f, 208f, 1.5f, "#loc_Argon");
+        public static readonly Element Na = new (22.990f, 370.87f, 1156.09f, 206f, 2.6f, "#loc_Sodium");
+        public static readonly Element Xe = new(131.293f, 161.4f, 165.1f, 63f, 12.4f, "#loc_Xenon");
 
 
-
-        public AtmosphereProperties(decimal? totalAtmosphericMass = null)
+        public AtmosphereProperties(decimal? totalAtmosphericMass = null, List<Element> elements = null)
         {
             this.totalAtmosphericMass = totalAtmosphericMass ?? 0m;
-            this.elementPercentages = new List<(Element, float)>();
-        }
-        /// <summary>
-        /// Calculates the weighted average of gas constants based on the percentages of elements in the atmosphere.
-        /// </summary>
-        /// <returns>The weighted average gas constant in J/(kg·K).</returns>
-        public double GetAtmosphereGasConstant()
-        {
-            double totalGasConstant = 0;
-            // Iterate through each element and its percentage
-            foreach (var (element, percentage) in elementPercentages)
+            if (elements == null || elements.Count == 0)
             {
-                totalGasConstant += element.GasConstant * (percentage / 100);
+                Elements = new List<AtmosphereElement>()
+                {
+                    new AtmosphereElement(H2,  70),
+                    new AtmosphereElement(He,  25),
+                    new AtmosphereElement(N,    1),
+                    new AtmosphereElement(O2,   1),
+                    new AtmosphereElement(CO2,  1),
+                    new AtmosphereElement(Ar,   1),
+                    new AtmosphereElement(NH3,  0),
+                    new AtmosphereElement(CH4,  0),
+                    new AtmosphereElement(H2O,  0),
+                    new AtmosphereElement(Na,   0),
+                    new AtmosphereElement(Xe,   0)
+                };
             }
-            return totalGasConstant;
         }
+
+
+        public float GetAtmosphereGasConstant() =>
+           Elements.Where(e => e.Percentile > 0)
+                   .Sum(e => e.Element.GasConstant * (e.Percentile / 100f));
+
+        public float GetAtmosphereMolarMass() =>
+            Elements.Where(e => e.Percentile > 0)
+                    .Sum(e => e.Element.MolarMass * (e.Percentile / 100f));
 
         /// <summary>
         /// Sets the percentage of a specific element in the atmosphere, ensuring the total percentage does not exceed 100%.
@@ -60,41 +74,26 @@ namespace Models
         /// <param name="element">The element to set the percentage for.</param>
         /// <param name="percentage">The percentage of the element (0-100).</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if the percentage is not between 0 and 100.</exception>
-        public void SetElementPercentage(Element element, float percentage)
+        public void SetElementPercentage(Element element, short pct)
         {
-            if (percentage < 0 || percentage > 100)
-                throw new ArgumentOutOfRangeException(nameof(percentage), "Percentage must be between 0 and 100.");
+            if (pct < 0 || pct > 100) throw new ArgumentOutOfRangeException(nameof(pct));
+            var entry = Elements.Find(e => e.Element == element);
+            if (entry != null) entry.Percentile = pct;
+            else Elements.Add(new AtmosphereElement(element, pct));
 
-            int existingElementIndex = elementPercentages.FindIndex(e => e.Item1 == element);
-            if (existingElementIndex >= 0)
+            // Normalize if sum > 100%
+            int total = Elements.Sum(e => e.Percentile);
+            if (total > 100)
             {
-                elementPercentages[existingElementIndex] = (element, percentage);
-            }
-            else
-            {
-                elementPercentages.Add((element, percentage));
-            }
-
-            // Adjust other elements to ensure the total adds up to 100%
-            float totalPercentage = elementPercentages.Sum(e => e.Item2);
-            if (totalPercentage > 100)
-            {
-                float excess = totalPercentage - 100;
-                for (int i = 0; i < elementPercentages.Count; i++)
+                int excess = total - 100;
+                foreach (var e in Elements.Where(e => e.Element != element && e.Percentile > 0))
                 {
-                    if (elementPercentages[i].Item1 != element && elementPercentages[i].Item2 > 0)
-                    {
-                        float adjustment = Math.Min(elementPercentages[i].Item2, excess);
-                        elementPercentages[i] = (elementPercentages[i].Item1, elementPercentages[i].Item2 - adjustment);
-                        excess -= adjustment;
-
-                        if (excess <= 0)
-                            break;
-                    }
+                    int reduce = Math.Min(e.Percentile, excess);
+                    e.Percentile -= (short)reduce;
+                    excess -= reduce;
+                    if (excess == 0) break;
                 }
             }
-
-            Logger.Log(GetType().Name, $"Updated Atmospheric Composition: {string.Join(", ", elementPercentages.Select(e => $"{e.Item1.Localisation}: {e.Item2}%"))}");
         }
 
         /// <summary>
@@ -102,24 +101,20 @@ namespace Models
         /// </summary>
         /// <param name="element">The element to retrieve the percentage for.</param>
         /// <returns>The percentage of the element, or 0 if the element is not present.</returns>
-        public float GetElementPercentage(Element element)
-        {
-            var elementEntry = elementPercentages.Find(e => e.Item1 == element);
-            return elementEntry != default ? elementEntry.Item2 : 0;
-        }
+        public short GetElementPercentage(Element element) =>
+            Elements.Find(e => e.Element == element)?.Percentile ?? (short)0;
+
         /// <summary>
         /// Provides a summary of the atmospheric properties, including total mass and composition.
         /// </summary>
         /// <returns>A string containing the total atmospheric mass and the composition of elements above 0%.</returns>
         public string GetInfo()
         {
-            // Print off all elements in the atmosphere above 0%
-            string elementsInfo = string.Join(", ", elementPercentages
-                .FindAll(e => e.Item2 > 0)
-                .ConvertAll(e => $"{Settings.LocalisationProvider.GetLocalisedString(e.Item1.Localisation)}: {e.Item2}%"));
-            return $"{Settings.LocalisationProvider.GetLocalisedString("#loc_Composition_Atmosphere")}: {elementsInfo}\n";
+            var parts = Elements
+                .Where(e => e.Percentile > 0)
+                .Select(e => $"{Settings.LocalisationProvider.GetLocalisedString(e.Element.Name)}: {e.Percentile}%");
+            return $"{Settings.LocalisationProvider.GetLocalisedString("#loc_Composition_Atmosphere")}: {string.Join(", ", parts)}\n";
         }
-
         
         public decimal TotalAtmosphericMass
         {
@@ -128,8 +123,25 @@ namespace Models
         }
     }
 
+    [Serializable]
+    public class AtmosphereElement
+    {
+        [JsonProperty("Element")]
+        public Element Element { get; }
+
+        [JsonProperty("Percentile")]
+        public short Percentile { get; set; }
+
+        public AtmosphereElement(Element element, short percentile)
+        {
+            Element = element;
+            Percentile = percentile;
+        }
+    }
+
     // Class for atmospheric elements
     [Serializable]
+    [JsonObject(MemberSerialization.OptIn)]
     public class Element
     {
         public float MolarMass { get; }     // Molar mass in g/mol
@@ -137,7 +149,7 @@ namespace Models
         public float BoilingPoint { get; }  // Boiling point in Kelvin at 1 atm
         public float GasConstant { get; }   // R gas constant in J/(kg·K)
         public float LatentHeat { get; }    // J/mol (required for phase calc)
-        public string Localisation { get; } // Localization association as a string
+        [JsonProperty] public string Name { get; } // Localization association as a string
 
         public Element(float molarMass, float freezingPoint, float boilingPoint, float gasConstant, float latentHeat, string localisation)
         {
@@ -146,7 +158,28 @@ namespace Models
             this.BoilingPoint = boilingPoint;
             this.GasConstant = gasConstant;
             this.LatentHeat = latentHeat;
-            this.Localisation = localisation;
+            this.Name = localisation;
+        }
+
+        ///<summary>
+        /// Estimates the escape velocity of the element based on temperature and surface mass.
+        ///<summary>
+        /// <param name="temperature">Averaged temperature of the target atmosphere</param>
+        /// <param name="surfaceMass">Mass of the body being calculated for</param>
+        /// <returns>The percentage of the element, or 0 if the element is not present.</returns>
+        public bool ExceedsJeanEscape(float temperature, decimal surfaceMass, float radius)
+        {
+            // Calculate the thermal velocity
+            double thermalVelocity = Math.Sqrt(0.35 * PhysicalConstants.GAS_CONSTANT_R * temperature / MolarMass);
+
+            // Calculate the escape velocity
+            decimal radiusMetres = (decimal)(radius * PhysicalConstants.EARTH_RADIUS);
+            double escapeVelocity = Math.Sqrt(2 * PhysicalConstants.GRAV * (double)(surfaceMass / radiusMetres));
+
+            //Logger.Log("Atmosphere Element", $"Escape Velocity: {escapeVelocity} km/s, Thermal Velocity: {thermalVelocity} km/s");
+
+            // If the ratio is greater than 1, the element can escape
+            return (thermalVelocity / escapeVelocity) > 1;
         }
 
         ///<summary>
@@ -157,13 +190,13 @@ namespace Models
         /// <returns>The percentage of the element, or 0 if the element is not present.</returns>
         public Phase GetPhase(float temperature, float pressureAtm)
         {
-            float P = pressureAtm * PhysicalConstants.pascalToAtm;
+            float P = pressureAtm * PhysicalConstants.PASCAL_ATM;
 
             if (temperature < FreezingPoint)
                 return Phase.Solid;
 
             // Clausius-Clapeyron
-            float lnPsat = MathF.Log(PhysicalConstants.pascalToAtm) - (LatentHeat / (float)PhysicalConstants.gasConstantR) * ((1f / temperature) - (1f / BoilingPoint));
+            float lnPsat = MathF.Log(PhysicalConstants.PASCAL_ATM) - (LatentHeat / (float)PhysicalConstants.GAS_CONSTANT_R) * ((1f / temperature) - (1f / BoilingPoint));
             float Psat = (float)Math.Exp(lnPsat);
 
             if (P < Psat)

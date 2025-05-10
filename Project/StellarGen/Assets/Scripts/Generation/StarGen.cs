@@ -16,6 +16,7 @@ using StellarGenHelpers;
 using System.Linq;
 using UnityEditor.PackageManager.UI;
 using UnityEngine.Profiling;
+using System.Buffers;
 
 namespace SystemGen
 {
@@ -98,8 +99,10 @@ namespace SystemGen
             float maxInclination = (15f - planetCount) / 2;
 
             planets = GeneratePlanetsFromPositions(
-                star, seedValue, planetCount, orbitalPositions, meanEccentricity, maxInclination, metalicity, planetOrder, totalSolidMass
+                star, seedValue, planetCount, orbitalPositions, meanEccentricity, maxInclination, metalicity, planetOrder, totalSolidMass, solidsFraction, diskMass
             );
+
+            return;
         }
 
         /// <summary>
@@ -168,7 +171,7 @@ namespace SystemGen
         /// </summary>
         /// <param name="star"></param>
         /// <returns></returns>
-        public static float GenerateSublimationRadius(StarProperties star)
+        private static float GenerateSublimationRadius(StarProperties star)
         {
             float radius = 0.034f * (float)Math.Sqrt(star.BaseLuminosity) * (1500f / PhysicalConstants.SUBLIMATION_TEMPERATURE);
             return radius;
@@ -221,7 +224,7 @@ namespace SystemGen
         /// <param name="planetOrder">The overall orbital pattern (e.g. similar, mixed).</param>
         /// <param name="solidMass">Estimated protoplanetary disk mass that isn't gas</param>
         /// <returns>A list of instantiated planetary <see cref="BaseProperties"/>.</returns>
-        private static List<BodyProperties> GeneratePlanetsFromPositions(StarProperties star, int seed, int count, List<float> positions, float eccentricity, float inclination, float metalicity, PlanetOrder planetOrder, decimal solidMass)
+        private static List<BodyProperties> GeneratePlanetsFromPositions(StarProperties star, int seed, int count, List<float> positions, float eccentricity, float inclination, float metalicity, PlanetOrder planetOrder, decimal solidMass, float solidsFraction, decimal diskMass)
         {
             int minCount = Math.Min(count, positions.Count);
             Logger.Log("System Generation", $"Generating Planets");
@@ -268,14 +271,16 @@ namespace SystemGen
                 // Generate the planet's properties
                 // Orbital parameters
                 OrbitalProperties orbit = PhysicsUtils.ConstructOrbitProperties(planetSeed, position, eccentricity, inclination);
+                
+                Debug.Log($"Orbital Properties: {orbit.GetInfo()}");
 
                 // Estimate surface composition
-                BodyProperties newPlanet = PlanetGen.Generate(planetSeed, star, orbit, coreMass);
+                BodyProperties newPlanet = PlanetGen.Generate(planetSeed, star, orbit, coreMass, solidsFraction, diskMass);
                 newPlanet.Parent = star.SeedValue;
 
                 planets.Add(newPlanet);
 
-                Logger.Log("Planet Generation", $"Created Planet of {PhysicsUtils.RawToEarthMass(coreMass)} Earth Masses at {position} AU");
+                Logger.Log("Planet Generation", $"Created Planet at {position} AU");
             }
 
             return planets;
@@ -317,11 +322,16 @@ namespace SystemGen
                 {
                     int s = seed + i;
 
-                    double u1 = 1.0 - RandomUtils.RandomFloat(0f, 1f, s + 2);
-                    double u2 = 1.0 - RandomUtils.RandomFloat(0f, 1f, s + 3);
-                    double z = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Cos(2.0 * Math.PI * u2);
-                    double sampleNormal = 1.0 + 0.23 * z;
-                    factors.Add((float)(sampleNormal < 0.0 ? 0.0 : sampleNormal));
+                    double u1 = 1.0 - RandomUtils.RandomFloat(0f, 1f, s);
+                    double u2 = 1.0 - RandomUtils.RandomFloat(0f, 1f, s + 1);
+
+                    // Get standard normal sample using inverse transform
+                    double standardNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Cos(2.0 * Math.PI * u2);
+
+                    double scaledNormal = 0.1 * standardNormal;
+
+                    double result = Math.Exp(9 * scaledNormal);
+                    factors.Add((float)result);
                 }
             }
 

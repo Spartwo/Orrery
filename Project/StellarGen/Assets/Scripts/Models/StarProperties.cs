@@ -97,7 +97,19 @@ namespace Models
             get => radius;
         }
 
-        
+        public decimal SublimationRadius
+        {
+            get => PhysicsUtils.ConvertToMetres(0.034f * (float)Math.Sqrt(luminosity) * (1500f / PhysicalConstants.SUBLIMATION_TEMPERATURE));
+        }
+        public decimal HabitableZone
+        {
+            get => PhysicsUtils.ConvertToMetres((float)Math.Sqrt(luminosity));
+        }
+        public decimal FrostLine
+        {
+            get => PhysicsUtils.ConvertToMetres((float)Math.Sqrt(luminosity)*4.8f);
+        }
+
         public float Luminosity
         {
             get => luminosity;

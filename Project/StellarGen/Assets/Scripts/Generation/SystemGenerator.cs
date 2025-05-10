@@ -105,16 +105,8 @@ namespace SystemGen
 
             if (starCount == 0)
             {
-                OrbitalProperties orbit = new OrbitalProperties(
-                    0,
-                    0f,
-                    0f,
-                    0f,
-                    0f
-                );
-                // Generate a new planet
-                systemProperties.solidBodies.Add(PlanetGen.Generate(seed, null, orbit, (decimal)RandomUtils.RandomFloat(0.1f, 5f, seed)));
                 systemAge = RandomUtils.RandomFloat(0.25f, 10.5f, seed);
+                await Task.Yield();
             }
             else
             {

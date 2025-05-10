@@ -10,7 +10,7 @@ namespace Models
     {
         [JsonProperty("Material Composition (%)")] private SurfaceProperties composition;
         [JsonProperty("Radius (Earths)")] private float radius = 0f; // Earths
-        [JsonProperty("Atmospheric Composition (%)")] private AtmosphereProperties atmosphere;
+        [JsonProperty("Atmospheric Composition")] private AtmosphereProperties atmosphere;
 
         public BodyProperties(int seedValue = 0, string name = null, decimal? age = null, decimal? mass = null, decimal? hillSphere = 0m, int[] orbitLine = null, double? siderealDayLength = null, float? axialTilt = null)
             : base(seedValue, name, age, mass, hillSphere, orbitLine, siderealDayLength, axialTilt)

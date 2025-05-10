@@ -423,6 +423,7 @@ GameObject:
   - component: {fileID: 7375389225357347231}
   - component: {fileID: 5597609004032541121}
   - component: {fileID: 7431502284482671998}
+  - component: {fileID: 465263033258940003}
   m_Layer: 0
   m_Name: STAR_1
   m_TagString: Focus_Object
@@ -508,6 +509,28 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &465263033258940003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5186090652771454598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7654fbd9fae5ef4192b518769760dcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 0}
+  meanLongitude: 0
+  orbitResolution: 55
+  mu: 0
+  n: 0
+  cosLOAN: 0
+  sinLOAN: 0
+  sinI: 0
+  cosI: 0
+  trueAnomalyConstant: 0
 --- !u!1 &6565215499095907151
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using StellarGenHelpers;
 using Models;
+using SystemGen;
 
 public class StarManager : MonoBehaviour
 {
@@ -24,9 +25,9 @@ public class StarManager : MonoBehaviour
     {
         // Set boundaries of various visible temperature zones
         centreLine = PhysicsUtils.ConvertToMetres((float)Math.Sqrt(star.Luminosity));
-        aridLine = Decimal.Multiply(centreLine,  0.95m);
-        outerHabitableLine = Decimal.Multiply(centreLine, 1.35m);
-        frostLine = Decimal.Multiply(centreLine, 4.8m);
+        aridLine = decimal.Multiply(centreLine,  0.95m);
+        outerHabitableLine = decimal.Multiply(centreLine, 1.35m);
+        frostLine = decimal.Multiply(centreLine, 4.8m);
     }
 
     public void RecalculateColour()
@@ -48,37 +49,37 @@ public class StarManager : MonoBehaviour
         starlight.color = color;
     }
 
-    /*
-    int BoundScale = 250;
-        //set radiation zone bounds
-        transform.GetChild(1).GetChild(3).localScale = new Vector3(Heliopause * BoundScale, Heliopause * BoundScale, Heliopause * BoundScale);
-        //set arid zone bounds
-        transform.GetChild(1).GetChild(2).localScale = new Vector3(AridLine * BoundScale, AridLine * BoundScale, AridLine * BoundScale);
-        //set habitable zone bounds
-        transform.GetChild(1).GetChild(1).localScale = new Vector3(OuterHabitableLine * BoundScale, OuterHabitableLine * BoundScale, OuterHabitableLine * BoundScale);
-        //set frost line bounds
-        transform.GetChild(1).GetChild(0).localScale = new Vector3(FrostLine * BoundScale, FrostLine * BoundScale, FrostLine * BoundScale);
-        //point the indicators towards the camera
+    public void SetStarProperties()
+    {
+        int boundScale = 250;
+        float innerLine = PhysicsUtils.ConvertToAU(star.SublimationRadius) * boundScale;
+
+        float frostLine = PhysicsUtils.ConvertToAU(star.FrostLine) * boundScale;
+        float habitableLine = PhysicsUtils.ConvertToAU(star.HabitableZone) * boundScale;
+        float aridLine = habitableLine * 0.75f;
+
+        // Set radiation zone bounds
+        transform.GetChild(1).GetChild(3).localScale = new Vector3(innerLine, innerLine, innerLine);
+        // Set arid zone bounds
+        transform.GetChild(1).GetChild(2).localScale = new Vector3(aridLine, aridLine, aridLine);
+        // Set habitable zone bounds
+        transform.GetChild(1).GetChild(1).localScale = new Vector3(habitableLine, habitableLine, habitableLine);
+        // Set frost line bounds
+        transform.GetChild(1).GetChild(0).localScale = new Vector3(frostLine, frostLine, frostLine);
+        // Point the indicators towards the camera
         transform.GetChild(1).transform.LookAt(GameObject.Find("MainCam").transform.position);
         
 
 
-        //set size of the star itself relative to earth=1
-        transform.GetChild(0).localScale = new Vector3(Diameter * 10.9f, Diameter * 10.9f, Diameter * 10.9f);
-        //set size of double click collider
-        transform.GetComponent<SphereCollider>().radius = Diameter*109f;
-        //All bodies are weighed where 1 = Earth
-        float MassInEarth = StarMass * 333030;
-        //get rigidbody and apply the mass
-        transform.GetComponent<Rigidbody>().mass = MassInEarth;
-        try {
-            //apply the mass to the shared barycentre
-            GameObject.Find(StarSearchTerm + "_FOCUS").GetComponent<Rigidbody>().mass = MassInEarth;
-        } catch {
-            //single body systems will catch
-        }
-    } 
-    */
+        float diameter = star.Radius * 2;
 
-
+        // set size of the star itself relative to earth=1
+        transform.GetChild(0).localScale = new Vector3(diameter * 10.9f, diameter * 10.9f, diameter * 10.9f);
+        // set size of double click collider
+        transform.GetComponent<SphereCollider>().radius = diameter*109f;
+        // All bodies are weighed where 1 = Earth
+        float massInEarth = PhysicsUtils.RawToEarthMass(star.Mass);
+        // get rigidbody and apply the mass
+        transform.GetComponent<Rigidbody>().mass = massInEarth;
+    }
 }

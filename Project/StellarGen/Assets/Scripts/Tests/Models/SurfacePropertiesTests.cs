@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Settings;
 
 
 namespace Models.Tests
@@ -63,6 +64,8 @@ namespace Models.Tests
         [Test]
         public void GetInfo_Test()
         {
+            LocalisationProvider.LoadLoc("en-ie");
+
             // Arrange
             var surfaceProperties = new SurfaceProperties(50f, 30f, 20f);
 

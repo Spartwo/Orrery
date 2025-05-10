@@ -363,8 +363,9 @@ namespace StellarGenHelpers
             // Calculate the distance from the star in AU
             float distance = ConvertToAU(orbit.SemiMajorAxis);
             // Calculate the temperature
-            float temperature = (float)Math.Sqrt(star.BaseLuminosity / (4 * Mathf.PI * Mathf.Pow(distance, 2)));
-            return (short)temperature;
+            //float temperature = (float)Math.Sqrt(star.BaseLuminosity / (4 * Mathf.PI * Mathf.Pow(distance, 2)));
+            short temperature = (short)(279.25f * Math.Pow(star.BaseLuminosity / Math.Pow(distance, 2), 0.25f));
+            return temperature;
         }
 
         /// <summary>
@@ -393,7 +394,7 @@ namespace StellarGenHelpers
         /// </summary>
         /// <param name="A">The body for which the Hill Sphere is being calculated.</param>
         /// <param name="B">The body for which is being orbited.</param>
-        /// <param name="distance">The distance between the checked body and A</param>
+        /// <param name="distance">The distance between the checked body</param>
         /// <returns>True if the orbit is stable, otherwise false.</returns>
         public static bool CheckOrbit(BaseProperties A, BaseProperties B, decimal distance)
         {
@@ -412,7 +413,7 @@ namespace StellarGenHelpers
         /// </summary>
         /// <param name="A">The body for which the Hill Sphere is being calculated.</param>
         /// <param name="B">The body for which is being orbited.</param>
-        /// <param name="distance">The distance between the body and its parent in AU.</param>
+        /// <param name="distance">The distance between the body and its parent in m</param>
         /// <returns>The radius of the body's Hill Sphere</returns>
         public static decimal CalculateHillSphere(BaseProperties A, BaseProperties B, decimal distance)
         {
@@ -424,11 +425,15 @@ namespace StellarGenHelpers
         /// </summary>
         /// <param name="A">The body for which the roche is being calculated.</param>
         /// <param name="B">The body for which is being orbited.</param>
-        /// <param name="distance">The distance between the body and its parent in AU.</param>
+        /// <param name="distance">The distance between the body and its parent in mm</param>
         /// <returns>The radius of the body's Hill Sphere</returns>
-        public static decimal CalculateRoche(BaseProperties A, BaseProperties B, decimal distance)
+        public static decimal CalculateRoche(BodyProperties A, BodyProperties B, decimal distance)
         {
-            return distance * DecimalPow(B.Mass / (3 * A.Mass), (1 / 3));
+            float rocheCoefficient = A.Composition.CalculateRocheCoefficient();
+
+            decimal rocheLimitMeters = (decimal)(B.Radius * rocheCoefficient * Math.Pow(B.Composition.CalculateDensity() / A.Composition.CalculateDensity(), 1f / 3f));
+
+            return rocheLimitMeters;
         }
 
         /// <summary>

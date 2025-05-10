@@ -54,6 +54,17 @@ namespace Models
         }
 
         /// <summary>
+        /// Calculates the roche coeffficient based on its composition.
+        /// </summary>
+        public float CalculateRocheCoefficient()
+        {
+            float coeff = (rock * 1.4f +
+                             ice * 1.6f+
+                             metals * 1.2f) / 100f;
+            return coeff;
+        }
+
+        /// <summary>
         /// Provides a summary of the surface composition.
         /// </summary>
         /// <returns>A string containing the percentile composition of values above 0%.</returns>
