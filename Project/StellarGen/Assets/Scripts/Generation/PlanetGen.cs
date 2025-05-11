@@ -5,6 +5,9 @@ using UnityEngine;
 using Models;
 using StellarGenHelpers;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
+using System.Linq;
+using Settings;
 
 namespace SystemGen
 {
@@ -128,9 +131,9 @@ namespace SystemGen
                 if (atmosphere.Elements[i].Element.ExceedsJeanEscape(temperature, coreMass, coreRadius))
                 {
                     // If the element is not viable then decuct from the total mass and set its fraction to 0 
-                    atmoMass -= atmoBaseMass * atmosphere.Elements[i].Percentile;
+                    atmoMass -=  atmoBaseMass * (atmosphere.Elements[i].Percentile / atmosphere.Elements.Sum(e => e.Percentile));
                     atmosphere.SetElementPercentage(atmosphere.Elements[i].Element, 0);
-                    Logger.Log("Atmosphere Generation", $"{Settings.LocalisationProvider.GetLocalisedString(atmosphere.Elements[i].Element.Name)} is not viable");
+                    //Logger.Log("Atmosphere Generation", $"{LocalisationProvider.GetLocalisedString(atmosphere.Elements[i].Element.Name)} is not viable");
                 }
                 else
                 {
@@ -139,15 +142,14 @@ namespace SystemGen
                     float commonality = commonalityBaseline * RandomUtils.RandomFloat(0.8f, 1.2f, seed + i) * 100;
 
                     // Adjust the element definition based on the commmonality value
-                    atmosphere.SetElementPercentage(atmosphere.Elements[i].Element, (short)commonality);
+                    atmosphere.Elements[i].Percentile = (short)commonality;
                 }
             }
 
-            try
-            {
-            // Deviate downwards, lighter atmospheres shift more
-            double reduction = (double)(PhysicsUtils.RawToEarthMass(atmoMass) - (Math.Pow(PhysicsUtils.RawToEarthMass(atmoMass), 0.4f) * RandomUtils.RandomFloat(0, 1)));
             
+            // Deviate downwards, lighter atmospheres shift more
+            double reduction = PhysicsUtils.RawToEarthMass(atmoMass) - (Math.Pow(PhysicsUtils.RawToEarthMass(atmoMass), 0.4f) * RandomUtils.RandomFloat(0, 1));
+
             // If there's no atmosphere don't bother with the rest
             if (reduction < 1)
             {
@@ -158,11 +160,14 @@ namespace SystemGen
                 else
                 {
                     reduction = 0;
+
+                    // Or if there's no atmosphere
+                    atmosphere.Elements.Clear();
+                    return atmosphere;
                 }
             }
 
-            atmosphere.TotalAtmosphericMass = PhysicsUtils.EarthMassToRaw((float)reduction);
-
+            atmosphere.TotalAtmosphericMass = PhysicsUtils.EarthMassToRaw((float)Math.Max(0,reduction));
 
             // Calculate surface gravity
             double gravity = (PhysicalConstants.GRAV * (double)(coreMass * 1000000) / Math.Pow(coreRadius * PhysicalConstants.EARTH_RADIUS, 2)); //m/s
@@ -170,12 +175,13 @@ namespace SystemGen
             double sigma = (double)(atmosphere.TotalAtmosphericMass * 1000000) / (4.0 * Math.PI * Math.Pow(coreRadius * PhysicalConstants.EARTH_RADIUS, 2));
             // Estimate the surface pressure
             float atmPressure = (float)((gravity * sigma) / PhysicalConstants.PASCAL_ATM);
+            atmPressure = 1;
 
             Logger.Log("Planet Generation", $"Atmospheric Pressure: {atmPressure} sur/atm({PhysicsUtils.RawToEarthMass(coreMass)}/{PhysicsUtils.RawToEarthMass(atmosphere.TotalAtmosphericMass)} Masses) at {gravity / 9.71f} G");
 
 
             // Eliminate any condensed elements
-            for (int i = 0; i < atmosphere.Elements.Count-1; i++)
+            for (int i = 0; i < atmosphere.Elements.Count; i++)
             {
                 if (atmosphere.Elements[i].Percentile > 0)
                 {
@@ -183,12 +189,12 @@ namespace SystemGen
                     if (phase == Element.Phase.Solid || phase == Element.Phase.Liquid)
                     {
                         // Assume the rest of the atmosphere picks up the load
-                        atmosphere.SetElementPercentage(atmosphere.Elements[i].Element, 0);
+                        //atmosphere.Elements[i].Percentile = 0;
+                        Logger.Log("Atmosphere Generation", $"{LocalisationProvider.GetLocalisedString(atmosphere.Elements[i].Element.Name)} phase is {phase}");
                     }
-                    Logger.Log("Atmosphere Generation", $"{atmosphere.Elements[i].Element.Name} phase is {phase}");
                 }
             }
-
+            
             // Remove all elements with 0% presence
             for (int i = atmosphere.Elements.Count - 1; i >= 0; i--)
             {
@@ -203,12 +209,6 @@ namespace SystemGen
             atmosphere.NormaliseElements();
 
             return atmosphere;
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                Debug.LogError($"Error selecting positions: {e.Message}");
-                throw;
-            }
         }
 
 

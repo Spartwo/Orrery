@@ -29,6 +29,7 @@ namespace Models
         [JsonProperty("Inner Edge (m)")] private decimal lowerEdge;
         [JsonProperty("Outer Edge (m)")] private decimal upperEdge;
 
+        private BeltProperties() : base() { }
         public BeltProperties(int seedValue = 0, decimal? lowerEdge = 0m, decimal? upperEdge = 0m, string name = null, decimal? age = null, decimal? mass = null, decimal? hillSphere = 0m, int[] orbitLine = null)
             : base(seedValue, name, age, mass, hillSphere, orbitLine)
         {

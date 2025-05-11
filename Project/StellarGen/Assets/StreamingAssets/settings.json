@@ -1,5 +1,5 @@
 {
-  "GenerateOnStartup": false,
+  "GenerateOnStartup": true,
   "FloatingPointThreshold": 500,
   "EnableScanlines": false,
   "EnableFlicker": false,

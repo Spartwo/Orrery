@@ -137,6 +137,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4649c041a4235b542a2c789e6e4552c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AridDisk: {fileID: 3449544264639045739}
+  HabitableDisk: {fileID: 9067826572075530747}
+  FrostDisk: {fileID: 5829382377287995765}
+  StarIndicators: {fileID: 3821459301975155989}
 --- !u!54 &4153356082532830389
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -192,7 +196,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1134470411669408219}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7654fbd9fae5ef4192b518769760dcc, type: 3}
   m_Name: 
@@ -271,7 +275,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 257e9e63bd18f974a91e99d09a09a93f, type: 2}
+  - {fileID: 2100000, guid: b42b90caf59da0e4887d747081ed6b10, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -803,7 +807,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5f5d760cdcf9cf64f981947b9b899bcd, type: 2}
+  - {fileID: 2100000, guid: a1e73b2b0b29f0c44b4539737789dc27, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

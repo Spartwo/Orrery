@@ -19,6 +19,7 @@ namespace Models
         // Total mass in kilotons
         [JsonProperty("Total Mass (Kilotons)")] private decimal totalSolidMass;
 
+        private SurfaceProperties() : base() { }
         public SurfaceProperties(float? rock = null, float? ice = null, float? metals = null, decimal? totalSolidMass = null)
         {
             // Default composition: 40% Rock, 40% Ice, 20% True Metals

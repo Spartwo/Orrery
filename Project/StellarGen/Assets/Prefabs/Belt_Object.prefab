@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3345246828276078920}
   m_Layer: 0
   m_Name: Belt_Object
-  m_TagString: Focus_Object
+  m_TagString: Celestial_Body
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0fdef7b47f0bbc4bbd0cffbb62828c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentObject: 
+  parentObject: {fileID: 0}
   bodyName: 
   rotationRate: 0
 --- !u!54 &5770722375739623162

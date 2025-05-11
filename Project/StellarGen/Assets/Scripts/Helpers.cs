@@ -8,6 +8,8 @@ using Random = System.Random;
 using Models;
 using UnityEditor;
 using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using System.Reflection;
 using System.Linq;
 
@@ -134,6 +136,62 @@ namespace StellarGenHelpers
                 return after.Substring(1, after.Length - 2);
 
             return after;
+        }
+        public static SystemProperties Load(string filePath)
+        {
+            if (!File.Exists(filePath))
+                return null;
+
+            // 1) Read the raw JSON
+            var json = File.ReadAllText(filePath);
+            var jo = JObject.Parse(json);
+
+            // 2) Extract the seed and age (or any other simple fields)
+            string seed = jo["Seed"]?.Value<string>();
+            decimal age = jo["System Age (bYo)"]?.Value<decimal>() ?? 0m;
+
+            // 3) Create your sys-props with the right ctor
+            var system = new SystemProperties(seed);
+            system.systemAge = age;
+
+            // 4) Prepare a populator that will fill private members too
+            var popSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver
+                {
+                    DefaultMembersSearchFlags =
+                        BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance
+                },
+                ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor
+            };
+
+            // 5) Populate the lists
+            PopulateList<StarProperties>(jo, "Stellar Bodies", popSettings, system.stellarBodies);
+            PopulateList<BodyProperties>(jo, "Solid Bodies", popSettings, system.solidBodies);
+            PopulateList<BeltProperties>(jo, "Belts/Rings", popSettings, system.belts);
+
+            return system;
+        }
+
+        private static void PopulateList<T>(
+            JObject source,
+            string arrayName,
+            JsonSerializerSettings settings,
+            List<T> targetList)
+        {
+            targetList.Clear();
+            if (!(source[arrayName] is JArray arr))
+                return;
+
+            // Create a JsonSerializer using your custom settings
+            var serializer = JsonSerializer.Create(settings);
+
+            // Let JSON.NET materialize the List<T> in one go
+            List<T> list = arr.ToObject<List<T>>(serializer);
+
+            // If it succeeded, copy into your existing list
+            if (list != null)
+                targetList.AddRange(list);
         }
 
         [Serializable]
@@ -570,6 +628,11 @@ namespace StellarGenHelpers
             OrbitalProperties orbit = new OrbitalProperties(semiMajorAxis, eccentricity, longitudeOfAscending, inclination, periArgument);
 
             return orbit;
+        }
+
+        internal static OrbitalProperties ConstructOrbitProperties(decimal v1, float v2, float v3, float v4, float v5)
+        {
+            throw new NotImplementedException();
         }
     }
 }

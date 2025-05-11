@@ -7,6 +7,7 @@ using System.Numerics;
 using System.Xml.Linq;
 using static UnityEditor.FilePathAttribute;
 using UnityEngine;
+using UnityEngine.Categorization;
 
 namespace Models
 {
@@ -37,6 +38,7 @@ namespace Models
         public static readonly Element Xe = new(131.293f, 161.4f, 165.1f, 63f, 12.4f, "#loc_Xenon");
 
 
+        private AtmosphereProperties() : base() { }
         public AtmosphereProperties(decimal? totalAtmosphericMass = null, List<Element> elements = null)
         {
             this.totalAtmosphericMass = totalAtmosphericMass ?? 0m;
@@ -167,6 +169,7 @@ namespace Models
         [JsonProperty("Percentile")]
         public short Percentile { get; set; }
 
+        private AtmosphereElement() : base() { }
         public AtmosphereElement(Element element, short percentile)
         {
             Element = element;
@@ -186,6 +189,7 @@ namespace Models
         public float LatentHeat { get; }    // J/mol (required for phase calc)
         [JsonProperty] public string Name { get; } // Localization association as a string
 
+        private Element() : base() { }
         public Element(float molarMass, float freezingPoint, float boilingPoint, float gasConstant, float latentHeat, string localisation)
         {
             this.MolarMass = molarMass;

@@ -99,11 +99,9 @@ public class Orbiter : MonoBehaviour
         float y = distance * (sinI * sinAOPPlusTA);
 
 
-        transform.position = new Vector3(x, y, z)/149.597870691f + parent.position;
+        transform.position = new Vector3(PhysicsUtils.ConvertToAU((decimal)x), PhysicsUtils.ConvertToAU((decimal)y), PhysicsUtils.ConvertToAU((decimal)z))/150f + parent.position;
 
     }
-
-
 
     private void LateUpdate()
     {

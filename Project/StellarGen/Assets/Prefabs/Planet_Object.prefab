@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3345246828276078920}
   m_Layer: 0
   m_Name: Planet_Object
-  m_TagString: Focus_Object
+  m_TagString: Celestial_Body
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70,14 +70,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7654fbd9fae5ef4192b518769760dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Eccentricity: 0
-  Inclination: 0
-  LongitudeOfAsc: 0
-  PeriArgument: 0
-  OrbitColour: {r: 0, g: 0, b: 0, a: 0}
-  MeanLongitude: 0
-  Parent: {fileID: 0}
-  OrbitResolution: 0
+  parent: {fileID: 0}
+  meanLongitude: 0
+  orbitResolution: 0
   mu: 0
   n: 0
   cosLOAN: 0
@@ -97,11 +92,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0fdef7b47f0bbc4bbd0cffbb62828c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodySearchTerm: 
-  ParentObject: 
-  BodyName: 
-  RotationRate: 0
-  SystemFileName: 
+  parentObject: {fileID: 0}
+  bodyName: 
+  rotationRate: 0
 --- !u!54 &5770722375739623162
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -27,6 +27,8 @@ namespace Models
         [JsonProperty("Orbit")] private OrbitalProperties orbit;
         [JsonProperty("Rotation")] private SiderealProperties rotation;
 
+        private BaseProperties() : base() { }
+
         /// <summary>
         /// Generates initial properties from a default state
         /// <param name="seedValue">The seed being passed into the body pre-adjustment</param>

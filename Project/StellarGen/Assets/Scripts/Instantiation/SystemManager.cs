@@ -7,6 +7,8 @@ using System.Linq;
 using Models;
 using StellarGenHelpers;
 using System.Numerics;
+using System;
+using Object = UnityEngine.Object;
 
 namespace SystemGen
 {
@@ -38,13 +40,15 @@ namespace SystemGen
         public void RandomiseName()
         {
             // Generate a random name for the system
-            nameField.text = RandomUtils.GenerateSystemName();
+            nameField.text = RandomUtils.GenerateSystemName(); 
+            Logger.Log("SystemManager", $"Randomised system name to {nameField.text}");
         }
 
         public void SetInfoBox(string text)
         {             
             // Set the text of the info box
-            infoField.GetComponent<Text>().text = text;
+            infoField.GetComponent<Text>().text = text; 
+            Logger.Log("SystemManager", $"Info box set to {text}");
         }
 
         public void GenerateSystem()
@@ -61,15 +65,15 @@ namespace SystemGen
             List<BeltProperties> belts = new List<BeltProperties>();
 
             // Get the properties classes from every instantiated object
-            foreach (GameObject star in GameObject.FindGameObjectsWithTag("Star"))
+            foreach (GameObject star in Object.FindObjectsOfTypeIncludingAssets(typeof(StarProperties)).Cast<GameObject>())
             {
                 stellarBodies.Add(star.GetComponent<StarProperties>());
             }
-            foreach (GameObject planet in GameObject.FindGameObjectsWithTag("Planet"))
+            foreach (GameObject planet in Object.FindObjectsOfTypeIncludingAssets(typeof(BodyProperties)).Cast<GameObject>())
             {
                 solidBodies.Add(planet.GetComponent<BodyProperties>());
             }
-            foreach (GameObject belt in GameObject.FindGameObjectsWithTag("Belt"))
+            foreach (GameObject belt in Object.FindObjectsOfTypeIncludingAssets(typeof(BeltProperties)).Cast<GameObject>())
             {
                 belts.Add(belt.GetComponent<BeltProperties>());
             }
@@ -81,11 +85,22 @@ namespace SystemGen
         }
         public void LoadSystem()
         {
+            // Find all Orbiter components in the loaded scene
+            var orbiters = Object.FindObjectsOfType<Orbiter>();
+            foreach (var orb in orbiters)
+            {
+                // Destroy the entire GameObject
+                Destroy(orb.gameObject);
+            }
+
+            Logger.Log("SystemManager", $"Loading system from {systemFile}");
             // Load the System Properties from the JSON file
-            systemProperties = JsonUtils.DeserializeFromJsonFile<SystemProperties>(systemFile);
+            systemProperties = JsonUtils.Load(systemFile);
 
             foreach (StarProperties star in systemProperties.stellarBodies)
             {
+                Logger.Log("SystemManager", $"Loading star {star.GetInfo()}");
+                //break;
                 // Instantiate the star prefab and set its properties
                 GameObject starObject = Instantiate(starPrefab) as GameObject;
                 starObject.GetComponent<StarManager>().star = star;
@@ -95,6 +110,8 @@ namespace SystemGen
             }
             foreach (BodyProperties planet in systemProperties.solidBodies)
             {
+                Logger.Log("SystemManager", $"Loading planet {planet.GetInfo()}");
+                //break;
                 // Instantiate the planet prefab and set its properties
                 GameObject planetObject = Instantiate(planetPrefab) as GameObject;
                 planetObject.GetComponent<BodyManager>().body = planet;
@@ -103,9 +120,11 @@ namespace SystemGen
             }
             foreach (BeltProperties belt in systemProperties.belts)
             {
+                Logger.Log("SystemManager", $"Loading belt {belt.GetInfo()}");
+                //break;
                 // Instantiate the belt prefab and set its properties
                 GameObject beltObject = Instantiate(beltPrefab) as GameObject;
-                beltObject.GetComponent<BeltManager>().belt = beltObject;
+                beltObject.GetComponent<BeltManager>().belt = belt;
                 beltObject.GetComponent<BeltManager>().ApplyData();
                 beltObject.GetComponent<BeltManager>().FindParent();
             }

@@ -1,6 +1,5 @@
-[03:34:02 LOG] Application: Program Initialised
-[03:34:04 LOG] LoadCellManager: Loaded system Greg with 2 Stars	|	 13 Planets	|	 2 Belts
-[03:34:04 LOG] LoadCellManager: Loaded system Neobe-287 with 1 Stars	|	 6 Planets	|	 0 Belts
-[03:34:06 LOG] LoadCellManager: Loaded system Greg with 2 Stars	|	 13 Planets	|	 2 Belts
-[03:34:06 LOG] LoadCellManager: Loaded system Neobe-287 with 1 Stars	|	 6 Planets	|	 0 Belts
-[03:34:07 LOG] SystemManager: Recieved system Greg from C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Greg.json
+[10:39:36 WARNING] TestComponent: Potential issue
+[10:39:39 LOG] System Generation: Assigning Orbital Colours
+[10:39:39 LOG] System Generation: Generating Body Names
+[10:39:39 LOG] System Generation: System Age: 9.694bY
+[10:39:39 LOG] I/O: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/MySeed.json

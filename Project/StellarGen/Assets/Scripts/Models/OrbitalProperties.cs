@@ -15,7 +15,7 @@ namespace Models
         [JsonProperty("Inclination")] float inclination; // Inclination
         [JsonProperty("Argument of Periapsis")] private float periArgument; // Argument of Periapsis
 
-        // Constructor
+        private OrbitalProperties() : base() { }
         public OrbitalProperties(decimal semiMajorAxis, float eccentricity, float longitudeOfAscending, float inclination, float periArgument)
         {
             this.SemiMajorAxis = Math.Floor(Math.Max(semiMajorAxis, 1m));

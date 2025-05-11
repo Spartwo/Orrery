@@ -4,8 +4,11 @@
 TagManager:
   serializedVersion: 3
   tags:
+  - Planet
   - Focus_Object
   - Celestial_Body
+  - Root_Body
+  - Interface_Element
   layers:
   - Default
   - TransparentFX

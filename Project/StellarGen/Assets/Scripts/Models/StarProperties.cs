@@ -16,6 +16,7 @@ namespace Models
         [JsonProperty("Temperature (K)")] private short temperature;
          private float baseLuminosity;
 
+        private StarProperties() : base() { }
         public StarProperties(int seedValue = 0, string name = null, decimal? age = null, decimal? mass = null, decimal? hillSphere = 0m, int[] orbitLine = null, double? siderealDayLength = null, float? axialTilt = null, decimal? lifespan = null, float? radius = null, float? luminosity = null, float? baseLuminosity = null, float? stellarMass = null, short? temperature = null) : base(seedValue, name, age, mass, hillSphere, orbitLine, siderealDayLength, axialTilt)
         {
             base.Name = name ?? "Unnamed Star";

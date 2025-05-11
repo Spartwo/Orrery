@@ -15,11 +15,20 @@ public class StarManager : MonoBehaviour
 
     decimal InnerLine, AridLine, CentreLine, OuterHabitableLine, FrostLine;
 
+    [SerializeField] GameObject AridDisk, HabitableDisk, FrostDisk, StarIndicators;
+
     public StarManager(StarProperties star)
     {
         this.star = star;
 
     }
+
+    public void Update()
+    {
+        // Point the indicators towards the camera
+        StarIndicators.transform.LookAt(GameObject.Find("Main_Camera").transform.position);
+    }
+
     public void CalculateLines()
     {
         // Set boundaries of various visible temperature zones
@@ -62,16 +71,16 @@ public class StarManager : MonoBehaviour
         float habitableLine = PhysicsUtils.ConvertToAU(OuterHabitableLine) * boundScale;
         float aridLine = PhysicsUtils.ConvertToAU(AridLine) * boundScale;
 
+        Debug.Log($"Star {star.Name} has a habitable zone of {habitableLine} AU, an arid zone of {aridLine} AU, and a frost line of {frostLine} AU.");
+
         // Set radiation zone bounds
-        transform.GetChild(1).GetChild(3).localScale = new Vector3(innerLine, innerLine, innerLine);
+        //transform.GetChild(1).GetChild(3).localScale = new Vector3(innerLine, innerLine, innerLine);
         // Set arid zone bounds
-        transform.GetChild(1).GetChild(2).localScale = new Vector3(aridLine, aridLine, aridLine);
+        AridDisk.transform.localScale = new Vector3(aridLine, aridLine, aridLine);
         // Set habitable zone bounds
-        transform.GetChild(1).GetChild(1).localScale = new Vector3(habitableLine, habitableLine, habitableLine);
+        HabitableDisk.transform.localScale = new Vector3(habitableLine, habitableLine, habitableLine);
         // Set frost line bounds
-        transform.GetChild(1).GetChild(0).localScale = new Vector3(frostLine, frostLine, frostLine);
-        // Point the indicators towards the camera
-        transform.GetChild(1).transform.LookAt(GameObject.Find("MainCam").transform.position);
+        FrostDisk.transform.localScale = new Vector3(frostLine, frostLine, frostLine);
         
 
 
@@ -98,7 +107,9 @@ public class StarManager : MonoBehaviour
             if (parentObject != null)
             {
                 transform.SetParent(parentObject.transform, false);
+                transform.GetComponent<Orbiter>().LoadOrbit(star.Orbit, transform.parent, star.OrbitLine);
             }
         }
+
     }
 }

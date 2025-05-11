@@ -11,7 +11,7 @@ namespace Models
         [JsonProperty("Day Length (Hours)")] private double siderealDayLength; // Sidereal Day Length (in hours)
         [JsonProperty("Axial Tilt (Degrees)")] private float axialTilt; // Sidereal Longitude (degrees)
 
-        // Constructor
+        private SiderealProperties() : base() { }
         public SiderealProperties(double siderealDayLength, float axialTilt)
         {
             SiderealDayLength = siderealDayLength;  // Sidereal day cannot be zero or negative

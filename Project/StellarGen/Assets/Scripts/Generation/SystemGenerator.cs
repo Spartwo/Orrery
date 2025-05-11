@@ -569,11 +569,14 @@ namespace SystemGen
         [JsonProperty("System Age (bYo)", Order = 0)] public decimal systemAge = 0m;
         // Declare seed input
         [JsonProperty("Seed", Order = 1)][HideInInspector] public string seedInput;
-
+        
+        [JsonConstructor] public SystemProperties() { }
         public SystemProperties(string seedInput)
         {
             // Check for a manual seed input  
-            this.seedInput = string.IsNullOrEmpty(seedInput) ? RandomUtils.GenerateSystemName() : seedInput;
+            this.seedInput = string.IsNullOrEmpty(seedInput)
+                ? RandomUtils.GenerateSystemName()
+                : seedInput;
         }
 
         [JsonProperty("Stellar Bodies", Order = 5)] public List<StarProperties> stellarBodies = new List<StarProperties>();
