@@ -183,7 +183,7 @@ namespace StellarGenHelpers
         public static int RandomInt(int min, int max, int? seed = null)
         {
             Random random = seed.HasValue ? new Random(seed.Value) : defaultRandom;
-            return random.Next(min, max + 1);
+            return random.Next(min, max);
         }
 
         /// <summary>

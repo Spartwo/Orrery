@@ -10,7 +10,7 @@ namespace Universe
         //Gamespeed Variables
         public float GameSpeed = 1f;
         public GameObject GameSpeedUI;
-        public GameObject CurrentTimeUI;
+        //public GameObject CurrentTimeUI;
         public float TimeInSeconds;
         private string CurrentTime;
 
@@ -18,8 +18,18 @@ namespace Universe
         {
             Time.timeScale = 1f;
             //call the repeating timer to update the gametime
-            //InvokeRepeating("GameTimer", 1f, 1f);
+            InvokeRepeating("GameTimer", 1f, 1f);
+            SetGameSpeed();
         }
+
+        public void SetGameSpeed()
+        {
+            // Takes slider value and sets as gamespeed
+            GameSpeed = GameObject.Find("Time_Slider").GetComponent<Slider>().value;
+            Time.timeScale = GameSpeed; 
+            GameSpeedUI.GetComponent<Text>().text = GameSpeed.ToString() + "x";
+        }
+
         public void PauseUnpause()
         {
             // Method to toggle timescale to 0 when called
@@ -33,16 +43,15 @@ namespace Universe
         }
         public void FixedUpdate()
         {
-            // Takes slider value and sets as gamespeed
-            GameSpeed = GameObject.Find("Time_Slider").GetComponent<Slider>().value;
+            return;
             GameTimer();
             DisplayDate();
         }
 
         void DisplayDate()
         {
-            GameSpeedUI.GetComponent<TextMesh>().text = GameSpeed.ToString() + "x";
-            CurrentTimeUI.GetComponent<TextMesh>().text = CurrentTime.ToString();
+            GameSpeedUI.GetComponent<Text>().text = GameSpeed.ToString() + "x";
+            //CurrentTimeUI.GetComponent<TextMesh>().text = CurrentTime.ToString();
         }
 
         void GameTimer()

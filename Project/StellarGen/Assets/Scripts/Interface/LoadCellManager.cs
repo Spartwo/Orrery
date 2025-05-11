@@ -9,37 +9,42 @@ using StellarGenHelpers;
 
 public class LoadCellManager : MonoBehaviour
 {   
-    public string SystemName;
-    protected string SystemFileLocation;
+    private string systemName;
+    protected string systemFileLocation;
+    private readonly string assetsFolder = Application.streamingAssetsPath;
+    private string quantities;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Text nameUI;
+    [SerializeField] private Text dataUI;
+
+    public void Setup (string systemFile)
     {
         // Define the file location with the system name
-        SystemFileLocation = $"{Application.streamingAssetsPath}/Star_Systems/{SystemName}.json";
+        systemFileLocation = $"{assetsFolder}/Star_Systems/{systemFile}";
 
         // Get and set readable system name from file definition
-        string systemName = JsonUtils.ReadJsonValueAtLine(SystemFileLocation, 3);
-        transform.GetChild(0).GetComponent<TextMesh>().text = SystemName;
+        systemName = JsonUtils.ReadJsonValueAtLine(systemFileLocation, 3);
+        nameUI.text = systemName;
 
-        string quantities =
-            $"{JsonUtils.ReadJsonValueAtLine(SystemFileLocation, 4)} {Settings.LocalisationProvider.GetLocalisedString("#loc_Star_Quantity")}\t|\t " +
-            $"{JsonUtils.ReadJsonValueAtLine(SystemFileLocation, 5)} {Settings.LocalisationProvider.GetLocalisedString("#loc_Body_Quantity")}\t|\t " +
-            $"{JsonUtils.ReadJsonValueAtLine(SystemFileLocation, 6)} {Settings.LocalisationProvider.GetLocalisedString("#loc_Belt_Quantity")}";
-        transform.GetChild(1).GetComponent<TextMesh>().text = quantities;
+        this.quantities =
+            $"{JsonUtils.ReadJsonValueAtLine(systemFileLocation, 4)} {Settings.LocalisationProvider.GetLocalisedString("#loc_Star_Quantity")}\t|\t " +
+            $"{JsonUtils.ReadJsonValueAtLine(systemFileLocation, 5)} {Settings.LocalisationProvider.GetLocalisedString("#loc_Body_Quantity")}\t|\t " +
+            $"{JsonUtils.ReadJsonValueAtLine(systemFileLocation, 6)} {Settings.LocalisationProvider.GetLocalisedString("#loc_Belt_Quantity")}";
+        dataUI.text = quantities;
+
+        Logger.Log("LoadCellManager", $"Loaded system {systemName} with {quantities}");
     }
 
     public void LoadName()
     {
-        // Apply to name
-        GameObject.Find("Seed_Input").GetComponent<TextMesh>().text = SystemName;
+        GameObject.Find("Game_Controller").GetComponent<SystemManager>().RecieveSystem(systemFileLocation, systemName);
     }
 
     public void DeleteSystem()
     {
         //delete the system files
-        File.Delete (SystemFileLocation);
-        File.Delete (SystemFileLocation + ".meta");
+        File.Delete (systemFileLocation);
+        File.Delete (systemFileLocation + ".meta");
         //remove the entry from the list
         Destroy(gameObject);
     }

@@ -9,7 +9,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -62,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Generation\StarGen.cs" />
+    <Compile Include="Assets\Scripts\Instantiation\BeltManager.cs" />
     <Compile Include="Assets\Scripts\Logging\Logging.cs" />
     <Compile Include="Assets\Scripts\Settings\SettingsData.cs" />
     <Compile Include="Assets\Scripts\Models\SiderealProperties.cs" />

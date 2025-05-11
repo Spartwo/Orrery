@@ -44,29 +44,53 @@ namespace Models
             {
                 Elements = new List<AtmosphereElement>()
                 {
-                    new AtmosphereElement(H2,  70),
-                    new AtmosphereElement(He,  25),
-                    new AtmosphereElement(N,    1),
-                    new AtmosphereElement(O2,   1),
-                    new AtmosphereElement(CO2,  1),
+                    new AtmosphereElement(H2,  700),
+                    new AtmosphereElement(He,  250),
+                    new AtmosphereElement(N,    20),
+                    new AtmosphereElement(O2,   10),
+                    new AtmosphereElement(CO2,  30),
                     new AtmosphereElement(Ar,   1),
-                    new AtmosphereElement(NH3,  0),
-                    new AtmosphereElement(CH4,  0),
-                    new AtmosphereElement(H2O,  0),
-                    new AtmosphereElement(Na,   0),
-                    new AtmosphereElement(Xe,   0)
+                    new AtmosphereElement(NH3,  1),
+                    new AtmosphereElement(CH4,  1),
+                    new AtmosphereElement(H2O,  1),
+                    new AtmosphereElement(Na,   1),
+                    new AtmosphereElement(Xe,   1)
                 };
             }
         }
 
 
-        public float GetAtmosphereGasConstant() =>
-           Elements.Where(e => e.Percentile > 0)
-                   .Sum(e => e.Element.GasConstant * (e.Percentile / 100f));
+        public float GetAtmosphereGasConstant() 
+        {
+            // Calculate the weighted average molar mass of the atmosphere
+            float totalGasConstant = 0f;
+            float totalPercentile = 0f;
+            foreach (var element in Elements)
+            {
+                if (element.Percentile > 0)
+                {
+                    totalGasConstant += element.Element.GasConstant * (element.Percentile / 100f);
+                    totalPercentile += element.Percentile / 100f;
+                }
+}
+            return totalGasConstant / totalPercentile;
+        }
 
-        public float GetAtmosphereMolarMass() =>
-            Elements.Where(e => e.Percentile > 0)
-                    .Sum(e => e.Element.MolarMass * (e.Percentile / 100f));
+        public float GetAtmosphereMolarMass()
+        {
+            // Calculate the weighted average molar mass of the atmosphere
+            float totalMolarMass = 0f;
+            float totalPercentile = 0f;
+            foreach (var element in Elements)
+            {
+                if (element.Percentile > 0)
+                {
+                    totalMolarMass += element.Element.MolarMass * (element.Percentile / 100f);
+                    totalPercentile += element.Percentile / 100f;
+                }
+            }
+            return totalMolarMass / totalPercentile;
+        }
 
         /// <summary>
         /// Sets the percentage of a specific element in the atmosphere, ensuring the total percentage does not exceed 100%.
@@ -81,17 +105,28 @@ namespace Models
             if (entry != null) entry.Percentile = pct;
             else Elements.Add(new AtmosphereElement(element, pct));
 
-            // Normalize if sum > 100%
-            int total = Elements.Sum(e => e.Percentile);
-            if (total > 100)
+            // Normalise if sum > 100%
+            // Normalise all other elements while retaining the provided element's percentage
+            int total = Elements.Sum(e => e.Element != element ? e.Percentile : 0);
+            if (total > 0)
             {
-                int excess = total - 100;
+                int remaining = 100 - pct;
                 foreach (var e in Elements.Where(e => e.Element != element && e.Percentile > 0))
                 {
-                    int reduce = Math.Min(e.Percentile, excess);
-                    e.Percentile -= (short)reduce;
-                    excess -= reduce;
-                    if (excess == 0) break;
+                    e.Percentile = (short)((e.Percentile * remaining) / total);
+                }
+            }
+        }
+
+        public void NormaliseElements()
+        {
+            // Normalize all elements to ensure their total percentage is 100%
+            int total = Elements.Sum(e => e.Percentile);
+            if (total > 0)
+            {
+                foreach (var e in Elements)
+                {
+                    e.Percentile = (short)((e.Percentile * 100) / total);
                 }
             }
         }
@@ -167,7 +202,7 @@ namespace Models
         /// <param name="temperature">Averaged temperature of the target atmosphere</param>
         /// <param name="surfaceMass">Mass of the body being calculated for</param>
         /// <returns>The percentage of the element, or 0 if the element is not present.</returns>
-        public bool ExceedsJeanEscape(float temperature, decimal surfaceMass, float radius)
+        public bool ExceedsJeanEscape(short temperature, decimal surfaceMass, double radius)
         {
             // Calculate the thermal velocity
             double thermalVelocity = Math.Sqrt(0.35 * PhysicalConstants.GAS_CONSTANT_R * temperature / MolarMass);

@@ -32,8 +32,8 @@ namespace Models
         public BeltProperties(int seedValue = 0, decimal? lowerEdge = 0m, decimal? upperEdge = 0m, string name = null, decimal? age = null, decimal? mass = null, decimal? hillSphere = 0m, int[] orbitLine = null)
             : base(seedValue, name, age, mass, hillSphere, orbitLine)
         {
-            this.lowerEdge = lowerEdge ?? 0m;  // Default to 0 if not provided
-            this.upperEdge = upperEdge ?? 0m;  // Default to 0 if not provided
+            this.lowerEdge = Math.Floor(lowerEdge ?? 0m);  // Default to 0 if not provided
+            this.upperEdge = Math.Floor(upperEdge ?? 0m);  // Default to 0 if not provided
             base.Sidereal = null; // No rotation for belts
             base.Name = name ?? "Unnamed Belt";
         }
@@ -60,13 +60,13 @@ namespace Models
         public decimal UpperEdge
         {
             get => upperEdge;
-            set => upperEdge = value;
+            set => upperEdge = Math.Floor(value);
         }
 
         public decimal LowerEdge
         {
             get => lowerEdge;
-            set => lowerEdge = value;
+            set => lowerEdge = Math.Floor(value);
         }
     }
 }

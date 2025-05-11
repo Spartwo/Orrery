@@ -13,21 +13,21 @@ public class StarManager : MonoBehaviour
 {
     public StarProperties star;
 
-    decimal aridLine, centreLine, outerHabitableLine, frostLine;
+    decimal InnerLine, AridLine, CentreLine, OuterHabitableLine, FrostLine;
 
     public StarManager(StarProperties star)
     {
         this.star = star;
 
     }
-
     public void CalculateLines()
     {
         // Set boundaries of various visible temperature zones
-        centreLine = PhysicsUtils.ConvertToMetres((float)Math.Sqrt(star.Luminosity));
-        aridLine = decimal.Multiply(centreLine,  0.95m);
-        outerHabitableLine = decimal.Multiply(centreLine, 1.35m);
-        frostLine = decimal.Multiply(centreLine, 4.8m);
+        CentreLine = PhysicsUtils.ConvertToMetres((float)Math.Sqrt(star.Luminosity));
+        AridLine = decimal.Multiply(CentreLine,  0.95m);
+        OuterHabitableLine = decimal.Multiply(CentreLine, 1.35m);
+        FrostLine = decimal.Multiply(CentreLine, 4.8m);
+        InnerLine = star.SublimationRadius;
     }
 
     public void RecalculateColour()
@@ -45,18 +45,22 @@ public class StarManager : MonoBehaviour
 
         // Set light properties
         Light starlight = transform.GetChild(2).GetComponent<Light>();
-        starlight.range = (float)(frostLine * 30);
+        starlight.range = (float)(FrostLine * 30);
         starlight.color = color;
     }
 
     public void SetStarProperties()
     {
-        int boundScale = 250;
-        float innerLine = PhysicsUtils.ConvertToAU(star.SublimationRadius) * boundScale;
+        // Pame the root object after the stars unique idenfitier
+        gameObject.name = star.SeedValue.ToString();
 
-        float frostLine = PhysicsUtils.ConvertToAU(star.FrostLine) * boundScale;
-        float habitableLine = PhysicsUtils.ConvertToAU(star.HabitableZone) * boundScale;
-        float aridLine = habitableLine * 0.75f;
+        CalculateLines();
+
+        int boundScale = 250;
+        float innerLine = PhysicsUtils.ConvertToAU(InnerLine) * boundScale;
+        float frostLine = PhysicsUtils.ConvertToAU(FrostLine) * boundScale;
+        float habitableLine = PhysicsUtils.ConvertToAU(OuterHabitableLine) * boundScale;
+        float aridLine = PhysicsUtils.ConvertToAU(AridLine) * boundScale;
 
         // Set radiation zone bounds
         transform.GetChild(1).GetChild(3).localScale = new Vector3(innerLine, innerLine, innerLine);
@@ -81,5 +85,20 @@ public class StarManager : MonoBehaviour
         float massInEarth = PhysicsUtils.RawToEarthMass(star.Mass);
         // get rigidbody and apply the mass
         transform.GetComponent<Rigidbody>().mass = massInEarth;
+    }
+    public void FindParent()
+    {
+        // Find the parent object of the body
+        if (star.Parent != 0)
+        {
+            int parentID = star.Parent;
+            // Find the parent object by its ID
+            GameObject parentObject = GameObject.Find(parentID.ToString());
+
+            if (parentObject != null)
+            {
+                transform.SetParent(parentObject.transform, false);
+            }
+        }
     }
 }

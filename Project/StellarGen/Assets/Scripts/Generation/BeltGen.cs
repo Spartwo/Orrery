@@ -90,8 +90,12 @@ namespace SystemGen
                 compositions[i] = new SurfaceProperties(rock, ice, metal, takenMass);
             }
 
-            // Remove any remainder mass not composed
-            belt.Mass -= beltMass;
+            decimal multipler = (belt.Mass - beltMass) / belt.Mass;
+            // Normalize the compositions to ensure they sum to 100%
+            for (int i = 0; i < compositions.Length; i++)
+            {
+                compositions[i].TotalSolidMass = compositions[i].TotalSolidMass * multipler;
+            }
 
             return new BeltComposition(compositions[0], compositions[1], compositions[2]);
         }

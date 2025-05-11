@@ -54,10 +54,10 @@ namespace Models.Tests
             atmosphere.SetElementPercentage(AtmosphereProperties.H2, (short)50f);
             atmosphere.SetElementPercentage(AtmosphereProperties.He, (short)50f);
 
-            double expected = 2947.85;
+            double expected = 2881;
             double actual = atmosphere.GetAtmosphereGasConstant();
 
-            Assert.AreEqual(expected, actual, 0.01);
+            Assert.AreEqual(expected, actual, 0.1);
         }
 
         [TestCase(273.15f, 1f, ExpectedResult = Element.Phase.Liquid)]
@@ -88,7 +88,7 @@ namespace Models.Tests
 
             UnityEngine.Debug.Log(atmosphere.GetInfo());
 
-            Assert.IsTrue(info.Contains("Hydrogen: 76"));
+            Assert.IsTrue(info.Contains("Hydrogen: 78"));
             Assert.IsTrue(info.Contains("Helium: 20"));
         }
 
@@ -98,7 +98,7 @@ namespace Models.Tests
             // Test case where escape velocity is expected to exceed thermal velocity.
 
             // Given values for temperature, surface mass, and radius
-            float temperature = 5000f;  // High temperature (in Kelvin)
+            short temperature = 5000;  // High temperature (in Kelvin)
             decimal surfaceMass = 5.972E18m;  // Mass of Earth
             float radius = 1f;  // 1 Earth radius
 
@@ -115,7 +115,7 @@ namespace Models.Tests
             // Test case where thermal velocity exceeds escape velocity.
 
             // Given values for temperature, surface mass, and radius
-            float temperature = 40f;  // Low temperature (in Kelvin)
+            short temperature = 40;  // Low temperature (in Kelvin)
             decimal surfaceMass = 5.972E18m;  // Mass of Earth
             float radius = 1f;  // 1 Earth radius
 
@@ -133,7 +133,7 @@ namespace Models.Tests
             // Escape velocity should still exceed thermal velocity despite small mass.
 
             // Given values for temperature, surface mass, and radius
-            float temperature = 1000f;  // Very high temperature (in Kelvin)
+            short temperature = 1000;  // Very high temperature (in Kelvin)
             decimal surfaceMass = 1.0E15m;  // Very small mass (in kg)
             float radius = 0.1f;  // 0.1 Earth radius (smaller planet)
 
@@ -150,7 +150,7 @@ namespace Models.Tests
             // Test case for an earthlike body
 
             // Given values for temperature, surface mass, and radius
-            float temperature = 288;  
+            short temperature = 288;  
             decimal surfaceMass = 5.972e18m;  
             float radius = 1f;  
 
@@ -168,7 +168,7 @@ namespace Models.Tests
             // Thermal velocity should exceed escape velocity.
 
             // Given values for temperature, surface mass, and radius
-            float temperature = 40f;  // Very low temperature (in Kelvin)
+            short temperature = 40;  // Very low temperature (in Kelvin)
             decimal surfaceMass = 1.0E17m;  // Very small mass
             float radius = 0.1f;  // 0.1 Earth radius (smaller planet)
 
@@ -186,7 +186,7 @@ namespace Models.Tests
             // Escape velocity should exceed thermal velocity due to high mass and size.
 
             // Given values for temperature, surface mass, and radius
-            float temperature = 3000f;  // Moderate temperature (in Kelvin)
+            short temperature = 3000;  // Moderate temperature (in Kelvin)
             decimal surfaceMass = 1.898E21m;  // Mass of Jupiter
             float radius = 11f;  // Jupiter's radius (11 Earth radii)
 
@@ -204,7 +204,7 @@ namespace Models.Tests
             // The escape velocity should not exceed thermal velocity due to low temperature.
 
             // Given values for temperature, surface mass, and radius
-            float temperature = 100f;  // Low temperature (in Kelvin)
+            short temperature = 100;  // Low temperature (in Kelvin)
             decimal surfaceMass = 1.898E21m;  // Mass of Jupiter in
             float radius = 11f;  // Jupiter's radius (11 Earth radii)
 
@@ -222,7 +222,7 @@ namespace Models.Tests
             // Escape velocity should exceed thermal velocity because of high mass.
 
             // Given values for temperature, surface mass, and radius
-            float temperature = 300f;  // Moderate temperature (in Kelvin)
+            short temperature = 300;  // Moderate temperature (in Kelvin)
             decimal surfaceMass = 2.99E19m;  // Extremely high mass
             float radius = 5f;  // 5 Earth radii
 

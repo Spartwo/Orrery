@@ -31,9 +31,9 @@ public class SystemListLoad : MonoBehaviour
 
     void BuildList()
     {
-        string SystemsPath = Application.streamingAssetsPath + "/Star_Systems/";
+        string SystemsPath = $"{Application.streamingAssetsPath}/Star_Systems/";
         DirectoryInfo d = new DirectoryInfo(SystemsPath);
-        foreach (var File in d.GetFiles("*.system"))
+        foreach (var File in d.GetFiles("*.json"))
         {
             //convert file address to string
             string FileAddress = File.ToString();
@@ -44,7 +44,7 @@ public class SystemListLoad : MonoBehaviour
             GameObject obj = Instantiate(LoadCellPrefab);
             obj.transform.SetParent(this.gameObject.transform, false);
             //set the loadcellmanager input filename
-            obj.GetComponent<LoadCellManager>().SystemName = FileName;
+            obj.GetComponent<LoadCellManager>().Setup(FileName);
         }
     }
 

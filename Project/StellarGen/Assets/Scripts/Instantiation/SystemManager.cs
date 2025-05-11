@@ -5,140 +5,110 @@ using UnityEngine.UI;
 using System.IO;
 using System.Linq;
 using Models;
+using StellarGenHelpers;
+using System.Numerics;
 
 namespace SystemGen
 {
     public class SystemManager : MonoBehaviour
     {
-        //public knowledge variables that will be accessed by UI
-        [HideInInspector] public string BodySearchTerm;
-        [SerializeField] public BaseProperties Body;
-        public string ParentObject;
-        public string BodyName;
-        [SerializeField][Range(0f, 70f)] float RotationRate;
-        [HideInInspector] public string SystemFileName;
+        private string systemFile = Application.streamingAssetsPath;
+        [SerializeField] public SystemProperties systemProperties;
+        [SerializeField] private Object starPrefab;
+        [SerializeField] private Object planetPrefab;
+        [SerializeField] private Object beltPrefab;
+        [SerializeField] private InputField nameField;
+        [SerializeField] private GameObject infoField;
 
-        // Start is called before the first frame update
-        void Start()
+        public void RecieveSystem(string fileAddress, string systemName)
         {
-            //name the root object after the stars unique idenfitier
-            gameObject.name = BodySearchTerm;
-
-            //recombine the system file directory address
-            string SystemFileAddress = Application.streamingAssetsPath
-                + "/Star_Systems/"
-                + SystemFileName
-                + ".system";
-
-
-            ApplyData();
+            Logger.Log("SystemManager", $"Recieved system {systemName} from {fileAddress}");
+            // Set the system properties
+            this.systemFile = fileAddress;
+            // Set the name of the system
+            nameField.text = systemName;
         }
 
-        // Update is called once per frame
-        void Update()
+        public void SetName(string name)
         {
-            ApplyData();
-            RotateBody();
-        }
-        void RotateBody()
-        {
-            /*
-            //rotation of body
-            rotationrate
-            float Rate = GameObject.Find("Barycenter").GetComponent<Timekeep>().GameSpeed;
-            transform.Rotate(0, (Rate / 300) / (600 * Time.deltaTime), 0);
-            */
+            nameField.text = name;
+            Logger.Log("SystemManager", $"System name set to {nameField.text}");
         }
 
-
-        // ApplyData is called by UI 
-        public void ApplyData()
+        public void RandomiseName()
         {
-            /*
-           // float Diameter = 2 * Body.Radius;
-
-
-            //set size of the star itself relative to earth=1
-            transform.GetChild(0).localScale = new Vector3(Diameter / 100, Diameter / 100, Diameter / 100);
-            //set size of double click collider
-            transform.GetComponent<SphereCollider>().radius = Diameter;
-            //All bodies are weighed where 1 = Earth
-            float MassInEarth = BodyMass;
-            //get rigidbody and apply the mass
-            transform.GetComponent<Rigidbody>().mass = MassInEarth / 10000;*/
+            // Generate a random name for the system
+            nameField.text = RandomUtils.GenerateSystemName();
         }
-        /*
 
-        /// <summary>
-        /// Adds a new child body to the list of child bodies.
-        /// </summary>
-        /// <param name="newChild">The new body to be added to the child list</param>
-        public void AddPlanet(PlanetProperties newChild)
+        public void SetInfoBox(string text)
+        {             
+            // Set the text of the info box
+            infoField.GetComponent<Text>().text = text;
+        }
+
+        public void GenerateSystem()
         {
-            // Check if a body with the same seedValue isn't already present
-            if (!Body.ChildBodies.Any(child => child.SeedValue == newChild.SeedValue))
+            Transform.FindObjectOfType<SystemGenerator>().StartGeneration(nameField.text);
+        }
+
+        public void SaveSystem()
+        {
+            systemProperties = new SystemProperties(nameField.text);
+
+            List<StarProperties> stellarBodies = new List<StarProperties>();
+            List<BodyProperties> solidBodies = new List<BodyProperties>();
+            List<BeltProperties> belts = new List<BeltProperties>();
+
+            // Get the properties classes from every instantiated object
+            foreach (GameObject star in GameObject.FindGameObjectsWithTag("Star"))
             {
-                Body.ChildBodies.Add(newChild);
+                stellarBodies.Add(star.GetComponent<StarProperties>());
+            }
+            foreach (GameObject planet in GameObject.FindGameObjectsWithTag("Planet"))
+            {
+                solidBodies.Add(planet.GetComponent<BodyProperties>());
+            }
+            foreach (GameObject belt in GameObject.FindGameObjectsWithTag("Belt"))
+            {
+                belts.Add(belt.GetComponent<BeltProperties>());
+            }
+
+            systemProperties.systemAge = stellarBodies[0].Age;
+
+            // Save the System Properties to the JSON file
+            JsonUtils.SerializeToJsonFile(systemProperties, systemProperties.seedInput);
+        }
+        public void LoadSystem()
+        {
+            // Load the System Properties from the JSON file
+            systemProperties = JsonUtils.DeserializeFromJsonFile<SystemProperties>(systemFile);
+
+            foreach (StarProperties star in systemProperties.stellarBodies)
+            {
+                // Instantiate the star prefab and set its properties
+                GameObject starObject = Instantiate(starPrefab) as GameObject;
+                starObject.GetComponent<StarManager>().star = star;
+                starObject.GetComponent<StarManager>().SetStarProperties();
+                starObject.GetComponent<StarManager>().FindParent();
+                starObject.GetComponent<StarManager>().RecalculateColour();
+            }
+            foreach (BodyProperties planet in systemProperties.solidBodies)
+            {
+                // Instantiate the planet prefab and set its properties
+                GameObject planetObject = Instantiate(planetPrefab) as GameObject;
+                planetObject.GetComponent<BodyManager>().body = planet;
+                planetObject.GetComponent<BodyManager>().ApplyData();
+                planetObject.GetComponent<BodyManager>().FindParent();
+            }
+            foreach (BeltProperties belt in systemProperties.belts)
+            {
+                // Instantiate the belt prefab and set its properties
+                GameObject beltObject = Instantiate(beltPrefab) as GameObject;
+                beltObject.GetComponent<BeltManager>().belt = beltObject;
+                beltObject.GetComponent<BeltManager>().ApplyData();
+                beltObject.GetComponent<BeltManager>().FindParent();
             }
         }
-
-        /// <summary>
-        /// Removes a child body from the list by its seed value.
-        /// </summary>
-        /// <param name="seedValue">The seed value of the body to be removed</param>
-        /// <returns>The removed body if found, otherwise null</returns>
-        public BaseProperties RemovePlanet(int seedValue)
-        {
-            // Find the body with the matching seedValue
-            PlanetProperties bodyToRemove = Body.ChildBodies.FirstOrDefault(child => child.SeedValue == seedValue);
-
-            if (bodyToRemove != null)
-            {
-                // Remove the found body from the list
-                Body.ChildBodies.Remove(bodyToRemove);
-                return bodyToRemove;
-            }
-            else
-            {
-                Logger.LogWarning(GetType().Name, $"Child body {seedValue} not found.");
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Adds a new child body to the list of child bodies.
-        /// </summary>
-        /// <param name="newChild">The new body to be added to the child list</param>
-        public void AddBelt(BeltProperties newChild)
-        {
-            // Check if a body with the same seedValue isn't already present
-            if (!Body.Belts.Any(child => child.SeedValue == newChild.SeedValue))
-            {
-                Body.Belts.Add(newChild);
-            }
-        }
-
-        /// <summary>
-        /// Removes a child body from the list by its seed value.
-        /// </summary>
-        /// <param name="seedValue">The seed value of the body to be removed</param>
-        /// <returns>The removed body if found, otherwise null</returns>
-        public BeltProperties RemoveBelt(int seedValue)
-        {
-            // Find the body with the matching seedValue
-            BeltProperties bodyToRemove = Body.Belts.FirstOrDefault(child => child.SeedValue == seedValue);
-
-            if (bodyToRemove != null)
-            {
-                // Remove the found body from the list
-                Body.Belts.Remove(bodyToRemove);
-                return bodyToRemove;
-            }
-            else
-            {
-                Logger.LogWarning(GetType().Name, $"Child body {seedValue} not found.");
-                return null;
-            }
-        }*/
     }
 }

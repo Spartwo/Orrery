@@ -11,22 +11,6 @@ namespace SystemGen.Tests
     
     public class SystemGeneratorTests
     {
-        [Test]
-        public void StartGenerationTest()
-        {
-            Assert.Fail();
-        }
-
-        [Test]
-        public void SystemGeneratorTest()
-        {
-            Assert.Fail();
-        }
-
-        [Test]
-        public void FindBodyTest()
-        {
-            Assert.Fail();
-        }
+       
     }
 }

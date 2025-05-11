@@ -17,6 +17,7 @@ using System.Linq;
 using UnityEditor.PackageManager.UI;
 using UnityEngine.Profiling;
 using System.Buffers;
+using System.Numerics;
 
 namespace SystemGen
 {
@@ -162,6 +163,7 @@ namespace SystemGen
             // Produce a belt within the given paramaters
             OrbitalProperties orbit = PhysicsUtils.ConstructOrbitProperties(seedValue, position, 0, 0);
             BeltProperties kuiperBelt = BeltGen.Generate(seedValue, star, orbit, beltMass, lowerEdge, upperEdge);
+            kuiperBelt.Parent = star.SeedValue;
 
             return kuiperBelt;
         }
@@ -227,7 +229,7 @@ namespace SystemGen
         private static List<BodyProperties> GeneratePlanetsFromPositions(StarProperties star, int seed, int count, List<float> positions, float eccentricity, float inclination, float metalicity, PlanetOrder planetOrder, decimal solidMass, float solidsFraction, decimal diskMass)
         {
             int minCount = Math.Min(count, positions.Count);
-            Logger.Log("System Generation", $"Generating Planets");
+            Logger.Log("System Generation", $"Generating Planets for {star.SeedValue}");
 
             List<BodyProperties> planets = new List<BodyProperties>();
 
@@ -246,19 +248,12 @@ namespace SystemGen
             // Select the positions that will be populated
             List<float> availablePositions = new List<float>(positions);
             List<float> selectedPositions = new List<float>(minCount);
-            try
+            
+            for (int i = 0; i < minCount; i++)
             {
-                for (int i = 0; i < minCount; i++)
-                {
-                    int index = RandomUtils.RandomInt(0, availablePositions.Count -1, seed + i);
-                    selectedPositions.Add(availablePositions[index]);
-                    availablePositions.RemoveAt(index);
-                }
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                Debug.LogError($"Error selecting positions: {e.Message}");
-                throw;
+                int index = RandomUtils.RandomInt(0, availablePositions.Count -1, seed + i);
+                selectedPositions.Add(availablePositions[index]);
+                availablePositions.RemoveAt(index);
             }
 
             // Generate the required planets and slot into those positions

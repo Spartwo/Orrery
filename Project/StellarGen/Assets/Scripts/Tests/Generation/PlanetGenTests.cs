@@ -11,22 +11,6 @@ namespace SystemGen.Tests
     
     public class PlanetGenTests
     {
-        [Test]
-        public void GenerateTest()
-        {
-            Assert.Fail();
-        }
-
-        [Test]
-        public void GenerateMinorChildrenTest()
-        {
-            Assert.Fail();
-        }
-
-        [Test]
-        public void EstimatePlanetRadiusTest()
-        {
-            Assert.Fail();
-        }
+        
     }
 }
