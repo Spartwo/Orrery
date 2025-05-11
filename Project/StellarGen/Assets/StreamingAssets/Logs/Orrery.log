@@ -1,4 +1,5 @@
-[02:21:44 LOG] Application: Program Initialised
-[02:21:44 LOG] System Generation: Sols Mass: 1.723955
-[02:21:45 LOG] SystemGenerator: System Age: 1.708bY
-[02:21:45 LOG] SystemGenerator: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Greg.json
+[10:39:36 WARNING] TestComponent: Potential issue
+[10:39:39 LOG] System Generation: Assigning Orbital Colours
+[10:39:39 LOG] System Generation: Generating Body Names
+[10:39:39 LOG] System Generation: System Age: 9.694bY
+[10:39:39 LOG] I/O: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/MySeed.json

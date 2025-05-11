@@ -35,19 +35,19 @@ public static class Logger
     }
 
     // Log an error
-    public static void LogError(string message, string source)
+    public static void LogError(string source, string message)
     {
         Log(source, message, LogLevel.ERROR);
     }
 
     // Log a warning
-    public static void LogWarning(string message, string source)
+    public static void LogWarning(string source, string message)
     {
         Log(source, message, LogLevel.WARNING);
     }
 
     // Log a test
-    public static void LogTest(string message, string source)
+    public static void LogTest(string source, string message)
     {
         Log(source, message, LogLevel.TEST);
     }

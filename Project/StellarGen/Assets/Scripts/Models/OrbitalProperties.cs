@@ -1,44 +1,48 @@
+using Newtonsoft.Json;
 using System;
+using StellarGenHelpers;
 
 namespace Models
 {
     // Orbital properties are a subvalue of all bodies
     [Serializable]
+    [JsonObject(MemberSerialization.OptIn)]
     public class OrbitalProperties
     {
-        private decimal semiMajorAxis; // Semi-Major Axis
-        private float eccentricity; // Eccentricity
-        private float longitudeOfAscending; // Longitude of Ascending Node
-        private float inclination; // Inclination
-        private float periArgument; // Argument of Periapsis
+        [JsonProperty("Semi-Major Axis (m)")] private decimal semiMajorAxis; // Semi-Major Axis
+        [JsonProperty("Eccentricity (0-1)")] private float eccentricity; // Eccentricity
+        [JsonProperty("Longitude of Ascending Node")] private float longitudeOfAscending; // Longitude of Ascending Node
+        [JsonProperty("Inclination")] float inclination; // Inclination
+        [JsonProperty("Argument of Periapsis")] private float periArgument; // Argument of Periapsis
 
-        // Constructor
+        private OrbitalProperties() : base() { }
         public OrbitalProperties(decimal semiMajorAxis, float eccentricity, float longitudeOfAscending, float inclination, float periArgument)
         {
-            this.SemiMajorAxis = Math.Max(semiMajorAxis, 1m);
-            this.Eccentricity = Math.Clamp(eccentricity, 0f, 0.9999f); ;
+            this.SemiMajorAxis = Math.Floor(Math.Max(semiMajorAxis, 1m));
+            this.Eccentricity = Math.Clamp(eccentricity, 0f, 0.9999f);
             this.LongitudeOfAscending = longitudeOfAscending;
             this.Inclination = inclination;
             this.PeriArgument = periArgument;
         }
         public string GetInfo()
         {
-            return $"Orbital Properties:\n" +
-                   $"Semi-Major Axis: {SemiMajorAxis} AU\n" +
-                   $"Eccentricity: {Eccentricity}\n" +
-                   $"Inclination: {Inclination}°\n" +
-                   $"Longitude of Ascending Node: {LongitudeOfAscending}°\n" +
-                   $"Argument of Periapsis: {PeriArgument}°";
+            return $"{Settings.LocalisationProvider.GetLocalisedString("#loc_Orbital_Properties")}:\n" +
+                   $"{Settings.LocalisationProvider.GetLocalisedString("#loc_SemiMajorAxis")}: {PhysicsUtils.ConvertToAU(SemiMajorAxis)} AU\n" +
+                   $"{Settings.LocalisationProvider.GetLocalisedString("#loc_Eccentricity")}: {Eccentricity}\n" +
+                   $"{Settings.LocalisationProvider.GetLocalisedString("#loc_Inclination")}: {Inclination}°\n" +
+                   $"{Settings.LocalisationProvider.GetLocalisedString("#loc_LongitudeOfAscendingNode")}: {LongitudeOfAscending}°\n" +
+                   $"{Settings.LocalisationProvider.GetLocalisedString("#loc_ArgumentOfPeriapsis")}: {PeriArgument}°\n";
         }
 
         #region Getter and Setters
-
+        
         public decimal SemiMajorAxis
         {
             get => semiMajorAxis;
-            set => semiMajorAxis = Math.Max(value, 1m);
+            set => semiMajorAxis = Math.Floor(Math.Max(value, 1m));
         }
 
+        
         public float Eccentricity
         {
             get => eccentricity;
@@ -46,18 +50,21 @@ namespace Models
             set => eccentricity = Math.Clamp(value, 0f, 0.9999f);
         }
 
+        
         public float LongitudeOfAscending
         {
             get => longitudeOfAscending;
             set => longitudeOfAscending = value;
         }
 
+        
         public float Inclination
         {
             get => inclination;
             set => inclination = value;
         }
 
+        
         public float PeriArgument
         {
             get => periArgument;

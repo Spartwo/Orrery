@@ -59,6 +59,7 @@ namespace Settings
         {
             Application.targetFrameRate = settings.FrameRateLimit;
             QualitySettings.vSyncCount = settings.VSyncEnabled ? 1 : 0;
+            LocalisationProvider.LoadLoc(settings.GameLanguage);
         }
 
         #region Getters and Setters
@@ -68,6 +69,12 @@ namespace Settings
         {
             get { EnsureLoaded(); return settings.GenerateOnStartup; }
             set { settings.GenerateOnStartup = value; SaveSettings(); }
+        }
+
+        public static float FloatingPointThreshold
+        {
+            get { EnsureLoaded(); return settings.FloatingPointThreshold; }
+            set { settings.FloatingPointThreshold = value; SaveSettings(); }
         }
 
         // --- Graphics Settings ---

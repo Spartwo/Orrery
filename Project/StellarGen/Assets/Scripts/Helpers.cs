@@ -5,13 +5,30 @@ using SystemGen;
 using Newtonsoft.Json;
 using UnityEngine;
 using Random = System.Random;
-using static UnityEngine.Rendering.DebugUI;
 using Models;
+using UnityEditor;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
+using System.Reflection;
+using System.Linq;
 
 namespace StellarGenHelpers
 {
     public static class JsonUtils
     { 
+        // Settings that include type names in the JSON
+        private static readonly JsonSerializerSettings _settings = new JsonSerializerSettings
+        {
+            Formatting = Formatting.Indented,
+            ContractResolver = new DefaultContractResolver
+            {
+                // Include public AND non-public instance members
+                DefaultMembersSearchFlags =
+                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance
+            }
+        };
+
         /// <summary>
         /// Serializes a given object to a JSON file.
         /// </summary>
@@ -20,7 +37,7 @@ namespace StellarGenHelpers
         /// <param name="filePath">The path of the file to save the JSON data.</param>
         public static void SerializeToJsonFile<T>(T data, string filePath)
         {
-            string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(data, _settings);
             File.WriteAllText(filePath, json);
         }
 
@@ -36,7 +53,7 @@ namespace StellarGenHelpers
                 return default;
 
             string json = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<T>(json);
+            return JsonConvert.DeserializeObject<T>(json, _settings);
         }
 
         /// <summary>
@@ -65,7 +82,7 @@ namespace StellarGenHelpers
             }
 
             string json = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<T>(json);
+            return JsonConvert.DeserializeObject<T>(json, _settings);
         }
 
         /// <summary>
@@ -81,6 +98,100 @@ namespace StellarGenHelpers
 
             string json = File.ReadAllText(filePath);
             return JsonConvert.DeserializeObject<List<T>>(json) ?? new List<T>();
+        }
+        
+        /// <summary>
+        /// Reads the given line number from a file and extracts the JSON string value.
+        /// </summary>
+        /// <param name="filePath">Path to the .loc (or any JSON) file.</param>
+        /// <param name="lineNumber">1-based line index to read.</param>
+        public static string ReadJsonValueAtLine(string filePath, int lineNumber)
+        {
+            if (lineNumber < 1)
+            {
+                Logger.LogError("JsonUtils", $"Line number must be greater than 0. Provided: {lineNumber}");
+                return "";
+            }
+
+            using var sr = new StreamReader(filePath);
+            string line = null;
+
+            for (int i = 1; i <= lineNumber; i++)
+            {
+                line = sr.ReadLine();
+                if (line == null)
+                    return "";
+            }
+
+            // Extract the colon position
+            int colonIdx = line.IndexOf(':');
+            if (colonIdx < 0)
+                return "";
+
+            // Get the substring after the colon
+            string after = line.Substring(colonIdx + 1).Trim();
+            if (after.EndsWith(","))
+                after = after.Substring(0, after.Length - 1).Trim();
+            if (after.Length >= 2 && after[0] == '"' && after[^1] == '"')
+                return after.Substring(1, after.Length - 2);
+
+            return after;
+        }
+        public static SystemProperties Load(string filePath)
+        {
+            if (!File.Exists(filePath))
+                return null;
+
+            // 1) Read the raw JSON
+            var json = File.ReadAllText(filePath);
+            var jo = JObject.Parse(json);
+
+            // 2) Extract the seed and age (or any other simple fields)
+            string seed = jo["Seed"]?.Value<string>();
+            decimal age = jo["System Age (bYo)"]?.Value<decimal>() ?? 0m;
+
+            // 3) Create your sys-props with the right ctor
+            var system = new SystemProperties(seed);
+            system.systemAge = age;
+
+            // 4) Prepare a populator that will fill private members too
+            var popSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver
+                {
+                    DefaultMembersSearchFlags =
+                        BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance
+                },
+                ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor
+            };
+
+            // 5) Populate the lists
+            PopulateList<StarProperties>(jo, "Stellar Bodies", popSettings, system.stellarBodies);
+            PopulateList<BodyProperties>(jo, "Solid Bodies", popSettings, system.solidBodies);
+            PopulateList<BeltProperties>(jo, "Belts/Rings", popSettings, system.belts);
+
+            return system;
+        }
+
+        private static void PopulateList<T>(
+            JObject source,
+            string arrayName,
+            JsonSerializerSettings settings,
+            List<T> targetList)
+        {
+            targetList.Clear();
+            if (!(source[arrayName] is JArray arr))
+                return;
+
+            // Create a JsonSerializer using your custom settings
+            var serializer = JsonSerializer.Create(settings);
+
+            // Let JSON.NET materialize the List<T> in one go
+            List<T> list = arr.ToObject<List<T>>(serializer);
+
+            // If it succeeded, copy into your existing list
+            if (list != null)
+                targetList.AddRange(list);
         }
 
         [Serializable]
@@ -130,7 +241,7 @@ namespace StellarGenHelpers
         public static int RandomInt(int min, int max, int? seed = null)
         {
             Random random = seed.HasValue ? new Random(seed.Value) : defaultRandom;
-            return random.Next(min, max + 1);
+            return random.Next(min, max);
         }
 
         /// <summary>
@@ -150,10 +261,30 @@ namespace StellarGenHelpers
             // Create a Color object in Unity
             return new Color(r, g, b);  
         }
+
+        /// <summary>
+        /// Generates a seed input value / system file name
+        /// </summary>
+        /// <returns>An input string of the systems seed</returns>
+        public static string GenerateSystemName()
+        {
+            // Import list from a plaintext file
+            string nameGenerationFilePath = $"{Application.streamingAssetsPath}/Localisation/system-names.loc";
+            List<string> systemNameArray = File.ReadAllLines(nameGenerationFilePath).ToList();
+
+            // Choose a random row in the file
+            Random random = new Random();
+            string randName = systemNameArray[random.Next(1, (systemNameArray.Count))];
+            int randNumber = random.Next(1, 1000);
+
+            // Format the output as [RandName RandNumber]
+            Logger.Log("RandomUtils", $"System Name: {randName}-{randNumber}");
+            return $"{randName}-{randNumber}";
+        }
     }
 
     // Folks get confused if theres a U
-    public static class ColorUtils
+    public static class ColourUtils
     {
         /// <summary>
         /// Converts user RGB values to a unity colour
@@ -176,8 +307,8 @@ namespace StellarGenHelpers
         /// <returns>A Unity Color object created from the RGB values.</returns>
         public static Color ArrayToColor(int[] rgb, int? a = null)
         {
-            // If 'a' is not provided (null), default to 1f
-            float alpha = a ?? 1f;
+            // If 'a' is not provided (null), default to 255 alpha
+            float alpha = a ?? 255f;
             // Return a color made from the RGB elements of the array
             return new Color(rgb[0]/255f, rgb[1]/255f, rgb[2]/255f, alpha/255);
         }
@@ -252,8 +383,7 @@ namespace StellarGenHelpers
             // Load the PNG file as a byte array
             byte[] fileData = File.ReadAllBytes("Assets/Materials/gradient.png");
 
-
-            Texture2D texture = new Texture2D(2, 2);
+            Texture2D texture = new Texture2D(1000, 1);
             if (!texture.LoadImage(fileData))
             {
                 Logger.LogError("PhysicsUtils", "Failed to load PNG file.");
@@ -271,14 +401,29 @@ namespace StellarGenHelpers
             }
 
             // Scale the temperature to the image index range (0 to imageWidth - 1)
-            int pixelIndex = (temperature - 1000) / (11000 - 1000) * (imageWidth - 1);
+            int pixelIndex = (int)((temperature - 1000f) / (11000f - 1000f) * (imageWidth - 1));
 
             // Extract all pixels from the texture
             Color[] colors = texture.GetPixels();
 
             // Return the corresponding color
             return colors[pixelIndex];
+        }
 
+        /// <summary>
+        /// Calcualtes the ambient temperature at a given distance from a star using the Stefan-Boltzmann law.
+        /// </summary>
+        /// <param name="star">The star object containing its properties.</param>
+        /// <param name="orbit">The orbital properties of the body.</param>
+        /// <returns>A kelvin temperature in short format</returns>
+        public static short CalculateBodyTemperature(StarProperties star, OrbitalProperties orbit)
+        {
+            // Calculate the distance from the star in AU
+            float distance = ConvertToAU(orbit.SemiMajorAxis);
+            // Calculate the temperature
+            //float temperature = (float)Math.Sqrt(star.BaseLuminosity / (4 * Mathf.PI * Mathf.Pow(distance, 2)));
+            short temperature = (short)(279.25f * Math.Pow(star.BaseLuminosity / Math.Pow(distance, 2), 0.25f));
+            return temperature;
         }
 
         /// <summary>
@@ -307,9 +452,9 @@ namespace StellarGenHelpers
         /// </summary>
         /// <param name="A">The body for which the Hill Sphere is being calculated.</param>
         /// <param name="B">The body for which is being orbited.</param>
-        /// <param name="distance">The distance between the checked body and A</param>
+        /// <param name="distance">The distance between the checked body</param>
         /// <returns>True if the orbit is stable, otherwise false.</returns>
-        public static bool CheckOrbit(BodyProperties A, BodyProperties B, decimal distance)
+        public static bool CheckOrbit(BaseProperties A, BaseProperties B, decimal distance)
         {
             // Calculate the semi-minor axis using the formula b = a⋅/1−e^2
             decimal semiMinorAxis = (A.Orbit.SemiMajorAxis * (decimal)Math.Sqrt(1 - Math.Pow(A.Orbit.Eccentricity, 2)));
@@ -326,11 +471,123 @@ namespace StellarGenHelpers
         /// </summary>
         /// <param name="A">The body for which the Hill Sphere is being calculated.</param>
         /// <param name="B">The body for which is being orbited.</param>
-        /// <param name="distance">The distance between the body and its parent in AU.</param>
+        /// <param name="distance">The distance between the body and its parent in m</param>
         /// <returns>The radius of the body's Hill Sphere</returns>
-        public static decimal CalculateHillSphere(BodyProperties A, BodyProperties B, decimal distance)
+        public static decimal CalculateHillSphere(BaseProperties A, BaseProperties B, decimal distance)
         {
-            return distance * (decimal)(B.Mass / (3 * A.Mass));
+            return distance * DecimalPow(B.Mass / (3 * A.Mass), (1/3));
+        }
+
+        /// <summary>
+        /// Calculates if a given object is within the Roche limit of its parent body.
+        /// </summary>
+        /// <param name="A">The body for which the roche is being calculated.</param>
+        /// <param name="B">The body for which is being orbited.</param>
+        /// <param name="distance">The distance between the body and its parent in mm</param>
+        /// <returns>The radius of the body's Hill Sphere</returns>
+        public static decimal CalculateRoche(BodyProperties A, BodyProperties B, decimal distance)
+        {
+            float rocheCoefficient = A.Composition.CalculateRocheCoefficient();
+
+            decimal rocheLimitMeters = (decimal)(B.Radius * rocheCoefficient * Math.Pow(B.Composition.CalculateDensity() / A.Composition.CalculateDensity(), 1f / 3f));
+
+            return rocheLimitMeters;
+        }
+
+        /// <summary>
+        /// Converts an SMA value in AU to a metre value
+        /// </summary>
+        public static decimal ConvertToMetres(float SMAInput)
+        {
+            try
+            {
+                return (decimal)(SMAInput) * PhysicalConstants.AU_TO_METERS;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Helpers", $"ConvertToMetres: An error occurred during conversion. {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Converts an SMA value in metres to AU
+        /// </summary>
+        public static float ConvertToAU(decimal SMAInput)
+        {
+            try
+            {
+                return (float)(SMAInput / PhysicalConstants.AU_TO_METERS);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Helpers", $"ConvertToAU: An error occurred during conversion. {ex.Message}");
+                throw;
+            }
+        }
+        
+        /// <summary>
+        /// Converts a sol mass to standard values
+        /// </summary>
+        public static decimal SolMassToRaw(float solMass)
+        {
+            try
+            {
+                return (decimal)(solMass * PhysicalConstants.SOLAR_MASS);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Helpers", $"SolMassToRaw: An error occurred during conversion. {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Converts standard mass values to sol mass
+        /// </summary>
+        public static float RawToSolMass(decimal RawMass)
+        {
+            try
+            {
+                return (float)((double)RawMass / PhysicalConstants.SOLAR_MASS);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Helpers", $"RawToSolMass: An error occurred during conversion. {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Converts a earth mass to standard values
+        /// </summary>
+        public static decimal EarthMassToRaw(float earthMass)
+        {
+            try
+            {
+                return (decimal)(earthMass * PhysicalConstants.EARTH_MASS);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Helpers", $"EarthMassToRaw: An error occurred during conversion. {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Converts standard mass values to earth masses
+        /// </summary>
+        public static float RawToEarthMass(decimal RawMass)
+        {
+            try
+            {
+                return (float)((double)RawMass / PhysicalConstants.EARTH_MASS);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("Helpers", $"RawToEarthMass: An error occurred during conversion. {ex.Message}");
+                throw;
+            }
         }
 
         /// <summary>
@@ -370,9 +627,12 @@ namespace StellarGenHelpers
             // Create new OrbitData Instance
             OrbitalProperties orbit = new OrbitalProperties(semiMajorAxis, eccentricity, longitudeOfAscending, inclination, periArgument);
 
-            Logger.Log("System Generation", $"Produced orbit {orbit.ToString()}");
-
             return orbit;
+        }
+
+        internal static OrbitalProperties ConstructOrbitProperties(decimal v1, float v2, float v3, float v4, float v5)
+        {
+            throw new NotImplementedException();
         }
     }
 }

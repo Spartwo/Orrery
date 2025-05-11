@@ -1,12 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using Settings;
 
 
 
 public class FloatingPointManager : MonoBehaviour
 {
-    [SerializeField] [Range(100f, 3000f)] private float Threshold; //0.5AU
+    [SerializeField] [Range(100f, 3000f)] private float Threshold;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        //set the threshold to the current camera position
+        Threshold = GlobalSettings.FloatingPointThreshold;
+    }
+
     void LateUpdate()
     {
         Vector3 CameraPosition = this.transform.position;
@@ -24,7 +33,7 @@ public class FloatingPointManager : MonoBehaviour
                     g.transform.position -= CameraPosition;
                 }
             }
-            Logger.Log(GetType().Name, "recentering origin" );
+            Logger.Log(GetType().Name, "Recentering Origin" );
         }
 
     }

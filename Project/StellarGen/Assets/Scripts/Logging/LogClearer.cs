@@ -1,7 +1,6 @@
 
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering.HighDefinition;
 
 public class LogManager : MonoBehaviour
 {

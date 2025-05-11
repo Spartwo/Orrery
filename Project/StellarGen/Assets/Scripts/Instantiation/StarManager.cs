@@ -1,64 +1,115 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine.UI;
-using TMPro;
 using System.IO;
 using System.Linq;
+using StellarGenHelpers;
+using Models;
+using SystemGen;
 
 public class StarManager : MonoBehaviour
 {
-    /*
+    public StarProperties star;
 
-    // set boundaries of various visible temperature zones
-    float CenterLine = Mathf.Sqrt(Luminosity);
-    float AridLine = CenterLine * 0.95f;
-    float OuterHabitableLine = CenterLine * 1.35f;
-    float FrostLine = CenterLine * 4.8f;
-    float Heliopause = CenterLine * 75f;
+    decimal InnerLine, AridLine, CentreLine, OuterHabitableLine, FrostLine;
 
-    
-    int BoundScale = 250;
-        //set radiation zone bounds
-        transform.GetChild(1).GetChild(3).localScale = new Vector3(Heliopause * BoundScale, Heliopause * BoundScale, Heliopause * BoundScale);
-        //set arid zone bounds
-        transform.GetChild(1).GetChild(2).localScale = new Vector3(AridLine * BoundScale, AridLine * BoundScale, AridLine * BoundScale);
-        //set habitable zone bounds
-        transform.GetChild(1).GetChild(1).localScale = new Vector3(OuterHabitableLine * BoundScale, OuterHabitableLine * BoundScale, OuterHabitableLine * BoundScale);
-        //set frost line bounds
-        transform.GetChild(1).GetChild(0).localScale = new Vector3(FrostLine * BoundScale, FrostLine * BoundScale, FrostLine * BoundScale);
-        //point the indicators towards the camera
-        transform.GetChild(1).transform.LookAt(GameObject.Find("MainCam").transform.position);
+    [SerializeField] GameObject AridDisk, HabitableDisk, FrostDisk, StarIndicators;
+
+    public StarManager(StarProperties star)
+    {
+        this.star = star;
+
+    }
+
+    public void Update()
+    {
+        // Point the indicators towards the camera
+        StarIndicators.transform.LookAt(GameObject.Find("Main_Camera").transform.position);
+    }
+
+    public void CalculateLines()
+    {
+        // Set boundaries of various visible temperature zones
+        CentreLine = PhysicsUtils.ConvertToMetres((float)Math.Sqrt(star.Luminosity));
+        AridLine = decimal.Multiply(CentreLine,  0.95m);
+        OuterHabitableLine = decimal.Multiply(CentreLine, 1.35m);
+        FrostLine = decimal.Multiply(CentreLine, 4.8m);
+        InnerLine = star.SublimationRadius;
+    }
+
+    public void RecalculateColour()
+    {
+        Color color = PhysicsUtils.DetermineSpectralColor(star.Temperature);
+        // Relay to the orbit line
+        star.OrbitLine = ColourUtils.ColorToArray(color);
+
+        // Get the Renderer component from the new cube
+        Renderer stellarSurface = transform.GetChild(0).GetComponent<Renderer>();
+        // Call SetColor using the shader property name "_Color" and setting the color to red
+        stellarSurface.material.SetColor("_Color", color);
+        stellarSurface.material.SetColor("_EmissionColor", color);
+
+
+        // Set light properties
+        Light starlight = transform.GetChild(2).GetComponent<Light>();
+        starlight.range = (float)(FrostLine * 30);
+        starlight.color = color;
+    }
+
+    public void SetStarProperties()
+    {
+        // Pame the root object after the stars unique idenfitier
+        gameObject.name = star.SeedValue.ToString();
+
+        CalculateLines();
+
+        int boundScale = 250;
+        float innerLine = PhysicsUtils.ConvertToAU(InnerLine) * boundScale;
+        float frostLine = PhysicsUtils.ConvertToAU(FrostLine) * boundScale;
+        float habitableLine = PhysicsUtils.ConvertToAU(OuterHabitableLine) * boundScale;
+        float aridLine = PhysicsUtils.ConvertToAU(AridLine) * boundScale;
+
+        Debug.Log($"Star {star.Name} has a habitable zone of {habitableLine} AU, an arid zone of {aridLine} AU, and a frost line of {frostLine} AU.");
+
+        // Set radiation zone bounds
+        //transform.GetChild(1).GetChild(3).localScale = new Vector3(innerLine, innerLine, innerLine);
+        // Set arid zone bounds
+        AridDisk.transform.localScale = new Vector3(aridLine, aridLine, aridLine);
+        // Set habitable zone bounds
+        HabitableDisk.transform.localScale = new Vector3(habitableLine, habitableLine, habitableLine);
+        // Set frost line bounds
+        FrostDisk.transform.localScale = new Vector3(frostLine, frostLine, frostLine);
         
 
 
-        //Get the Renderer component from the new cube
-        var StellarSurfaceTemp = transform.GetChild(0).GetComponent<Renderer>();
-        //Call SetColor using the shader property name "_Color" and setting the color to red
-        StellarSurfaceTemp.material.SetColor("_Color", StellarSurface);
-        StellarSurfaceTemp.material.SetColor("_EmissionColor", StellarSurface);
+        float diameter = star.Radius * 2;
 
-        //set light properties
-        Light Starlight = transform.GetChild(2).GetComponent<Light>();
-        Starlight.range = FrostLine*BoundScale*20;
-        Starlight.color = StellarSurface;
+        // set size of the star itself relative to earth=1
+        transform.GetChild(0).localScale = new Vector3(diameter * 10.9f, diameter * 10.9f, diameter * 10.9f);
+        // set size of double click collider
+        transform.GetComponent<SphereCollider>().radius = diameter*109f;
+        // All bodies are weighed where 1 = Earth
+        float massInEarth = PhysicsUtils.RawToEarthMass(star.Mass);
+        // get rigidbody and apply the mass
+        transform.GetComponent<Rigidbody>().mass = massInEarth;
+    }
+    public void FindParent()
+    {
+        // Find the parent object of the body
+        if (star.Parent != 0)
+        {
+            int parentID = star.Parent;
+            // Find the parent object by its ID
+            GameObject parentObject = GameObject.Find(parentID.ToString());
 
-        //set size of the star itself relative to earth=1
-        transform.GetChild(0).localScale = new Vector3(Diameter * 10.9f, Diameter * 10.9f, Diameter * 10.9f);
-        //set size of double click collider
-        transform.GetComponent<SphereCollider>().radius = Diameter*109f;
-        //All bodies are weighed where 1 = Earth
-        float MassInEarth = StarMass * 333030;
-        //get rigidbody and apply the mass
-        transform.GetComponent<Rigidbody>().mass = MassInEarth;
-        try {
-            //apply the mass to the shared barycentre
-            GameObject.Find(StarSearchTerm + "_FOCUS").GetComponent<Rigidbody>().mass = MassInEarth;
-        } catch {
-            //single body systems will catch
+            if (parentObject != null)
+            {
+                transform.SetParent(parentObject.transform, false);
+                transform.GetComponent<Orbiter>().LoadOrbit(star.Orbit, transform.parent, star.OrbitLine);
+            }
         }
-    } 
-    */
 
-    
+    }
 }

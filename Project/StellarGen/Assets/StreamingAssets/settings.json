@@ -1,10 +1,12 @@
 {
   "GenerateOnStartup": true,
+  "FloatingPointThreshold": 500,
   "EnableScanlines": false,
   "EnableFlicker": false,
   "EnableGlow": true,
   "ColorPalette": "Default",
   "FrameRateLimit": 60,
   "VSyncEnabled": true,
-  "ShowDebugLogs": false
+  "ShowDebugLogs": false,
+  "GameLanguage": "en-ie"
 }

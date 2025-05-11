@@ -8,6 +8,7 @@ namespace Settings
     {
         // Generation settings
         public bool GenerateOnStartup { get; set; } = true;
+        public float FloatingPointThreshold { get; set; } = 1500f;
 
         // Graphics settings
         public bool EnableScanlines { get; set; } = false;
@@ -21,5 +22,9 @@ namespace Settings
 
         // Debug settings
         public bool ShowDebugLogs { get; set; } = false;
+
+        // Name
+        public string GameLanguage { get; set; } = "en-ie";
+
     }
 }
