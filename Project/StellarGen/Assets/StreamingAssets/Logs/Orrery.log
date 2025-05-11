@@ -1,5 +1,122 @@
-[10:39:36 WARNING] TestComponent: Potential issue
-[10:39:39 LOG] System Generation: Assigning Orbital Colours
-[10:39:39 LOG] System Generation: Generating Body Names
-[10:39:39 LOG] System Generation: System Age: 9.694bY
-[10:39:39 LOG] I/O: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/MySeed.json
+[23:13:20 LOG] Application: Program Initialised
+[23:13:20 LOG] StarProperties: Generating Star Properties
+[23:13:21 LOG] System Generation: System Age: 1.897bY
+[23:13:21 LOG] StarProperties: Generating Star Properties
+[23:13:21 LOG] StarProperties: Generating Star Properties
+[23:13:21 LOG] SystemGenerator: Setting Stellar Positions
+[23:13:21 LOG] SystemGenerator: AB Binary Spacing: 682.9742AU
+[23:13:21 LOG] System Generation: Generating Major Bodies
+[23:13:21 LOG] System Generation: Planet Count: 4
+[23:13:21 LOG] System Generation: Star 25799898 order: SIMILAR
+[23:13:21 LOG] System Generation: Generated Kuiper Belt from 19.50373AU to 32.73962AU
+[23:13:21 LOG] System Generation: Selected Positions: 19.50373, 11.47278, 6.748695, 3.969821, 2.335189, 1.37364, 0.8080237, 0.475308, 0.279593, 0.1644664, 0.09674496, 0.0569088, 0.03347576, 0.01969163, 0.01158331
+[23:13:21 LOG] System Generation: Orbital Positions: 15
+[23:13:21 LOG] System Generation: Generating Planets for 25799898
+[23:13:21 LOG] Planet Generation: Generating surface for 4369555
+[23:13:21 LOG] Planet Generation: Generating atmosphere for 4369555
+[23:13:21 LOG] Planet Generation: 4369555 disk draw: 111696452163696000000 max draw: 1527675407176544577124.8000000 disk mult: 0.5126083508410658939416146567
+[23:13:21 LOG] Planet Generation: Atmospheric Pressure: 1 sur/atm(1.172507/17.68333 Masses) at 1.1982946346424 G
+[23:13:21 LOG] Atmosphere Generation: Carbon Dioxide phase is Solid
+[23:13:21 LOG] Planet Generation: Atmospheric Mass: 17.68333 (Base: 1.172507)
+[23:13:21 LOG] Planet Generation: Created Planet at 0.475308 AU
+[23:13:21 LOG] Planet Generation: Generating surface for 16061740
+[23:13:21 LOG] Planet Generation: Generating atmosphere for 16061740
+[23:13:21 LOG] Planet Generation: 16061740 disk draw: 27749613426208500000 max draw: 1527675407176544577124.8000000 disk mult: 0.5126083508410658939416146567
+[23:13:21 LOG] Planet Generation: Atmospheric Pressure: 1 sur/atm(0.3151854/3.513166 Masses) at 0.0348348167963847 G
+[23:13:21 LOG] Atmosphere Generation: Nitrogen phase is Solid
+[23:13:21 LOG] Atmosphere Generation: Oxygen phase is Solid
+[23:13:21 LOG] Atmosphere Generation: Carbon Dioxide phase is Solid
+[23:13:21 LOG] Planet Generation: Atmospheric Mass: 3.513166 (Base: 0.3151854)
+[23:13:21 LOG] Planet Generation: Created Planet at 19.50373 AU
+[23:13:21 LOG] Planet Generation: Generating surface for 4089949
+[23:13:21 LOG] Planet Generation: Generating atmosphere for 4089949
+[23:13:21 LOG] Planet Generation: 4089949 disk draw: 98909621131897000000 max draw: 1527675407176544577124.8000000 disk mult: 0.5126083508410658939416146567
+[23:13:21 LOG] Planet Generation: Atmospheric Pressure: 1 sur/atm(1.04545/15.72834 Masses) at 1.5323092029356 G
+[23:13:21 LOG] Planet Generation: Atmospheric Mass: 15.72834 (Base: 1.04545)
+[23:13:21 LOG] Planet Generation: Created Planet at 0.1644664 AU
+[23:13:21 LOG] Planet Generation: Generating surface for 12836083
+[23:13:21 LOG] Planet Generation: Generating atmosphere for 12836083
+[23:13:21 LOG] Planet Generation: 12836083 disk draw: 27541707777023300000 max draw: 1527675407176544577124.8000000 disk mult: 0.5126083508410658939416146567
+[23:13:21 LOG] Planet Generation: Atmospheric Pressure: 1 sur/atm(0.3129571/3.251289 Masses) at 0.0522265244771941 G
+[23:13:21 LOG] Atmosphere Generation: Nitrogen phase is Solid
+[23:13:21 LOG] Atmosphere Generation: Oxygen phase is Liquid
+[23:13:21 LOG] Atmosphere Generation: Carbon Dioxide phase is Solid
+[23:13:21 LOG] Planet Generation: Atmospheric Mass: 3.251289 (Base: 0.3129571)
+[23:13:21 LOG] Planet Generation: Created Planet at 6.748695 AU
+[23:13:21 LOG] System Generation: Planet Count: 9
+[23:13:21 LOG] System Generation: Star 61471832 order: ORDERED
+[23:13:21 LOG] System Generation: Generated Kuiper Belt from 47.90841AU to 70.09141AU
+[23:13:21 LOG] System Generation: Selected Positions: 47.90841, 28.18142, 16.5773, 9.751354, 5.736091, 3.374171, 1.984806, 1.167533, 0.6867841, 0.4039907, 0.2376416, 0.1397891, 0.08222891
+[23:13:21 LOG] System Generation: Orbital Positions: 13
+[23:13:21 LOG] System Generation: Generating Planets for 61471832
+[23:13:21 LOG] Planet Generation: Generating surface for 6943127
+[23:13:21 LOG] Planet Generation: Generating atmosphere for 6943127
+[23:13:21 LOG] Planet Generation: 6943127 disk draw: 431758805572510000000 max draw: 7443301576463189334000.0000000 disk mult: 2.497584583740416527078719549
+[23:13:21 LOG] Planet Generation: Atmospheric Pressure: 1 sur/atm(4.198359/70.47074 Masses) at 2.75477299899249 G
+[23:13:21 LOG] Planet Generation: Atmospheric Mass: 70.47074 (Base: 4.198359)
+[23:13:21 LOG] Planet Generation: Created Planet at 0.2376416 AU
+[23:13:21 LOG] Planet Generation: Generating surface for 13494125
+[23:13:21 LOG] Planet Generation: Generating atmosphere for 13494125
+[23:13:21 LOG] Planet Generation: 13494125 disk draw: 437008955017090000000 max draw: 7443301576463189334000.0000000 disk mult: 2.497584583740416527078719549
+[23:13:21 LOG] Planet Generation: Atmospheric Pressure: 1 sur/atm(4.246504/72.77086 Masses) at 0.386740076124999 G
+[23:13:21 LOG] Atmosphere Generation: Carbon Dioxide phase is Solid
+[23:13:21 LOG] Planet Generation: Atmospheric Mass: 72.77086 (Base: 4.246504)
+[23:13:21 LOG] Planet Generation: Created Planet at 5.736091 AU
+[23:13:21 LOG] Planet Generation: Generating surface for 6640378
+[23:13:21 LOG] Planet Generation: Generating atmosphere for 6640378
+[23:13:21 LOG] Planet Generation: 6640378 disk draw: 330665305160522000000 max draw: 7443301576463189334000.0000000 disk mult: 2.497584583740416527078719549
+[23:13:21 LOG] Planet Generation: Atmospheric Pressure: 1 sur/atm(3.26426/52.86921 Masses) at 2.68839235540697 G
+[23:13:21 LOG] Planet Generation: Atmospheric Mass: 52.86921 (Base: 3.26426)
+[23:13:21 LOG] Planet Generation: Created Planet at 0.1397891 AU
+[23:13:21 LOG] Planet Generation: Generating surface for 12395746
+[23:13:21 LOG] Planet Generation: Generating atmosphere for 12395746
+[23:13:21 LOG] Planet Generation: 12395746 disk draw: 391064987396240000000 max draw: 7443301576463189334000.0000000 disk mult: 2.497584583740416527078719549
+[23:13:21 LOG] Planet Generation: Atmospheric Pressure: 1 sur/atm(3.824026/61.62316 Masses) at 0.260656914691744 G
+[23:13:21 LOG] Atmosphere Generation: Carbon Dioxide phase is Solid
+[23:13:21 LOG] Planet Generation: Atmospheric Mass: 61.62316 (Base: 3.824026)
+[23:13:21 LOG] Planet Generation: Created Planet at 9.751354 AU
+[23:13:21 LOG] Planet Generation: Generating surface for 6362928
+[23:13:21 LOG] Planet Generation: Generating atmosphere for 6362928
+[23:13:21 LOG] Planet Generation: 6362928 disk draw: 109070488967896000000 max draw: 7443301576463189334000.0000000 disk mult: 2.497584583740416527078719549
+[23:13:21 LOG] Planet Generation: Atmospheric Pressure: 1 sur/atm(1.146485/17.84906 Masses) at 1.29899566671396 G
+[23:13:21 LOG] Planet Generation: Atmospheric Mass: 17.84906 (Base: 1.146485)
+[23:13:21 LOG] Planet Generation: Created Planet at 0.4039907 AU
+[23:13:21 LOG] Planet Generation: Generating surface for 11462717
+[23:13:21 LOG] Planet Generation: Generating atmosphere for 11462717
+[23:13:21 LOG] Planet Generation: 11462717 disk draw: 128743171958923000000 max draw: 7443301576463189334000.0000000 disk mult: 2.497584583740416527078719549
+[23:13:21 LOG] Planet Generation: Atmospheric Pressure: 1 sur/atm(1.34063/18.91003 Masses) at 0.290277566816318 G
+[23:13:21 LOG] Atmosphere Generation: Carbon Dioxide phase is Solid
+[23:13:21 LOG] Planet Generation: Atmospheric Mass: 18.91003 (Base: 1.34063)
+[23:13:21 LOG] Planet Generation: Created Planet at 3.374171 AU
+[23:13:21 LOG] Planet Generation: Generating surface for 57742229
+[23:13:21 LOG] Planet Generation: Generating atmosphere for 57742229
+[23:13:21 LOG] Planet Generation: 57742229 disk draw: 31176937013626100000 max draw: 7443301576463189334000.0000000 disk mult: 2.497584583740416527078719549
+[23:13:21 LOG] Planet Generation: Atmospheric Pressure: 1 sur/atm(0.351787/4.150263 Masses) at 0.0512231798989933 G
+[23:13:21 LOG] Atmosphere Generation: Nitrogen phase is Solid
+[23:13:21 LOG] Atmosphere Generation: Oxygen phase is Solid
+[23:13:21 LOG] Atmosphere Generation: Carbon Dioxide phase is Solid
+[23:13:21 LOG] Planet Generation: Atmospheric Mass: 4.150263 (Base: 0.351787)
+[23:13:21 LOG] Planet Generation: Created Planet at 47.90841 AU
+[23:13:21 LOG] Planet Generation: Generating surface for 10660315
+[23:13:21 LOG] Planet Generation: Generating atmosphere for 10660315
+[23:13:21 LOG] Planet Generation: 10660315 disk draw: 12661539180755600000 max draw: 7443301576463189334000.0000000 disk mult: 2.497584583740416527078719549
+[23:13:21 LOG] Planet Generation: Atmospheric Pressure: 1 sur/atm(0.1503434/0.03443575 Masses) at 0.137957817697518 G
+[23:13:21 LOG] Planet Generation: Atmospheric Mass: 0.03443575 (Base: 0.1503434)
+[23:13:21 LOG] Planet Generation: Created Planet at 1.984806 AU
+[23:13:21 LOG] Planet Generation: Generating surface for 41867521
+[23:13:21 LOG] Planet Generation: Generating atmosphere for 41867521
+[23:13:21 LOG] Planet Generation: 41867521 disk draw: 19876671668052700000 max draw: 7443301576463189334000.0000000 disk mult: 2.497584583740416527078719549
+[23:13:21 LOG] Planet Generation: Atmospheric Pressure: 1 sur/atm(0.2300676/3.068215 Masses) at 0.0507123316595375 G
+[23:13:21 LOG] Atmosphere Generation: Nitrogen phase is Liquid
+[23:13:21 LOG] Atmosphere Generation: Oxygen phase is Liquid
+[23:13:21 LOG] Atmosphere Generation: Carbon Dioxide phase is Solid
+[23:13:21 LOG] Planet Generation: Atmospheric Mass: 3.068215 (Base: 0.2300676)
+[23:13:21 LOG] Planet Generation: Created Planet at 28.18142 AU
+[23:13:21 LOG] System Generation: Generating Minor Bodies
+[23:13:21 LOG] SystemGenerator: Resolving Unstable Orbits
+[23:13:21 LOG] System Generation: Assigning Orbital Colours
+[23:13:21 LOG] System Generation: Generating Body Names
+[23:13:21 LOG] System Generation: System Age: 1.897bY
+[23:13:21 LOG] StarProperties: Generating Star Properties
+[23:13:21 LOG] StarProperties: Generating Star Properties
+[23:13:21 LOG] I/O: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Greg.json

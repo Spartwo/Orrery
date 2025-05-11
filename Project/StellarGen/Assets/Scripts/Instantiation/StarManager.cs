@@ -71,7 +71,7 @@ public class StarManager : MonoBehaviour
         float habitableLine = PhysicsUtils.ConvertToAU(OuterHabitableLine) * boundScale;
         float aridLine = PhysicsUtils.ConvertToAU(AridLine) * boundScale;
 
-        Debug.Log($"Star {star.Name} has a habitable zone of {habitableLine} AU, an arid zone of {aridLine} AU, and a frost line of {frostLine} AU.");
+        Debug.Log($"Star {star.Name} has a habitable zone of {habitableLine} game metres, an arid zone of {aridLine} game metres, and a frost line of {frostLine} game metres.");
 
         // Set radiation zone bounds
         //transform.GetChild(1).GetChild(3).localScale = new Vector3(innerLine, innerLine, innerLine);

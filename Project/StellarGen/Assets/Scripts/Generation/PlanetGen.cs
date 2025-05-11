@@ -196,14 +196,14 @@ namespace SystemGen
             }
             
             // Remove all elements with 0% presence
-            for (int i = atmosphere.Elements.Count - 1; i >= 0; i--)
+            /*for (int i = atmosphere.Elements.Count - 1; i >= 0; i--)
             {
                 Logger.Log("Atmosphere Generation", $"Element {Settings.LocalisationProvider.GetLocalisedString(atmosphere.Elements[i].Element.Name)} commonality: {atmosphere.Elements[i].Percentile} %");
                 if (atmosphere.Elements[i].Percentile <= 0)
                 {
                     atmosphere.Elements.RemoveAt(i);
                 }
-            }
+            }*/
 
             // Sum Up to 100%
             atmosphere.NormaliseElements();
