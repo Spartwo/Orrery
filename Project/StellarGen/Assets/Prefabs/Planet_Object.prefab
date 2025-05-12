@@ -67,12 +67,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 5072607082546699453}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7654fbd9fae5ef4192b518769760dcc, type: 3}
+  m_Script: {fileID: 11500000, guid: f498a3b94ab9027498147e801eaeae99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  orbit:
+    eccentricity: 0
+    longitudeOfAscending: 0
+    inclination: 0
+    periArgument: 0
   parent: {fileID: 0}
+  meanAnomaly: 0
   meanLongitude: 0
   orbitResolution: 0
+  colorStart: {r: 0, g: 0, b: 0, a: 0}
+  colorEnd: {r: 0, g: 0, b: 0, a: 0}
   mu: 0
   n: 0
   cosLOAN: 0
@@ -92,6 +100,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0fdef7b47f0bbc4bbd0cffbb62828c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  body:
+    seedValue: 0
+    parent: 0
+    name: Unnamed Body
+    customName: 0
+    orbitLine: ff000000ff000000ff000000
+    orbit:
+      eccentricity: 0
+      longitudeOfAscending: 0
+      inclination: 0
+      periArgument: 0
+    rotation:
+      siderealDayLength: 24
+      axialTilt: 0
+    composition:
+      rock: 0
+      ice: 0
+      metals: 0
+    radius: 0
   parentObject: {fileID: 0}
   bodyName: 
   rotationRate: 0

@@ -165,9 +165,11 @@ namespace Models
     [Serializable]
     public class AtmosphereElement
     {
+        [SerializeField]
         [JsonProperty("Element")]
         public Element Element { get; }
 
+        [SerializeField]
         [JsonProperty("Percentile")]
         public short Percentile { get; set; }
 
@@ -184,12 +186,12 @@ namespace Models
     [JsonObject(MemberSerialization.OptIn)]
     public class Element
     {
-        public float MolarMass { get; }     // Molar mass in g/mol
-        public float FreezingPoint { get; } // Freezing point in Kelvin at 1 atm
-        public float BoilingPoint { get; }  // Boiling point in Kelvin at 1 atm
-        public float GasConstant { get; }   // R gas constant in J/(kg·K)
-        public float LatentHeat { get; }    // J/mol (required for phase calc)
-        [JsonProperty] public string Name { get; } // Localization association as a string
+        [SerializeField] public float MolarMass { get; }     // Molar mass in g/mol
+        [SerializeField] public float FreezingPoint { get; } // Freezing point in Kelvin at 1 atm
+        [SerializeField] public float BoilingPoint { get; }  // Boiling point in Kelvin at 1 atm
+        [SerializeField] public float GasConstant { get; }   // R gas constant in J/(kg·K)
+        [SerializeField] public float LatentHeat { get; }    // J/mol (required for phase calc)
+        [SerializeField] [JsonProperty] public string Name { get; } // Localization association as a string
 
         private Element() : base() { }
         public Element(float molarMass, float freezingPoint, float boilingPoint, float gasConstant, float latentHeat, string localisation)

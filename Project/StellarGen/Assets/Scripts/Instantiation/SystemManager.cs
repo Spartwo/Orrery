@@ -21,6 +21,7 @@ namespace SystemGen
         [SerializeField] private Object beltPrefab;
         [SerializeField] private InputField nameField;
         [SerializeField] private GameObject infoField;
+        [SerializeField] private GameObject cameraController;
 
         public void RecieveSystem(string fileAddress, string systemName)
         {
@@ -85,8 +86,8 @@ namespace SystemGen
         }
         public void LoadSystem()
         {
-            // Find all Orbiter components in the loaded scene
-            var orbiters = Object.FindObjectsOfType<Orbiter>();
+            // Find all OrbitManager components in the loaded scene
+            var orbiters = Object.FindObjectsOfType<OrbitManager>();
             foreach (var orb in orbiters)
             {
                 // Destroy the entire GameObject
@@ -96,6 +97,17 @@ namespace SystemGen
             Logger.Log("SystemManager", $"Loading system from {systemFile}");
             // Load the System Properties from the JSON file
             systemProperties = JsonUtils.Load(systemFile);
+
+            // Set the barycentre mass
+            GameObject centreOfMass = GameObject.Find("0");
+            decimal barycentreMass = 0m;
+            // Calculate the sum mass of all the stars
+            foreach (StarProperties star in systemProperties.stellarBodies)
+            {
+                barycentreMass += star.Mass;
+            }
+            // Standardised as earth masses
+            centreOfMass.GetComponent<Rigidbody>().mass = PhysicsUtils.RawToEarthMass(barycentreMass);
 
             foreach (StarProperties star in systemProperties.stellarBodies)
             {

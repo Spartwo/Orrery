@@ -137,6 +137,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4649c041a4235b542a2c789e6e4552c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  star:
+    seedValue: 0
+    parent: 0
+    name: Unnamed Body
+    customName: 0
+    orbitLine: ff000000ff000000ff000000
+    orbit:
+      eccentricity: 0
+      longitudeOfAscending: 0
+      inclination: 0
+      periArgument: 0
+    rotation:
+      siderealDayLength: 24
+      axialTilt: 0
+    radius: 0
+    luminosity: 0
+    temperature: 0
   AridDisk: {fileID: 3449544264639045739}
   HabitableDisk: {fileID: 9067826572075530747}
   FrostDisk: {fileID: 5829382377287995765}
@@ -198,12 +215,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1134470411669408219}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7654fbd9fae5ef4192b518769760dcc, type: 3}
+  m_Script: {fileID: 11500000, guid: f498a3b94ab9027498147e801eaeae99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  orbit:
+    eccentricity: 0
+    longitudeOfAscending: 0
+    inclination: 0
+    periArgument: 0
   parent: {fileID: 0}
+  meanAnomaly: 0
   meanLongitude: 0
-  orbitResolution: 55
+  orbitResolution: 33
+  colorStart: {r: 0, g: 0, b: 0, a: 0}
+  colorEnd: {r: 0, g: 0, b: 0, a: 0}
   mu: 0
   n: 0
   cosLOAN: 0

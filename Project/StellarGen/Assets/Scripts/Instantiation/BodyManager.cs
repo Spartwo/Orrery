@@ -32,7 +32,7 @@ namespace SystemGen
         void RotateBody()
         {
             //rotation of body
-            float rotationRate = GameObject.Find("Barycenter").GetComponent<Timekeep>().GameSpeed;
+            float rotationRate = GameObject.Find("Barycenter").GetComponent<Timekeep>().gameSpeed;
             transform.Rotate(0, (rotationRate / 300) / (600 * Time.deltaTime), 0);
             
         }
@@ -40,23 +40,14 @@ namespace SystemGen
         public void FindParent()
         {
             // Find the parent object of the body
-            if (body.Parent != 0)
+            if (body.Parent != null)
             {
                 int parentID = body.Parent;
                 // Find the parent object by its ID
                 GameObject parentObject = GameObject.Find(parentID.ToString());
 
-                if (parentObject != null)
-                {
-                    transform.SetParent(parentObject.transform, false);
-                    transform.GetComponent<Orbiter>().LoadOrbit(body.Orbit, transform.parent, body.OrbitLine);
-                }
-            }
-            else
-            {
-                // If no parent, set the star as the root object
-                transform.SetParent(GameObject.Find("BarryCentra").transform);
-                transform.GetComponent<Orbiter>().LoadOrbit(body.Orbit, null, body.OrbitLine);
+                transform.SetParent(parentObject.transform, false);
+                transform.GetComponent<OrbitManager>().LoadOrbit(body.Orbit, transform.parent, body.OrbitLine);
             }
         }
 

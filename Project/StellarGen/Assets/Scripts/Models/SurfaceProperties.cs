@@ -139,7 +139,7 @@ namespace Models
             }
         }
 
-        
+        [SerializeField]
         public decimal TotalSolidMass
         {
             get => totalSolidMass;

@@ -100,25 +100,27 @@ namespace SystemGen
         public void FindParent()
         {
             // Find the parent object of the body
-            if (star.Parent != 0)
+            if (star.Parent != null)
             {
                 int parentID = star.Parent;
                 // Find the parent object by its ID
                 GameObject parentObject = GameObject.Find(parentID.ToString());
 
-                if (parentObject != null)
-                {
-                    transform.SetParent(parentObject.transform, false);
-                    transform.GetComponent<Orbiter>().LoadOrbit(star.Orbit, transform.parent, star.OrbitLine);
-                }
+                transform.SetParent(parentObject.transform, false);
+                transform.GetComponent<OrbitManager>().LoadOrbit(star.Orbit, transform.parent, star.OrbitLine);
             }
-            else
-            {
-                // If no parent, set the star as the root object
-                transform.SetParent(GameObject.Find("BarryCentra").transform);
-                transform.GetComponent<Orbiter>().LoadOrbit(star.Orbit, null, star.OrbitLine);
-            }
-
         }
+
+        #region UI Stuff
+
+        public void DisplayInfo()
+        {
+            // Get the UI text component
+            SystemManager infoController = GameObject.Find("Game_Conroller").GetComponent<SystemManager>();
+            // Set the text to display the star's information
+            infoController.SetInfoBox(star.GetInfo());
+        }
+
+        #endregion
     }
 }

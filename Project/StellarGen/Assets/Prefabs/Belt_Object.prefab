@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5072607082546699450}
   - component: {fileID: 7802989336583964177}
-  - component: {fileID: 8231279590661261489}
   - component: {fileID: 4304417800702647218}
   - component: {fileID: 5770722375739623162}
   - component: {fileID: 3345246828276078920}
@@ -58,28 +57,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8231279590661261489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5072607082546699453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7654fbd9fae5ef4192b518769760dcc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  meanLongitude: 0
-  orbitResolution: 0
-  mu: 0
-  n: 0
-  cosLOAN: 0
-  sinLOAN: 0
-  sinI: 0
-  cosI: 0
-  trueAnomalyConstant: 0
 --- !u!114 &4304417800702647218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +69,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0fdef7b47f0bbc4bbd0cffbb62828c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  body:
+    seedValue: 0
+    parent: 0
+    name: Unnamed Body
+    customName: 0
+    orbitLine: ff000000ff000000ff000000
+    orbit:
+      eccentricity: 0
+      longitudeOfAscending: 0
+      inclination: 0
+      periArgument: 0
+    rotation:
+      siderealDayLength: 24
+      axialTilt: 0
+    composition:
+      rock: 0
+      ice: 0
+      metals: 0
+    radius: 0
   parentObject: {fileID: 0}
   bodyName: 
   rotationRate: 0

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,11 +9,12 @@ namespace Universe
     public class Timekeep : MonoBehaviour
     {
         //Gamespeed Variables
-        public float GameSpeed = 1f;
-        public GameObject GameSpeedUI;
+        public float gameSpeed = 1f;
+        public float storedGameSpeed = 1f;
+        public GameObject gameSpeedUI;
         //public GameObject CurrentTimeUI;
-        public float TimeInSeconds;
-        private string CurrentTime;
+        private double timeInSeconds;
+        private string currentTime;
 
         public void Start()
         {
@@ -25,9 +27,10 @@ namespace Universe
         public void SetGameSpeed()
         {
             // Takes slider value and sets as gamespeed
-            GameSpeed = GameObject.Find("Time_Slider").GetComponent<Slider>().value;
-            Time.timeScale = GameSpeed; 
-            GameSpeedUI.GetComponent<Text>().text = GameSpeed.ToString() + "x";
+            gameSpeed = GameObject.Find("Time_Slider").GetComponent<Slider>().value;
+            storedGameSpeed = gameSpeed;
+            Time.timeScale = gameSpeed; 
+            gameSpeedUI.GetComponent<Text>().text = gameSpeed.ToString() + "x";
         }
 
         public void PauseUnpause()
@@ -35,11 +38,11 @@ namespace Universe
             // Method to toggle timescale to 0 when called
             if (Time.timeScale == 0)
             {
-                Time.timeScale = 1;
+                Time.timeScale = storedGameSpeed;
             } else {
                 Time.timeScale = 0;
-                GameSpeedUI.GetComponent<TextMesh>().text = "Paused";
             }
+            Logger.Log("Timekeeping", $"Setting Timescale to {gameSpeed}");
         }
         public void FixedUpdate()
         {
@@ -50,29 +53,34 @@ namespace Universe
 
         void DisplayDate()
         {
-            GameSpeedUI.GetComponent<Text>().text = GameSpeed.ToString() + "x";
-            //CurrentTimeUI.GetComponent<TextMesh>().text = CurrentTime.ToString();
+            gameSpeedUI.GetComponent<Text>().text = gameSpeed.ToString() + "x";
+            //CurrentTimeUI.GetComponent<TextMesh>().text = currentTime.ToString();
         }
 
-        void GameTimer()
+        private void GameTimer()
         {
             // Iterate the game time upwards
-            TimeInSeconds += GameSpeed * Time.deltaTime;
+            timeInSeconds += gameSpeed * Time.deltaTime;
 
             // Get display values from the saveclock
-            int Days = TimeSpan.FromSeconds(TimeInSeconds).Days;
-            int Hours = TimeSpan.FromSeconds(TimeInSeconds).Hours;
-            int Minutes = TimeSpan.FromSeconds(TimeInSeconds).Minutes;
-            int Seconds = TimeSpan.FromSeconds(TimeInSeconds).Seconds;
+            int Days = TimeSpan.FromSeconds(timeInSeconds).Days;
+            int Hours = TimeSpan.FromSeconds(timeInSeconds).Hours;
+            int Minutes = TimeSpan.FromSeconds(timeInSeconds).Minutes;
+            int Seconds = TimeSpan.FromSeconds(timeInSeconds).Seconds;
             // Calculate years as TimeSpan doesn't have that feature
             int Years = Math.DivRem(Days, 365, out Days);
 
-            CurrentTime =
+            currentTime =
                 "T+" + Years.ToString()
                 + "y:" + Days.ToString("000")
                 + "d:" + Hours.ToString("00")
                 + "h:" + Minutes.ToString("00")
                 + "m:" + Seconds.ToString("00") + "s";
+        }
+
+        public BigInteger TimeInSeconds
+        {
+            get { return new BigInteger(timeInSeconds); }
         }
     }
 }

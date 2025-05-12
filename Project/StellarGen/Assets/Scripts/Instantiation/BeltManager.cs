@@ -35,7 +35,7 @@ namespace SystemGen
                 if (parentObject != null)
                 {
                     transform.SetParent(parentObject.transform, false);
-                    transform.GetComponent<Orbiter>().LoadOrbit(belt.Orbit, transform.parent, belt.OrbitLine);
+                    transform.GetComponent<OrbitManager>().LoadOrbit(belt.Orbit, transform.parent, belt.OrbitLine);
                 }
             }
         }

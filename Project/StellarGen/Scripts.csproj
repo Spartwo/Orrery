@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\AssemblyInfo.cs" />
     <Compile Include="Assets\Scripts\Generation\SystemGenerator.cs" />
     <Compile Include="Assets\Scripts\Models\BodyProperties.cs" />
+    <Compile Include="Assets\Scripts\Instantiation\OrbitManager.cs" />
     <Compile Include="Assets\Scripts\Generation\BodyGen.cs" />
     <Compile Include="Assets\Scripts\Instantiation\BodyManager.cs" />
     <Compile Include="Assets\Scripts\Models\BaseProperties.cs" />
@@ -78,7 +79,6 @@
     <Compile Include="Assets\Scripts\Instantiation\SystemManager.cs" />
     <Compile Include="Assets\Scripts\Interface\Timekeep.cs" />
     <Compile Include="Assets\Scripts\Generation\PlanetGen.cs" />
-    <Compile Include="Assets\Scripts\Instantiation\Orbiter.cs" />
     <Compile Include="Assets\Scripts\Settings\GlobalSettings.cs" />
     <Compile Include="Assets\Scripts\Settings\LocalisationProvider.cs" />
     <Compile Include="Assets\Scripts\Instantiation\StarManager.cs" />

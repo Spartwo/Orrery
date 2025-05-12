@@ -9,35 +9,48 @@ using StellarGenHelpers;
 using UnityEditor;
 using Models;
 using Universe;
+using System.Numerics;
+using Vector3 = UnityEngine.Vector3;
 
 
-public class Orbiter : MonoBehaviour
+public class OrbitManager : MonoBehaviour
 {
 
     // Orbital Keplerian Parameters
     [SerializeField] private OrbitalProperties orbit;
     [SerializeField] Transform parent;
-    [SerializeField] private float meanAnomaly;
-    [SerializeField] float meanLongitude;
+    [SerializeField] private double meanAnomaly;
+    [SerializeField] BigInteger meanLongitude;
 
     // Line render values
     LineRenderer orbitRenderer;
     [SerializeField] [Range(0, 360)]  int orbitResolution;
     [SerializeField] Color colorStart;
     [SerializeField] Color colorEnd;
-    private Vector3[] orbitalPoints;
+    private UnityEngine.Vector3[] orbitalPoints;
 
     // Settings
     private float accuracyTolerance = 1e-6f;
     private int maxIterations = 5;           //usually converges after 3-5 iterations.
 
     // Numbers which only change if orbit or mass changes
-    [HideInInspector] [SerializeField] float mu;
-    [HideInInspector] [SerializeField] float n, cosLOAN, sinLOAN, sinI, cosI, trueAnomalyConstant;
+    [HideInInspector] [SerializeField] double mu;
+    [HideInInspector] [SerializeField] double n, cosLOAN, sinLOAN, sinI, cosI, trueAnomalyConstant;
 
    // private void OnValidate() => 
     public void LoadOrbit(OrbitalProperties orbit, Transform parentObject, int[] orbitLine)
-    {   
+    {
+        string parentValue;
+        if (parentObject != null)
+        {
+            parentValue = parentObject.name;
+        }
+        else
+        {
+            parentValue = "null";
+        }
+
+        // Pass the provided orbit and parent object to the class
         parent = parentObject;
         this.orbit = orbit;
 
@@ -51,17 +64,17 @@ public class Orbiter : MonoBehaviour
         colorStart.a = 0f;
         colorEnd = ColourUtils.ArrayToColor(orbitLine);
     }
-    public float F(float E, float e, float M)  //Function f(x) = 0
+    public double F(float E, float e, float M)  //Function f(x) = 0
     {
-        return (float)(M - E + e * Math.Sin(E));
+        return (M - E + e * Math.Sin(E));
     }
-    public float DF(float E, float e)      //Derivative of the function
+    public double DF(float E, float e)      //Derivative of the function
     {
-        return (float)((-1f) + e * Math.Cos(E));
+        return ((-1f) + e * Math.Cos(E));
     }
     public void CalculateSemiConstants()    //Numbers that only need to be calculated once if the orbit doesn't change.
     {
-        mu = (float)(constants.GRAV * parent.gameObject.GetComponent<Rigidbody>().mass);
+        mu = (float)(constants.GRAV * PhysicsUtils.(parent.gameObject.GetComponent<Rigidbody>().mass));
         n = (float)Math.Sqrt(mu / (float)PhysicsUtils.DecimalPow(orbit.SemiMajorAxis, 3));
         trueAnomalyConstant = (float)Math.Sqrt((1 + orbit.Eccentricity) / (1 - orbit.Eccentricity));
         cosLOAN = (float)Math.Cos(orbit.LongitudeOfAscending);
@@ -75,39 +88,47 @@ public class Orbiter : MonoBehaviour
     {
         CalculateSemiConstants();
 
-        float currentTime = transform.root.GetComponent<Timekeep>().TimeInSeconds;
-
-        meanAnomaly = (float)(n * (currentTime - meanLongitude));
-
-        float E1 = meanAnomaly;   //initial guess
-        float difference = 1f;
-        for (int i = 0; difference > accuracyTolerance && i < maxIterations; i++)
-        {
-            float E0 = E1;
-            E1 = E0 - F(E0, orbit.Eccentricity, meanAnomaly) / DF(E0, orbit.Eccentricity);
-            difference = Mathf.Abs(E1 - E0);
-        }
-        float eccentricAnomaly = E1;
-        eccentricAnomalyTrail = E1;
-
-        float trueAnomaly = 2 * Mathf.Atan(trueAnomalyConstant * Mathf.Tan(eccentricAnomaly / 2));
-        float distance = (float)orbit.SemiMajorAxis * (1 - orbit.Eccentricity * Mathf.Cos(eccentricAnomaly));
-
-        float cosAOPPlusTA = Mathf.Cos(orbit.PeriArgument + trueAnomaly);
-        float sinAOPPlusTA = Mathf.Sin(orbit.PeriArgument + trueAnomaly);
-
-        float x = distance * ((cosLOAN * cosAOPPlusTA) - (sinLOAN * sinAOPPlusTA * cosI));
-        float z = distance * ((sinLOAN * cosAOPPlusTA) + (cosLOAN * sinAOPPlusTA * cosI));      //Switching z and y to be aligned with xz not xy
-        float y = distance * (sinI * sinAOPPlusTA);
-
-
-        transform.position = new Vector3(PhysicsUtils.ConvertToAU((decimal)x), PhysicsUtils.ConvertToAU((decimal)y), PhysicsUtils.ConvertToAU((decimal)z))/150f + parent.position;
-
+        // Set the position of the object in the scene
+        CalculatePosition(out float x, out float y, out float z);
+        transform.position = new Vector3(x, y, z)*10f + parent.position;
     }
 
     private void LateUpdate()
     {
         OrbitDraw();
+    }
+
+    private void CalculatePosition(out float x, out float y, out float z)
+    {
+        BigInteger currentTime = transform.root.GetComponent<Timekeep>().TimeInSeconds;
+
+        BigInteger meanAnomalyGuess = BigInteger.Multiply((BigInteger)n, currentTime - meanLongitude);
+
+        float E1 = (float)meanAnomalyGuess;   // Initial guess
+        float difference = 1f;
+        for (int i = 0; difference > accuracyTolerance && i < maxIterations; i++)
+        {
+            float E0 = E1;
+            E1 = (float)(E0 - F(E0, orbit.Eccentricity, E1) / DF(E0, orbit.Eccentricity));
+            difference = Mathf.Abs(E1 - E0);
+        }
+        float eccentricAnomaly = E1;
+        eccentricAnomalyTrail = E1;
+
+        float trueAnomaly = 2 * Mathf.Atan((float)(trueAnomalyConstant * Mathf.Tan(eccentricAnomaly / 2)));
+        decimal distance = orbit.SemiMajorAxis * (decimal)(1 - orbit.Eccentricity * Mathf.Cos(eccentricAnomaly));
+
+        double cosAOPPlusTA = Math.Cos(orbit.PeriArgument + trueAnomaly);
+        double sinAOPPlusTA = Math.Sin(orbit.PeriArgument + trueAnomaly);
+
+        decimal posX = distance * (decimal)((cosLOAN * cosAOPPlusTA) - (sinLOAN * sinAOPPlusTA * cosI));
+        decimal posY = distance * (decimal)((sinLOAN * cosAOPPlusTA) + (cosLOAN * sinAOPPlusTA * cosI));
+        decimal posZ = distance * (decimal)(sinI * sinAOPPlusTA);
+
+
+        x = PhysicsUtils.ConvertToAU(posX);
+        y = PhysicsUtils.ConvertToAU(posY);
+        z = PhysicsUtils.ConvertToAU(posZ);
     }
    
 
@@ -123,15 +144,15 @@ public class Orbiter : MonoBehaviour
         {
             float eccentricAnomaly = (float)(eccentricAnomalyTrail + i * orbitFraction * PhysicalConstants.TAU);
 
-            float trueAnomaly = 2 * Mathf.Atan(trueAnomalyConstant * Mathf.Tan(eccentricAnomaly / 2));
+            float trueAnomaly = 2 * Mathf.Atan((float)trueAnomalyConstant * Mathf.Tan(eccentricAnomaly / 2));
             float distance = (float)orbit.SemiMajorAxis * (1 - orbit.Eccentricity * Mathf.Cos(eccentricAnomaly));
 
             float cosAOPPlusTA = Mathf.Cos(orbit.PeriArgument + trueAnomaly);
             float sinAOPPlusTA = Mathf.Sin(orbit.PeriArgument + trueAnomaly);
 
-            float x = distance * ((cosLOAN * cosAOPPlusTA) - (sinLOAN * sinAOPPlusTA * cosI));
-            float z = distance * ((sinLOAN * cosAOPPlusTA) + (cosLOAN * sinAOPPlusTA * cosI));
-            float y = distance * (sinI * sinAOPPlusTA);
+            float x = (float)(distance * ((cosLOAN * cosAOPPlusTA) - (sinLOAN * sinAOPPlusTA * cosI)));
+            float z = (float)(distance * ((sinLOAN * cosAOPPlusTA) + (cosLOAN * sinAOPPlusTA * cosI)));
+            float y = (float)(distance * (sinI * sinAOPPlusTA));
 
             float meanAnomaly = eccentricAnomaly - orbit.Eccentricity * Mathf.Sin(eccentricAnomaly);
             

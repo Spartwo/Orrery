@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using SystemGen;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,24 +8,23 @@ namespace Universe
 { 
     public class CameraMovement : MonoBehaviour
     {
-        //camrotate variables
-        private float PanSpeed;
-        private float SmoothSpeed = 0.05f;
+        // CamRotate variables
+        private float panSpeed;
+        private float smoothSpeed = 0.05f;
         private float yaw = 0.0f;
         private float pitch = 0.0f;
-        //camtrack variables
-        private float LastClickTime; 
-        private float DoubleClickTime = 0.3f; 
-        public Transform Parent;
-        private int ParentIndex;
-        private GameObject[] TargettableBodies;
-        [SerializeField] private GameObject TimeKeeper;
-        // zoom variables
-        [SerializeField] private float TargetSize;
-        private float RotationGoal;
-        private Vector3 PositionGoal;
-        private float ZoomGoal;
-        private float Zoom;
+        // CamTrack variables
+        private float lastClickTime; 
+        private float doubleClickTime = 0.3f;
+        [SerializeField] public Transform parent;
+        [SerializeField] private int parentIndex;
+        [SerializeField] private GameObject[] targetableBodies;
+        [SerializeField] private Timekeep timeKeeper;
+        // CamZoom variables
+        [SerializeField] private float targetSize;
+        private Vector3 positionGoal;
+        private float zoomGoal;
+        private float zoomCurrent;
         [SerializeField] private GameObject CamToMove;
 
         void Update()
@@ -41,47 +41,57 @@ namespace Universe
         private void LateUpdate()
         {
             //smooths the movement of the camera
-            Zoom = Mathf.Lerp(Zoom, ZoomGoal, SmoothSpeed);
-            CamToMove.transform.localPosition = new Vector3(0, 0, Zoom);
+            zoomCurrent = Mathf.Lerp(zoomCurrent, zoomGoal, smoothSpeed);
+            CamToMove.transform.localPosition = new Vector3(0, 0, zoomCurrent);
+        }
+
+        public void UpdateSelectedBody(GameObject target)
+        {
+            // Set the parent object to the selected body
+            parent = target.transform;
+            GameObject.Find("Game_Controller").GetComponent<SystemManager>().SetInfoBox(target.GetComponent<BodyManager>().body.GetInfo());
+
+            // Try to zoom in towards the body
+            zoomGoal = 0.05f * targetSize;
         }
 
         public void UpdateBodyList()
         {      
             //list all bodies with the focusable tag
-            TargettableBodies = GameObject.FindGameObjectsWithTag("Focus_Object");
+            targetableBodies = GameObject.FindGameObjectsWithTag("Focus_Object");
             //set the parent object to first index in targettable objects
-            Parent = TargettableBodies[0].transform;
-            ParentIndex = 0;
+            parent = targetableBodies[0].transform;
+            parentIndex = 0;
         }
 
         void CamTrack()
         {
             //Reset the list of cycle objects if voided
-            if(!Parent) {
+            if(!parent) {
                 Logger.Log(GetType().Name, "No Camera Parent Found");
                 UpdateBodyList();
             } else {
-               transform.SetParent(Parent, false);
+               transform.SetParent(parent, false);
             }
 
             //Prevents the camera from drifting
-            PositionGoal = Parent.position;
-            float Offset = Vector3.Distance(PositionGoal, transform.position);
+            positionGoal = parent.position;
+            float offset = Vector3.Distance(positionGoal, transform.position);
             //move to intended angle
             transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
             //move back towards root object if drifting beyond range
-            if (Offset >= 0.01)
+            if (offset >= 0.01)
             {
-                PositionGoal = Vector3.Lerp(transform.position, PositionGoal, SmoothSpeed);
-                transform.position = PositionGoal;
+                positionGoal = Vector3.Lerp(transform.position, positionGoal, smoothSpeed);
+                transform.position = positionGoal;
             }
 
-            TargetSize = Parent.GetChild(0).transform.lossyScale.z;
+            targetSize = parent.GetChild(0).transform.lossyScale.z;
             //moves the main cam towards or away from the core object
-            ZoomGoal += (CamToMove.transform.localPosition.z)/50 * PanSpeed * -Input.GetAxis("Mouse ScrollWheel");
+            zoomGoal += (CamToMove.transform.localPosition.z)/50 * panSpeed * -Input.GetAxis("Mouse ScrollWheel");
         
             //clamp the max zoom to within an expected surface based on mass
-            ZoomGoal = Mathf.Clamp(ZoomGoal, 1.1f*TargetSize , TargetSize*100000000);
+            zoomGoal = Mathf.Clamp(zoomGoal, 0.05f*targetSize , targetSize*1000);
         }
 
         void CamInputs()
@@ -89,7 +99,7 @@ namespace Universe
             //pause input
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                //TimeKeeper.GetComponent<Timekeep>().PauseUnpause();
+                timeKeeper.PauseUnpause();
             }
             //hide UI input
             if (Input.GetKeyDown(KeyCode.Tab))
@@ -99,43 +109,43 @@ namespace Universe
             //quicker control
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                PanSpeed = 50f;
+                panSpeed = 50f;
             } else {
-                PanSpeed = 15f;
+                panSpeed = 15f;
             }
             //zoom input keys
             if (Input.GetKey(KeyCode.Minus))
             {
                 Logger.Log(GetType().Name, "Zoom out");
-                ZoomGoal += PanSpeed / 75000 * 1 / Time.unscaledDeltaTime;
+                zoomGoal += panSpeed / 75000 * 1 / Time.unscaledDeltaTime;
             }
             if (Input.GetKey(KeyCode.Equals))
             {
                 Logger.Log(GetType().Name, "Zoom in");
-                ZoomGoal -= PanSpeed / 75000 * 1 / Time.unscaledDeltaTime;
+                zoomGoal -= panSpeed / 75000 * 1 / Time.unscaledDeltaTime;
             }
             //traditional controls
             if (Input.GetKey("d") || Input.GetKey(KeyCode.RightArrow))
             {
-                yaw -= PanSpeed / 7500 * 1 / Time.unscaledDeltaTime;
+                yaw -= panSpeed / 7500 * 1 / Time.unscaledDeltaTime;
             }
             if (Input.GetKey("a") || Input.GetKey(KeyCode.LeftArrow))
             {
-                yaw += PanSpeed / 7500 * 1 / Time.unscaledDeltaTime;
+                yaw += panSpeed / 7500 * 1 / Time.unscaledDeltaTime;
             }
             if (Input.GetKey("w") || Input.GetKey(KeyCode.UpArrow))
             {
-                pitch -= PanSpeed / 7500 * 1 / Time.unscaledDeltaTime;
+                pitch -= panSpeed / 7500 * 1 / Time.unscaledDeltaTime;
             }
             if (Input.GetKey("s") || Input.GetKey(KeyCode.DownArrow))
             {
-                pitch += PanSpeed / 7500 * 1 / Time.unscaledDeltaTime; ;
+                pitch += panSpeed / 7500 * 1 / Time.unscaledDeltaTime; ;
             }
             //click and drag movement
             if (Input.GetMouseButton(2))
             {
-                yaw += PanSpeed * Input.GetAxis("Mouse X");
-                pitch += PanSpeed * Input.GetAxis("Mouse Y");
+                yaw += panSpeed * Input.GetAxis("Mouse X");
+                pitch += panSpeed * Input.GetAxis("Mouse Y");
             }
             pitch = Mathf.Clamp(pitch, -90f, 90f);
         
@@ -143,44 +153,41 @@ namespace Universe
             if (Input.GetKeyDown(KeyCode.RightBracket))
             {
                 //check if next number is larger than the childcount and loop back if so
-                if (ParentIndex == (TargettableBodies.Length-1)) {
-                    ParentIndex = 0; 
+                if (parentIndex == (targetableBodies.Length)) {
+                    parentIndex = 0;
                     //reset to start of array
-                    Parent = TargettableBodies[ParentIndex].GetComponent<Transform>();
+                    UpdateSelectedBody(targetableBodies[parentIndex]);
                 } else {
-                    ParentIndex += 1;
-                    Parent = TargettableBodies[ParentIndex].GetComponent<Transform>();
+                    parentIndex += 1;
+                    UpdateSelectedBody(targetableBodies[parentIndex]);
                 }
-                //try to zoom in towards the body
-                ZoomGoal = 1.1f*TargetSize;
             }
             if (Input.GetKeyDown(KeyCode.LeftBracket))
             {
                 //check if next number is less than 0 and loop back if so
-                if (ParentIndex == 0) {
+                if (parentIndex == 0) {
                     //get array length ajusted for 0 start
-                    ParentIndex = (TargettableBodies.Length)-1;
-                    Parent = TargettableBodies[ParentIndex].GetComponent<Transform>();
+                    parentIndex = (targetableBodies.Length)-1;
+                    UpdateSelectedBody(targetableBodies[parentIndex]);
                 } else {
-                    ParentIndex -= 1;
-                    Parent = TargettableBodies[ParentIndex].GetComponent<Transform>();
+                    parentIndex -= 1;
+                    UpdateSelectedBody(targetableBodies[parentIndex]);
                 }
-                //try to zoom in towards the body
-                ZoomGoal = 1.1f*TargetSize;
+                Logger.Log("Camera Controller", $"Tab Reparented to {parentIndex}");
             }
 
             if (Input.GetMouseButtonDown(0))
             {
-                //if it's been less than 0.3 seconds between the clicks
-                if (Time.realtimeSinceStartup - LastClickTime <= DoubleClickTime)
+                // If it's been less than 0.3 seconds between the clicks
+                if (Time.realtimeSinceStartup - lastClickTime <= doubleClickTime)
                 {
-                    //run the click based reparenting script
+                    // Run the click based reparenting script
                     DoubleClickReparent();
                 } 
-                //reset the click timer for the 0.3
-                LastClickTime = Time.realtimeSinceStartup;
+                // Reset the click timer for the 0.3
+                lastClickTime = Time.realtimeSinceStartup;
             }
-            //Resets camera Z rotation each frame
+            // Resets camera Z rotation each frame
             Vector3 eulerRotation = transform.rotation.eulerAngles;
             transform.rotation = Quaternion.Euler(eulerRotation.x, eulerRotation.y, 0);
         }
@@ -190,14 +197,13 @@ namespace Universe
             Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
             RaycastHit hit;
          
-            if( Physics.Raycast( ray, out hit ) )
+            if ( Physics.Raycast( ray, out hit ) )
             {
+                Logger.Log("Camera Controller", $"Double Click Reparented from {parent}");
                 //if the raycast intercepts the collider of a planet or star
                 if (hit.collider.gameObject.tag == "Focus_Object")
                 {
-                    Parent = hit.transform;
-                    //try to zoom in towards the body
-                    ZoomGoal = 1.1f*TargetSize;
+                    UpdateSelectedBody(hit.transform.gameObject);
                 }
             }
         }
