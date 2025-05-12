@@ -9,20 +9,22 @@ using StellarGenHelpers;
 using UnityEditor;
 using Models;
 using Universe;
+
+
 public class Orbiter : MonoBehaviour
 {
 
     // Orbital Keplerian Parameters
-    private OrbitalProperties orbit;
+    [SerializeField] private OrbitalProperties orbit;
     [SerializeField] Transform parent;
-    private float meanAnomaly;
+    [SerializeField] private float meanAnomaly;
     [SerializeField] float meanLongitude;
 
     // Line render values
     LineRenderer orbitRenderer;
     [SerializeField] [Range(0, 360)]  int orbitResolution;
-    Color colorStart;
-    Color colorEnd;
+    [SerializeField] Color colorStart;
+    [SerializeField] Color colorEnd;
     private Vector3[] orbitalPoints;
 
     // Settings

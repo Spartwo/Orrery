@@ -52,6 +52,12 @@ namespace SystemGen
                     transform.GetComponent<Orbiter>().LoadOrbit(body.Orbit, transform.parent, body.OrbitLine);
                 }
             }
+            else
+            {
+                // If no parent, set the star as the root object
+                transform.SetParent(GameObject.Find("BarryCentra").transform);
+                transform.GetComponent<Orbiter>().LoadOrbit(body.Orbit, null, body.OrbitLine);
+            }
         }
 
 

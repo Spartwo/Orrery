@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3345246828276078920}
   m_Layer: 0
   m_Name: Planet_Object
-  m_TagString: Celestial_Body
+  m_TagString: Focus_Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using UnityEngine;
 
 namespace Models
 {
@@ -8,8 +9,8 @@ namespace Models
     [JsonObject(MemberSerialization.OptIn)]
     public class SiderealProperties
     {
-        [JsonProperty("Day Length (Hours)")] private double siderealDayLength; // Sidereal Day Length (in hours)
-        [JsonProperty("Axial Tilt (Degrees)")] private float axialTilt; // Sidereal Longitude (degrees)
+        [JsonProperty("Day Length (Hours)")][SerializeField] private double siderealDayLength; // Sidereal Day Length (in hours)
+        [JsonProperty("Axial Tilt (Degrees)")][SerializeField] private float axialTilt; // Sidereal Longitude (degrees)
 
         private SiderealProperties() : base() { }
         public SiderealProperties(double siderealDayLength, float axialTilt)

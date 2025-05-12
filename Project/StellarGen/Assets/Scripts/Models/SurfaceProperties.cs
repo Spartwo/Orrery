@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using Unity.VisualScripting;
+using UnityEngine;
 using static UnityEditor.FilePathAttribute;
 
 namespace Models
@@ -14,10 +15,10 @@ namespace Models
     [JsonObject(MemberSerialization.OptIn)]
     public class SurfaceProperties
     {
-        [JsonProperty] private float rock, ice, metals;
+        [JsonProperty][SerializeField] private float rock, ice, metals;
 
         // Total mass in kilotons
-        [JsonProperty("Total Mass (Kilotons)")] private decimal totalSolidMass;
+        [JsonProperty("Total Mass (Kilotons)")][SerializeField] private decimal totalSolidMass;
 
         private SurfaceProperties() : base() { }
         public SurfaceProperties(float? rock = null, float? ice = null, float? metals = null, decimal? totalSolidMass = null)

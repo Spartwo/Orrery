@@ -17,11 +17,13 @@ namespace Models
     public class AtmosphereProperties
     {
         // List of elements in the atmosphere with their respective percentages
-        [JsonProperty("Atmospheric Elements (%)")] 
+        [JsonProperty("Atmospheric Elements (%)")]
+        [SerializeField]
         public List<AtmosphereElement> Elements { get; private set; }
 
         // Total atmospheric mass in kilotons
-        [JsonProperty("Total Mass (Kilotons)")] 
+        [JsonProperty("Total Mass (Kilotons)")]
+        [SerializeField]
         private decimal totalAtmosphericMass;
 
         // Predefined elements: molarMass, freezingPoint (K), boilingPoint (K), gasConstant (J/kg·K), latentHeat(J/mol), localisation

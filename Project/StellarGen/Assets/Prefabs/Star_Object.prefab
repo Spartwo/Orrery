@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 536716687247274816}
   m_Layer: 0
   m_Name: Star_Object
-  m_TagString: Root_Body
+  m_TagString: Focus_Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
