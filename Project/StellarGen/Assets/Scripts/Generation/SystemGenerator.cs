@@ -510,6 +510,7 @@ namespace SystemGen
             JsonUtils.SerializeToJsonFile(systemProperties, systemFilePath);
 
             Logger.Log("I/O", $"Exported System File to {systemFilePath}");
+            GameObject.Find("System_Container").GetComponent<SystemListLoad>().ResetList();
         }
 
         /// <summary>

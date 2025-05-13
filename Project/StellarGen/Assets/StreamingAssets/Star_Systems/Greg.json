@@ -72,9 +72,9 @@
         "metals": 57.79513,
         "Total Mass (Kilotons)": 7002213177400065572.1231798378
       },
-      "Radius (Earths)": 4.39867449,
+      "Radius (Earths)": 4.15133667,
       "Atmospheric Composition": {
-        "Total Mass (Kilotons)": 110731615493774000000.0,
+        "Total Mass (Kilotons)": 98914883628845200000.0,
         "Atmospheric Elements (%)": [
           {
             "Element": {
@@ -92,7 +92,7 @@
             "Element": {
               "Name": "#loc_Nitrogen"
             },
-            "Percentile": 33
+            "Percentile": 34
           },
           {
             "Element": {
@@ -149,7 +149,7 @@
       "Name": "Greg-Ba",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 117733828671174065572.12317984,
+      "Mass (Kilotons)": 105917096806245265572.12317984,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         231,
@@ -164,7 +164,7 @@
         "Argument of Periapsis": 195.633759
       },
       "Rotation": {
-        "Day Length (Hours)": 27.623194652250376,
+        "Day Length (Hours)": 28.513758316061885,
         "Axial Tilt (Degrees)": 156.59729
       }
     },
@@ -175,9 +175,9 @@
         "metals": 3.05032,
         "Total Mass (Kilotons)": 1882286987258526527.0587312285
       },
-      "Radius (Earths)": 3.95959115,
+      "Radius (Earths)": 3.93086815,
       "Atmospheric Composition": {
-        "Total Mass (Kilotons)": 26710483854293800000.0,
+        "Total Mass (Kilotons)": 24422023838043200000.0,
         "Atmospheric Elements (%)": [
           {
             "Element": {
@@ -195,19 +195,19 @@
             "Element": {
               "Name": "#loc_Nitrogen"
             },
-            "Percentile": 31
+            "Percentile": 30
           },
           {
             "Element": {
               "Name": "#loc_Oxygen"
             },
-            "Percentile": 18
+            "Percentile": 19
           },
           {
             "Element": {
               "Name": "#loc_CarbonDioxide"
             },
-            "Percentile": 49
+            "Percentile": 50
           },
           {
             "Element": {
@@ -249,10 +249,10 @@
       },
       "Seed Value": 16061740,
       "Parental Seed Value": 25799898,
-      "Name": "Greg-Bc",
+      "Name": "Greg-Bd",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 28592770841552326527.058731228,
+      "Mass (Kilotons)": 26304310825301726527.058731228,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         231,
@@ -267,7 +267,7 @@
         "Argument of Periapsis": 24.184454
       },
       "Rotation": {
-        "Day Length (Hours)": 643.39048431127776,
+        "Day Length (Hours)": 659.695357418293,
         "Axial Tilt (Degrees)": 52.5901375
       }
     },
@@ -278,9 +278,9 @@
         "metals": 73.0982056,
         "Total Mass (Kilotons)": 6243430369653564039.0084907427
       },
-      "Radius (Earths)": 4.027335,
+      "Radius (Earths)": 4.1558,
       "Atmospheric Composition": {
-        "Total Mass (Kilotons)": 87024687534332300000.0,
+        "Total Mass (Kilotons)": 92294035980224600000.0,
         "Atmospheric Elements (%)": [
           {
             "Element": {
@@ -355,7 +355,7 @@
       "Name": "Greg-Bb",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 93268117903985864039.00849074,
+      "Mass (Kilotons)": 98537466349878164039.00849074,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         231,
@@ -370,7 +370,7 @@
         "Argument of Periapsis": 211.735138
       },
       "Rotation": {
-        "Day Length (Hours)": 11.583998593633401,
+        "Day Length (Hours)": 11.394572670859763,
         "Axial Tilt (Degrees)": 111.165443
       }
     },
@@ -381,9 +381,9 @@
         "metals": 3.0710938,
         "Total Mass (Kilotons)": 1868980107247937131.0971456038
       },
-      "Radius (Earths)": 3.45335412,
+      "Radius (Earths)": 3.468666,
       "Atmospheric Composition": {
-        "Total Mass (Kilotons)": 23673077688217200000.0,
+        "Total Mass (Kilotons)": 25008080329895000000.0,
         "Atmospheric Elements (%)": [
           {
             "Element": {
@@ -401,7 +401,7 @@
             "Element": {
               "Name": "#loc_Nitrogen"
             },
-            "Percentile": 31
+            "Percentile": 32
           },
           {
             "Element": {
@@ -413,7 +413,7 @@
             "Element": {
               "Name": "#loc_CarbonDioxide"
             },
-            "Percentile": 49
+            "Percentile": 48
           },
           {
             "Element": {
@@ -455,10 +455,10 @@
       },
       "Seed Value": 12836083,
       "Parental Seed Value": 25799898,
-      "Name": "Greg-Bd",
+      "Name": "Greg-Bc",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 25542057795465137131.097145604,
+      "Mass (Kilotons)": 26877060437142937131.097145604,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         231,
@@ -473,7 +473,7 @@
         "Argument of Periapsis": 40.2858276
       },
       "Rotation": {
-        "Day Length (Hours)": 301.34878931844804,
+        "Day Length (Hours)": 296.7779877368763,
         "Axial Tilt (Degrees)": 75.68569
       }
     },
@@ -484,9 +484,9 @@
         "metals": 70.13912,
         "Total Mass (Kilotons)": 25072600069989000638.836620797
       },
-      "Radius (Earths)": 11.5234146,
+      "Radius (Earths)": 11.85394,
       "Atmospheric Composition": {
-        "Total Mass (Kilotons)": 405936621520996000000.0,
+        "Total Mass (Kilotons)": 425525457672119000000.0,
         "Atmospheric Elements (%)": [
           {
             "Element": {
@@ -504,19 +504,19 @@
             "Element": {
               "Name": "#loc_Nitrogen"
             },
-            "Percentile": 31
+            "Percentile": 30
           },
           {
             "Element": {
               "Name": "#loc_Oxygen"
             },
-            "Percentile": 19
+            "Percentile": 20
           },
           {
             "Element": {
               "Name": "#loc_CarbonDioxide"
             },
-            "Percentile": 49
+            "Percentile": 48
           },
           {
             "Element": {
@@ -558,10 +558,10 @@
       },
       "Seed Value": 6943127,
       "Parental Seed Value": 61471832,
-      "Name": "Greg-Ab",
+      "Name": "Greg-Aa",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 431009221590985000638.83662080,
+      "Mass (Kilotons)": 450598057742108000638.83662080,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -576,7 +576,7 @@
         "Argument of Periapsis": 313.272339
       },
       "Rotation": {
-        "Day Length (Hours)": 11.294651309336585,
+        "Day Length (Hours)": 11.145049498997475,
         "Axial Tilt (Degrees)": 5.521198
       }
     },
@@ -587,9 +587,9 @@
         "metals": 3.01055479,
         "Total Mass (Kilotons)": 25360122412763822678.732214257
       },
-      "Radius (Earths)": 13.3786659,
+      "Radius (Earths)": 12.9903107,
       "Atmospheric Composition": {
-        "Total Mass (Kilotons)": 432027215698242000000.0,
+        "Total Mass (Kilotons)": 407350023406982000000.0,
         "Atmospheric Elements (%)": [
           {
             "Element": {
@@ -661,10 +661,10 @@
       },
       "Seed Value": 13494125,
       "Parental Seed Value": 61471832,
-      "Name": "Greg-Aa",
+      "Name": "Greg-Ab",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 457387338111005822678.73221426,
+      "Mass (Kilotons)": 432710145819745822678.73221426,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -679,7 +679,7 @@
         "Argument of Periapsis": 141.823013
       },
       "Rotation": {
-        "Day Length (Hours)": 151.33648272403443,
+        "Day Length (Hours)": 153.87559803743056,
         "Axial Tilt (Degrees)": 39.4336281
       }
     },
@@ -690,9 +690,9 @@
         "metals": 75.2862854,
         "Total Mass (Kilotons)": 19494158186942450458.310294161
       },
-      "Radius (Earths)": 10.3500443,
+      "Radius (Earths)": 10.1341248,
       "Atmospheric Composition": {
-        "Total Mass (Kilotons)": 321652060333252000000.0,
+        "Total Mass (Kilotons)": 310590428436279000000.0,
         "Atmospheric Elements (%)": [
           {
             "Element": {
@@ -710,19 +710,19 @@
             "Element": {
               "Name": "#loc_Nitrogen"
             },
-            "Percentile": 31
+            "Percentile": 30
           },
           {
             "Element": {
               "Name": "#loc_Oxygen"
             },
-            "Percentile": 18
+            "Percentile": 19
           },
           {
             "Element": {
               "Name": "#loc_CarbonDioxide"
             },
-            "Percentile": 49
+            "Percentile": 50
           },
           {
             "Element": {
@@ -767,7 +767,7 @@
       "Name": "Greg-Ad",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 341146218520194450458.31029416,
+      "Mass (Kilotons)": 330084586623221450458.31029416,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -782,7 +782,7 @@
         "Argument of Periapsis": 329.3737
       },
       "Rotation": {
-        "Day Length (Hours)": 8.95240892132726,
+        "Day Length (Hours)": 9.0413754965471451,
         "Axial Tilt (Degrees)": 52.0610161
       }
     },
@@ -793,9 +793,9 @@
         "metals": 3.01139,
         "Total Mass (Kilotons)": 22837084177645601637.517053321
       },
-      "Radius (Earths)": 12.803216,
+      "Radius (Earths)": 12.6932087,
       "Atmospheric Composition": {
-        "Total Mass (Kilotons)": 378698825790405000000.0,
+        "Total Mass (Kilotons)": 378021877319336000000.0,
         "Atmospheric Elements (%)": [
           {
             "Element": {
@@ -825,7 +825,7 @@
             "Element": {
               "Name": "#loc_CarbonDioxide"
             },
-            "Percentile": 7
+            "Percentile": 8
           },
           {
             "Element": {
@@ -870,7 +870,7 @@
       "Name": "Greg-Ac",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 401535909968050601637.51705332,
+      "Mass (Kilotons)": 400858961496981601637.51705332,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -885,7 +885,7 @@
         "Argument of Periapsis": 157.9244
       },
       "Rotation": {
-        "Day Length (Hours)": 241.74030308893472,
+        "Day Length (Hours)": 241.8626979511956,
         "Axial Tilt (Degrees)": 40.4823532
       }
     },
@@ -896,9 +896,9 @@
         "metals": 61.86087,
         "Total Mass (Kilotons)": 6846806930657006370.4097572351
       },
-      "Radius (Earths)": 4.87974739,
+      "Radius (Earths)": 4.68679142,
       "Atmospheric Composition": {
-        "Total Mass (Kilotons)": 104342112678528000000.0,
+        "Total Mass (Kilotons)": 96756952331543000000.0,
         "Atmospheric Elements (%)": [
           {
             "Element": {
@@ -916,7 +916,7 @@
             "Element": {
               "Name": "#loc_Nitrogen"
             },
-            "Percentile": 31
+            "Percentile": 32
           },
           {
             "Element": {
@@ -928,7 +928,7 @@
             "Element": {
               "Name": "#loc_CarbonDioxide"
             },
-            "Percentile": 49
+            "Percentile": 48
           },
           {
             "Element": {
@@ -973,7 +973,7 @@
       "Name": "Greg-Af",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 111188919609185006370.40975724,
+      "Mass (Kilotons)": 103603759262200006370.40975724,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -988,7 +988,7 @@
         "Argument of Periapsis": 345.475067
       },
       "Rotation": {
-        "Day Length (Hours)": 30.589956630650654,
+        "Day Length (Hours)": 31.245297226720602,
         "Axial Tilt (Degrees)": 69.4451
       }
     },
@@ -999,9 +999,9 @@
         "metals": 3.02167082,
         "Total Mass (Kilotons)": 8006239602004679434.092968251
       },
-      "Radius (Earths)": 5.869835,
+      "Radius (Earths)": 5.531249,
       "Atmospheric Composition": {
-        "Total Mass (Kilotons)": 127640439643860000000.0,
+        "Total Mass (Kilotons)": 110699345680237000000.0,
         "Atmospheric Elements (%)": [
           {
             "Element": {
@@ -1019,19 +1019,19 @@
             "Element": {
               "Name": "#loc_Nitrogen"
             },
-            "Percentile": 31
+            "Percentile": 30
           },
           {
             "Element": {
               "Name": "#loc_Oxygen"
             },
-            "Percentile": 18
+            "Percentile": 19
           },
           {
             "Element": {
               "Name": "#loc_CarbonDioxide"
             },
-            "Percentile": 49
+            "Percentile": 50
           },
           {
             "Element": {
@@ -1076,7 +1076,7 @@
       "Name": "Greg-Ae",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 135646679245864679434.09296825,
+      "Mass (Kilotons)": 118705585282241679434.09296825,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -1091,7 +1091,7 @@
         "Argument of Periapsis": 174.025772
       },
       "Rotation": {
-        "Day Length (Hours)": 145.57047734600732,
+        "Day Length (Hours)": 151.51467893460037,
         "Axial Tilt (Degrees)": 46.1572876
       }
     },
@@ -1102,9 +1102,9 @@
         "metals": 2.98121786,
         "Total Mass (Kilotons)": 2100871802020605205.9055014702
       },
-      "Radius (Earths)": 3.72338152,
+      "Radius (Earths)": 3.70525265,
       "Atmospheric Composition": {
-        "Total Mass (Kilotons)": 29387508647918700000.0,
+        "Total Mass (Kilotons)": 28650867286682100000.0,
         "Atmospheric Elements (%)": [
           {
             "Element": {
@@ -1122,7 +1122,7 @@
             "Element": {
               "Name": "#loc_Nitrogen"
             },
-            "Percentile": 33
+            "Percentile": 34
           },
           {
             "Element": {
@@ -1179,7 +1179,7 @@
       "Name": "Greg-Ag",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 31488380449939305205.905501470,
+      "Mass (Kilotons)": 30751739088702705205.905501470,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -1194,7 +1194,7 @@
         "Argument of Periapsis": 2.57645321
       },
       "Rotation": {
-        "Day Length (Hours)": 2328.0907456375994,
+        "Day Length (Hours)": 2344.6827982357495,
         "Axial Tilt (Degrees)": 153.63884
       }
     },
@@ -1205,9 +1205,9 @@
         "metals": 9.681022,
         "Total Mass (Kilotons)": 897851061559002734.9394504571
       },
-      "Radius (Earths)": 2.06013584,
+      "Radius (Earths)": 2.05746412,
       "Atmospheric Composition": {
-        "Total Mass (Kilotons)": 9442895097255710000.0,
+        "Total Mass (Kilotons)": 9350856218338010000.0,
         "Atmospheric Elements (%)": [
           {
             "Element": {
@@ -1282,7 +1282,7 @@
       "Name": "Greg-Ai",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 10340746158814712734.939450457,
+      "Mass (Kilotons)": 10248707279897012734.939450457,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -1297,7 +1297,7 @@
         "Argument of Periapsis": 190.127136
       },
       "Rotation": {
-        "Day Length (Hours)": 195.83535114689218,
+        "Day Length (Hours)": 196.36131305437689,
         "Axial Tilt (Degrees)": 25.1052113
       }
     },
@@ -1308,9 +1308,9 @@
         "metals": 2.91795135,
         "Total Mass (Kilotons)": 1373963490655039404.8397100813
       },
-      "Radius (Earths)": 3.019954,
+      "Radius (Earths)": 2.98782921,
       "Atmospheric Composition": {
-        "Total Mass (Kilotons)": 13178847187042200000.0,
+        "Total Mass (Kilotons)": 11484382258892100000.0,
         "Atmospheric Elements (%)": [
           {
             "Element": {
@@ -1385,7 +1385,7 @@
       "Name": "Greg-Ah",
       "Custom Name? (true/false)": false,
       "Age (bYo)": 1.897,
-      "Mass (Kilotons)": 14552810677697239404.839710081,
+      "Mass (Kilotons)": 12858345749547139404.839710081,
       "SOI (m)": 0.0,
       "Colour (RGB)": [
         160,
@@ -1400,7 +1400,7 @@
         "Argument of Periapsis": 18.67783
       },
       "Rotation": {
-        "Day Length (Hours)": 1711.7455571730206,
+        "Day Length (Hours)": 1776.5103279918551,
         "Axial Tilt (Degrees)": 97.0179138
       }
     }

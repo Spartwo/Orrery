@@ -91,6 +91,7 @@
     <Compile Include="Assets\Scripts\PhysicalConstants.cs" />
     <Compile Include="Assets\Scripts\Interface\FloatingPointManager.cs" />
     <Compile Include="Assets\Scripts\Interface\LoadCellManager.cs" />
+    <Compile Include="Assets\Scripts\Interface\Exit.cs" />
     <Compile Include="Assets\Scripts\Models\StarProperties.cs" />
     <Compile Include="Assets\Scripts\Interface\SystemListLoad.cs" />
   </ItemGroup>

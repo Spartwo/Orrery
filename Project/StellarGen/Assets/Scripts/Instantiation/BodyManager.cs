@@ -7,6 +7,7 @@ using System.Linq;
 using Models;
 using Universe;
 using StellarGenHelpers;
+using System;
 
 namespace SystemGen
 {
@@ -15,8 +16,6 @@ namespace SystemGen
         // Public knowledge variables that will be accessed by UI
         [SerializeField] public BodyProperties body;
         public GameObject parentObject;
-        public string bodyName;
-        [SerializeField][Range(0f, 70f)] float rotationRate;
 
         // Start is called before the first frame update
         void Start()
@@ -32,40 +31,58 @@ namespace SystemGen
         void RotateBody()
         {
             //rotation of body
-            float rotationRate = GameObject.Find("Barycenter").GetComponent<Timekeep>().gameSpeed;
-            transform.Rotate(0, (rotationRate / 300) / (600 * Time.deltaTime), 0);
-            
+            float rotationRate = GameObject.Find("Game_Controller").GetComponent<Timekeep>().gameSpeed;
+            transform.Rotate(0, (rotationRate / 300) / (600 * Time.deltaTime) / (float)body.Sidereal.SiderealDayLength, 0);
         }
 
         public void FindParent()
         {
             // Find the parent object of the body
-            if (body.Parent != null)
-            {
-                int parentID = body.Parent;
-                // Find the parent object by its ID
-                GameObject parentObject = GameObject.Find(parentID.ToString());
+            int parentID = body.Parent;
+            // Find the parent object by its ID
+            parentObject = GameObject.Find(parentID.ToString());
 
-                transform.SetParent(parentObject.transform, false);
-                transform.GetComponent<OrbitManager>().LoadOrbit(body.Orbit, transform.parent, body.OrbitLine);
-            }
+            transform.SetParent(parentObject.transform, false);
         }
 
 
         // ApplyData is called by UI 
         public void ApplyData()
         {
-            // Pame the root object after the stars unique idenfitier
+            // Name the root object after the body's unique idenfitier
             gameObject.name = body.SeedValue.ToString();
             float diameter = body.Radius * 2;
-            // Set size of the star itself relative to earth=1
-            transform.GetChild(0).localScale = new Vector3(diameter / 100, diameter / 100, diameter / 100);
-            // Set size of double click collider
-            transform.GetComponent<SphereCollider>().radius = diameter;
+
+            // Set size of the body itself relative to earth=1
+            transform.GetChild(0).localScale = new Vector3(diameter * 30.1f, diameter * 30.1f, diameter * 30.1f);
+            // Set size of double click colliders
+            SphereCollider[] colliders = GetComponentsInChildren<SphereCollider>();
+            colliders[0].radius = diameter * 2;
+            colliders[1].radius = diameter * 100f;
+
             // All bodies are weighed where 1 = Earth
             float massInEarth = PhysicsUtils.RawToEarthMass(body.Mass);
             // Get rigidbody and apply the mass
-            transform.GetComponent<Rigidbody>().mass = massInEarth / 10000;
+            transform.GetComponent<Rigidbody>().mass = massInEarth;
+        }
+
+        public void RecalculateColour()
+        {
+            Color color = ColourUtils.ArrayToColor(body.OrbitLine);
+            // Relay to the orbit line
+            try
+            {
+                // Get the Renderer component from the new cube
+                Renderer stellarSurface = transform.GetChild(0).GetComponent<Renderer>();
+                // Call SetColor using the shader property name "_Color" and setting the color to red
+                stellarSurface.material.SetColor("_Color", color);
+                stellarSurface.material.SetColor("_EmissionColor", color);
+                stellarSurface.material.EnableKeyword("_EMISSION");
+            }
+            catch (Exception e)
+            {
+                Logger.Log("StarManager", $"Error setting surface colour: {e}");
+            }
         }
     }
 }

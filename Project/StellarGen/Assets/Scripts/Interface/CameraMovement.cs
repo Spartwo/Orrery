@@ -1,8 +1,13 @@
-﻿using System.Collections;
+﻿using Models;
+using NUnit.Framework.Constraints;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using SystemGen;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace Universe
 { 
@@ -18,7 +23,7 @@ namespace Universe
         private float doubleClickTime = 0.3f;
         [SerializeField] public Transform parent;
         [SerializeField] private int parentIndex;
-        [SerializeField] private GameObject[] targetableBodies;
+        [SerializeField] private List <Transform> targetableBodies;
         [SerializeField] private Timekeep timeKeeper;
         // CamZoom variables
         [SerializeField] private float targetSize;
@@ -26,6 +31,8 @@ namespace Universe
         private float zoomGoal;
         private float zoomCurrent;
         [SerializeField] private GameObject CamToMove;
+
+        private bool activeUI = true;
 
         void Update()
         {
@@ -35,6 +42,7 @@ namespace Universe
 
         public void Start()
         {
+            timeKeeper = GameObject.Find("Game_Controller").GetComponent<Timekeep>();
             CamToMove = transform.GetChild(0).gameObject;
             UpdateBodyList();
         }
@@ -45,28 +53,56 @@ namespace Universe
             CamToMove.transform.localPosition = new Vector3(0, 0, zoomCurrent);
         }
 
-        public void UpdateSelectedBody(GameObject target)
+        public void UpdateSelectedBody(Transform target)
         {
             // Set the parent object to the selected body
             parent = target.transform;
-            GameObject.Find("Game_Controller").GetComponent<SystemManager>().SetInfoBox(target.GetComponent<BodyManager>().body.GetInfo());
+            // Get info to send
+            string sentInfo = "NaN";
+            if (target.GetComponent<StarManager>() != null)
+            {
+                parent = target.transform;
+                sentInfo = target.GetComponent<StarManager>().star.GetInfo();
+            }
+            else if (target.GetComponent<BodyManager>() != null)
+            {
+                parent = target.transform; 
+                sentInfo = target.GetComponent<BodyManager>().body.GetInfo();
+            }
+            else if (target.GetComponent<BeltManager>() != null)
+            {
+                parent = target.transform;
+                sentInfo = target.GetComponent<BeltManager>().belt.GetInfo();
+            }
+            else
+            {
+                parent = target.transform;
+            }
+
+            transform.SetParent(parent, false);
+            GameObject.Find("Game_Controller").GetComponent<SystemManager>().SetInfoBox(sentInfo);
 
             // Try to zoom in towards the body
-            zoomGoal = 0.05f * targetSize;
+            zoomGoal = Math.Max(zoomCurrent, 0.05f * targetSize);
         }
 
         public void UpdateBodyList()
-        {      
-            //list all bodies with the focusable tag
-            targetableBodies = GameObject.FindGameObjectsWithTag("Focus_Object");
+        {
+            // Store a list all bodies with the orbit handlet
+            targetableBodies = Object.FindObjectsByType<OrbitManager>(FindObjectsSortMode.None)
+                         .Select(o => o.transform)
+                         .ToList(); 
+
+            Logger.Log("Camera Controller", $"Found {targetableBodies.Count} targetable bodies");
+            //targetableBodies = GameObject.FindGameObjectsWithTag("Focus_Object");
             //set the parent object to first index in targettable objects
-            parent = targetableBodies[0].transform;
+            //parent = targetableBodies[0].transform;
             parentIndex = 0;
         }
 
         void CamTrack()
         {
-            //Reset the list of cycle objects if voided
+            // Reset the list of cycle objects if voided
             if(!parent) {
                 Logger.Log(GetType().Name, "No Camera Parent Found");
                 UpdateBodyList();
@@ -74,12 +110,12 @@ namespace Universe
                transform.SetParent(parent, false);
             }
 
-            //Prevents the camera from drifting
+            // Prevents the camera from drifting
             positionGoal = parent.position;
             float offset = Vector3.Distance(positionGoal, transform.position);
-            //move to intended angle
+            // Move to intended angle
             transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
-            //move back towards root object if drifting beyond range
+            // Move back towards root object if drifting beyond range
             if (offset >= 0.01)
             {
                 positionGoal = Vector3.Lerp(transform.position, positionGoal, smoothSpeed);
@@ -87,33 +123,48 @@ namespace Universe
             }
 
             targetSize = parent.GetChild(0).transform.lossyScale.z;
-            //moves the main cam towards or away from the core object
+            // Moves the main cam towards or away from the core object
             zoomGoal += (CamToMove.transform.localPosition.z)/50 * panSpeed * -Input.GetAxis("Mouse ScrollWheel");
         
-            //clamp the max zoom to within an expected surface based on mass
+            // Clamp the max zoom to within an expected surface based on mass
             zoomGoal = Mathf.Clamp(zoomGoal, 0.05f*targetSize , targetSize*1000);
         }
 
         void CamInputs()
         {
-            //pause input
+            // Pause input
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 timeKeeper.PauseUnpause();
             }
-            //hide UI input
+            // Hide UI input
             if (Input.GetKeyDown(KeyCode.Tab))
             {
-                transform.GetChild(0).GetComponent<Camera>().cullingMask ^= 1 << LayerMask.NameToLayer("UI");
+                activeUI = !activeUI;
+                // Toggle the worldspace UI
+                int uiLayer = 1 << LayerMask.NameToLayer("UI");
+                Camera cam = transform.GetChild(0).GetComponent<Camera>();
+                if (activeUI)
+                {
+                    cam.cullingMask |= uiLayer;  // Enable UI layer
+                }
+                else
+                {
+                    cam.cullingMask &= ~uiLayer; // Disable UI layer
+                }
+                // Toggle the screenspace UI
+                GameObject.Find("UI_Canvas").GetComponent<Canvas>().enabled = activeUI;
+
+                Logger.Log("Camera Controller", $"Toggled UI to {activeUI.ToString()}");
             }
-            //quicker control
+            // Quicker control
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 panSpeed = 50f;
             } else {
                 panSpeed = 15f;
             }
-            //zoom input keys
+            // Zoom input keys
             if (Input.GetKey(KeyCode.Minus))
             {
                 Logger.Log(GetType().Name, "Zoom out");
@@ -124,7 +175,7 @@ namespace Universe
                 Logger.Log(GetType().Name, "Zoom in");
                 zoomGoal -= panSpeed / 75000 * 1 / Time.unscaledDeltaTime;
             }
-            //traditional controls
+            // traditional controls
             if (Input.GetKey("d") || Input.GetKey(KeyCode.RightArrow))
             {
                 yaw -= panSpeed / 7500 * 1 / Time.unscaledDeltaTime;
@@ -141,7 +192,7 @@ namespace Universe
             {
                 pitch += panSpeed / 7500 * 1 / Time.unscaledDeltaTime; ;
             }
-            //click and drag movement
+            // Click and drag movement
             if (Input.GetMouseButton(2))
             {
                 yaw += panSpeed * Input.GetAxis("Mouse X");
@@ -149,11 +200,11 @@ namespace Universe
             }
             pitch = Mathf.Clamp(pitch, -90f, 90f);
         
-            //Tabbing Between objects
+            // Tabbing Between objects
             if (Input.GetKeyDown(KeyCode.RightBracket))
             {
                 //check if next number is larger than the childcount and loop back if so
-                if (parentIndex == (targetableBodies.Length)) {
+                if (parentIndex == (targetableBodies.Count)) {
                     parentIndex = 0;
                     //reset to start of array
                     UpdateSelectedBody(targetableBodies[parentIndex]);
@@ -167,7 +218,7 @@ namespace Universe
                 //check if next number is less than 0 and loop back if so
                 if (parentIndex == 0) {
                     //get array length ajusted for 0 start
-                    parentIndex = (targetableBodies.Length)-1;
+                    parentIndex = (targetableBodies.Count)-1;
                     UpdateSelectedBody(targetableBodies[parentIndex]);
                 } else {
                     parentIndex -= 1;
@@ -199,11 +250,11 @@ namespace Universe
          
             if ( Physics.Raycast( ray, out hit ) )
             {
-                Logger.Log("Camera Controller", $"Double Click Reparented from {parent}");
-                //if the raycast intercepts the collider of a planet or star
+                // If the raycast intercepts the collider of a planet or star
                 if (hit.collider.gameObject.tag == "Focus_Object")
                 {
-                    UpdateSelectedBody(hit.transform.gameObject);
+                    Logger.Log("Camera Controller", $"Double Click Reparented from {parent} to {hit.collider.gameObject.name}");
+                    UpdateSelectedBody(hit.collider.transform);
                 }
             }
         }

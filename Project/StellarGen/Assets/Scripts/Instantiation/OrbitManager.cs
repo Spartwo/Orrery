@@ -20,10 +20,10 @@ public class OrbitManager : MonoBehaviour
     [SerializeField] private OrbitalProperties orbit;
     [SerializeField] Transform parent;
     [SerializeField] private double meanAnomaly;
-    [SerializeField] BigInteger meanLongitude;
-
+    [SerializeField] double meanLongitude;
+    public bool isRootBody = false; 
     // Line render values
-    LineRenderer orbitRenderer;
+    private LineRenderer orbitRenderer;
     [SerializeField] [Range(0, 360)]  int orbitResolution;
     [SerializeField] Color colorStart;
     [SerializeField] Color colorEnd;
@@ -38,31 +38,42 @@ public class OrbitManager : MonoBehaviour
     [HideInInspector] [SerializeField] double n, cosLOAN, sinLOAN, sinI, cosI, trueAnomalyConstant;
 
    // private void OnValidate() => 
-    public void LoadOrbit(OrbitalProperties orbit, Transform parentObject, int[] orbitLine)
+    public void LoadOrbit(OrbitalProperties orbit, int[] orbitLine)
     {
+        // Pass the provided orbit and parent object to the class
+        this.orbit = orbit;
+        this.parent = transform.parent;
+
         string parentValue;
-        if (parentObject != null)
+        if (parent != null)
         {
-            parentValue = parentObject.name;
+            parentValue = parent.name;
         }
         else
         {
             parentValue = "null";
         }
 
-        // Pass the provided orbit and parent object to the class
-        parent = parentObject;
-        this.orbit = orbit;
+        Logger.Log("Orbit Manager", $"Establishing Orbit for {parentValue}");
 
-        // Calculate constants with retrieved info
-        CalculateSemiConstants();
-        
         // Set the orbit line colour gradient
         orbitRenderer = GetComponent<LineRenderer>();
 
-        colorStart = ColourUtils.ArrayToColor(orbitLine);
-        colorStart.a = 0f;
-        colorEnd = ColourUtils.ArrayToColor(orbitLine);
+        if (isRootBody)
+        {
+            // Calculate constants with retrieved info
+            CalculateSemiConstants();
+
+            colorStart = ColourUtils.ArrayToColor(orbitLine);
+            colorStart.a = 0f;
+            colorEnd = ColourUtils.ArrayToColor(orbitLine);
+        }
+        else
+        {
+            Destroy(orbitRenderer);
+        }
+
+            
     }
     public double F(float E, float e, float M)  //Function f(x) = 0
     {
@@ -74,35 +85,41 @@ public class OrbitManager : MonoBehaviour
     }
     public void CalculateSemiConstants()    //Numbers that only need to be calculated once if the orbit doesn't change.
     {
-        mu = (float)(constants.GRAV * PhysicsUtils.(parent.gameObject.GetComponent<Rigidbody>().mass));
-        n = (float)Math.Sqrt(mu / (float)PhysicsUtils.DecimalPow(orbit.SemiMajorAxis, 3));
+        mu = (double)(constants.GRAV * parent.gameObject.GetComponent<Rigidbody>().mass);
+        n = (double)Math.Sqrt(mu / Mathf.Pow(PhysicsUtils.ConvertToAU(orbit.SemiMajorAxis)*100, 3));
         trueAnomalyConstant = (float)Math.Sqrt((1 + orbit.Eccentricity) / (1 - orbit.Eccentricity));
         cosLOAN = (float)Math.Cos(orbit.LongitudeOfAscending);
         sinLOAN = (float)Math.Sin(orbit.LongitudeOfAscending);
         cosI = (float)Math.Cos(orbit.Inclination);
         sinI = (float)Math.Sin(orbit.Inclination);
+        Logger.Log("Orbit Manager", $"Orbit constants calculated: mu = {mu}, n = {n}, trueAnomalyConstant = {trueAnomalyConstant}, cosLOAN = {cosLOAN}, sinLOAN = {sinLOAN}, cosI = {cosI}, sinI = {sinI}");
     }
 
     float eccentricAnomalyTrail;
     void Update()
     {
-        CalculateSemiConstants();
+        //CalculateSemiConstants();
 
         // Set the position of the object in the scene
         CalculatePosition(out float x, out float y, out float z);
-        transform.position = new Vector3(x, y, z)*10f + parent.position;
+
+        Logger.Log("OrbitManager", $"Orbit position calculated: x = {x}, y = {y}, z = {z}");
+        transform.position = new Vector3(y * 1000f, z * 1000f, x * 1000f) + parent.transform.position;
     }
 
     private void LateUpdate()
     {
-        OrbitDraw();
+        if (!isRootBody) { OrbitDraw(); }
     }
 
     private void CalculatePosition(out float x, out float y, out float z)
     {
-        BigInteger currentTime = transform.root.GetComponent<Timekeep>().TimeInSeconds;
+        double currentTime = GameObject.Find("Game_Controller").GetComponent<Timekeep>().TimeInSeconds;
 
-        BigInteger meanAnomalyGuess = BigInteger.Multiply((BigInteger)n, currentTime - meanLongitude);
+        Logger.Log("OrbitManager", $"currentTime {currentTime}");
+        double meanAnomalyGuess = n * currentTime - meanLongitude;
+
+        Logger.Log("OrbitManager", $"Mean Anomaly Guess: {meanAnomalyGuess}");
 
         float E1 = (float)meanAnomalyGuess;   // Initial guess
         float difference = 1f;
@@ -156,20 +173,24 @@ public class OrbitManager : MonoBehaviour
 
             float meanAnomaly = eccentricAnomaly - orbit.Eccentricity * Mathf.Sin(eccentricAnomaly);
             
-            orbitalPoints[i] = pos + new Vector3(x, y, z)/149.597870691f;
+            orbitalPoints[i] = pos + new Vector3(z * 1000f, y * 1000f, x * 1000f);
         }
         
         orbitRenderer.positionCount = orbitResolution;
         orbitRenderer.SetPositions(orbitalPoints);
         
-        float LineWidth = Vector3.Distance(GameObject.Find("MainCam").transform.position, GameObject.Find("Camera_Focus").transform.position)/1000;
+        float LineWidth = Vector3.Distance(GameObject.Find("Main_Camera").transform.position, GameObject.Find("Camera_Focus").transform.position)/1000;
             
         
         colorStart.a = 0.1f; 
         //Apply properties to the orbit line display, end colour is already transparent
         orbitRenderer.startColor = colorStart;
+        // Obsolete but quicker
         orbitRenderer.SetWidth(LineWidth, LineWidth);
     }
 
-   
+    public void SetAsRoot(bool isBinary)
+    {
+        this.isRootBody = true;
+    }
 }

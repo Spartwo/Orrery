@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using System.Linq;
 using Settings;
+using System.Linq.Expressions;
 
 namespace SystemGen
 {
@@ -125,15 +126,15 @@ namespace SystemGen
             // Check for thermal escape
             decimal atmoMass = atmoBaseMass;
 
-            // Check each elements viability
-            for (int i = 0; i < atmosphere.Elements.Count; i++)
-            {
+			// Check each elements viability
+			for (int i = atmosphere.Elements.Count - 1; i >= 0; i--)
+			{
                 if (atmosphere.Elements[i].Element.ExceedsJeanEscape(temperature, coreMass, coreRadius))
                 {
                     // If the element is not viable then decuct from the total mass and set its fraction to 0 
                     atmoMass -=  atmoBaseMass * (atmosphere.Elements[i].Percentile / atmosphere.Elements.Sum(e => e.Percentile));
                     atmosphere.SetElementPercentage(atmosphere.Elements[i].Element, 0);
-                    //Logger.Log("Atmosphere Generation", $"{LocalisationProvider.GetLocalisedString(atmosphere.Elements[i].Element.Name)} is not viable");
+                    Logger.Log("Atmosphere Generation", $"{LocalisationProvider.GetLocalisedString(atmosphere.Elements[i].Element.Name)} is not viable");
                 }
                 else
                 {
@@ -146,12 +147,20 @@ namespace SystemGen
                 }
             }
 
-            
-            // Deviate downwards, lighter atmospheres shift more
-            double reduction = PhysicsUtils.RawToEarthMass(atmoMass) - (Math.Pow(PhysicsUtils.RawToEarthMass(atmoMass), 0.4f) * RandomUtils.RandomFloat(0, 1));
+            double reduction = 0;
 
-            // If there's no atmosphere don't bother with the rest
-            if (reduction < 1)
+			try
+            {
+                // Deviate mass downwards, lighter atmospheres shift more
+                reduction = PhysicsUtils.RawToEarthMass(atmoMass) - (Math.Pow(PhysicsUtils.RawToEarthMass(atmoMass), 0.4f) * RandomUtils.RandomFloat(0, 1));
+            }
+            catch (Exception e)
+            {
+				Logger.LogError("Atmosphere Generation", "Reduction failed: " + e);
+			}
+
+			// If there's no atmosphere don't bother with the rest
+			if (reduction < 1)
             {
                 if (reduction > 0)
                 {

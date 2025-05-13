@@ -36,24 +36,25 @@ namespace Universe
         public void PauseUnpause()
         {
             // Method to toggle timescale to 0 when called
-            if (Time.timeScale == 0)
+            if (gameSpeed == 0)
             {
-                Time.timeScale = storedGameSpeed;
+                gameSpeed = storedGameSpeed;
+                gameSpeedUI.GetComponent<Text>().text = gameSpeed.ToString() + "x";
             } else {
-                Time.timeScale = 0;
+                gameSpeed = 0;
+                gameSpeedUI.GetComponent<Text>().text = "||";
             }
+            Time.timeScale = gameSpeed;
             Logger.Log("Timekeeping", $"Setting Timescale to {gameSpeed}");
         }
         public void FixedUpdate()
         {
-            return;
             GameTimer();
-            DisplayDate();
+            //DisplayDate();
         }
 
         void DisplayDate()
         {
-            gameSpeedUI.GetComponent<Text>().text = gameSpeed.ToString() + "x";
             //CurrentTimeUI.GetComponent<TextMesh>().text = currentTime.ToString();
         }
 
@@ -78,9 +79,9 @@ namespace Universe
                 + "m:" + Seconds.ToString("00") + "s";
         }
 
-        public BigInteger TimeInSeconds
+        public double TimeInSeconds
         {
-            get { return new BigInteger(timeInSeconds); }
+            get { return timeInSeconds; }
         }
     }
 }
