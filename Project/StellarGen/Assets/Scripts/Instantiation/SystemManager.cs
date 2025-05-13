@@ -100,7 +100,6 @@ namespace SystemGen
         {
             // Make sure camera isn't deleted
             cameraController.GetComponent<CameraMovement>().UpdateSelectedBody(GameObject.Find("0").transform);
-            cameraController.transform.position = new UnityEngine.Vector3(0, 0, 0);
 
             // Find all OrbitManager components in the loaded scene
             foreach (OrbitManager orb in Object.FindObjectsByType(typeof(OrbitManager), FindObjectsSortMode.None))
