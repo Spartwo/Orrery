@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\instantiation\\systemmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\instantiation\\systemmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\instantiation\\orbitmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\instantiation\\orbitmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -17,10 +21,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\instantiation\\bodymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\instantiation\\bodymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\instantiation\\systemmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\instantiation\\systemmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\instantiation\\beltmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -122,7 +122,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Bookmark",
@@ -211,13 +211,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "OrbitManager.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Instantiation\\OrbitManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Instantiation\\OrbitManager.cs",
               "ToolTip": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Instantiation\\OrbitManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Instantiation\\OrbitManager.cs",
-              "ViewState": "AgIAAH4AAAAAAAAAAAAQwK8AAABIAAAAAAAAAA==",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAAAGoAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-12T17:25:15.502Z",
               "EditorCaption": ""
@@ -260,20 +260,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "SystemManager.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Instantiation\\SystemManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Instantiation\\SystemManager.cs",
               "ToolTip": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Instantiation\\SystemManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Instantiation\\SystemManager.cs",
-              "ViewState": "AgIAAH4AAAAAAAAAAAAAAJoAAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAAHIAAAAAAAAAAAAAAIoAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-11T00:37:18.504Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "StarManager.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Instantiation\\StarManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Instantiation\\StarManager.cs",
@@ -299,7 +299,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "BodyManager.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Instantiation\\BodyManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Instantiation\\BodyManager.cs",
@@ -373,7 +373,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "OrbitalProperties.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Models\\OrbitalProperties.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Models\\OrbitalProperties.cs",

@@ -6,7 +6,6 @@ using PhysicsUtils = StellarGenHelpers.PhysicsUtils;
 using ColourUtils = StellarGenHelpers.ColourUtils;
 using JsonUtils = StellarGenHelpers.JsonUtils;
 using UnityEngine;
-using Unity.VisualScripting;
 using System.IO;
 using System.Collections;
 using Newtonsoft.Json;
@@ -14,8 +13,6 @@ using Models;
 using System.Xml.Linq;
 using StellarGenHelpers;
 using System.Linq;
-using UnityEditor.PackageManager.UI;
-using UnityEngine.Profiling;
 using System.Buffers;
 using System.Numerics;
 

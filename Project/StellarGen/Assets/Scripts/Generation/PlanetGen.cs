@@ -4,8 +4,6 @@ using Random = System.Random;
 using UnityEngine;
 using Models;
 using StellarGenHelpers;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using System.Linq;
 using Settings;
 using System.Linq.Expressions;

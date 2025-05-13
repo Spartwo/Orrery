@@ -10,8 +10,6 @@ using System.Numerics;
 using System;
 using Object = UnityEngine.Object;
 using Universe;
-using UnityEditor.VersionControl;
-using static UnityEngine.GraphicsBuffer;
 
 namespace SystemGen
 {

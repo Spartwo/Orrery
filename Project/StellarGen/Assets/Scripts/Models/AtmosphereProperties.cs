@@ -5,9 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Xml.Linq;
-using static UnityEditor.FilePathAttribute;
 using UnityEngine;
-using UnityEngine.Categorization;
 
 namespace Models
 {
