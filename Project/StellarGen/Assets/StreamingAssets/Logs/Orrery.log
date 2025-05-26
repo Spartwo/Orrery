@@ -1,86 +1,27 @@
-[02:31:58 LOG] Application: Program Initialised
-[02:31:58 LOG] Camera Controller: Found 0 targetable bodies
-[02:32:00 LOG] LoadCellManager: Loaded system Erianna-715 with 1 Stars	|	 12 Planets	|	 1 Belts
-[02:32:00 LOG] LoadCellManager: Loaded system Greg with 2 Stars	|	 13 Planets	|	 2 Belts
-[02:32:00 LOG] LoadCellManager: Loaded system Kerman-162 with 1 Stars	|	 1 Planets	|	 1 Belts
-[02:32:00 LOG] LoadCellManager: Loaded system Leare-491 with 3 Stars	|	 16 Planets	|	 3 Belts
-[02:32:00 LOG] LoadCellManager: Loaded system Sol with 1 Stars	|	 14 Planets	|	 2 Belts
-[02:32:00 LOG] System Loader: Built Systems List
-[02:32:02 LOG] SystemManager: Recieved system Greg
-[02:32:03 LOG] SystemManager: Info box set to new data
-[02:32:03 LOG] SystemManager: Loading system from C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Greg.json
-[02:32:03 LOG] SystemManager: Loading star 61471832
-[02:32:03 LOG] StarManager: Star Greg-A has a parent of 0
-[02:32:03 LOG] Orbit Manager: Establishing Orbit for 0
-[02:32:03 LOG] Orbit Manager: Orbit constants calculated: mu = 4.91047107E-05, n = 3.80840165473068E-06, trueAnomalyConstant = 3.24482941627502, cosLOAN = -1, sinLOAN = 1.22464685258517E-16, cosI = 1, sinI = 0
-[02:32:03 LOG] StarManager: Star Greg-A has a temperature of 7101 K and a colour of RGBA(0.627, 0.984, 1.000, 1.000)
-[02:32:03 LOG] SystemManager: Loading star 25799898
-[02:32:03 LOG] StarManager: Star Greg-B has a parent of 0
-[02:32:03 LOG] Orbit Manager: Establishing Orbit for 0
-[02:32:03 LOG] Orbit Manager: Orbit constants calculated: mu = 4.91047107E-05, n = 5.69763186560434E-07, trueAnomalyConstant = 3.24482941627502, cosLOAN = 1, sinLOAN = 0, cosI = 1, sinI = 0
-[02:32:03 LOG] StarManager: Star Greg-B has a temperature of 4399 K and a colour of RGBA(0.906, 1.000, 0.804, 1.000)
-[02:32:03 LOG] SystemManager: Loading planet 4369555
-[02:32:03 LOG] Orbit Manager: Establishing Orbit for 25799898
-[02:32:03 LOG] Orbit Manager: Orbit constants calculated: mu = 1.07960434725E-05, n = 0.00998654645773691, trueAnomalyConstant = 1.19624125957489, cosLOAN = -0.963003933429718, sinLOAN = -0.269487261772156, cosI = 0.99863213300705, sinI = 0.0522867143154144
-[02:32:03 LOG] SystemManager: Loading planet 16061740
-[02:32:03 LOG] Orbit Manager: Establishing Orbit for 25799898
-[02:32:03 LOG] Orbit Manager: Orbit constants calculated: mu = 1.07960434725E-05, n = 3.96816155836378E-05, trueAnomalyConstant = 1.02305901050568, cosLOAN = 0.91223132610321, sinLOAN = 0.409675538539886, cosI = 0.999979078769684, sinI = 0.00646664248779416
-[02:32:03 LOG] SystemManager: Loading planet 4089949
-[02:32:03 LOG] Orbit Manager: Establishing Orbit for 25799898
-[02:32:03 LOG] Orbit Manager: Orbit constants calculated: mu = 1.07960434725E-05, n = 0.0488670576002035, trueAnomalyConstant = 1.21434593200684, cosLOAN = -0.850488662719727, sinLOAN = -0.525993347167969, cosI = 0.998397767543793, sinI = 0.0565856769680977
-[02:32:03 LOG] SystemManager: Loading planet 12836083
-[02:32:03 LOG] Orbit Manager: Establishing Orbit for 25799898
-[02:32:03 LOG] Orbit Manager: Orbit constants calculated: mu = 1.07960434725E-05, n = 0.000194150648551887, trueAnomalyConstant = 1.03802514076233, cosLOAN = 0.762828290462494, sinLOAN = 0.64660108089447, cosI = 0.999942004680634, sinI = 0.0107718305662274
-[02:32:03 LOG] SystemManager: Loading planet 6943127
-[02:32:03 LOG] Orbit Manager: Establishing Orbit for 61471832
-[02:32:03 LOG] Orbit Manager: Orbit constants calculated: mu = 3.830866827E-05, n = 0.0516845628316489, trueAnomalyConstant = 1.12922751903534, cosLOAN = 0.685466945171356, sinLOAN = -0.728103756904602, cosI = 0.998956382274628, sinI = 0.0456746369600296
-[02:32:03 LOG] SystemManager: Loading planet 13494125
-[02:32:03 LOG] Orbit Manager: Establishing Orbit for 61471832
-[02:32:03 LOG] Orbit Manager: Orbit constants calculated: mu = 3.830866827E-05, n = 0.000454819989667289, trueAnomalyConstant = 1.05691528320313, cosLOAN = -0.786105215549469, sinLOAN = 0.618092715740204, cosI = 0.999786078929901, sinI = 0.0206833034753799
-[02:32:03 LOG] SystemManager: Loading planet 6640378
-[02:32:03 LOG] Orbit Manager: Establishing Orbit for 61471832
-[02:32:03 LOG] Orbit Manager: Orbit constants calculated: mu = 3.830866827E-05, n = 0.114109429921646, trueAnomalyConstant = 1.13631963729858, cosLOAN = 0.860508143901825, sinLOAN = -0.509436666965485, cosI = 0.998846352100372, sinI = 0.0480204299092293
-[02:32:03 LOG] SystemManager: Loading planet 12395746
-[02:32:03 LOG] Orbit Manager: Establishing Orbit for 61471832
-[02:32:03 LOG] Orbit Manager: Orbit constants calculated: mu = 3.830866827E-05, n = 0.000204364019525574, trueAnomalyConstant = 1.06347334384918, cosLOAN = -0.926688730716705, sinLOAN = 0.375829786062241, cosI = 0.99973475933075, sinI = 0.0230311155319214
-[02:32:03 LOG] SystemManager: Loading planet 6362928
-[02:32:03 LOG] Orbit Manager: Establishing Orbit for 61471832
-[02:32:03 LOG] Orbit Manager: Orbit constants calculated: mu = 3.830866827E-05, n = 0.0231348623384443, trueAnomalyConstant = 1.14346778392792, cosLOAN = 0.968038618564606, sinLOAN = -0.250801265239716, cosI = 0.998730838298798, sinI = 0.0503659583628178
-[02:32:03 LOG] SystemManager: Loading planet 11462717
-[02:32:03 LOG] Orbit Manager: Establishing Orbit for 61471832
-[02:32:03 LOG] Orbit Manager: Orbit constants calculated: mu = 3.830866827E-05, n = 0.000999986583887276, trueAnomalyConstant = 1.07007706165314, cosLOAN = -0.994568824768066, sinLOAN = 0.104081109166145, cosI = 0.999677896499634, sinI = 0.0253788009285927
-[02:32:03 LOG] SystemManager: Loading planet 57742229
-[02:32:03 LOG] Orbit Manager: Establishing Orbit for 61471832
-[02:32:03 LOG] Orbit Manager: Orbit constants calculated: mu = 3.830866827E-05, n = 1.95246886083444E-05, trueAnomalyConstant = 1.00198841094971, cosLOAN = 0.998989105224609, sinLOAN = 0.0449524372816086, cosI = 0.999999940395355, sinI = 0.000375773757696152
-[02:32:03 LOG] SystemManager: Loading planet 10660315
-[02:32:03 LOG] Orbit Manager: Establishing Orbit for 61471832
-[02:32:03 LOG] Orbit Manager: Orbit constants calculated: mu = 3.830866827E-05, n = 0.00220757343760481, trueAnomalyConstant = 1.07672727108002, cosLOAN = -0.984420001506805, sinLOAN = -0.175832986831665, cosI = 0.999615550041199, sinI = 0.0277263447642326
-[02:32:03 LOG] SystemManager: Loading planet 41867521
-[02:32:03 LOG] Orbit Manager: Establishing Orbit for 61471832
-[02:32:03 LOG] Orbit Manager: Orbit constants calculated: mu = 3.830866827E-05, n = 4.30976637553577E-05, trueAnomalyConstant = 1.0081844329834, cosLOAN = 0.947334289550781, sinLOAN = 0.320246458053589, cosI = 0.999996304512024, sinI = 0.00272414390929043
-[02:32:03 LOG] SystemManager: Loading belt 4369555
-[02:32:09 LOG] Camera Controller: Toggled UI to False
-[02:32:09 LOG] Camera Controller: Toggled UI to True
-[02:32:17 LOG] Camera Controller: Toggled UI to False
-[02:32:17 LOG] Camera Controller: Toggled UI to True
-[02:32:22 LOG] Camera Controller: Double Click Reparented from 0 (UnityEngine.Transform) to 6943127
-[02:32:23 LOG] Camera Controller: Toggled UI to False
-[02:32:24 LOG] Camera Controller: Toggled UI to True
-[02:32:37 LOG] Camera Controller: Toggled UI to False
-[02:33:03 LOG] Camera Controller: Toggled UI to True
-[02:33:04 LOG] Camera Controller: Toggled UI to False
-[02:33:06 LOG] Camera Controller: Toggled UI to True
-[02:33:08 LOG] Camera Controller: Toggled UI to False
-[02:33:08 LOG] Camera Controller: Toggled UI to True
-[02:33:11 LOG] Camera Controller: Toggled UI to False
-[02:35:57 LOG] Camera Controller: Toggled UI to True
-[02:36:04 LOG] Timekeeping: Setting Timescale to 0
-[02:36:09 LOG] Timekeeping: Setting Timescale to 10
-[02:36:14 LOG] Camera Controller: Toggled UI to False
-[02:36:15 LOG] Camera Controller: Toggled UI to True
-[02:36:21 LOG] Camera Controller: Toggled UI to False
-[02:36:22 LOG] Camera Controller: Toggled UI to True
-[02:36:24 LOG] Camera Controller: Toggled UI to False
-[02:36:24 LOG] Camera Controller: Toggled UI to True
-[02:36:26 LOG] Camera Controller: Toggled UI to False
-[02:36:31 LOG] Camera Controller: Toggled UI to True
+[21:37:13 LOG] Application: Program Initialised
+[21:37:13 LOG] Camera Controller: Found 0 targetable bodies
+[21:37:14 LOG] LoadCellManager: Loaded system Eccentricity Test with 1 Stars	|	 2 Planets	|	 0 Belts
+[21:37:14 LOG] LoadCellManager: Loaded system Erianna-715 with 1 Stars	|	 12 Planets	|	 1 Belts
+[21:37:14 LOG] LoadCellManager: Loaded system Greg with 2 Stars	|	 13 Planets	|	 2 Belts
+[21:37:14 LOG] LoadCellManager: Loaded system Kerman-162 with 1 Stars	|	 1 Planets	|	 1 Belts
+[21:37:14 LOG] LoadCellManager: Loaded system Leare-491 with 3 Stars	|	 16 Planets	|	 3 Belts
+[21:37:14 LOG] LoadCellManager: Loaded system Sol with 1 Stars	|	 14 Planets	|	 2 Belts
+[21:37:14 LOG] System Loader: Built Systems List
+[21:37:16 LOG] SystemManager: Recieved system Eccentricity Test
+[21:37:16 LOG] SystemManager: Info box set to new data
+[21:37:16 LOG] SystemManager: Loading system from C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Eccentricity.json
+[21:37:16 LOG] SystemManager: Loading star -325575754
+[21:37:16 LOG] StarManager: Star Sol has a parent of 0
+[21:37:16 LOG] Orbit Manager: Establishing Orbit for 0
+[21:37:16 LOG] StarManager: Star Sol has a temperature of 5774 K and a colour of RGBA(0.788, 1.000, 1.000, 1.000)
+[21:37:16 LOG] SystemManager: Loading planet -87555335
+[21:37:16 LOG] Orbit Manager: Establishing Orbit for -325575754
+[21:37:16 LOG] Orbit Manager: Orbit constants calculated: mu = 2.2221325133466E-05, n = 0.00471384975204538, trueAnomalyConstant = 1.5571311712265, cosLOAN = 0.949578821659088, sinLOAN = 0.313528418540955, cosI = 1, sinI = 0
+[21:37:16 LOG] SystemManager: Loading planet -87555336
+[21:37:16 LOG] Orbit Manager: Establishing Orbit for -325575754
+[21:37:16 LOG] Orbit Manager: Orbit constants calculated: mu = 2.222131284E-05, n = 0.00471384844812765, trueAnomalyConstant = 1.01613008975983, cosLOAN = 0.949578821659088, sinLOAN = 0.313528418540955, cosI = 1, sinI = 0
+[21:37:16 LOG] Camera Controller: Found 3 targetable bodies
+[21:37:23 LOG] Camera Controller: Toggled UI to False
+[21:37:23 LOG] Camera Controller: Toggled UI to True
+[21:37:25 LOG] Camera Controller: Toggled UI to False
+[21:37:33 LOG] Camera Controller: Toggled UI to True

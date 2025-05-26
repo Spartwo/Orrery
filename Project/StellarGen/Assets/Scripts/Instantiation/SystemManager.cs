@@ -26,6 +26,10 @@ namespace SystemGen
         [SerializeField] private GameObject cameraController;
         [SerializeField] private SystemListLoad systemsList;
 
+        [SerializeField] private ;
+        [SerializeField] private SystemListLoad systemsList;
+        [SerializeField] private SystemListLoad systemsList;
+
         public void RecieveSystem(string fileAddress, string systemName)
         {
             Logger.Log("SystemManager", $"Recieved system {systemName}");

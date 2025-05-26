@@ -85,7 +85,20 @@ public class OrbitManager : MonoBehaviour
     }
     public void CalculateSemiConstants()    //Numbers that only need to be calculated once if the orbit doesn't change.
     {
-        mu = (double)(constants.GRAV * parent.gameObject.GetComponent<Rigidbody>().mass);
+        bool parentHasVisibleMesh = parent != null && parent.GetComponent<MeshRenderer>() != null;
+        double parentMass;
+
+        // Binaries deduct their own mass from that of the barycentre
+        if (parentHasVisibleMesh)
+        {
+            parentMass = parent.gameObject.GetComponent<Rigidbody>().mass;
+        }
+        else
+        {
+            parentMass = parent.gameObject.GetComponent<Rigidbody>().mass - GetComponent<Rigidbody>().mass;
+        }
+
+        mu = constants.GRAV * parentMass;
         n = (double)Math.Sqrt(mu / Mathf.Pow(PhysicsUtils.ConvertToAU(orbit.SemiMajorAxis), 3));
         trueAnomalyConstant = (float)Math.Sqrt((1 + orbit.Eccentricity) / (1 - orbit.Eccentricity));
         cosLOAN = (float)Math.Cos(orbit.LongitudeOfAscending / (360 / PhysicalConstants.TAU));
@@ -103,7 +116,7 @@ public class OrbitManager : MonoBehaviour
         // Set the position of the object in the scene
         CalculatePosition(out float x, out float y, out float z);
 
-        transform.position = new Vector3(y * 1000f, z * 1000f, x * 1000f) + parent.transform.position;
+        transform.position = new Vector3(y * 100f, z * 100f, x * 100f) + parent.transform.position;
     }
 
     private void LateUpdate()
@@ -115,21 +128,23 @@ public class OrbitManager : MonoBehaviour
     {
         double currentTime = GameObject.Find("Game_Controller").GetComponent<Timekeep>().TimeInSeconds;
 
-        double meanAnomalyGuess = n * currentTime - meanLongitude;
+        float meanAnomalyGuess = (float)(n * (currentTime - meanLongitude));
 
-        float E1 = (float)meanAnomalyGuess;   // Initial guess
+        Debug.Log($"Mean Anomaly Guess: {meanAnomalyGuess}, n: {n}, currentTime: {currentTime}, meanLongitude: {meanLongitude}");
+
+        float E1 = meanAnomalyGuess;   // Initial guess
         float difference = 1f;
         for (int i = 0; difference > accuracyTolerance && i < maxIterations; i++)
         {
             float E0 = E1;
-            E1 = (float)(E0 - F(E0, (float)(orbit.Eccentricity / (360 / PhysicalConstants.TAU)), E1) / DF(E0, (float)(orbit.Eccentricity / (360 / PhysicalConstants.TAU))));
+            E1 = (float)(E0 - F(E0, orbit.Eccentricity, meanAnomalyGuess) / DF(E0, orbit.Eccentricity));
             difference = Mathf.Abs(E1 - E0);
         }
         float eccentricAnomaly = E1;
         eccentricAnomalyTrail = E1;
 
         float trueAnomaly = 2 * Mathf.Atan((float)(trueAnomalyConstant * Mathf.Tan(eccentricAnomaly / 2)));
-        decimal distance = orbit.SemiMajorAxis * (decimal)(1 - (orbit.Eccentricity / (360 / PhysicalConstants.TAU)) * Mathf.Cos(eccentricAnomaly));
+        decimal distance = orbit.SemiMajorAxis * (decimal)(1 - (orbit.Eccentricity * Mathf.Cos(eccentricAnomaly)));
 
         double cosAOPPlusTA = Math.Cos((orbit.PeriArgument / (360 / PhysicalConstants.TAU)) + trueAnomaly);
         double sinAOPPlusTA = Math.Sin((orbit.PeriArgument / (360 / PhysicalConstants.TAU)) + trueAnomaly);
@@ -147,8 +162,6 @@ public class OrbitManager : MonoBehaviour
 
     private void OrbitDraw()
     {
-
-        Debug.Log($"Drawing orbit for {parent.name} with resolution {orbitResolution}");
         // Declare orbital points array
         orbitalPoints = new Vector3[orbitResolution];
         // Declare orbital focus position
@@ -160,7 +173,7 @@ public class OrbitManager : MonoBehaviour
             float eccentricAnomaly = (float)(eccentricAnomalyTrail + i * orbitFraction * PhysicalConstants.TAU);
 
             float trueAnomaly = 2 * Mathf.Atan((float)trueAnomalyConstant * Mathf.Tan(eccentricAnomaly / 2));
-            decimal distance = orbit.SemiMajorAxis * (decimal)(1 - (orbit.Eccentricity / (360 / PhysicalConstants.TAU)) * Mathf.Cos(eccentricAnomaly));
+            decimal distance = orbit.SemiMajorAxis * (decimal)(1 - (orbit.Eccentricity * Mathf.Cos(eccentricAnomaly)));
 
             float cosAOPPlusTA = Mathf.Cos((float)((orbit.PeriArgument / (360 / PhysicalConstants.TAU)) + trueAnomaly));
             float sinAOPPlusTA = Mathf.Sin((float)((orbit.PeriArgument / (360 / PhysicalConstants.TAU)) + trueAnomaly));
@@ -175,11 +188,9 @@ public class OrbitManager : MonoBehaviour
 
             float meanAnomaly = (float)(eccentricAnomaly - (orbit.Eccentricity / (360 / PhysicalConstants.TAU)) * Mathf.Sin(eccentricAnomaly));
             
-            orbitalPoints[i] = pos + new Vector3(y * 1000f, z * 1000f, x * 1000f);
+            orbitalPoints[i] = pos + new Vector3(y * 100f, z * 100f, x * 100f);
         }
         
-        Debug.Log($"Orbit points {orbitalPoints[5]}");
-
         orbitRenderer.positionCount = orbitResolution;
         orbitRenderer.SetPositions(orbitalPoints);
         

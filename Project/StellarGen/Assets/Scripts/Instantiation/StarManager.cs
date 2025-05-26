@@ -75,7 +75,7 @@ namespace SystemGen
 
             CalculateLines();
 
-            int boundScale = 250;
+            int boundScale = 25;
             float innerLine = PhysicsUtils.ConvertToAU(InnerLine) * boundScale;
             float frostLine = PhysicsUtils.ConvertToAU(FrostLine) * boundScale;
             float habitableLine = PhysicsUtils.ConvertToAU(OuterHabitableLine) * boundScale;
@@ -93,11 +93,11 @@ namespace SystemGen
             float diameter = star.Radius * 2;
 
             // Set size of the star itself relative to earth=1
-            transform.GetChild(0).localScale = new Vector3(diameter * 10.9f, diameter * 10.9f, diameter * 10.9f);
+            transform.GetChild(0).localScale = new Vector3(diameter, diameter, diameter);
             // Set size of double click colliders
             SphereCollider[] colliders = GetComponentsInChildren<SphereCollider>();
-            colliders[0].radius = diameter * 2;
-            colliders[1].radius = diameter * 100f;
+            colliders[0].radius = diameter / 25;
+            colliders[1].radius = diameter * 2f;
 
             // All bodies are weighed where 1 = Earth
             float massInEarth = PhysicsUtils.RawToEarthMass(star.Mass);

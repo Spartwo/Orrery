@@ -54,7 +54,7 @@ namespace SystemGen
             float diameter = body.Radius * 2;
 
             // Set size of the body itself relative to earth=1
-            transform.GetChild(0).localScale = new Vector3(diameter * 30.1f, diameter * 30.1f, diameter * 30.1f);
+            transform.GetChild(0).localScale = new Vector3(diameter, diameter, diameter);
             // Set size of double click colliders
             SphereCollider[] colliders = GetComponentsInChildren<SphereCollider>();
             colliders[0].radius = diameter * 2;
