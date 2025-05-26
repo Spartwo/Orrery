@@ -127,7 +127,7 @@ namespace Universe
             zoomGoal += (CamToMove.transform.localPosition.z)/50 * panSpeed * -Input.GetAxis("Mouse ScrollWheel");
         
             // Clamp the max zoom to within an expected surface based on mass
-            zoomGoal = Mathf.Clamp(zoomGoal, 0.05f*targetSize , targetSize*1000);
+            zoomGoal = Mathf.Clamp(zoomGoal, 0.05f*targetSize , targetSize*50000);
         }
 
         void CamInputs()

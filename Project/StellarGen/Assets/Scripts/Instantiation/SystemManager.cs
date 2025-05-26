@@ -132,11 +132,11 @@ namespace SystemGen
                 starObject.GetComponent<StarManager>().FindParent();
 
                 // Set the binary status of the star
-                //starObject.GetComponent<OrbitManager>().SetAsRoot(systemProperties.stellarBodies.Count > 1);
+                starObject.GetComponent<OrbitManager>().SetAsRoot(systemProperties.stellarBodies.Count <= 1);
                 Debug.Log($"Star {star.SeedValue} is {systemProperties.stellarBodies.Count > 1} a binary star");
-                //starObject.GetComponent<OrbitManager>().LoadOrbit(star.Orbit, star.OrbitLine);
+                starObject.GetComponent<OrbitManager>().LoadOrbit(star.Orbit, star.OrbitLine);
 
-                starObject.GetComponent<OrbitManager>().enabled = false;
+                //starObject.GetComponent<OrbitManager>().enabled = false;
                 starObject.GetComponent<StarManager>().RecalculateColour();
             }
             foreach (BodyProperties planet in systemProperties.solidBodies)
