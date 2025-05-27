@@ -1560,6 +1560,10 @@ MonoBehaviour:
   infoField: {fileID: 119937410}
   cameraController: {fileID: 1071822135}
   systemsList: {fileID: 5748100700401291158}
+  orbitScale: 100
+  objectScale: 0.1
+  useLogScaling: 0
+  lineScale: 1
 --- !u!1 &653126035
 GameObject:
   m_ObjectHideFlags: 0

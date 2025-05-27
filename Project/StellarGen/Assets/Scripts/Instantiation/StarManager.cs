@@ -99,7 +99,7 @@ namespace SystemGen
             // Set size of double click colliders
             SphereCollider[] colliders = GetComponentsInChildren<SphereCollider>();
             colliders[0].radius = diameter / 2f;
-            colliders[1].radius = diameter * 200f;
+            colliders[1].radius = diameter * 50f;
         }
 
         public void SetStarProperties()

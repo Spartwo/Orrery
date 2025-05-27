@@ -166,26 +166,34 @@ public class OrbitManager : MonoBehaviour
         decimal posY = distance * (decimal)((sinLOAN * cosAOPPlusTA) + (cosLOAN * sinAOPPlusTA * cosI));
         decimal posZ = distance * (decimal)(sinI * sinAOPPlusTA);
 
-        float x;
         float y;
         float z;
+        float x;
 
         if (useLogScaling)
         {
-            // Apply logarithmic scaling to the orbit radius
-            x = Mathf.Log10(PhysicsUtils.ConvertToAU(posX));
-            y = Mathf.Log10(PhysicsUtils.ConvertToAU(posY));
-            z = Mathf.Log10(PhysicsUtils.ConvertToAU(posZ));
+            // Convert position to AU
+            Vector3 unscaled = new Vector3(
+                PhysicsUtils.ConvertToAU(posY),
+                PhysicsUtils.ConvertToAU(posZ),
+                PhysicsUtils.ConvertToAU(posX)
+            );
+
+            float radiusAU = unscaled.magnitude;
+            float radiusCompressed = Mathf.Log10(radiusAU + 1f) / Mathf.Log10(2f) * orbitScale;
+            Vector3 direction = unscaled.normalized;
+            Vector3 scaledPosition = direction * radiusCompressed;
+
+            transform.position = scaledPosition + parent.transform.position;
         }
         else
         {
-            // Apply linear scaling to the orbit radius
-            x = PhysicsUtils.ConvertToAU(posX) * orbitScale;
             y = PhysicsUtils.ConvertToAU(posY) * orbitScale;
             z = PhysicsUtils.ConvertToAU(posZ) * orbitScale;
-        }
+            x = PhysicsUtils.ConvertToAU(posX) * orbitScale;
 
-        transform.position = new Vector3(y, z, x) + parent.transform.position;
+            transform.position = new Vector3(y, z, x) + parent.transform.position;
+        }
     }
    
 
@@ -214,26 +222,34 @@ public class OrbitManager : MonoBehaviour
             decimal posY = distance * (decimal)((sinLOAN * cosAOPPlusTA) + (cosLOAN * sinAOPPlusTA * cosI));
             decimal posZ = distance * (decimal)(sinI * sinAOPPlusTA);
 
-            float x;
             float y;
             float z;
+            float x;
 
             if (useLogScaling)
             {
-                // Apply logarithmic scaling to the orbit radius
-                x = Mathf.Log10(PhysicsUtils.ConvertToAU(posX));
-                y = Mathf.Log10(PhysicsUtils.ConvertToAU(posY));
-                z = Mathf.Log10(PhysicsUtils.ConvertToAU(posZ));
+                // Convert position to AU
+                Vector3 unscaled = new Vector3(
+                    PhysicsUtils.ConvertToAU(posY),
+                    PhysicsUtils.ConvertToAU(posZ),
+                    PhysicsUtils.ConvertToAU(posX)
+                );
+
+                float radiusAU = unscaled.magnitude;
+                float radiusCompressed = Mathf.Log10(radiusAU + 1f) / Mathf.Log10(2f) * orbitScale;
+                Vector3 direction = unscaled.normalized;
+                Vector3 scaledPosition = direction * radiusCompressed;
+
+                orbitalPoints[i] = scaledPosition + parent.transform.position;
             }
             else
             {
-                // Apply linear scaling to the orbit radius
-                x = PhysicsUtils.ConvertToAU(posX) * orbitScale;
                 y = PhysicsUtils.ConvertToAU(posY) * orbitScale;
                 z = PhysicsUtils.ConvertToAU(posZ) * orbitScale;
-            }
+                x = PhysicsUtils.ConvertToAU(posX) * orbitScale;
 
-            orbitalPoints[i] = pos + new Vector3(y, z, x);
+                orbitalPoints[i] = new Vector3(y, z, x) + parent.transform.position;
+            }
         }
         
         orbitRenderer.positionCount = orbitResolution;
