@@ -255,6 +255,7 @@ MonoBehaviour:
   orbitResolution: 140
   colorStart: {r: 0, g: 0, b: 0, a: 0}
   colorEnd: {r: 0, g: 0, b: 0, a: 0}
+  controller: {fileID: 0}
   mu: 0
   n: 0
   cosLOAN: 0
@@ -270,7 +271,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1134470411669408219}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

@@ -9,6 +9,7 @@ using StellarGenHelpers;
 using UnityEditor;
 using Models;
 using Universe;
+using SystemGen;
 using System.Numerics;
 using Vector3 = UnityEngine.Vector3;
 
@@ -28,6 +29,11 @@ public class OrbitManager : MonoBehaviour
     [SerializeField] Color colorStart;
     [SerializeField] Color colorEnd;
     private UnityEngine.Vector3[] orbitalPoints;
+    // Scaling
+    [SerializeField] private SystemManager controller;
+    private float orbitScale = 100f;
+    private bool useLogScaling = false;
+    private float lineScale = 1f;
 
     // Settings
     private float accuracyTolerance = 1e-6f;
@@ -37,7 +43,6 @@ public class OrbitManager : MonoBehaviour
     [HideInInspector] [SerializeField] double mu;
     [HideInInspector] [SerializeField] double n, cosLOAN, sinLOAN, sinI, cosI, trueAnomalyConstant;
 
-   // private void OnValidate() => 
     public void LoadOrbit(OrbitalProperties orbit, int[] orbitLine)
     {
         // Pass the provided orbit and parent object to the class
@@ -53,6 +58,8 @@ public class OrbitManager : MonoBehaviour
         {
             parentValue = "null";
         }
+
+        controller = GameObject.Find("Game_Controller").GetComponent<SystemManager>();
 
         Logger.Log("Orbit Manager", $"Establishing Orbit for {parentValue}");
 
@@ -71,6 +78,7 @@ public class OrbitManager : MonoBehaviour
         else
         {
             Destroy(orbitRenderer);
+            Destroy(this);
         }
 
             
@@ -112,11 +120,11 @@ public class OrbitManager : MonoBehaviour
     void Update()
     {
         //CalculateSemiConstants();
+        UpdateScaling();
 
         // Set the position of the object in the scene
-        CalculatePosition(out float x, out float y, out float z);
+        UpdatePosition();
 
-        transform.position = new Vector3(y * 100f, z * 100f, x * 100f) + parent.transform.position;
     }
 
     private void LateUpdate()
@@ -124,13 +132,17 @@ public class OrbitManager : MonoBehaviour
         if (!isRootBody) { OrbitDraw(); }
     }
 
-    private void CalculatePosition(out float x, out float y, out float z)
+    private void UpdatePosition()
     {
         double currentTime = GameObject.Find("Game_Controller").GetComponent<Timekeep>().TimeInSeconds;
 
         float meanAnomalyGuess = (float)(n * (currentTime - meanLongitude));
 
-        Debug.Log($"Mean Anomaly Guess: {meanAnomalyGuess}, n: {n}, currentTime: {currentTime}, meanLongitude: {meanLongitude}");
+        if (orbit == null)
+        {
+            Debug.LogError($"{name}: Orbit data is not assigned.");
+            return;
+        }
 
         float E1 = meanAnomalyGuess;   // Initial guess
         float difference = 1f;
@@ -149,14 +161,31 @@ public class OrbitManager : MonoBehaviour
         double cosAOPPlusTA = Math.Cos((orbit.PeriArgument / (360 / PhysicalConstants.TAU)) + trueAnomaly);
         double sinAOPPlusTA = Math.Sin((orbit.PeriArgument / (360 / PhysicalConstants.TAU)) + trueAnomaly);
 
+        // Calculte the position of the object in the worldspace
         decimal posX = distance * (decimal)((cosLOAN * cosAOPPlusTA) - (sinLOAN * sinAOPPlusTA * cosI));
         decimal posY = distance * (decimal)((sinLOAN * cosAOPPlusTA) + (cosLOAN * sinAOPPlusTA * cosI));
         decimal posZ = distance * (decimal)(sinI * sinAOPPlusTA);
 
+        float x;
+        float y;
+        float z;
 
-        x = PhysicsUtils.ConvertToAU(posX);
-        y = PhysicsUtils.ConvertToAU(posY);
-        z = PhysicsUtils.ConvertToAU(posZ);
+        if (useLogScaling)
+        {
+            // Apply logarithmic scaling to the orbit radius
+            x = Mathf.Log10(PhysicsUtils.ConvertToAU(posX));
+            y = Mathf.Log10(PhysicsUtils.ConvertToAU(posY));
+            z = Mathf.Log10(PhysicsUtils.ConvertToAU(posZ));
+        }
+        else
+        {
+            // Apply linear scaling to the orbit radius
+            x = PhysicsUtils.ConvertToAU(posX) * orbitScale;
+            y = PhysicsUtils.ConvertToAU(posY) * orbitScale;
+            z = PhysicsUtils.ConvertToAU(posZ) * orbitScale;
+        }
+
+        transform.position = new Vector3(y, z, x) + parent.transform.position;
     }
    
 
@@ -178,23 +207,39 @@ public class OrbitManager : MonoBehaviour
             float cosAOPPlusTA = Mathf.Cos((float)((orbit.PeriArgument / (360 / PhysicalConstants.TAU)) + trueAnomaly));
             float sinAOPPlusTA = Mathf.Sin((float)((orbit.PeriArgument / (360 / PhysicalConstants.TAU)) + trueAnomaly));
 
+            float meanAnomaly = (float)(eccentricAnomaly - (orbit.Eccentricity / (360 / PhysicalConstants.TAU)) * Mathf.Sin(eccentricAnomaly));
+
+            // Calculate the position of the orbital point
             decimal posX = distance * (decimal)((cosLOAN * cosAOPPlusTA) - (sinLOAN * sinAOPPlusTA * cosI));
             decimal posY = distance * (decimal)((sinLOAN * cosAOPPlusTA) + (cosLOAN * sinAOPPlusTA * cosI));
             decimal posZ = distance * (decimal)(sinI * sinAOPPlusTA);
 
-            float x = PhysicsUtils.ConvertToAU(posX);
-            float y = PhysicsUtils.ConvertToAU(posY);
-            float z = PhysicsUtils.ConvertToAU(posZ);
+            float x;
+            float y;
+            float z;
 
-            float meanAnomaly = (float)(eccentricAnomaly - (orbit.Eccentricity / (360 / PhysicalConstants.TAU)) * Mathf.Sin(eccentricAnomaly));
-            
-            orbitalPoints[i] = pos + new Vector3(y * 100f, z * 100f, x * 100f);
+            if (useLogScaling)
+            {
+                // Apply logarithmic scaling to the orbit radius
+                x = Mathf.Log10(PhysicsUtils.ConvertToAU(posX));
+                y = Mathf.Log10(PhysicsUtils.ConvertToAU(posY));
+                z = Mathf.Log10(PhysicsUtils.ConvertToAU(posZ));
+            }
+            else
+            {
+                // Apply linear scaling to the orbit radius
+                x = PhysicsUtils.ConvertToAU(posX) * orbitScale;
+                y = PhysicsUtils.ConvertToAU(posY) * orbitScale;
+                z = PhysicsUtils.ConvertToAU(posZ) * orbitScale;
+            }
+
+            orbitalPoints[i] = pos + new Vector3(y, z, x);
         }
         
         orbitRenderer.positionCount = orbitResolution;
         orbitRenderer.SetPositions(orbitalPoints);
         
-        float LineWidth = Vector3.Distance(GameObject.Find("Main_Camera").transform.position, parent.transform.position)/500;
+        float LineWidth = (Vector3.Distance(GameObject.Find("Main_Camera").transform.position, parent.transform.position) / (orbitScale * 5f)) * lineScale;
 
         colorStart.a = 0.1f; 
         //Apply properties to the orbit line display, end colour is already transparent
@@ -207,5 +252,11 @@ public class OrbitManager : MonoBehaviour
     public void SetAsRoot(bool isBinary)
     {
         this.isRootBody = isBinary;
+    }
+    public void UpdateScaling()
+    {
+        orbitScale = controller.orbitScale;
+        useLogScaling = controller.useLogScaling;
+        lineScale = controller.lineScale;
     }
 }

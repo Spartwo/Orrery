@@ -3,16 +3,40 @@
   "WorkspaceRootPath": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\interface\\cameramovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\interface\\cameramovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|c:\\users\\spartwo\\documents\\github\\stellargen\\project\\stellargen\\assets\\scripts\\instantiation\\orbitmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\instantiation\\orbitmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\instantiation\\orbitmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\instantiation\\systemmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|c:\\users\\spartwo\\documents\\github\\stellargen\\project\\stellargen\\assets\\scripts\\instantiation\\systemmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\instantiation\\systemmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\generation\\beltgen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\generation\\beltgen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\instantiation\\beltmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\instantiation\\beltmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\interface\\grid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\interface\\grid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\interface\\timekeep.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\interface\\timekeep.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\instantiation\\starmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\instantiation\\starmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\instantiation\\bodymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\instantiation\\bodymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\interface\\cameramovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\interface\\cameramovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\interface\\systemlistload.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -43,24 +67,8 @@
       "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\helpers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\instantiation\\bodymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\instantiation\\bodymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\instantiation\\starmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\instantiation\\starmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\instantiation\\beltmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\instantiation\\beltmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\models\\starproperties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\models\\starproperties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\interface\\timekeep.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\interface\\timekeep.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\interface\\loadcellmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -91,10 +99,6 @@
       "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\physicalconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\generation\\beltgen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CD56CE1F-A18D-1411-18C0-0DB0D56DD23A}|Scripts.csproj|solutionrelative:assets\\scripts\\generation\\beltgen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{64B1AFD2-FD5B-B378-5DED-6914DF9A1148}|Scripts.Tests.csproj|C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\assets\\scripts\\tests\\generation\\planetgentests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{64B1AFD2-FD5B-B378-5DED-6914DF9A1148}|Scripts.Tests.csproj|solutionrelative:assets\\scripts\\tests\\generation\\planetgentests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -122,7 +126,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -134,7 +138,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 4,
+              "Title": "Grid.cs",
+              "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Interface\\Grid.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Interface\\Grid.cs",
+              "ToolTip": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Interface\\Grid.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Interface\\Grid.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T20:50:51.457Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
               "Title": "GlobalSettings.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Settings\\GlobalSettings.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Settings\\GlobalSettings.cs",
@@ -146,7 +162,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 9,
               "Title": "SystemListLoad.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Interface\\SystemListLoad.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Interface\\SystemListLoad.cs",
@@ -154,25 +170,23 @@
               "RelativeToolTip": "Assets\\Scripts\\Interface\\SystemListLoad.cs",
               "ViewState": "AgIAACAAAAAAAAAAAAAIwCEAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T22:43:59.771Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T22:43:59.771Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 8,
               "Title": "CameraMovement.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Interface\\CameraMovement.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Interface\\CameraMovement.cs",
               "ToolTip": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Interface\\CameraMovement.cs",
               "RelativeToolTip": "Assets\\Scripts\\Interface\\CameraMovement.cs",
-              "ViewState": "AgIAAGcAAAAAAAAAAAAQwIEAAABMAAAAAAAAAA==",
+              "ViewState": "AgIAAGoAAAAAAAAAAAAQwIEAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T18:48:35.567Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T18:48:35.567Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "LoadCellManager.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Interface\\LoadCellManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Interface\\LoadCellManager.cs",
@@ -184,7 +198,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "PlanetGenTests.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Tests\\Generation\\PlanetGenTests.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Tests\\Generation\\PlanetGenTests.cs",
@@ -196,7 +210,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 5,
               "Title": "Timekeep.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Interface\\Timekeep.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Interface\\Timekeep.cs",
@@ -208,20 +222,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "OrbitManager.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Instantiation\\OrbitManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Instantiation\\OrbitManager.cs",
               "ToolTip": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Instantiation\\OrbitManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Instantiation\\OrbitManager.cs",
-              "ViewState": "AgIAAHYAAAAAAAAAAAAAAL0AAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAAJwAAAAAAAAAAAAowH4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-12T17:25:15.502Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 22,
               "Title": "SystemGenerator.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Generation\\SystemGenerator.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Generation\\SystemGenerator.cs",
@@ -233,7 +247,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 20,
               "Title": "Exit.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Interface\\Exit.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Interface\\Exit.cs",
@@ -245,7 +259,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 12,
               "Title": "SurfaceProperties.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Models\\SurfaceProperties.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Models\\SurfaceProperties.cs",
@@ -257,44 +271,45 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "SystemManager.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Instantiation\\SystemManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Instantiation\\SystemManager.cs",
               "ToolTip": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Instantiation\\SystemManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Instantiation\\SystemManager.cs",
-              "ViewState": "AgIAAHkAAAAAAAAAAAAkwJAAAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB4AAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-11T00:37:18.504Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 6,
               "Title": "StarManager.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Instantiation\\StarManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Instantiation\\StarManager.cs",
               "ToolTip": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Instantiation\\StarManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Instantiation\\StarManager.cs",
-              "ViewState": "AgIAAF4AAAAAAAAAAAAQwDYAAABKAAAAAAAAAA==",
+              "ViewState": "AgIAAEkAAAAAAAAAAAAQwGMAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-08T09:27:57.708Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 3,
               "Title": "BeltManager.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Instantiation\\BeltManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Instantiation\\BeltManager.cs",
               "ToolTip": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Instantiation\\BeltManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Instantiation\\BeltManager.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAAADIAAABkAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAABkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-11T02:49:32.735Z"
+              "WhenOpened": "2025-05-11T02:49:32.735Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 2,
               "Title": "BeltGen.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Generation\\BeltGen.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Generation\\BeltGen.cs",
@@ -302,11 +317,12 @@
               "RelativeToolTip": "Assets\\Scripts\\Generation\\BeltGen.cs",
               "ViewState": "AgIAAE4AAAAAAAAAAAAswFwAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T21:05:19.958Z"
+              "WhenOpened": "2025-05-10T21:05:19.958Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 23,
               "Title": "PhysicalConstants.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\PhysicalConstants.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PhysicalConstants.cs",
@@ -318,7 +334,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 21,
               "Title": "BodyProperties.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Models\\BodyProperties.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Models\\BodyProperties.cs",
@@ -330,7 +346,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "StarProperties.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Models\\StarProperties.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Models\\StarProperties.cs",
@@ -342,7 +358,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "SiderealProperties.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Models\\SiderealProperties.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Models\\SiderealProperties.cs",
@@ -354,7 +370,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 10,
               "Title": "OrbitalProperties.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Models\\OrbitalProperties.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Models\\OrbitalProperties.cs",
@@ -366,7 +382,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "BeltProperties.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Models\\BeltProperties.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Models\\BeltProperties.cs",
@@ -378,7 +394,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "LocalisationProvider.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Settings\\LocalisationProvider.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Settings\\LocalisationProvider.cs",
@@ -390,7 +406,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "Logging.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Logging\\Logging.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Logging\\Logging.cs",
@@ -402,7 +418,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 19,
               "Title": "SettingsLoader.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Settings\\SettingsLoader.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Settings\\SettingsLoader.cs",
@@ -414,7 +430,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 11,
               "Title": "AtmosphereProperties.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Models\\AtmosphereProperties.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Models\\AtmosphereProperties.cs",
@@ -426,7 +442,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 15,
               "Title": "Helpers.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Helpers.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Helpers.cs",
@@ -438,7 +454,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 14,
               "Title": "PlanetGen.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Generation\\PlanetGen.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Generation\\PlanetGen.cs",
@@ -450,7 +466,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 13,
               "Title": "StarGen.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Generation\\StarGen.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Generation\\StarGen.cs",
@@ -462,13 +478,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 7,
               "Title": "BodyManager.cs",
               "DocumentMoniker": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Instantiation\\BodyManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Instantiation\\BodyManager.cs",
               "ToolTip": "C:\\Users\\Spartwo\\Documents\\GitHub\\StellarGen\\Project\\StellarGen\\Assets\\Scripts\\Instantiation\\BodyManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Instantiation\\BodyManager.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAAIwDgAAABrAAAAAAAAAA==",
+              "ViewState": "AgIAACAAAAAAAAAAAAAwwDgAAABXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-07T19:13:04.201Z"
             }

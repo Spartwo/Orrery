@@ -29,6 +29,9 @@ namespace SystemGen
         {
             // Point the indicators towards the camera
             StarIndicators.transform.LookAt(GameObject.Find("Main_Camera").transform.position);
+
+            UpdateScale();
+            UpdateStarProperties();
         }
 
         public void CalculateLines()
@@ -39,6 +42,9 @@ namespace SystemGen
             OuterHabitableLine = decimal.Multiply(CentreLine, 1.35m);
             FrostLine = decimal.Multiply(CentreLine, 4.8m);
             InnerLine = star.SublimationRadius;
+
+            Debug.Log($"Star {star.Name} has a habitable zone of {OuterHabitableLine} game metres, an arid zone of {AridLine} game metres, and a frost line of {FrostLine} game metres.");
+
         }
 
         public void RecalculateColour()
@@ -68,20 +74,13 @@ namespace SystemGen
             Logger.Log("StarManager", $"Star {star.Name} has a temperature of {star.Temperature} K and a colour of {color}");
         }
 
-        public void SetStarProperties()
+        public void UpdateStarProperties()
         {
-            // Pame the root object after the stars unique idenfitier
-            gameObject.name = star.SeedValue.ToString();
-
-            CalculateLines();
-
-            int boundScale = 25;
+            float boundScale = GameObject.Find("Game_Controller").GetComponent<SystemManager>().orbitScale / 4f;
             float innerLine = PhysicsUtils.ConvertToAU(InnerLine) * boundScale;
             float frostLine = PhysicsUtils.ConvertToAU(FrostLine) * boundScale;
             float habitableLine = PhysicsUtils.ConvertToAU(OuterHabitableLine) * boundScale;
             float aridLine = PhysicsUtils.ConvertToAU(AridLine) * boundScale;
-
-            Debug.Log($"Star {star.Name} has a habitable zone of {habitableLine} game metres, an arid zone of {aridLine} game metres, and a frost line of {frostLine} game metres.");
 
             // Set arid zone bounds
             AridDisk.transform.localScale = new Vector3(aridLine, aridLine, aridLine);
@@ -89,8 +88,30 @@ namespace SystemGen
             HabitableDisk.transform.localScale = new Vector3(habitableLine, habitableLine, habitableLine);
             // Set frost line bounds
             FrostDisk.transform.localScale = new Vector3(frostLine, frostLine, frostLine);
+        }
+        public void UpdateScale()
+        {
+            float scale = GameObject.Find("Game_Controller").GetComponent<SystemManager>().objectScale;
 
-            float diameter = star.Radius * 2;
+            float diameter = scale * star.Radius * 218;
+            // Set size of the body itself relative to earth=1
+            transform.GetChild(0).localScale = new Vector3(diameter, diameter, diameter);
+            // Set size of double click colliders
+            SphereCollider[] colliders = GetComponentsInChildren<SphereCollider>();
+            colliders[0].radius = diameter / 2f;
+            colliders[1].radius = diameter * 200f;
+        }
+
+        public void SetStarProperties()
+        {
+            // Pame the root object after the stars unique idenfitier
+            gameObject.name = star.SeedValue.ToString();
+
+            CalculateLines();
+
+            float scale = GameObject.Find("Game_Controller").GetComponent<SystemManager>().objectScale;
+
+            float diameter = scale * star.Radius * 2;
 
             // Set size of the star itself relative to earth=1
             transform.GetChild(0).localScale = new Vector3(diameter, diameter, diameter);

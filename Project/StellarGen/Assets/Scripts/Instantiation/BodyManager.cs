@@ -8,6 +8,7 @@ using Models;
 using Universe;
 using StellarGenHelpers;
 using System;
+using static UnityEngine.UI.CanvasScaler;
 
 namespace SystemGen
 {
@@ -27,6 +28,7 @@ namespace SystemGen
         void Update()
         {
             RotateBody();
+            UpdateScale();
         }
         void RotateBody()
         {
@@ -45,20 +47,24 @@ namespace SystemGen
             transform.SetParent(parentObject.transform, false);
         }
 
-
-        // ApplyData is called by UI 
-        public void ApplyData()
+        public void UpdateScale()
         {
-            // Name the root object after the body's unique idenfitier
-            gameObject.name = body.SeedValue.ToString();
-            float diameter = body.Radius * 2;
+            float scale = GameObject.Find("Game_Controller").GetComponent<SystemManager>().objectScale;
 
+            float diameter = scale * body.Radius * 2;
             // Set size of the body itself relative to earth=1
             transform.GetChild(0).localScale = new Vector3(diameter, diameter, diameter);
             // Set size of double click colliders
             SphereCollider[] colliders = GetComponentsInChildren<SphereCollider>();
             colliders[0].radius = diameter * 2;
             colliders[1].radius = diameter * 100f;
+        }
+
+        // ApplyData is called by UI 
+        public void ApplyData()
+        {
+            // Name the root object after the body's unique idenfitier
+            gameObject.name = body.SeedValue.ToString();
 
             // All bodies are weighed where 1 = Earth
             float massInEarth = PhysicsUtils.RawToEarthMass(body.Mass);

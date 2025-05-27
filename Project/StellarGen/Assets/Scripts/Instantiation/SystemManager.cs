@@ -26,9 +26,10 @@ namespace SystemGen
         [SerializeField] private GameObject cameraController;
         [SerializeField] private SystemListLoad systemsList;
 
-        [SerializeField] private ;
-        [SerializeField] private SystemListLoad systemsList;
-        [SerializeField] private SystemListLoad systemsList;
+        [SerializeField] public float orbitScale = 100f;
+        [SerializeField] public float objectScale = 0.1f;
+        [SerializeField] public bool useLogScaling = true;
+        [SerializeField] public float lineScale = 1f;
 
         public void RecieveSystem(string fileAddress, string systemName)
         {
@@ -100,15 +101,24 @@ namespace SystemGen
         }
         public void LoadSystem()
         {
+            StartCoroutine(LoadSystemCoroutine());
+
+        }
+        IEnumerator LoadSystemCoroutine()
+        {
             // Make sure camera isn't deleted
             cameraController.GetComponent<CameraMovement>().UpdateSelectedBody(GameObject.Find("0").transform);
+            
+            yield return null;
 
-            // Find all OrbitManager components in the loaded scene
-            foreach (OrbitManager orb in Object.FindObjectsByType(typeof(OrbitManager), FindObjectsSortMode.None))
+            // Destroy existing managers
+            foreach (var manager in Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None))
             {
-                // Destroy the entire GameObject
-                Object.Destroy(orb.gameObject);
+                if (manager is BodyManager || manager is BeltManager || manager is StarManager)
+                    Object.Destroy(manager.gameObject);
             }
+
+            yield return null;
 
             Logger.Log("SystemManager", $"Loading system from {assetsFolder}/Star_Systems/{loadedSystemFile}");
             // Load the System Properties from the JSON file
@@ -128,7 +138,6 @@ namespace SystemGen
             foreach (StarProperties star in systemProperties.stellarBodies)
             {
                 Logger.Log("SystemManager", $"Loading star {star.SeedValue}");
-                //break;
                 // Instantiate the star prefab and set its properties
                 GameObject starObject = Instantiate(starPrefab) as GameObject;
                 starObject.GetComponent<StarManager>().star = star;
@@ -146,7 +155,6 @@ namespace SystemGen
             foreach (BodyProperties planet in systemProperties.solidBodies)
             {
                 Logger.Log("SystemManager", $"Loading planet {planet.SeedValue}");
-                //break;
                 // Instantiate the planet prefab and set its properties
                 GameObject planetObject = Instantiate(planetPrefab) as GameObject;
                 planetObject.GetComponent<BodyManager>().body = planet;
@@ -161,13 +169,15 @@ namespace SystemGen
             foreach (BeltProperties belt in systemProperties.belts)
             {
                 Logger.Log("SystemManager", $"Loading belt {belt.SeedValue}");
-                //break;
+                break;
                 // Instantiate the belt prefab and set its properties
                 GameObject beltObject = Instantiate(beltPrefab) as GameObject;
                 beltObject.GetComponent<BeltManager>().belt = belt;
                 beltObject.GetComponent<BeltManager>().ApplyData();
                 beltObject.GetComponent<BeltManager>().FindParent();
             }
+
+            yield return null;
 
             cameraController.GetComponent<CameraMovement>().UpdateBodyList();
         }
