@@ -10,17 +10,18 @@ using StellarGenHelpers;
 public class LoadCellManager : MonoBehaviour
 {   
     private string systemName;
-    protected string systemFileLocation;
+    protected string systemFileName;
     private readonly string assetsFolder = Application.streamingAssetsPath;
     private string quantities;
 
     [SerializeField] private Text nameUI;
     [SerializeField] private Text dataUI;
 
-    public void Setup (string systemFile)
+    public void Setup (string systemFileName)
     {
         // Define the file location with the system name
-        systemFileLocation = $"{assetsFolder}/Star_Systems/{systemFile}";
+        this.systemFileName = systemFileName;
+        string systemFileLocation = $"{assetsFolder}/Star_Systems/{systemFileName}";
 
         // Get and set readable system name from file definition
         systemName = JsonUtils.ReadJsonValueAtLine(systemFileLocation, 3);
@@ -37,14 +38,13 @@ public class LoadCellManager : MonoBehaviour
 
     public void LoadName()
     {
-        GameObject.Find("Game_Controller").GetComponent<SystemManager>().RecieveSystem(systemFileLocation, systemName);
+        GameObject.Find("Game_Controller").GetComponent<SystemManager>().RecieveSystem(systemFileName, systemName);
     }
 
     public void DeleteSystem()
     {
         //delete the system files
-        File.Delete (systemFileLocation);
-        File.Delete (systemFileLocation + ".meta");
+        File.Delete($"{assetsFolder}/Star_Systems/{systemFileName}");
         //remove the entry from the list
         Destroy(gameObject);
     }

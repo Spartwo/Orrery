@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using StellarGenHelpers;
 using System;
+using UnityEngine;
 
 namespace Models
 {
@@ -8,9 +9,9 @@ namespace Models
     [JsonObject(MemberSerialization.OptIn)]
     public class BodyProperties : BaseProperties
     {
-        [JsonProperty("Material Composition (%)")] private SurfaceProperties composition;
-        [JsonProperty("Radius (Earths)")] private float radius = 0f; // Earths
-        [JsonProperty("Atmospheric Composition")] private AtmosphereProperties atmosphere;
+        [JsonProperty("Material Composition (%)")][SerializeField] private SurfaceProperties composition;
+        [JsonProperty("Radius (Earths)")][SerializeField] private float radius = 0f; // Earths
+        [JsonProperty("Atmospheric Composition")][SerializeField] private AtmosphereProperties atmosphere;
 
         private BodyProperties() : base() { }
         public BodyProperties(int seedValue = 0, string name = null, decimal? age = null, decimal? mass = null, decimal? hillSphere = 0m, int[] orbitLine = null, double? siderealDayLength = null, float? axialTilt = null)

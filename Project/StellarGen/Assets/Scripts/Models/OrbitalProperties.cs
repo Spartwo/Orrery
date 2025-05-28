@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System;
 using StellarGenHelpers;
+using UnityEngine;
 
 namespace Models
 {
@@ -10,11 +11,11 @@ namespace Models
     public class OrbitalProperties
     {
         [JsonProperty("Semi-Major Axis (m)")] private decimal semiMajorAxis; // Semi-Major Axis
-        [JsonProperty("Eccentricity (0-1)")] private float eccentricity; // Eccentricity
-        [JsonProperty("Longitude of Ascending Node")] private float longitudeOfAscending; // Longitude of Ascending Node
-        [JsonProperty("Inclination")] float inclination; // Inclination
-        [JsonProperty("Argument of Periapsis")] private float periArgument; // Argument of Periapsis
-
+        [JsonProperty("Eccentricity (0-1)")][SerializeField] private float eccentricity; // Eccentricity
+        [JsonProperty("Longitude of Ascending Node")][SerializeField] private float longitudeOfAscending; // Longitude of Ascending Node
+        [JsonProperty("Inclination")][SerializeField] float inclination; // Inclination
+        [JsonProperty("Argument of Periapsis")][SerializeField] private float periArgument; // Argument of Periapsis
+        [SerializeField] double inspectorSemiMajorAxis;
         private OrbitalProperties() : base() { }
         public OrbitalProperties(decimal semiMajorAxis, float eccentricity, float longitudeOfAscending, float inclination, float periArgument)
         {
@@ -35,11 +36,13 @@ namespace Models
         }
 
         #region Getter and Setters
-        
         public decimal SemiMajorAxis
         {
             get => semiMajorAxis;
-            set => semiMajorAxis = Math.Floor(Math.Max(value, 1m));
+            set  { 
+                semiMajorAxis = Math.Floor(Math.Max(value, 1m));
+                inspectorSemiMajorAxis = (double)value;
+            }
         }
 
         

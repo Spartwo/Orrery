@@ -14,9 +14,11 @@ GameObject:
   - component: {fileID: 4304417800702647218}
   - component: {fileID: 5770722375739623162}
   - component: {fileID: 3345246828276078920}
+  - component: {fileID: 7696847452594557936}
+  - component: {fileID: -7982906067856350021}
   m_Layer: 0
   m_Name: Planet_Object
-  m_TagString: Celestial_Body
+  m_TagString: Focus_Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 5072607082546699453}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4215.1455, y: -4258.119, z: -25064.08}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -52,7 +54,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -67,12 +69,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 5072607082546699453}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7654fbd9fae5ef4192b518769760dcc, type: 3}
+  m_Script: {fileID: 11500000, guid: f498a3b94ab9027498147e801eaeae99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  orbit:
+    eccentricity: 0
+    longitudeOfAscending: 0
+    inclination: 0
+    periArgument: 0
+    inspectorSemiMajorAxis: 0
   parent: {fileID: 0}
+  meanAnomaly: 0
   meanLongitude: 0
-  orbitResolution: 0
+  isRootBody: 0
+  orbitResolution: 140
+  colorStart: {r: 0, g: 0, b: 0, a: 0}
+  colorEnd: {r: 0, g: 0, b: 0, a: 0}
+  controller: {fileID: 0}
   mu: 0
   n: 0
   cosLOAN: 0
@@ -92,9 +105,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0fdef7b47f0bbc4bbd0cffbb62828c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  body:
+    seedValue: 0
+    parent: 0
+    name: Unnamed Body
+    customName: 0
+    orbitLine: ff000000ff000000ff000000
+    orbit:
+      eccentricity: 0
+      longitudeOfAscending: 0
+      inclination: 0
+      periArgument: 0
+      inspectorSemiMajorAxis: 0
+    rotation:
+      siderealDayLength: 24
+      axialTilt: 0
+    composition:
+      rock: 0
+      ice: 0
+      metals: 0
+    radius: 0
   parentObject: {fileID: 0}
-  bodyName: 
-  rotationRate: 0
 --- !u!54 &5770722375739623162
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -229,6 +260,41 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 1
   m_ApplyActiveColorSpace: 0
+--- !u!135 &7696847452594557936
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5072607082546699453}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-7982906067856350021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5072607082546699453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5db7eccee7d82ad4282328756d12a6a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetDirection: {x: 1, y: 0, z: 0}
+  offsetScaleFactor: 0.5
 --- !u!1 &5072607084476738792
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +335,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5072607084476738792}
-  m_Mesh: {fileID: 289301614986012343, guid: f69fc566b414d944496b1ac7c05ee52c, type: 3}
+  m_Mesh: {fileID: -1579241630799410176, guid: ca77b1cbf26a28e4ca846df947142522, type: 3}
 --- !u!23 &5072607084476738791
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -293,7 +359,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b42b90caf59da0e4887d747081ed6b10, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -13,19 +13,19 @@ namespace Models
     [JsonObject(MemberSerialization.OptIn)]
     public class BaseProperties
     {
-        [JsonProperty("Seed Value")] protected int seedValue;
-        [JsonProperty("Parental Seed Value")] private int parent;
+        [JsonProperty("Seed Value")][SerializeField] protected int seedValue;
+        [JsonProperty("Parental Seed Value")][SerializeField] private int parent;
 
-        [JsonProperty("Name")] private string name;
-        [JsonProperty("Custom Name? (true/false)")] private bool customName;
+        [JsonProperty("Name")][SerializeField] private string name;
+        [JsonProperty("Custom Name? (true/false)")][SerializeField] private bool customName;
 
-        [JsonProperty("Age (bYo)")] private decimal age;
-        [JsonProperty("Mass (Kilotons)")] private decimal mass;
+        [JsonProperty("Age (bYo)")][SerializeField] private decimal age;
+        [JsonProperty("Mass (Kilotons)")][SerializeField] private decimal mass;
 
-        [JsonProperty("SOI (m)")] private decimal hillSphere;
-        [JsonProperty("Colour (RGB)")] private int[] orbitLine;
-        [JsonProperty("Orbit")] private OrbitalProperties orbit;
-        [JsonProperty("Rotation")] private SiderealProperties rotation;
+        [JsonProperty("SOI (m)")][SerializeField] private decimal hillSphere;
+        [JsonProperty("Colour (RGB)")][SerializeField] private int[] orbitLine;
+        [JsonProperty("Orbit")][SerializeField] private OrbitalProperties orbit;
+        [JsonProperty("Rotation")][SerializeField] private SiderealProperties rotation;
 
         private BaseProperties() : base() { }
 

@@ -5,9 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Xml.Linq;
-using static UnityEditor.FilePathAttribute;
 using UnityEngine;
-using UnityEngine.Categorization;
 
 namespace Models
 {
@@ -17,11 +15,13 @@ namespace Models
     public class AtmosphereProperties
     {
         // List of elements in the atmosphere with their respective percentages
-        [JsonProperty("Atmospheric Elements (%)")] 
+        [JsonProperty("Atmospheric Elements (%)")]
+        [SerializeField]
         public List<AtmosphereElement> Elements { get; private set; }
 
         // Total atmospheric mass in kilotons
-        [JsonProperty("Total Mass (Kilotons)")] 
+        [JsonProperty("Total Mass (Kilotons)")]
+        [SerializeField]
         private decimal totalAtmosphericMass;
 
         // Predefined elements: molarMass, freezingPoint (K), boilingPoint (K), gasConstant (J/kg·K), latentHeat(J/mol), localisation
@@ -163,9 +163,11 @@ namespace Models
     [Serializable]
     public class AtmosphereElement
     {
+        [SerializeField]
         [JsonProperty("Element")]
         public Element Element { get; }
 
+        [SerializeField]
         [JsonProperty("Percentile")]
         public short Percentile { get; set; }
 
@@ -182,12 +184,12 @@ namespace Models
     [JsonObject(MemberSerialization.OptIn)]
     public class Element
     {
-        public float MolarMass { get; }     // Molar mass in g/mol
-        public float FreezingPoint { get; } // Freezing point in Kelvin at 1 atm
-        public float BoilingPoint { get; }  // Boiling point in Kelvin at 1 atm
-        public float GasConstant { get; }   // R gas constant in J/(kg·K)
-        public float LatentHeat { get; }    // J/mol (required for phase calc)
-        [JsonProperty] public string Name { get; } // Localization association as a string
+        [SerializeField] public float MolarMass { get; }     // Molar mass in g/mol
+        [SerializeField] public float FreezingPoint { get; } // Freezing point in Kelvin at 1 atm
+        [SerializeField] public float BoilingPoint { get; }  // Boiling point in Kelvin at 1 atm
+        [SerializeField] public float GasConstant { get; }   // R gas constant in J/(kg·K)
+        [SerializeField] public float LatentHeat { get; }    // J/mol (required for phase calc)
+        [SerializeField] [JsonProperty] public string Name { get; } // Localization association as a string
 
         private Element() : base() { }
         public Element(float molarMass, float freezingPoint, float boilingPoint, float gasConstant, float latentHeat, string localisation)

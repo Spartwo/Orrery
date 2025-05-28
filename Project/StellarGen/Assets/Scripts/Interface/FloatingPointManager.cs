@@ -16,7 +16,7 @@ public class FloatingPointManager : MonoBehaviour
         Threshold = GlobalSettings.FloatingPointThreshold;
     }
 
-    void LateUpdate()
+    void Update()
     {
         Vector3 CameraPosition = this.transform.position;
 
@@ -33,7 +33,7 @@ public class FloatingPointManager : MonoBehaviour
                     g.transform.position -= CameraPosition;
                 }
             }
-            Logger.Log(GetType().Name, "Recentering Origin" );
+            //Logger.Log(GetType().Name, "Recentering Origin" );
         }
 
     }

@@ -7,6 +7,8 @@ using System.Linq;
 using Models;
 using Universe;
 using StellarGenHelpers;
+using System;
+using static UnityEngine.UI.CanvasScaler;
 
 namespace SystemGen
 {
@@ -15,8 +17,6 @@ namespace SystemGen
         // Public knowledge variables that will be accessed by UI
         [SerializeField] public BodyProperties body;
         public GameObject parentObject;
-        public string bodyName;
-        [SerializeField][Range(0f, 70f)] float rotationRate;
 
         // Start is called before the first frame update
         void Start()
@@ -28,47 +28,64 @@ namespace SystemGen
         void Update()
         {
             RotateBody();
+            UpdateScale();
         }
         void RotateBody()
         {
             //rotation of body
-            float rotationRate = GameObject.Find("Barycenter").GetComponent<Timekeep>().GameSpeed;
-            transform.Rotate(0, (rotationRate / 300) / (600 * Time.deltaTime), 0);
-            
+            float rotationRate = GameObject.Find("Game_Controller").GetComponent<Timekeep>().gameSpeed;
+            transform.Rotate(0, (rotationRate / 300) / (600 * Time.deltaTime) / (float)body.Rotation, 0);
         }
 
         public void FindParent()
         {
             // Find the parent object of the body
-            if (body.Parent != 0)
-            {
-                int parentID = body.Parent;
-                // Find the parent object by its ID
-                GameObject parentObject = GameObject.Find(parentID.ToString());
+            int parentID = body.Parent;
+            // Find the parent object by its ID
+            parentObject = GameObject.Find(parentID.ToString());
 
-                if (parentObject != null)
-                {
-                    transform.SetParent(parentObject.transform, false);
-                    transform.GetComponent<Orbiter>().LoadOrbit(body.Orbit, transform.parent, body.OrbitLine);
-                }
-            }
+            transform.SetParent(parentObject.transform, false);
         }
 
+        public void UpdateScale()
+        {
+            float scale = GameObject.Find("Game_Controller").GetComponent<SystemManager>().objectScale;
+
+            float diameter = scale * body.Radius * 2;
+            // Set size of the body itself relative to earth=1
+            transform.GetChild(0).localScale = new Vector3(diameter, diameter, diameter);
+            // Set size of double click colliders
+            SphereCollider[] colliders = GetComponentsInChildren<SphereCollider>();
+            colliders[0].radius = diameter * 2;
+            colliders[1].radius = diameter * 100f;
+        }
 
         // ApplyData is called by UI 
         public void ApplyData()
         {
-            // Pame the root object after the stars unique idenfitier
+            // Name the root object after the body's unique idenfitier
             gameObject.name = body.SeedValue.ToString();
-            float diameter = body.Radius * 2;
-            // Set size of the star itself relative to earth=1
-            transform.GetChild(0).localScale = new Vector3(diameter / 100, diameter / 100, diameter / 100);
-            // Set size of double click collider
-            transform.GetComponent<SphereCollider>().radius = diameter;
+
             // All bodies are weighed where 1 = Earth
             float massInEarth = PhysicsUtils.RawToEarthMass(body.Mass);
             // Get rigidbody and apply the mass
-            transform.GetComponent<Rigidbody>().mass = massInEarth / 10000;
+            transform.GetComponent<Rigidbody>().mass = massInEarth;
+        }
+
+        public void ApplyColour()
+        {
+            Color color = ColourUtils.ArrayToColor(body.OrbitLine);
+            // Relay to the orbit line
+            try
+            {
+                // Get the Renderer component from the new cube
+                Renderer surface = transform.GetChild(0).GetComponent<Renderer>();
+                surface.material.SetColor("_Color", color);
+            }
+            catch (Exception e)
+            {
+                Logger.Log("StarManager", $"Error setting surface colour: {e}");
+            }
         }
     }
 }

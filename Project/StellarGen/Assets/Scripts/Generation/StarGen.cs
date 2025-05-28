@@ -6,7 +6,6 @@ using PhysicsUtils = StellarGenHelpers.PhysicsUtils;
 using ColourUtils = StellarGenHelpers.ColourUtils;
 using JsonUtils = StellarGenHelpers.JsonUtils;
 using UnityEngine;
-using Unity.VisualScripting;
 using System.IO;
 using System.Collections;
 using Newtonsoft.Json;
@@ -14,8 +13,6 @@ using Models;
 using System.Xml.Linq;
 using StellarGenHelpers;
 using System.Linq;
-using UnityEditor.PackageManager.UI;
-using UnityEngine.Profiling;
 using System.Buffers;
 using System.Numerics;
 
@@ -215,14 +212,14 @@ namespace SystemGen
 
         /// <summary>
         /// Instantiates planetary bodies at selected orbital positions using the given parameters,
-        /// including orbital eccentricity, inclination, metallicity, and planetary ordering.
+        /// including orbital eccentricity, inclination, metalicity, and planetary ordering.
         /// </summary>
         /// <param name="seed">Seed value for deterministic randomization.</param>
         /// <param name="count">The number of planets to generate.</param>
         /// <param name="positions">List of valid orbital positions for placement.</param>
         /// <param name="eccentricity">Mean eccentricity of planetary orbits.</param>
         /// <param name="inclination">Maximum inclination variance allowed.</param>
-        /// <param name="metalicity">Stellar metallicity used in planetary type selection.</param>
+        /// <param name="metalicity">Stellar metalicity used in planetary type selection.</param>
         /// <param name="planetOrder">The overall orbital pattern (e.g. similar, mixed).</param>
         /// <param name="solidMass">Estimated protoplanetary disk mass that isn't gas</param>
         /// <returns>A list of instantiated planetary <see cref="BaseProperties"/>.</returns>
@@ -378,11 +375,11 @@ namespace SystemGen
         
 
         /// <summary>
-        /// Determines the stellar metallicity, protoplanetary disk mass, and overall planetary ordering scheme
+        /// Determines the stellar metalicity, protoplanetary disk mass, and overall planetary ordering scheme
         /// based on the star’s age, mass, and randomly derived variables.
         /// </summary>
         /// <param name="star">The star whose attributes influence system arrangement.</param>
-        /// <param name="metalicity">Outputs the calculated metallicity value [Fe/H] of the star.</param>
+        /// <param name="metalicity">Outputs the calculated metalicity value [Fe/H] of the star.</param>
         /// <param name="planetOrder">Outputs the type of orbital order (e.g., similar, ordered).</param>
         /// <param name="diskMass">Outputs the calculated mass of the protoplanetary disk.</param>
         private static void DetermineArrangement(StarProperties star, out float metalicity, out PlanetOrder planetOrder, out decimal diskMass)

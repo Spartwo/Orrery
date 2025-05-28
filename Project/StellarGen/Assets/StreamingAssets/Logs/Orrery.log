@@ -1,5 +1,65 @@
-[10:39:36 WARNING] TestComponent: Potential issue
-[10:39:39 LOG] System Generation: Assigning Orbital Colours
-[10:39:39 LOG] System Generation: Generating Body Names
-[10:39:39 LOG] System Generation: System Age: 9.694bY
-[10:39:39 LOG] I/O: Exported System File to C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/MySeed.json
+[05:55:18 LOG] Application: Program Initialised
+[05:55:18 LOG] Camera Controller: Found 0 targetable bodies
+[05:55:18 LOG] UI: Building Orbital Grid
+[05:55:44 LOG] LoadCellManager: Loaded system Eccentricity Test with 1 Stars	|	 2 Planets	|	 0 Belts
+[05:55:44 LOG] LoadCellManager: Loaded system Greg with 2 Stars	|	 13 Planets	|	 2 Belts
+[05:55:44 LOG] LoadCellManager: Loaded system Sol with 1 Stars	|	 14 Planets	|	 2 Belts
+[05:55:44 LOG] System Loader: Built Systems List
+[05:55:46 LOG] SystemManager: Recieved system Sol
+[05:55:47 LOG] SystemManager: Info box set to new data
+[05:55:47 LOG] SystemManager: Loading system from C:/Users/Spartwo/Documents/GitHub/StellarGen/Project/StellarGen/Assets/StreamingAssets/Star_Systems/Sol.json
+[05:55:47 LOG] SystemManager: Loading star -325575754
+[05:55:47 LOG] StarManager: Star Sol has a parent of 0
+[05:55:47 LOG] Orbit Manager: Establishing Orbit around 0
+[05:55:47 LOG] StarManager: Star Sol has a temperature of 5774 K and a colour of RGBA(0.788, 1.000, 1.000, 1.000)
+[05:55:47 LOG] SystemManager: Loading planet -87555334
+[05:55:47 LOG] Orbit Manager: Establishing Orbit around -325575754
+[05:55:47 LOG] Orbit Manager: Orbit constants calculated: mu = 2.22213758719597E-05, n = 0.0195798678695703, trueAnomalyConstant = 1.23114717006683, cosLOAN = 0.665230393409729, sinLOAN = 0.746638178825378, cosI = 0.992546141147614, sinI = 0.121869340538979
+[05:55:47 LOG] SystemManager: Loading planet -87555335
+[05:55:47 LOG] Orbit Manager: Establishing Orbit around -325575754
+[05:55:47 LOG] Orbit Manager: Orbit constants calculated: mu = 2.2221325133466E-05, n = 0.00766775551639478, trueAnomalyConstant = 1.00601816177368, cosLOAN = 0.228605687618256, sinLOAN = 0.973519086837769, cosI = 0.998250186443329, sinI = 0.0591321475803852
+[05:55:47 LOG] SystemManager: Loading planet -87555336
+[05:55:47 LOG] Orbit Manager: Establishing Orbit around -325575754
+[05:55:47 LOG] Orbit Manager: Orbit constants calculated: mu = 2.222131284E-05, n = 0.00471384844812765, trueAnomalyConstant = 1.01613008975983, cosLOAN = 0.949578821659088, sinLOAN = 0.313528418540955, cosI = 1, sinI = 0
+[05:55:47 LOG] SystemManager: Loading planet -87555337
+[05:55:47 LOG] Orbit Manager: Establishing Orbit around -87555336
+[05:55:47 LOG] Orbit Manager: Orbit constants calculated: mu = 6.59041608282924E-11, n = 0.0623085247397273, trueAnomalyConstant = 1.0564934015274, cosLOAN = 1, sinLOAN = 0, cosI = 0.995970964431763, sinI = 0.089676558971405
+[05:55:47 LOG] SystemManager: Loading planet -87555338
+[05:55:47 LOG] Orbit Manager: Establishing Orbit around -325575754
+[05:55:47 LOG] Orbit Manager: Orbit constants calculated: mu = 2.22213723850855E-05, n = 0.0025055247583892, trueAnomalyConstant = 1.09775757789612, cosLOAN = 0.647228956222534, sinLOAN = 0.762295663356781, cosI = 0.999478757381439, sinI = 0.0322829820215702
+[05:55:47 LOG] SystemManager: Loading planet -87555339
+[05:55:47 LOG] Orbit Manager: Establishing Orbit around -87555338
+[05:55:47 LOG] Orbit Manager: Orbit constants calculated: mu = 6.50771447986364E-12, n = 0.0054888088757286, trueAnomalyConstant = 1, cosLOAN = 1, sinLOAN = 0, cosI = 1, sinI = 0
+[05:55:47 LOG] SystemManager: Loading planet -87555340
+[05:55:47 LOG] Orbit Manager: Establishing Orbit around -87555338
+[05:55:47 LOG] Orbit Manager: Orbit constants calculated: mu = 6.50771447986364E-12, n = 0.0054888088757286, trueAnomalyConstant = 1, cosLOAN = 1, sinLOAN = 0, cosI = 1, sinI = 0
+[05:55:47 LOG] SystemManager: Loading planet -87555341
+[05:55:47 LOG] Orbit Manager: Establishing Orbit around -325575754
+[05:55:47 LOG] Orbit Manager: Orbit constants calculated: mu = 2.22213795493248E-05, n = 0.00102248418506784, trueAnomalyConstant = 1.12358510494232, cosLOAN = 0.168489322066307, sinLOAN = 0.985703468322754, cosI = 0.982967436313629, sinI = 0.183779790997505
+[05:55:47 LOG] SystemManager: Loading planet -87555342
+[05:55:47 LOG] Orbit Manager: Establishing Orbit around -325575754
+[05:55:47 LOG] Orbit Manager: Orbit constants calculated: mu = 2.22001759448145E-05, n = 0.000396997890845689, trueAnomalyConstant = 1.05015635490417, cosLOAN = -0.180347472429276, sinLOAN = 0.983602941036224, cosI = 0.99973863363266, sinI = 0.0228618197143078
+[05:55:47 LOG] SystemManager: Loading planet -87555343
+[05:55:47 LOG] Orbit Manager: Establishing Orbit around -325575754
+[05:55:47 LOG] Orbit Manager: Orbit constants calculated: mu = 2.22213723850855E-05, n = 0.000158865032132523, trueAnomalyConstant = 1.05819034576416, cosLOAN = -0.402746677398682, sinLOAN = 0.915311455726624, cosI = 0.999055802822113, sinI = 0.0434450209140778
+[05:55:47 LOG] SystemManager: Loading planet -87555344
+[05:55:47 LOG] Orbit Manager: Establishing Orbit around -325575754
+[05:55:47 LOG] Orbit Manager: Orbit constants calculated: mu = 2.22204097180632E-05, n = 5.62075150940593E-05, trueAnomalyConstant = 1.04815828800201, cosLOAN = 0.276308387517929, sinLOAN = 0.961069047451019, cosI = 0.999909698963165, sinI = 0.0134386299178004
+[05:55:47 LOG] SystemManager: Loading planet -87555345
+[05:55:47 LOG] Orbit Manager: Establishing Orbit around -325575754
+[05:55:47 LOG] Orbit Manager: Orbit constants calculated: mu = 2.22202359792407E-05, n = 2.82311610629814E-05, trueAnomalyConstant = 1.00803220272064, cosLOAN = -0.666792750358582, sinLOAN = 0.745243191719055, cosI = 0.999522864818573, sinI = 0.0308874137699604
+[05:55:47 LOG] SystemManager: Loading planet -87555346
+[05:55:47 LOG] Orbit Manager: Establishing Orbit around -325575754
+[05:55:47 LOG] Orbit Manager: Orbit constants calculated: mu = 2.22213794145504E-05, n = 1.90076098960623E-05, trueAnomalyConstant = 1.28934359550476, cosLOAN = -0.343331903219223, sinLOAN = 0.939214169979095, cosI = 0.95558750629425, sinI = 0.294707506895065
+[05:55:47 LOG] SystemManager: Loading planet -87555347
+[05:55:47 LOG] Orbit Manager: Establishing Orbit around -87555346
+[05:55:47 LOG] Orbit Manager: Orbit constants calculated: mu = 1.25700483717956E-13, n = 0.236583078776716, trueAnomalyConstant = 1.00020003318787, cosLOAN = -0.73080587387085, sinLOAN = -0.68258535861969, cosI = 0.999999046325684, sinI = 0.00139626290183514
+[05:55:47 LOG] SystemManager: Loading belt -87525338
+[05:55:47 LOG] Belt Manager: Establishing Belt -87525338
+[05:55:47 LOG] SystemManager: Loading belt -87525339
+[05:55:47 LOG] Belt Manager: Establishing Belt -87525339
+[05:55:47 LOG] UI: Building Orbital Grid
+[05:55:47 LOG] UI: Building Orbital Grid
+[05:55:47 LOG] UI: Orbit bounds found: Max 50.03 AU, Min 0.31 AU
+[05:55:47 LOG] UI: Building Orbital Grid
+[05:55:47 LOG] Camera Controller: Found 14 targetable bodies

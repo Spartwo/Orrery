@@ -10,11 +10,11 @@ namespace Models
     [JsonObject(MemberSerialization.OptIn)]
     public class StarProperties : BaseProperties
     {
-        [JsonProperty("Lifespan (bY)")] private decimal lifespan;
-        [JsonProperty("Radius (Sols)")] private float radius;
-        [JsonProperty("Luminosity (Sols)")] private float luminosity;
-        [JsonProperty("Temperature (K)")] private short temperature;
-         private float baseLuminosity;
+        [JsonProperty("Lifespan (bY)")][SerializeField] private decimal lifespan;
+        [JsonProperty("Radius (Sols)")][SerializeField] private float radius;
+        [JsonProperty("Luminosity (Sols)")][SerializeField] private float luminosity;
+        [JsonProperty("Temperature (K)")][SerializeField] private short temperature;
+        private float baseLuminosity;
 
         private StarProperties() : base() { }
         public StarProperties(int seedValue = 0, string name = null, decimal? age = null, decimal? mass = null, decimal? hillSphere = 0m, int[] orbitLine = null, double? siderealDayLength = null, float? axialTilt = null, decimal? lifespan = null, float? radius = null, float? luminosity = null, float? baseLuminosity = null, float? stellarMass = null, short? temperature = null) : base(seedValue, name, age, mass, hillSphere, orbitLine, siderealDayLength, axialTilt)
