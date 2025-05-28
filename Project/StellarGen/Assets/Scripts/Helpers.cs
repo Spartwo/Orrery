@@ -380,7 +380,7 @@ namespace StellarGenHelpers
         public static Color DetermineSpectralColor(int temperature)
         {
             // Load the PNG file as a byte array
-            byte[] fileData = File.ReadAllBytes("Assets/Materials/gradient.png");
+            byte[] fileData = File.ReadAllBytes($"{Application.streamingAssetsPath}/Assets/Gradient.png");
 
             Texture2D texture = new Texture2D(1000, 1);
             if (!texture.LoadImage(fileData))

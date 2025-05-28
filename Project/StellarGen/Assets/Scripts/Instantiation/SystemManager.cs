@@ -125,6 +125,8 @@ namespace SystemGen
             // Load the System Properties from the JSON file
             systemProperties = JsonUtils.Load($"{assetsFolder}/Star_Systems/{loadedSystemFile}");
 
+            Logger.Log("SystemManager", $"Loaded system {systemProperties.seedInput} with {systemProperties.stellarBodies.Count} stars, {systemProperties.solidBodies.Count} planets and {systemProperties.belts.Count} belts");
+
             // Set the barycentre mass
             GameObject centreOfMass = GameObject.Find("0");
             decimal barycentreMass = 0m;
@@ -135,45 +137,52 @@ namespace SystemGen
             }
             // Standardised as earth masses
             centreOfMass.GetComponent<Rigidbody>().mass = PhysicsUtils.RawToEarthMass(barycentreMass);
-
-            foreach (StarProperties star in systemProperties.stellarBodies)
+            try
             {
-                Logger.Log("SystemManager", $"Loading star {star.SeedValue}");
-                // Instantiate the star prefab and set its properties
-                GameObject starObject = Instantiate(starPrefab) as GameObject;
-                starObject.GetComponent<StarManager>().star = star;
-                starObject.GetComponent<StarManager>().SetStarProperties();
-                starObject.GetComponent<StarManager>().FindParent();
+                foreach (StarProperties star in systemProperties.stellarBodies)
+                {
+                    Logger.Log("SystemManager", $"Loading star {star.SeedValue}");
+                    // Instantiate the star prefab and set its properties
+                    GameObject starObject = Instantiate(starPrefab) as GameObject;
+                    starObject.GetComponent<StarManager>().star = star;
+                    starObject.GetComponent<StarManager>().SetStarProperties();
+                    starObject.GetComponent<StarManager>().FindParent();
 
-                // Set the binary status of the star
-                starObject.GetComponent<OrbitManager>().SetAsRoot(systemProperties.stellarBodies.Count <= 1);
-                Debug.Log($"Star {star.SeedValue} is {systemProperties.stellarBodies.Count > 1} a binary star");
-                starObject.GetComponent<OrbitManager>().LoadOrbit(star.Orbit, star.OrbitLine);
-                starObject.GetComponent<StarManager>().RecalculateColour();
+                    // Set the binary status of the star
+                    starObject.GetComponent<OrbitManager>().SetAsRoot(systemProperties.stellarBodies.Count <= 1);
+                    Debug.Log($"Star {star.SeedValue} is {systemProperties.stellarBodies.Count > 1} a binary star");
+                    starObject.GetComponent<OrbitManager>().LoadOrbit(star.Orbit, star.OrbitLine);
+                    starObject.GetComponent<StarManager>().RecalculateColour();
+                }
+                foreach (BodyProperties planet in systemProperties.solidBodies)
+                {
+                    Logger.Log("SystemManager", $"Loading planet {planet.SeedValue}");
+                    // Instantiate the planet prefab and set its properties
+                    GameObject planetObject = Instantiate(planetPrefab) as GameObject;
+                    planetObject.GetComponent<BodyManager>().body = planet;
+                    planetObject.GetComponent<BodyManager>().ApplyData();
+                    planetObject.GetComponent<BodyManager>().FindParent();
+
+                    // Set the binary status of the planet
+                    planetObject.GetComponent<OrbitManager>().SetAsRoot(false);
+                    planetObject.GetComponent<OrbitManager>().LoadOrbit(planet.Orbit, planet.OrbitLine);
+                    planetObject.GetComponent<BodyManager>().ApplyColour();
+                }
+                foreach (BeltProperties belt in systemProperties.belts)
+                {
+                    Logger.Log("SystemManager", $"Loading belt {belt.SeedValue}");
+                    //break;
+                    // Instantiate the belt prefab and set its properties
+                    GameObject beltObject = Instantiate(beltPrefab) as GameObject;
+                    beltObject.GetComponent<BeltManager>().belt = belt;
+                    beltObject.GetComponent<BeltManager>().ApplyData();
+                    beltObject.GetComponent<BeltManager>().FindParent();
+                }
             }
-            foreach (BodyProperties planet in systemProperties.solidBodies)
+            catch (Exception e)
             {
-                Logger.Log("SystemManager", $"Loading planet {planet.SeedValue}");
-                // Instantiate the planet prefab and set its properties
-                GameObject planetObject = Instantiate(planetPrefab) as GameObject;
-                planetObject.GetComponent<BodyManager>().body = planet;
-                planetObject.GetComponent<BodyManager>().ApplyData();
-                planetObject.GetComponent<BodyManager>().FindParent();
-
-                // Set the binary status of the planet
-                planetObject.GetComponent<OrbitManager>().SetAsRoot(false);
-                planetObject.GetComponent<OrbitManager>().LoadOrbit(planet.Orbit, planet.OrbitLine);
-                planetObject.GetComponent<BodyManager>().ApplyColour();
-            }
-            foreach (BeltProperties belt in systemProperties.belts)
-            {
-                Logger.Log("SystemManager", $"Loading belt {belt.SeedValue}");
-                //break;
-                // Instantiate the belt prefab and set its properties
-                GameObject beltObject = Instantiate(beltPrefab) as GameObject;
-                beltObject.GetComponent<BeltManager>().belt = belt;
-                beltObject.GetComponent<BeltManager>().ApplyData();
-                beltObject.GetComponent<BeltManager>().FindParent();
+                Logger.Log("SystemManager", $"Error loading system: {e}");
+                yield break;
             }
 
             yield return null;

@@ -61,7 +61,7 @@ public class OrbitManager : MonoBehaviour
 
         controller = GameObject.Find("Game_Controller").GetComponent<SystemManager>();
 
-        Logger.Log("Orbit Manager", $"Establishing Orbit for {parentValue}");
+        Logger.Log("Orbit Manager", $"Establishing Orbit around {parentValue}");
 
         // Set the orbit line colour gradient
         orbitRenderer = GetComponent<LineRenderer>();
