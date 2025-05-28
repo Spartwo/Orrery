@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5072607082546699450}
   - component: {fileID: 7802989336583964177}
-  - component: {fileID: 4304417800702647218}
   - component: {fileID: 5770722375739623162}
+  - component: {fileID: -1849679295965493150}
   - component: {fileID: 3345246828276078920}
   m_Layer: 0
   m_Name: Belt_Object
@@ -32,8 +32,7 @@ Transform:
   m_LocalPosition: {x: 4215.1455, y: -4258.119, z: -25064.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5072607084476738793}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &7802989336583964177
@@ -57,40 +56,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4304417800702647218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5072607082546699453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0fdef7b47f0bbc4bbd0cffbb62828c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  body:
-    seedValue: 0
-    parent: 0
-    name: Unnamed Body
-    customName: 0
-    orbitLine: ff000000ff000000ff000000
-    orbit:
-      eccentricity: 0
-      longitudeOfAscending: 0
-      inclination: 0
-      periArgument: 0
-    rotation:
-      siderealDayLength: 24
-      axialTilt: 0
-    composition:
-      rock: 0
-      ice: 0
-      metals: 0
-    radius: 0
-  parentObject: {fileID: 0}
-  bodyName: 
-  rotationRate: 0
 --- !u!54 &5770722375739623162
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -118,6 +83,38 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-1849679295965493150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5072607082546699453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2441768fd56cdf8468a6d81458121052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  belt:
+    seedValue: 0
+    parent: 0
+    name: Unnamed Body
+    customName: 0
+    orbitLine: ff000000ff000000ff000000
+    orbit:
+      eccentricity: 0
+      longitudeOfAscending: 0
+      inclination: 0
+      periArgument: 0
+      inspectorSemiMajorAxis: 0
+    rotation:
+      siderealDayLength: 24
+      axialTilt: 0
+  parentObject: {fileID: 0}
+  bodyName: 
+  lineMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  orbitResolution: 360
+  controller: {fileID: 0}
 --- !u!120 &3345246828276078920
 LineRenderer:
   serializedVersion: 2
@@ -225,89 +222,3 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 1
   m_ApplyActiveColorSpace: 0
---- !u!1 &5072607084476738792
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5072607084476738793}
-  - component: {fileID: 5072607084476738788}
-  - component: {fileID: 5072607084476738791}
-  m_Layer: 0
-  m_Name: Planet_Body
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5072607084476738793
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5072607084476738792}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5072607082546699450}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5072607084476738788
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5072607084476738792}
-  m_Mesh: {fileID: 289301614986012343, guid: f69fc566b414d944496b1ac7c05ee52c, type: 3}
---- !u!23 &5072607084476738791
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5072607084476738792}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}

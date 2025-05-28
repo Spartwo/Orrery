@@ -25,6 +25,7 @@ namespace SystemGen
         [SerializeField] private GameObject infoField;
         [SerializeField] private GameObject cameraController;
         [SerializeField] private SystemListLoad systemsList;
+        [SerializeField] private OrbitGrid orbitGrid;
 
         [SerializeField] public float orbitScale = 100f;
         [SerializeField] public float objectScale = 0.1f;
@@ -148,8 +149,6 @@ namespace SystemGen
                 starObject.GetComponent<OrbitManager>().SetAsRoot(systemProperties.stellarBodies.Count <= 1);
                 Debug.Log($"Star {star.SeedValue} is {systemProperties.stellarBodies.Count > 1} a binary star");
                 starObject.GetComponent<OrbitManager>().LoadOrbit(star.Orbit, star.OrbitLine);
-
-                //starObject.GetComponent<OrbitManager>().enabled = false;
                 starObject.GetComponent<StarManager>().RecalculateColour();
             }
             foreach (BodyProperties planet in systemProperties.solidBodies)
@@ -161,15 +160,15 @@ namespace SystemGen
                 planetObject.GetComponent<BodyManager>().ApplyData();
                 planetObject.GetComponent<BodyManager>().FindParent();
 
-                // Set the binary status of the star
+                // Set the binary status of the planet
                 planetObject.GetComponent<OrbitManager>().SetAsRoot(false);
                 planetObject.GetComponent<OrbitManager>().LoadOrbit(planet.Orbit, planet.OrbitLine);
-                planetObject.GetComponent<BodyManager>().RecalculateColour();
+                planetObject.GetComponent<BodyManager>().ApplyColour();
             }
             foreach (BeltProperties belt in systemProperties.belts)
             {
                 Logger.Log("SystemManager", $"Loading belt {belt.SeedValue}");
-                break;
+                //break;
                 // Instantiate the belt prefab and set its properties
                 GameObject beltObject = Instantiate(beltPrefab) as GameObject;
                 beltObject.GetComponent<BeltManager>().belt = belt;
@@ -179,6 +178,7 @@ namespace SystemGen
 
             yield return null;
 
+            orbitGrid.UpdateMaximum();
             cameraController.GetComponent<CameraMovement>().UpdateBodyList();
         }
     }

@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 8417953564763271442}
   - component: {fileID: 536716687247274816}
   - component: {fileID: 8278933175711243230}
+  - component: {fileID: -7152112418229785719}
   m_Layer: 0
   m_Name: Star_Object
   m_TagString: Focus_Object
@@ -370,6 +371,23 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-7152112418229785719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134470411669408219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5db7eccee7d82ad4282328756d12a6a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  starManager: {fileID: 0}
+  bodyManager: {fileID: 0}
+  labelOffset: {x: 0.5, y: 0, z: 0}
+  baseLabelScale: 0.1
+  mainCamera: {fileID: 0}
 --- !u!1 &1824061367886805228
 GameObject:
   m_ObjectHideFlags: 0

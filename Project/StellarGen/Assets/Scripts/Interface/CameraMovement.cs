@@ -16,8 +16,8 @@ namespace Universe
         // CamRotate variables
         private float panSpeed;
         private float smoothSpeed = 0.05f;
-        private float yaw = 0.0f;
-        private float pitch = 0.0f;
+        [HideInInspector] public float yaw = 0.0f;
+        [HideInInspector] public float pitch = 0.0f;
         // CamTrack variables
         private float lastClickTime; 
         private float doubleClickTime = 0.3f;
@@ -157,6 +157,13 @@ namespace Universe
 
                 Logger.Log("Camera Controller", $"Toggled UI to {activeUI.ToString()}");
             }
+            // Logarithmic Scaling
+            if (Input.GetKey(KeyCode.L))
+            {
+                Logger.Log(GetType().Name, "Switching Scaling Mode"); 
+                SystemManager systemManager = GameObject.Find("Game_Controller").GetComponent<SystemManager>();
+                systemManager.useLogScaling = !systemManager.useLogScaling;
+            }
             // Quicker control
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -168,12 +175,12 @@ namespace Universe
             if (Input.GetKey(KeyCode.Minus))
             {
                 Logger.Log(GetType().Name, "Zoom out");
-                zoomGoal += panSpeed / 75000 * 1 / Time.unscaledDeltaTime;
+                zoomGoal += panSpeed / 7500 * 1 / Time.unscaledDeltaTime;
             }
             if (Input.GetKey(KeyCode.Equals))
             {
                 Logger.Log(GetType().Name, "Zoom in");
-                zoomGoal -= panSpeed / 75000 * 1 / Time.unscaledDeltaTime;
+                zoomGoal -= panSpeed / 7500 * 1 / Time.unscaledDeltaTime;
             }
             // traditional controls
             if (Input.GetKey("d") || Input.GetKey(KeyCode.RightArrow))

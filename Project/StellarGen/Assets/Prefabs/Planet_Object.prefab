@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5770722375739623162}
   - component: {fileID: 3345246828276078920}
   - component: {fileID: 7696847452594557936}
+  - component: {fileID: -7982906067856350021}
   m_Layer: 0
   m_Name: Planet_Object
   m_TagString: Focus_Object
@@ -84,6 +85,7 @@ MonoBehaviour:
   orbitResolution: 140
   colorStart: {r: 0, g: 0, b: 0, a: 0}
   colorEnd: {r: 0, g: 0, b: 0, a: 0}
+  controller: {fileID: 0}
   mu: 0
   n: 0
   cosLOAN: 0
@@ -279,6 +281,20 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-7982906067856350021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5072607082546699453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5db7eccee7d82ad4282328756d12a6a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetDirection: {x: 1, y: 0, z: 0}
+  offsetScaleFactor: 0.5
 --- !u!1 &5072607084476738792
 GameObject:
   m_ObjectHideFlags: 0

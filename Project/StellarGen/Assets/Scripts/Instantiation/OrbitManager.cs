@@ -119,12 +119,12 @@ public class OrbitManager : MonoBehaviour
     float eccentricAnomalyTrail;
     void Update()
     {
-        //CalculateSemiConstants();
         UpdateScaling();
+
+        //CalculateSemiConstants();
 
         // Set the position of the object in the scene
         UpdatePosition();
-
     }
 
     private void LateUpdate()
@@ -179,8 +179,7 @@ public class OrbitManager : MonoBehaviour
                 PhysicsUtils.ConvertToAU(posX)
             );
 
-            float radiusAU = unscaled.magnitude;
-            float radiusCompressed = Mathf.Log10(radiusAU + 1f) / Mathf.Log10(2f) * orbitScale;
+            float radiusCompressed = PhysicsUtils.GetWorldDistance(unscaled.magnitude, useLogScaling, orbitScale);
             Vector3 direction = unscaled.normalized;
             Vector3 scaledPosition = direction * radiusCompressed;
 
@@ -235,8 +234,7 @@ public class OrbitManager : MonoBehaviour
                     PhysicsUtils.ConvertToAU(posX)
                 );
 
-                float radiusAU = unscaled.magnitude;
-                float radiusCompressed = Mathf.Log10(radiusAU + 1f) / Mathf.Log10(2f) * orbitScale;
+                float radiusCompressed = PhysicsUtils.GetWorldDistance(unscaled.magnitude, useLogScaling, orbitScale);
                 Vector3 direction = unscaled.normalized;
                 Vector3 scaledPosition = direction * radiusCompressed;
 

@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\Generation\BeltGen.cs" />
     <Compile Include="Assets\Scripts\Helpers.cs" />
     <Compile Include="Assets\Scripts\AssemblyInfo.cs" />
+    <Compile Include="Assets\Scripts\Interface\OrbitGrid.cs" />
     <Compile Include="Assets\Scripts\Generation\SystemGenerator.cs" />
     <Compile Include="Assets\Scripts\Models\BodyProperties.cs" />
     <Compile Include="Assets\Scripts\Instantiation\OrbitManager.cs" />
@@ -81,8 +82,8 @@
     <Compile Include="Assets\Scripts\Generation\PlanetGen.cs" />
     <Compile Include="Assets\Scripts\Settings\GlobalSettings.cs" />
     <Compile Include="Assets\Scripts\Settings\LocalisationProvider.cs" />
+    <Compile Include="Assets\Scripts\Instantiation\LabelManager.cs" />
     <Compile Include="Assets\Scripts\Instantiation\StarManager.cs" />
-    <Compile Include="Assets\Scripts\Interface\Grid.cs" />
     <Compile Include="Assets\Scripts\Logging\LogClearer.cs" />
     <Compile Include="Assets\Scripts\Interface\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Instantiation\BeltManager.cs" />

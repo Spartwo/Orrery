@@ -524,7 +524,22 @@ namespace StellarGenHelpers
                 throw;
             }
         }
-        
+
+        /// <summary>
+        /// Converts a SMA value to physical worldspace
+        /// </summary>
+        public static float GetWorldDistance(float au, bool logScale, float scale)
+        {
+            if (logScale)
+            {
+                return Mathf.Log10(au + 1f) / Mathf.Log10(2f) * scale;
+            }
+            else
+            {
+                return au * scale;
+            }
+        }
+
         /// <summary>
         /// Converts a sol mass to standard values
         /// </summary>

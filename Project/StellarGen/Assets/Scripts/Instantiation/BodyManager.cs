@@ -34,7 +34,7 @@ namespace SystemGen
         {
             //rotation of body
             float rotationRate = GameObject.Find("Game_Controller").GetComponent<Timekeep>().gameSpeed;
-            transform.Rotate(0, (rotationRate / 300) / (600 * Time.deltaTime) / (float)body.Sidereal.SiderealDayLength, 0);
+            transform.Rotate(0, (rotationRate / 300) / (600 * Time.deltaTime) / (float)body.Rotation, 0);
         }
 
         public void FindParent()
@@ -72,18 +72,15 @@ namespace SystemGen
             transform.GetComponent<Rigidbody>().mass = massInEarth;
         }
 
-        public void RecalculateColour()
+        public void ApplyColour()
         {
             Color color = ColourUtils.ArrayToColor(body.OrbitLine);
             // Relay to the orbit line
             try
             {
                 // Get the Renderer component from the new cube
-                Renderer stellarSurface = transform.GetChild(0).GetComponent<Renderer>();
-                // Call SetColor using the shader property name "_Color" and setting the color to red
-                stellarSurface.material.SetColor("_Color", color);
-                stellarSurface.material.SetColor("_EmissionColor", color);
-                stellarSurface.material.EnableKeyword("_EMISSION");
+                Renderer surface = transform.GetChild(0).GetComponent<Renderer>();
+                surface.material.SetColor("_Color", color);
             }
             catch (Exception e)
             {

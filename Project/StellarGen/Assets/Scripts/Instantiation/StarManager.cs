@@ -76,11 +76,14 @@ namespace SystemGen
 
         public void UpdateStarProperties()
         {
-            float boundScale = GameObject.Find("Game_Controller").GetComponent<SystemManager>().orbitScale / 4f;
-            float innerLine = PhysicsUtils.ConvertToAU(InnerLine) * boundScale;
-            float frostLine = PhysicsUtils.ConvertToAU(FrostLine) * boundScale;
-            float habitableLine = PhysicsUtils.ConvertToAU(OuterHabitableLine) * boundScale;
-            float aridLine = PhysicsUtils.ConvertToAU(AridLine) * boundScale;
+            SystemManager systemManager = GameObject.Find("Game_Controller").GetComponent<SystemManager>();
+            float boundScale = systemManager.orbitScale / 4f;
+            bool useLogScaling = systemManager.useLogScaling;
+
+            float innerLine = PhysicsUtils.GetWorldDistance(PhysicsUtils.ConvertToAU(InnerLine), useLogScaling, boundScale);
+            float frostLine = PhysicsUtils.GetWorldDistance(PhysicsUtils.ConvertToAU(FrostLine), useLogScaling, boundScale);
+            float habitableLine = PhysicsUtils.GetWorldDistance(PhysicsUtils.ConvertToAU(OuterHabitableLine), useLogScaling, boundScale);
+            float aridLine = PhysicsUtils.GetWorldDistance(PhysicsUtils.ConvertToAU(AridLine), useLogScaling, boundScale);
 
             // Set arid zone bounds
             AridDisk.transform.localScale = new Vector3(aridLine, aridLine, aridLine);
